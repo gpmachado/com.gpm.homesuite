@@ -1,0 +1,80 @@
+{
+  "id": "novadigital_switch_6_gang",
+  "name": {
+    "en": "NovaDigital Wall Switch 6 Gang",
+    "es": "Interruptor de pared NovaDigital 6 canales",
+    "it": "Interruttore a muro NovaDigital 6 canali",
+    "de": "NovaDigital Wandschalter 6-fach"
+  },
+  "class": "socket",
+  "capabilities": ["onoff", "is_availability"],
+  "energy": { "approximation": { "usageOn": 0, "usageOff": 0 } },
+  "settings": [
+    {
+      "id": "device_siblings_info",
+      "type": "label",
+      "label": {
+        "en": "Connected Switches",
+        "es": "Interruptores conectados",
+        "it": "Interruttori collegati",
+        "de": "Verbundene Schalter"
+      },
+      "hint": {
+        "en": "Other switches sharing this physical board",
+        "es": "Otros interruptores que comparten esta placa física",
+        "it": "Altri interruttori che condividono questa scheda fisica",
+        "de": "Andere Schalter, die diese physische Platine teilen"
+      },
+      "value": "-"
+    }
+  ],
+  "zigbee": {
+    "manufacturerName": ["_TZE200_r731zlxk"],
+    "productId": ["TS0601"],
+    "endpoints": {
+      "1": { "clusters": [0, 10, 61184], "bindings": [] }
+    },
+    "devices": {
+      "secondGang": {
+        "class": "socket", "capabilities": ["onoff"],
+        "name": { "en": "NovaDigital 6 Gang - Switch 2", "es": "NovaDigital 6 canales - Interruptor 2", "it": "NovaDigital 6 canali - Interruttore 2", "de": "NovaDigital 6-fach - Schalter 2" },
+        "energy": { "approximation": { "usageOn": 0, "usageOff": 0 } },
+        "settings": [{ "id": "device_siblings_info", "type": "label", "label": { "en": "Connected Switches", "es": "Interruptores conectados", "it": "Interruttori collegati", "de": "Verbundene Schalter" }, "hint": { "en": "Other switches sharing this physical board", "es": "Otros interruptores que comparten esta placa física", "it": "Altri interruttori che condividono questa scheda fisica", "de": "Andere Schalter, die diese physische Platine teilen" }, "value": "-" }]
+      },
+      "thirdGang": {
+        "class": "socket", "capabilities": ["onoff"],
+        "name": { "en": "NovaDigital 6 Gang - Switch 3", "es": "NovaDigital 6 canales - Interruptor 3", "it": "NovaDigital 6 canali - Interruttore 3", "de": "NovaDigital 6-fach - Schalter 3" },
+        "energy": { "approximation": { "usageOn": 0, "usageOff": 0 } },
+        "settings": [{ "id": "device_siblings_info", "type": "label", "label": { "en": "Connected Switches", "es": "Interruptores conectados", "it": "Interruttori collegati", "de": "Verbundene Schalter" }, "hint": { "en": "Other switches sharing this physical board", "es": "Otros interruptores que comparten esta placa física", "it": "Altri interruttori che condividono questa scheda fisica", "de": "Andere Schalter, die diese physische Platine teilen" }, "value": "-" }]
+      },
+      "fourthGang": {
+        "class": "socket", "capabilities": ["onoff"],
+        "name": { "en": "NovaDigital 6 Gang - Switch 4", "es": "NovaDigital 6 canales - Interruptor 4", "it": "NovaDigital 6 canali - Interruttore 4", "de": "NovaDigital 6-fach - Schalter 4" },
+        "energy": { "approximation": { "usageOn": 0, "usageOff": 0 } },
+        "settings": [{ "id": "device_siblings_info", "type": "label", "label": { "en": "Connected Switches", "es": "Interruptores conectados", "it": "Interruttori collegati", "de": "Verbundene Schalter" }, "hint": { "en": "Other switches sharing this physical board", "es": "Otros interruptores que comparten esta placa física", "it": "Altri interruttori che condividono questa scheda fisica", "de": "Andere Schalter, die diese physische Platine teilen" }, "value": "-" }]
+      },
+      "fifthGang": {
+        "class": "socket", "capabilities": ["onoff"],
+        "name": { "en": "NovaDigital 6 Gang - Switch 5", "es": "NovaDigital 6 canales - Interruptor 5", "it": "NovaDigital 6 canali - Interruttore 5", "de": "NovaDigital 6-fach - Schalter 5" },
+        "energy": { "approximation": { "usageOn": 0, "usageOff": 0 } },
+        "settings": [{ "id": "device_siblings_info", "type": "label", "label": { "en": "Connected Switches", "es": "Interruptores conectados", "it": "Interruttori collegati", "de": "Verbundene Schalter" }, "hint": { "en": "Other switches sharing this physical board", "es": "Otros interruptores que comparten esta placa física", "it": "Altri interruttori che condividono questa scheda fisica", "de": "Andere Schalter, die diese physische Platine teilen" }, "value": "-" }]
+      },
+      "sixthGang": {
+        "class": "socket", "capabilities": ["onoff"],
+        "name": { "en": "NovaDigital 6 Gang - Switch 6", "es": "NovaDigital 6 canales - Interruptor 6", "it": "NovaDigital 6 canali - Interruttore 6", "de": "NovaDigital 6-fach - Schalter 6" },
+        "energy": { "approximation": { "usageOn": 0, "usageOff": 0 } },
+        "settings": [{ "id": "device_siblings_info", "type": "label", "label": { "en": "Connected Switches", "es": "Interruptores conectados", "it": "Interruttori collegati", "de": "Verbundene Schalter" }, "hint": { "en": "Other switches sharing this physical board", "es": "Otros interruptores que comparten esta placa física", "it": "Altri interruttori che condividono questa scheda fisica", "de": "Andere Schalter, die diese physische Platine teilen" }, "value": "-" }]
+      }
+    },
+    "learnmode": {
+      "image": "{{driverAssetsPath}}/icon.svg",
+      "instruction": {
+        "en": "Press and hold the setup button for 5 seconds until the LED starts blinking. Six device tiles will be created, one for each gang.",
+        "es": "Mantén pulsado el botón de configuración durante 5 segundos hasta que el LED parpadee. Se crearán seis mosaicos, uno por grupo.",
+        "it": "Tieni premuto il pulsante di configurazione per 5 secondi fino a quando il LED inizia a lampeggiare. Verranno creati sei riquadri, uno per ogni gruppo.",
+        "de": "Halte die Setup-Taste 5 Sekunden gedrückt, bis die LED blinkt. Es werden sechs Kacheln erstellt, eine pro Gruppe."
+      }
+    }
+  },
+  "$extends": ["zigbee-local"]
+}

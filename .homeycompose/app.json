@@ -1,0 +1,102 @@
+{
+  "id": "com.gpm.homesuite",
+  "version": "1.0.4",
+  "compatibility": ">=12.4.0",
+  "sdk": 3,
+  "platforms": [
+    "local"
+  ],
+  "name": {
+    "en": "HomeSuite"
+  },
+  "description": {
+    "en": "Personal suite for Zigbee devices like Zemismart & NovaDigital switches, sirens, sensors and more",
+    "es": "Suite personal para dispositivos Zigbee como interruptores Zemismart y NovaDigital, sirenas, sensores y más",
+    "it": "Suite personale per dispositivi Zigbee come interruttori Zemismart e NovaDigital, sirene, sensori e altro",
+    "de": "Persönliche Suite für Zigbee-Geräte wie Zemismart- und NovaDigital-Schalter, Sirenen, Sensoren und mehr"
+  },
+  "category": [
+    "appliances"
+  ],
+  "tags": {
+    "en": [
+      "zigbee",
+      "zemismart",
+      "novadigital",
+      "switch",
+      "sensor",
+      "dimmer",
+      "smart plug",
+      "power strip",
+      "power metering",
+      "dimmer /fan controller",
+      "temperature",
+      "humidity",
+      "gas detector",
+      "siren"
+    ],
+    "es": [
+      "zigbee",
+      "zemismart",
+      "novadigital",
+      "interruptor",
+      "sensor",
+      "atenuador",
+      "enchufe inteligente",
+      "regleta",
+      "medición de energía",
+      "controlador de ventilador",
+      "temperatura",
+      "humedad",
+      "detector de gas",
+      "sirena"
+    ],
+    "it": [
+      "zigbee",
+      "zemismart",
+      "novadigital",
+      "interruttore",
+      "sensore",
+      "dimmer",
+      "presa intelligente",
+      "ciabatta",
+      "misurazione energia",
+      "regolatore ventilatore",
+      "temperatura",
+      "umidità",
+      "rilevatore gas",
+      "sirena"
+    ],
+    "de": [
+      "zigbee",
+      "zemismart",
+      "novadigital",
+      "schalter",
+      "sensor",
+      "dimmer",
+      "smart plug",
+      "steckdosenleiste",
+      "energiemessung",
+      "lüfterregler",
+      "temperatur",
+      "feuchtigkeit",
+      "gasdetektor",
+      "sirene"
+    ]
+  },
+  "brandColor": "#5078C4",
+  "permissions": [],
+  "images": {
+    "small": "/assets/images/small.png",
+    "large": "/assets/images/large.png",
+    "xlarge": "/assets/images/xlarge.png"
+  },
+  "author": {
+    "name": "Gabriel Pedrosa Machado",
+    "email": "g.machado@me.com"
+  },
+  "dependencies": {
+    "homey-zigbeedriver": "^2.2.15",
+    "zigbee-clusters": "^2.6.0"
+  }
+}

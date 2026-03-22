@@ -1,0 +1,15 @@
+{
+  "triggers": [
+    {
+      "id": "ZBMINIR2:click",
+      "title": {
+        "en": "Single click",
+        "pt": "Clique único"
+      },
+      "hint": {
+        "en": "This trigger fires when the physical switch is pressed and the 'Detach Relay' setting is enabled.",
+        "pt": "Este gatilho é acionado quando o interruptor físico é pressionado e a configuração 'Desconectar Relé' está ativada."
+      }
+    }
+  ]
+}

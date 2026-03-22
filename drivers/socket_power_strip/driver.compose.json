@@ -1,0 +1,127 @@
+{
+  "id": "socket_power_strip",
+  "name": {
+    "en": "Power Strip 4 Sockets + USB",
+    "es": "Regleta 4 enchufes + USB",
+    "it": "Ciabatta 4 prese + USB",
+    "de": "Steckdosenleiste 4 Steckdosen + USB"
+  },
+  "class": "socket",
+  "capabilities": ["onoff", "is_availability"],
+  "capabilitiesOptions": {
+    "onoff": {
+      "title": {
+        "en": "Power",
+        "es": "Corriente",
+        "it": "Alimentazione",
+        "de": "Strom"
+      }
+    }
+  },
+  "settings": [
+    {
+      "id": "device_siblings_info",
+      "type": "label",
+      "label": { "en": "Connected Sockets", "es": "Enchufes conectados", "it": "Prese collegate", "de": "Verbundene Steckdosen" },
+      "hint":  { "en": "Other sockets sharing this power strip", "es": "Otros enchufes que comparten esta regleta", "it": "Altre prese che condividono questa ciabatta", "de": "Andere Steckdosen, die diese Steckdosenleiste teilen" },
+      "value": "-"
+    },
+    {
+      "type": "group",
+      "label": { "en": "Power-On Behavior", "es": "Comportamiento al encender", "it": "Comportamento all'accensione", "de": "Einschaltverhalten" },
+      "children": [
+        {
+          "id": "power_on_behavior_global",
+          "type": "dropdown",
+          "label": { "en": "Power-On (all sockets)", "es": "Encendido (todos los enchufes)", "it": "Accensione (tutte le prese)", "de": "Einschalten (alle Steckdosen)" },
+          "hint":  { "en": "Behavior of all sockets when power is restored.", "es": "Comportamiento de todos los enchufes al restaurar la corriente.", "it": "Comportamento di tutte le prese quando viene ripristinata l'alimentazione.", "de": "Verhalten aller Steckdosen bei Wiederherstellung der Stromversorgung." },
+          "value": "lastState",
+          "values": [
+            { "id": "off",       "label": { "en": "Always Off", "es": "Siempre apagado",   "it": "Sempre spento",  "de": "Immer aus" } },
+            { "id": "on",        "label": { "en": "Always On",  "es": "Siempre encendido", "it": "Sempre acceso",  "de": "Immer ein" } },
+            { "id": "lastState", "label": { "en": "Last State", "es": "Último estado",     "it": "Ultimo stato",   "de": "Letzter Zustand" } }
+          ]
+        },
+        {
+          "id": "power_on_current_global",
+          "type": "label",
+          "label": { "en": "Current Power-On", "es": "Encendido actual", "it": "Accensione attuale", "de": "Aktuelles Einschalten" },
+          "hint":  { "en": "Read from device.", "es": "Leído del dispositivo.", "it": "Letto dal dispositivo.", "de": "Vom Gerät gelesen." },
+          "value": "—"
+        }
+      ]
+    },
+    {
+      "type": "group",
+      "label": { "en": "Physical Controls", "es": "Controles físicos", "it": "Controlli fisici", "de": "Physische Bedienelemente" },
+      "children": [
+        {
+          "id": "indicator_mode",
+          "type": "dropdown",
+          "label": { "en": "LED Indicator", "es": "Indicador LED", "it": "Indicatore LED", "de": "LED-Anzeige" },
+          "hint":  { "en": "When to light the LED on the power strip.", "es": "Cuándo encender el LED de la regleta.", "it": "Quando accendere il LED della ciabatta.", "de": "Wann die LED der Steckdosenleiste leuchten soll." },
+          "value": "status",
+          "values": [
+            { "id": "off",      "label": { "en": "Always Off",      "es": "Siempre apagado",      "it": "Sempre spento",        "de": "Immer aus"     } },
+            { "id": "status",   "label": { "en": "On when powered", "es": "Encendido con corriente", "it": "Acceso con corrente", "de": "Ein bei Strom" } },
+            { "id": "position", "label": { "en": "Off when powered","es": "Apagado con corriente", "it": "Spento con corrente",  "de": "Aus bei Strom" } }
+          ]
+        },
+        {
+          "id": "child_lock",
+          "type": "checkbox",
+          "label": { "en": "Child Lock", "es": "Bloqueo infantil", "it": "Blocco bambini", "de": "Kindersicherung" },
+          "hint":  { "en": "Disable the physical button on the power strip.", "es": "Desactiva el botón físico de la regleta.", "it": "Disabilita il pulsante fisico della ciabatta.", "de": "Deaktiviert die physische Taste der Steckdosenleiste." },
+          "value": false
+        }
+      ]
+    }
+  ],
+  "zigbee": {
+    "manufacturerName": ["_TZ3000_cfnprab5"],
+    "productId": ["TS011F"],
+    "endpoints": {
+      "1": { "clusters": [0, 3, 4, 5, 6], "bindings": [6] },
+      "2": { "clusters": [0, 3, 4, 5, 6], "bindings": [6] },
+      "3": { "clusters": [0, 3, 4, 5, 6], "bindings": [6] },
+      "4": { "clusters": [0, 3, 4, 5, 6], "bindings": [6] },
+      "5": { "clusters": [0, 3, 4, 5, 6], "bindings": [6] }
+    },
+    "devices": {
+      "socket2": {
+        "class": "socket", "capabilities": ["onoff"],
+        "name": { "en": "Socket 2/4", "es": "Enchufe 2/4", "it": "Presa 2/4", "de": "Steckdose 2/4" },
+        "energy": { "approximation": { "usageOn": 0, "usageOff": 0 } },
+        "settings": [{ "id": "device_siblings_info", "type": "label", "label": { "en": "Connected Sockets", "es": "Enchufes conectados", "it": "Prese collegate", "de": "Verbundene Steckdosen" }, "hint": { "en": "Other sockets sharing this power strip", "es": "Otros enchufes que comparten esta regleta", "it": "Altre prese che condividono questa ciabatta", "de": "Andere Steckdosen, die diese Steckdosenleiste teilen" }, "value": "-" }]
+      },
+      "socket3": {
+        "class": "socket", "capabilities": ["onoff"],
+        "name": { "en": "Socket 3/4", "es": "Enchufe 3/4", "it": "Presa 3/4", "de": "Steckdose 3/4" },
+        "energy": { "approximation": { "usageOn": 0, "usageOff": 0 } },
+        "settings": [{ "id": "device_siblings_info", "type": "label", "label": { "en": "Connected Sockets", "es": "Enchufes conectados", "it": "Prese collegate", "de": "Verbundene Steckdosen" }, "hint": { "en": "Other sockets sharing this power strip", "es": "Otros enchufes que comparten esta regleta", "it": "Altre prese che condividono questa ciabatta", "de": "Andere Steckdosen, die diese Steckdosenleiste teilen" }, "value": "-" }]
+      },
+      "socket4": {
+        "class": "socket", "capabilities": ["onoff"],
+        "name": { "en": "Socket 4/4", "es": "Enchufe 4/4", "it": "Presa 4/4", "de": "Steckdose 4/4" },
+        "energy": { "approximation": { "usageOn": 0, "usageOff": 0 } },
+        "settings": [{ "id": "device_siblings_info", "type": "label", "label": { "en": "Connected Sockets", "es": "Enchufes conectados", "it": "Prese collegate", "de": "Verbundene Steckdosen" }, "hint": { "en": "Other sockets sharing this power strip", "es": "Otros enchufes que comparten esta regleta", "it": "Altre prese che condividono questa ciabatta", "de": "Andere Steckdosen, die diese Steckdosenleiste teilen" }, "value": "-" }]
+      },
+      "usb": {
+        "class": "socket", "capabilities": ["onoff"],
+        "name": { "en": "USB Port", "es": "Puerto USB", "it": "Porta USB", "de": "USB-Anschluss" },
+        "energy": { "approximation": { "usageOn": 5, "usageOff": 0 } },
+        "settings": [{ "id": "device_siblings_info", "type": "label", "label": { "en": "Connected Sockets", "es": "Enchufes conectados", "it": "Prese collegate", "de": "Verbundene Steckdosen" }, "hint": { "en": "Other sockets sharing this power strip", "es": "Otros enchufes que comparten esta regleta", "it": "Altre prese che condividono questa ciabatta", "de": "Andere Steckdosen, die diese Steckdosenleiste teilen" }, "value": "-" }]
+      }
+    },
+    "learnmode": {
+      "instruction": {
+        "en": "Press and hold on/off switch for 5 seconds until LED blinks.",
+        "es": "Mantén pulsado el interruptor on/off durante 5 segundos hasta que el LED parpadee.",
+        "it": "Tieni premuto l'interruttore on/off per 5 secondi fino a quando il LED lampeggia.",
+        "de": "Halte den Ein/Aus-Schalter 5 Sekunden gedrückt, bis die LED blinkt."
+      }
+    }
+  },
+  "energy": { "approximation": { "usageOn": 1, "usageOff": 0.5 } },
+  "$extends": ["zigbee-local"]
+}

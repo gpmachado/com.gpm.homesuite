@@ -1,0 +1,122 @@
+[
+  {
+    "type": "group",
+    "label": { "en": "Device control" },
+    "children": [
+      {
+        "id": "relay_status",
+        "type": "dropdown",
+        "label": { "en": "Power-on behavior" },
+        "hint": { "en": "State after power is restored." },
+        "value": "lastState",
+        "values": [
+          { "id": "off",       "label": { "en": "Always off"          } },
+          { "id": "on",        "label": { "en": "Always on"           } },
+          { "id": "lastState", "label": { "en": "Remember last state" } }
+        ]
+      },
+      {
+        "id": "relay_status_current",
+        "type": "label",
+        "label": { "en": "Current (read from device)" },
+        "hint":  { "en": "Last power-on behavior reported by the device. Updated at startup." },
+        "value": "—"
+      },
+      {
+        "id": "indicator_mode",
+        "type": "dropdown",
+        "label": { "en": "LED indicator" },
+        "hint": { "en": "When to light the LED." },
+        "value": "status",
+        "values": [
+          { "id": "off",      "label": { "en": "Always off"       } },
+          { "id": "status",   "label": { "en": "On when powered"  } },
+          { "id": "position", "label": { "en": "Off when powered" } }
+        ]
+      },
+      {
+        "id": "indicator_mode_current",
+        "type": "label",
+        "label": { "en": "Current (read from device)" },
+        "hint":  { "en": "Last LED indicator mode reported by the device. Updated at startup." },
+        "value": "—"
+      },
+      {
+        "id": "child_lock",
+        "type": "checkbox",
+        "label": { "en": "Child lock" },
+        "hint": { "en": "Disable physical button." },
+        "value": false
+      }
+    ]
+  },
+  {
+    "type": "group",
+    "label": { "en": "Reporting intervals" },
+    "children": [
+      {
+        "id": "reportIntervalPower",
+        "type": "number",
+        "label": { "en": "Power report interval (s)" },
+        "hint": { "en": "How often the device reports active power. Recommended: 60s. Minimum accepted by most devices is 60s." },
+        "value": 60,
+        "min": 60,
+        "max": 3600,
+        "step": 1
+      },
+      {
+        "id": "reportIntervalCurrent",
+        "type": "number",
+        "label": { "en": "Current report interval (s)" },
+        "hint": { "en": "How often the device reports current (A). Recommended: 60s. Use the same value as Power for consistency." },
+        "value": 60,
+        "min": 60,
+        "max": 3600,
+        "step": 1
+      },
+      {
+        "id": "reportIntervalVoltage",
+        "type": "number",
+        "label": { "en": "Voltage report interval (s)" },
+        "hint": { "en": "How often the device reports voltage (V). Recommended: 300s. Voltage is stable and rarely changes significantly." },
+        "value": 300,
+        "min": 60,
+        "max": 3600,
+        "step": 1
+      }
+    ]
+  },
+  {
+    "type": "group",
+    "label": { "en": "Energy measurement" },
+    "children": [
+      {
+        "id": "powerFactor",
+        "type": "number",
+        "label": { "en": "Power correction factor" },
+        "hint": { "en": "Multiply reported active power by this value. Use 1.0 for no correction." },
+        "value": 1,
+        "min": 0.1,
+        "max": 2,
+        "step": 0.01
+      },
+      {
+        "id": "energyFactor",
+        "type": "number",
+        "label": { "en": "Energy correction factor" },
+        "hint": { "en": "Multiply reported energy (kWh) by this value. Use 1.0 for no correction." },
+        "value": 1,
+        "min": 0.1,
+        "max": 2,
+        "step": 0.01
+      },
+      {
+        "id": "calcPower",
+        "type": "checkbox",
+        "label": { "en": "Calculate power from V × A" },
+        "hint": { "en": "Compute power as Voltage × Current instead of using reported active power. Enabled by default because TS011F firmware variants typically report activePower = 0." },
+        "value": true
+      }
+    ]
+  }
+]

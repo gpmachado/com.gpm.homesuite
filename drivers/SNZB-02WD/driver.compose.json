@@ -1,0 +1,29 @@
+{
+  "id": "SNZB-02WD",
+  "name": {
+    "en": "Thermometer SNZB-02WD",
+    "es": "Termómetro SNZB-02WD",
+    "it": "Termometro SNZB-02WD",
+    "de": "Thermometer SNZB-02WD"
+  },
+  "class": "sensor",
+  "capabilities": ["measure_temperature", "measure_humidity", "measure_battery"],
+  "energy": { "batteries": ["CR2450"] },
+  "icon": "{{driverAssetsPath}}/icon.svg",
+  "zigbee": {
+    "manufacturerName": ["SONOFF"],
+    "productId": ["SNZB-02WD"],
+    "endpoints": {
+      "1": { "clusters": [0, 1, 1026, 1029], "bindings": [0, 1, 1026, 1029] }
+    },
+    "learnmode": {
+      "instruction": {
+        "en": "Press button on side for approx 10 seconds until the red LED blinks rapidly.",
+        "es": "Pulsa el botón lateral durante aprox. 10 segundos hasta que el LED rojo parpadee rápidamente.",
+        "it": "Premi il pulsante laterale per circa 10 secondi fino a quando il LED rosso lampeggia rapidamente.",
+        "de": "Seitliche Taste ca. 10 Sekunden drücken, bis die rote LED schnell blinkt."
+      }
+    }
+  },
+  "$extends": ["zigbee-local"]
+}

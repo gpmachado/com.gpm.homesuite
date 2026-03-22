@@ -1,0 +1,30 @@
+{
+  "id": "BASICZBR3",
+  "name": {
+    "en": "Switch (Basic ZBR3)",
+    "es": "Interruptor (Basic ZBR3)",
+    "it": "Interruttore (Basic ZBR3)",
+    "de": "Schalter (Basic ZBR3)"
+  },
+  "class": "socket",
+  "capabilities": ["onoff"],
+  "energy": { "approximation": { "usageOn": 1, "usageOff": 1 } },
+  "icon": "{{driverAssetsPath}}/icon.svg",
+  "zigbee": {
+    "manufacturerName": "SONOFF",
+    "productId": ["BASICZBR3"],
+    "endpoints": {
+      "1": { "clusters": [0, 3, 4, 5, 6], "bindings": [6] }
+    },
+    "learnmode": {
+      "image": "{{driverAssetsPath}}/learn.svg",
+      "instruction": {
+        "en": "Push the button for approx 8 seconds until the LED blinks rapidly.",
+        "es": "Pulsa el botón durante aprox. 8 segundos hasta que el LED parpadee rápidamente.",
+        "it": "Premi il pulsante per circa 8 secondi fino a quando il LED lampeggia rapidamente.",
+        "de": "Drücke die Taste ca. 8 Sekunden, bis die LED schnell blinkt."
+      }
+    }
+  },
+  "$extends": ["zigbee-local"]
+}

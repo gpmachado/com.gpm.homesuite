@@ -1,0 +1,160 @@
+{
+  "id": "novadigital_switch_4_gang",
+  "name": {
+    "en": "NovaDigital Switch 4 Gang",
+    "es": "Interruptor NovaDigital 4 canales",
+    "it": "Interruttore NovaDigital 4 canali",
+    "de": "NovaDigital Schalter 4-fach"
+  },
+  "class": "socket",
+  "capabilities": ["onoff", "is_availability"],
+  "energy": { "approximation": { "usageOn": 0, "usageOff": 0 } },
+  "settings": [
+    {
+      "type": "group",
+      "label": {
+        "en": "Switch Settings",
+        "es": "Configuración del interruptor",
+        "it": "Impostazioni interruttore",
+        "de": "Schaltereinstellungen"
+      },
+      "children": [
+        {
+          "id": "device_siblings_info",
+          "type": "label",
+          "label": {
+            "en": "Connected Switches",
+            "es": "Interruptores conectados",
+            "it": "Interruttori collegati",
+            "de": "Verbundene Schalter"
+          },
+          "hint": {
+            "en": "Other switches sharing this physical board",
+            "es": "Otros interruptores que comparten esta placa física",
+            "it": "Altri interruttori che condividono questa scheda fisica",
+            "de": "Andere Schalter, die diese physische Platine teilen"
+          },
+          "value": "-"
+        },
+        {
+          "id": "power_on_behavior",
+          "type": "dropdown",
+          "label": {
+            "en": "Power-On Behavior",
+            "es": "Comportamiento al encender",
+            "it": "Comportamento all'accensione",
+            "de": "Einschaltverhalten"
+          },
+          "hint": {
+            "en": "How switches behave when power returns after an outage.",
+            "es": "Cómo se comportan los interruptores cuando vuelve la corriente tras un corte.",
+            "it": "Come si comportano gli interruttori quando ritorna la corrente dopo un'interruzione.",
+            "de": "Wie sich die Schalter verhalten, wenn die Stromversorgung nach einem Ausfall zurückkehrt."
+          },
+          "value": "memory",
+          "values": [
+            { "id": "off",    "label": { "en": "Always Off",          "es": "Siempre apagado",       "it": "Sempre spento",          "de": "Immer aus"              } },
+            { "id": "on",     "label": { "en": "Always On",           "es": "Siempre encendido",     "it": "Sempre acceso",          "de": "Immer ein"              } },
+            { "id": "memory", "label": { "en": "Remember Last State", "es": "Recordar último estado","it": "Ricorda l'ultimo stato",  "de": "Letzten Zustand merken" } }
+          ]
+        },
+        {
+          "id": "power_on_behavior_current",
+          "type": "label",
+          "label": {
+            "en": "Current (read from device)",
+            "es": "Actual (leído del dispositivo)",
+            "it": "Attuale (letto dal dispositivo)",
+            "de": "Aktuell (vom Gerät gelesen)"
+          },
+          "hint": {
+            "en": "Last value reported by the device. Updated automatically when the device sends its status.",
+            "es": "Último valor notificado por el dispositivo. Se actualiza automáticamente cuando el dispositivo envía su estado.",
+            "it": "Ultimo valore segnalato dal dispositivo. Si aggiorna automaticamente quando il dispositivo invia il suo stato.",
+            "de": "Letzter vom Gerät gemeldeter Wert. Wird automatisch aktualisiert, wenn das Gerät seinen Status sendet."
+          },
+          "value": "—"
+        }
+      ]
+    }
+  ],
+  "zigbee": {
+    "manufacturerName": ["_TZE200_shkxsgis", "_TZE204_aagrxlbd"],
+    "productId": ["TS0601"],
+    "endpoints": {
+      "1": { "clusters": [0, 4, 5, 10, 61184], "bindings": [61184] }
+    },
+    "devices": {
+      "secondGang": {
+        "class": "socket",
+        "capabilities": ["onoff"],
+        "name": {
+          "en": "NovaDigital 4 Gang - Switch 2",
+          "es": "NovaDigital 4 canales - Interruptor 2",
+          "it": "NovaDigital 4 canali - Interruttore 2",
+          "de": "NovaDigital 4-fach - Schalter 2"
+        },
+        "energy": { "approximation": { "usageOn": 0, "usageOff": 0 } },
+        "settings": [
+          {
+            "id": "device_siblings_info",
+            "type": "label",
+            "label": { "en": "Connected Switches", "es": "Interruptores conectados", "it": "Interruttori collegati", "de": "Verbundene Schalter" },
+            "hint":  { "en": "Other switches sharing this physical board", "es": "Otros interruptores que comparten esta placa física", "it": "Altri interruttori che condividono questa scheda fisica", "de": "Andere Schalter, die diese physische Platine teilen" },
+            "value": "-"
+          }
+        ]
+      },
+      "thirdGang": {
+        "class": "socket",
+        "capabilities": ["onoff"],
+        "name": {
+          "en": "NovaDigital 4 Gang - Switch 3",
+          "es": "NovaDigital 4 canales - Interruptor 3",
+          "it": "NovaDigital 4 canali - Interruttore 3",
+          "de": "NovaDigital 4-fach - Schalter 3"
+        },
+        "energy": { "approximation": { "usageOn": 0, "usageOff": 0 } },
+        "settings": [
+          {
+            "id": "device_siblings_info",
+            "type": "label",
+            "label": { "en": "Connected Switches", "es": "Interruptores conectados", "it": "Interruttori collegati", "de": "Verbundene Schalter" },
+            "hint":  { "en": "Other switches sharing this physical board", "es": "Otros interruptores que comparten esta placa física", "it": "Altri interruttori che condividono questa scheda fisica", "de": "Andere Schalter, die diese physische Platine teilen" },
+            "value": "-"
+          }
+        ]
+      },
+      "fourthGang": {
+        "class": "socket",
+        "capabilities": ["onoff"],
+        "name": {
+          "en": "NovaDigital 4 Gang - Switch 4",
+          "es": "NovaDigital 4 canales - Interruptor 4",
+          "it": "NovaDigital 4 canali - Interruttore 4",
+          "de": "NovaDigital 4-fach - Schalter 4"
+        },
+        "energy": { "approximation": { "usageOn": 0, "usageOff": 0 } },
+        "settings": [
+          {
+            "id": "device_siblings_info",
+            "type": "label",
+            "label": { "en": "Connected Switches", "es": "Interruptores conectados", "it": "Interruttori collegati", "de": "Verbundene Schalter" },
+            "hint":  { "en": "Other switches sharing this physical board", "es": "Otros interruptores que comparten esta placa física", "it": "Altri interruttori che condividono questa scheda fisica", "de": "Andere Schalter, die diese physische Platine teilen" },
+            "value": "-"
+          }
+        ]
+      }
+    },
+    "learnmode": {
+      "image": "{{driverAssetsPath}}/icon.svg",
+      "instruction": {
+        "en": "Press and hold the setup button for 5 seconds until the LED starts blinking. Four device tiles will be created, one for each gang.",
+        "es": "Mantén pulsado el botón de configuración durante 5 segundos hasta que el LED parpadee. Se crearán cuatro mosaicos, uno por grupo.",
+        "it": "Tieni premuto il pulsante di configurazione per 5 secondi fino a quando il LED inizia a lampeggiare. Verranno creati quattro riquadri, uno per ogni gruppo.",
+        "de": "Halte die Setup-Taste 5 Sekunden gedrückt, bis die LED blinkt. Es werden vier Kacheln erstellt, eine pro Gruppe."
+      }
+    }
+  },
+  "$extends": ["zigbee-local"]
+}

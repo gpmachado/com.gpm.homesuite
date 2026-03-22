@@ -1,0 +1,141 @@
+{
+  "id": "ekaza_siren",
+  "name": {
+    "en": "Ekaza Smart Siren",
+    "es": "Sirena inteligente Ekaza",
+    "it": "Sirena smart Ekaza",
+    "de": "Ekaza Smart-Sirene"
+  },
+  "class": "siren",
+  "capabilities": ["onoff", "measure_battery"],
+  "capabilitiesOptions": {
+    "onoff": {
+      "title": {
+        "en": "Siren",
+        "es": "Sirena",
+        "it": "Sirena",
+        "de": "Sirene"
+      },
+      "greyout": false
+    },
+    "measure_battery": {
+      "title": {
+        "en": "Battery Backup",
+        "es": "Batería de reserva",
+        "it": "Batteria di riserva",
+        "de": "Backup-Batterie"
+      }
+    }
+  },
+  "energy": {
+    "approximation": { "usageOn": 10, "usageOff": 1 },
+    "batteries": ["AA", "AA", "AA"]
+  },
+  "settings": [
+    {
+      "type": "group",
+      "label": {
+        "en": "Alarm Settings",
+        "es": "Configuración de alarma",
+        "it": "Impostazioni allarme",
+        "de": "Alarmeinstellungen"
+      },
+      "children": [
+        {
+          "id": "alarmvolume",
+          "type": "dropdown",
+          "label": { "en": "Volume", "es": "Volumen", "it": "Volume", "de": "Lautstärke" },
+          "hint": {
+            "en": "Alarm volume level. Applied each time the siren is triggered.",
+            "es": "Nivel de volumen de la alarma. Se aplica cada vez que se activa la sirena.",
+            "it": "Livello di volume dell'allarme. Applicato ogni volta che la sirena viene attivata.",
+            "de": "Alarmlautstärke. Wird bei jeder Auslösung der Sirene angewendet."
+          },
+          "value": "2",
+          "values": [
+            { "id": "0", "label": { "en": "Low",           "es": "Bajo",               "it": "Basso",              "de": "Niedrig"           } },
+            { "id": "1", "label": { "en": "Medium",        "es": "Medio",              "it": "Medio",              "de": "Mittel"            } },
+            { "id": "2", "label": { "en": "High (default)","es": "Alto (predeterminado)","it": "Alto (predefinito)", "de": "Hoch (Standard)"  } }
+          ]
+        },
+        {
+          "id": "alarmsoundtime",
+          "type": "number",
+          "label": {
+            "en": "Alarm Duration",
+            "es": "Duración de la alarma",
+            "it": "Durata allarme",
+            "de": "Alarmdauer"
+          },
+          "hint": {
+            "en": "How long the alarm plays in seconds (1–1800). Homey UI auto-resets 2 seconds after this time.",
+            "es": "Duración de la alarma en segundos (1–1800). El panel de Homey se reinicia automáticamente 2 segundos después.",
+            "it": "Durata dell'allarme in secondi (1–1800). L'interfaccia Homey si ripristina automaticamente 2 secondi dopo.",
+            "de": "Wie lange der Alarm in Sekunden läuft (1–1800). Die Homey-UI setzt sich 2 Sekunden danach automatisch zurück."
+          },
+          "value": 10, "min": 1, "max": 1800, "step": 1, "units": "s"
+        },
+        {
+          "id": "alarmtune",
+          "type": "dropdown",
+          "label": { "en": "Melody", "es": "Melodía", "it": "Melodia", "de": "Melodie" },
+          "hint": {
+            "en": "Alarm sound type. Applied each time the siren is triggered.",
+            "es": "Tipo de sonido de alarma. Se aplica cada vez que se activa la sirena.",
+            "it": "Tipo di suono dell'allarme. Applicato ogni volta che la sirena viene attivata.",
+            "de": "Alarmtontyp. Wird bei jeder Auslösung der Sirene angewendet."
+          },
+          "value": "5",
+          "values": [
+            { "id": "0",  "label": { "en": "Doorbell Chime",        "es": "Timbre de puerta",          "it": "Campanello porta",          "de": "Türklingel"             } },
+            { "id": "1",  "label": { "en": "Für Elise",             "es": "Para Elisa",                "it": "Per Elisa",                 "de": "Für Elise"              } },
+            { "id": "2",  "label": { "en": "Westminster Chimes",    "es": "Carillón Westminster",      "it": "Rintocchi Westminster",     "de": "Westminster-Glocken"    } },
+            { "id": "3",  "label": { "en": "Fast Double Doorbell",  "es": "Timbre doble rápido",       "it": "Doppio campanello veloce",  "de": "Schnelle Doppelklingel" } },
+            { "id": "4",  "label": { "en": "William Tell Overture", "es": "Obertura Guillermo Tell",   "it": "Ouverture Guglielmo Tell",  "de": "Wilhelm Tell Ouvertüre" } },
+            { "id": "5",  "label": { "en": "Turkish March (default)","es": "Marcha turca (predeter.)", "it": "Marcia turca (predef.)",    "de": "Türkischer Marsch (Std)"} },
+            { "id": "6",  "label": { "en": "Safe / Security Alarm", "es": "Alarma de seguridad",       "it": "Allarme sicurezza",         "de": "Sicherheitsalarm"       } },
+            { "id": "7",  "label": { "en": "Chemical Spill Alert",  "es": "Alerta de derrame químico", "it": "Allarme sostanze chimiche", "de": "Chemikalienalarm"       } },
+            { "id": "8",  "label": { "en": "Piercing Alarm Clock",  "es": "Despertador estridente",    "it": "Sveglia acuta",             "de": "Schriller Wecker"       } },
+            { "id": "9",  "label": { "en": "Smoke Alarm",           "es": "Alarma de humo",            "it": "Allarme fumo",              "de": "Rauchmelder"            } },
+            { "id": "10", "label": { "en": "Dog Barking",           "es": "Ladrido de perro",          "it": "Abbaiare di cane",          "de": "Hundegebell"            } },
+            { "id": "11", "label": { "en": "Police Siren",          "es": "Sirena policial",           "it": "Sirena polizia",            "de": "Polizeisirene"          } },
+            { "id": "12", "label": { "en": "Doorbell Chime (reverb)","es": "Timbre con reverb",        "it": "Campanello con riverbero",  "de": "Türklingel (Hall)"      } },
+            { "id": "13", "label": { "en": "Mechanical Telephone",  "es": "Teléfono mecánico",         "it": "Telefono meccanico",        "de": "Mechanisches Telefon"   } },
+            { "id": "14", "label": { "en": "Fire / Ambulance",      "es": "Bomberos / Ambulancia",     "it": "Pompieri / Ambulanza",      "de": "Feuerwehr / Krankenwagen"} },
+            { "id": "15", "label": { "en": "3/1 Elevator",          "es": "Ascensor 3/1",              "it": "Ascensore 3/1",             "de": "Aufzug 3/1"             } },
+            { "id": "16", "label": { "en": "Buzzing Alarm Clock",   "es": "Despertador zumbador",      "it": "Sveglia ronzante",          "de": "Summender Wecker"       } },
+            { "id": "17", "label": { "en": "School Bell",           "es": "Timbre escolar",            "it": "Campanella scolastica",     "de": "Schulklingel"           } }
+          ]
+        },
+        {
+          "id": "melody_name",
+          "type": "label",
+          "label": {
+            "en": "Current Melody",
+            "es": "Melodía actual",
+            "it": "Melodia attuale",
+            "de": "Aktuelle Melodie"
+          },
+          "value": "Turkish March"
+        }
+      ]
+    }
+  ],
+  "zigbee": {
+    "manufacturerName": ["_TZE204_q76rtoa9"],
+    "productId": ["TS0601"],
+    "endpoints": {
+      "1": { "clusters": [0, 4, 5, 61184], "bindings": [61184] }
+    },
+    "learnmode": {
+      "image": "{{driverAssetsPath}}/icon.svg",
+      "instruction": {
+        "en": "Press and hold the button inside the battery compartment for approximately 5 seconds until the LED blinks rapidly.",
+        "es": "Mantén pulsado el botón del compartimento de la batería durante aproximadamente 5 segundos hasta que el LED parpadee rápidamente.",
+        "it": "Tieni premuto il pulsante nel vano batterie per circa 5 secondi fino a quando il LED lampeggia rapidamente.",
+        "de": "Halte die Taste im Batteriefach ca. 5 Sekunden gedrückt, bis die LED schnell blinkt."
+      }
+    }
+  },
+  "$extends": ["zigbee-local"]
+}

@@ -1,0 +1,21 @@
+[
+  {
+    "type": "group",
+    "label": {
+      "en": "Device information"
+    },
+    "children": [
+      {
+        "id": "_power_on_info",
+        "type": "label",
+        "label": {
+          "en": "Power-on behavior"
+        },
+        "hint": {
+          "en": "This firmware does not support configurable power-on behavior. All switches turn OFF when power is restored."
+        },
+        "value": "Always Off (firmware default)"
+      }
+    ]
+  }
+]

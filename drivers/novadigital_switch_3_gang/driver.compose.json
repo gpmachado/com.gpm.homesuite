@@ -1,0 +1,314 @@
+{
+  "id": "novadigital_switch_3_gang",
+  "name": {
+    "en": "NovaDigital Switch 3 Gang",
+    "es": "Interruptor NovaDigital 3 canales",
+    "it": "Interruttore NovaDigital 3 canali",
+    "de": "NovaDigital Schalter 3-fach"
+  },
+  "class": "socket",
+  "capabilities": ["onoff", "main_gang", "is_availability"],
+  "energy": { "approximation": { "usageOn": 0, "usageOff": 0 } },
+  "settings": [
+    {
+      "id": "device_siblings_info",
+      "type": "label",
+      "label": {
+        "en": "Connected Switches",
+        "es": "Interruptores conectados",
+        "it": "Interruttori collegati",
+        "de": "Verbundene Schalter"
+      },
+      "hint": {
+        "en": "Other switches sharing this physical board",
+        "es": "Otros interruptores que comparten esta placa física",
+        "it": "Altri interruttori che condividono questa scheda fisica",
+        "de": "Andere Schalter, die diese physische Platine teilen"
+      },
+      "value": "-"
+    },
+    {
+      "id": "backlight_enabled",
+      "type": "checkbox",
+      "label": {
+        "en": "LED Backlight",
+        "es": "Retroiluminación LED",
+        "it": "Retroilluminazione LED",
+        "de": "LED-Hintergrundbeleuchtung"
+      },
+      "hint": {
+        "en": "Status LED on physical buttons. If disabled, it will automatically stay OFF after a power failure.",
+        "es": "LED de estado en los botones físicos. Si está desactivado, permanecerá APAGADO automáticamente tras un corte de luz.",
+        "it": "LED di stato sui pulsanti fisici. Se disabilitato, rimarrà SPENTO automaticamente dopo un'interruzione di corrente.",
+        "de": "Status-LED an den physischen Tasten. Wenn deaktiviert, bleibt sie nach einem Stromausfall automatisch AUS."
+      },
+      "value": true
+    },
+    {
+      "id": "indicator_mode",
+      "type": "dropdown",
+      "label": {
+        "en": "LED Indicator",
+        "es": "Indicador LED",
+        "it": "Indicatore LED",
+        "de": "LED-Anzeige"
+      },
+      "hint": {
+        "en": "When to light the LED indicator.",
+        "es": "Cuándo encender el indicador LED.",
+        "it": "Quando accendere l'indicatore LED.",
+        "de": "Wann die LED-Anzeige leuchten soll."
+      },
+      "value": "status",
+      "values": [
+        { "id": "off",      "label": { "en": "Always Off",      "es": "Siempre apagado",     "it": "Sempre spento",        "de": "Immer aus"        } },
+        { "id": "status",   "label": { "en": "On when powered", "es": "Encendido con corriente", "it": "Acceso con corrente", "de": "Ein bei Strom"    } },
+        { "id": "position", "label": { "en": "Off when powered","es": "Apagado con corriente","it": "Spento con corrente",  "de": "Aus bei Strom"    } }
+      ]
+    },
+    {
+      "id": "power_on_global",
+      "type": "dropdown",
+      "label": {
+        "en": "Power-On Behavior (All Gangs)",
+        "es": "Comportamiento al encender (todos los grupos)",
+        "it": "Comportamento all'accensione (tutti i gruppi)",
+        "de": "Einschaltverhalten (alle Gruppen)"
+      },
+      "value": "lastState",
+      "values": [
+        { "id": "on",        "label": { "en": "Always On",  "es": "Siempre encendido", "it": "Sempre acceso",  "de": "Immer ein" } },
+        { "id": "off",       "label": { "en": "Always Off", "es": "Siempre apagado",   "it": "Sempre spento",  "de": "Immer aus" } },
+        { "id": "lastState", "label": { "en": "Last State", "es": "Último estado",     "it": "Ultimo stato",   "de": "Letzter Zustand" } }
+      ]
+    },
+    {
+      "id": "power_on_global_current",
+      "type": "label",
+      "label": {
+        "en": "Power-On Global (current)",
+        "es": "Encendido global (actual)",
+        "it": "Accensione globale (attuale)",
+        "de": "Globales Einschalten (aktuell)"
+      },
+      "value": "-"
+    },
+    {
+      "id": "switch_mode",
+      "type": "dropdown",
+      "label": {
+        "en": "Switch Mode",
+        "es": "Modo del interruptor",
+        "it": "Modalità interruttore",
+        "de": "Schaltmodus"
+      },
+      "hint": {
+        "en": "Physical button behavior",
+        "es": "Comportamiento del botón físico",
+        "it": "Comportamento del pulsante fisico",
+        "de": "Verhalten der physischen Taste"
+      },
+      "value": "toggle",
+      "values": [
+        { "id": "toggle",    "label": { "en": "Toggle (Standard)", "es": "Alternante (estándar)", "it": "Alternante (standard)", "de": "Umschalten (Standard)" } },
+        { "id": "momentary", "label": { "en": "Momentary (Pulse)",  "es": "Momentáneo (pulso)",   "it": "Momentaneo (impulso)",  "de": "Momentan (Impuls)"    } }
+      ]
+    },
+    {
+      "id": "switch_mode_current",
+      "type": "label",
+      "label": {
+        "en": "Current Mode",
+        "es": "Modo actual",
+        "it": "Modalità attuale",
+        "de": "Aktueller Modus"
+      },
+      "hint": {
+        "en": "Read from device",
+        "es": "Leído del dispositivo",
+        "it": "Letto dal dispositivo",
+        "de": "Vom Gerät gelesen"
+      },
+      "value": "-"
+    },
+    {
+      "id": "power_on_gang1",
+      "type": "dropdown",
+      "label": {
+        "en": "Power-On Gang 1",
+        "es": "Encendido grupo 1",
+        "it": "Accensione gruppo 1",
+        "de": "Einschalten Gruppe 1"
+      },
+      "value": "lastState",
+      "values": [
+        { "id": "on",        "label": { "en": "Always On",  "es": "Siempre encendido", "it": "Sempre acceso",  "de": "Immer ein" } },
+        { "id": "off",       "label": { "en": "Always Off", "es": "Siempre apagado",   "it": "Sempre spento",  "de": "Immer aus" } },
+        { "id": "lastState", "label": { "en": "Last State", "es": "Último estado",     "it": "Ultimo stato",   "de": "Letzter Zustand" } }
+      ]
+    },
+    {
+      "id": "power_on_gang1_current",
+      "type": "label",
+      "label": {
+        "en": "Power-On Gang 1 (current)",
+        "es": "Encendido grupo 1 (actual)",
+        "it": "Accensione gruppo 1 (attuale)",
+        "de": "Einschalten Gruppe 1 (aktuell)"
+      },
+      "value": "-"
+    },
+    {
+      "id": "power_on_gang2",
+      "type": "dropdown",
+      "label": {
+        "en": "Power-On Gang 2",
+        "es": "Encendido grupo 2",
+        "it": "Accensione gruppo 2",
+        "de": "Einschalten Gruppe 2"
+      },
+      "value": "lastState",
+      "values": [
+        { "id": "on",        "label": { "en": "Always On",  "es": "Siempre encendido", "it": "Sempre acceso",  "de": "Immer ein" } },
+        { "id": "off",       "label": { "en": "Always Off", "es": "Siempre apagado",   "it": "Sempre spento",  "de": "Immer aus" } },
+        { "id": "lastState", "label": { "en": "Last State", "es": "Último estado",     "it": "Ultimo stato",   "de": "Letzter Zustand" } }
+      ]
+    },
+    {
+      "id": "power_on_gang2_current",
+      "type": "label",
+      "label": {
+        "en": "Power-On Gang 2 (current)",
+        "es": "Encendido grupo 2 (actual)",
+        "it": "Accensione gruppo 2 (attuale)",
+        "de": "Einschalten Gruppe 2 (aktuell)"
+      },
+      "value": "-"
+    },
+    {
+      "id": "power_on_gang3",
+      "type": "dropdown",
+      "label": {
+        "en": "Power-On Gang 3",
+        "es": "Encendido grupo 3",
+        "it": "Accensione gruppo 3",
+        "de": "Einschalten Gruppe 3"
+      },
+      "value": "lastState",
+      "values": [
+        { "id": "on",        "label": { "en": "Always On",  "es": "Siempre encendido", "it": "Sempre acceso",  "de": "Immer ein" } },
+        { "id": "off",       "label": { "en": "Always Off", "es": "Siempre apagado",   "it": "Sempre spento",  "de": "Immer aus" } },
+        { "id": "lastState", "label": { "en": "Last State", "es": "Último estado",     "it": "Ultimo stato",   "de": "Letzter Zustand" } }
+      ]
+    },
+    {
+      "id": "power_on_gang3_current",
+      "type": "label",
+      "label": {
+        "en": "Power-On Gang 3 (current)",
+        "es": "Encendido grupo 3 (actual)",
+        "it": "Accensione gruppo 3 (attuale)",
+        "de": "Einschalten Gruppe 3 (aktuell)"
+      },
+      "value": "-"
+    }
+  ],
+  "zigbee": {
+    "manufacturerName": [
+      "_TZ3000_yervjnlj", "_TZ3000_vjhcenzo", "_TZ3000_qxcnwv26",
+      "_TZ3000_eqsair32", "_TZ3000_f09j9qjb", "_TZ3000_fawk5xjv", "_TZ3000_ok0ggpk7"
+    ],
+    "productId": ["TS0003"],
+    "endpoints": {
+      "1": { "clusters": [0, 3, 4, 5, 6, 10, 57344, 57345], "bindings": [6] },
+      "2": { "clusters": [4, 5, 6, 57345], "bindings": [6] },
+      "3": { "clusters": [4, 5, 6, 57345], "bindings": [6] }
+    },
+    "learnmode": {
+      "image": "{{driverAssetsPath}}/icon.svg",
+      "instruction": {
+        "en": "Hold the setup button 5s until LED blinks. Three tiles will be created.",
+        "es": "Mantén el botón de configuración 5 s hasta que el LED parpadee. Se crearán tres mosaicos.",
+        "it": "Tieni premuto il pulsante di configurazione per 5 s fino a quando il LED lampeggia. Verranno creati tre riquadri.",
+        "de": "Halte die Setup-Taste 5 s gedrückt, bis die LED blinkt. Es werden drei Kacheln erstellt."
+      }
+    },
+    "devices": {
+      "secondSwitch": {
+        "class": "socket",
+        "capabilities": ["onoff"],
+        "name": {
+          "en": "NovaDigital 3 Gang - Switch 2",
+          "es": "NovaDigital 3 canales - Interruptor 2",
+          "it": "NovaDigital 3 canali - Interruttore 2",
+          "de": "NovaDigital 3-fach - Schalter 2"
+        },
+        "energy": { "approximation": { "usageOn": 0, "usageOff": 0 } },
+        "settings": [
+          {
+            "id": "device_siblings_info",
+            "type": "label",
+            "label": { "en": "Connected Switches", "es": "Interruptores conectados", "it": "Interruttori collegati", "de": "Verbundene Schalter" },
+            "hint":  { "en": "Other switches sharing this physical board", "es": "Otros interruptores que comparten esta placa física", "it": "Altri interruttori che condividono questa scheda fisica", "de": "Andere Schalter, die diese physische Platine teilen" },
+            "value": "-"
+          },
+          {
+            "id": "power_on_gang2",
+            "type": "dropdown",
+            "label": { "en": "Power-On Gang 2", "es": "Encendido grupo 2", "it": "Accensione gruppo 2", "de": "Einschalten Gruppe 2" },
+            "value": "lastState",
+            "values": [
+              { "id": "on",        "label": { "en": "Always On",  "es": "Siempre encendido", "it": "Sempre acceso",  "de": "Immer ein" } },
+              { "id": "off",       "label": { "en": "Always Off", "es": "Siempre apagado",   "it": "Sempre spento",  "de": "Immer aus" } },
+              { "id": "lastState", "label": { "en": "Last State", "es": "Último estado",     "it": "Ultimo stato",   "de": "Letzter Zustand" } }
+            ]
+          },
+          {
+            "id": "power_on_gang2_current",
+            "type": "label",
+            "label": { "en": "Power-On Gang 2 (current)", "es": "Encendido grupo 2 (actual)", "it": "Accensione gruppo 2 (attuale)", "de": "Einschalten Gruppe 2 (aktuell)" },
+            "value": "-"
+          }
+        ]
+      },
+      "thirdSwitch": {
+        "class": "socket",
+        "capabilities": ["onoff"],
+        "name": {
+          "en": "NovaDigital 3 Gang - Switch 3",
+          "es": "NovaDigital 3 canales - Interruptor 3",
+          "it": "NovaDigital 3 canali - Interruttore 3",
+          "de": "NovaDigital 3-fach - Schalter 3"
+        },
+        "energy": { "approximation": { "usageOn": 0, "usageOff": 0 } },
+        "settings": [
+          {
+            "id": "device_siblings_info",
+            "type": "label",
+            "label": { "en": "Connected Switches", "es": "Interruptores conectados", "it": "Interruttori collegati", "de": "Verbundene Schalter" },
+            "hint":  { "en": "Other switches sharing this physical board", "es": "Otros interruptores que comparten esta placa física", "it": "Altri interruttori che condividono questa scheda fisica", "de": "Andere Schalter, die diese physische Platine teilen" },
+            "value": "-"
+          },
+          {
+            "id": "power_on_gang3",
+            "type": "dropdown",
+            "label": { "en": "Power-On Gang 3", "es": "Encendido grupo 3", "it": "Accensione gruppo 3", "de": "Einschalten Gruppe 3" },
+            "value": "lastState",
+            "values": [
+              { "id": "on",        "label": { "en": "Always On",  "es": "Siempre encendido", "it": "Sempre acceso",  "de": "Immer ein" } },
+              { "id": "off",       "label": { "en": "Always Off", "es": "Siempre apagado",   "it": "Sempre spento",  "de": "Immer aus" } },
+              { "id": "lastState", "label": { "en": "Last State", "es": "Último estado",     "it": "Ultimo stato",   "de": "Letzter Zustand" } }
+            ]
+          },
+          {
+            "id": "power_on_gang3_current",
+            "type": "label",
+            "label": { "en": "Power-On Gang 3 (current)", "es": "Encendido grupo 3 (actual)", "it": "Accensione gruppo 3 (attuale)", "de": "Einschalten Gruppe 3 (aktuell)" },
+            "value": "-"
+          }
+        ]
+      }
+    }
+  },
+  "$extends": ["zigbee-local"]
+}

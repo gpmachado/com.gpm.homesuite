@@ -1,0 +1,190 @@
+
+  "ids": {
+    "modelId": "TS0601",
+    "manufacturerName": "_TZE204_aagrxlbd"
+  },
+  "endpoints": {
+    "ieeeAddress": "a4:c1:38:4e:87:16:8b:7c",
+    "networkAddress": 40288,
+    "modelId": "TS0601",
+    "manufacturerName": "_TZE204_aagrxlbd",
+    "endpointDescriptors": [
+      {
+        "status": "SUCCESS",
+        "nwkAddrOfInterest": 40288,
+        "_reserved": 20,
+        "endpointId": 1,
+        "applicationProfileId": 260,
+        "applicationDeviceId": 81,
+        "applicationDeviceVersion": 0,
+        "_reserved1": 1,
+        "inputClusters": [
+          4,
+          5,
+          61184,
+          0
+        ],
+        "outputClusters": [
+          25,
+          10
+        ]
+      },
+      {
+        "status": "SUCCESS",
+        "nwkAddrOfInterest": 40288,
+        "_reserved": 10,
+        "endpointId": 242,
+        "applicationProfileId": 41440,
+        "applicationDeviceId": 97,
+        "applicationDeviceVersion": 0,
+        "_reserved1": 0,
+        "inputClusters": [],
+        "outputClusters": [
+          33
+        ]
+      }
+    ],
+    "deviceType": "router",
+    "receiveWhenIdle": true,
+    "capabilities": {
+      "alternatePANCoordinator": false,
+      "deviceType": true,
+      "powerSourceMains": true,
+      "receiveWhenIdle": true,
+      "security": false,
+      "allocateAddress": true
+    },
+    "extendedEndpointDescriptors": {
+      "1": {
+        "clusters": {
+          "groups": {
+            "attributes": [
+              {
+                "acl": [
+                  "readable",
+                  "reportable"
+                ],
+                "id": 0,
+                "name": "nameSupport",
+                "value": {
+                  "type": "Buffer",
+                  "data": [
+                    0
+                  ]
+                },
+                "reportingConfiguration": {
+                  "status": "NOT_FOUND",
+                  "direction": "reported"
+                }
+              },
+              {
+                "acl": [
+                  "readable",
+                  "reportable"
+                ],
+                "id": 65533,
+                "name": "clusterRevision",
+                "value": 2,
+                "reportingConfiguration": {
+                  "status": "NOT_FOUND",
+                  "direction": "reported"
+                }
+              }
+            ]
+          },
+          "scenes": {
+            "attributes": [
+              {
+                "acl": [
+                  "readable",
+                  "reportable"
+                ],
+                "id": 0,
+                "reportingConfiguration": {
+                  "status": "NOT_FOUND",
+                  "direction": "reported"
+                }
+              },
+              {
+                "acl": [
+                  "readable",
+                  "reportable"
+                ],
+                "id": 1,
+                "reportingConfiguration": {
+                  "status": "NOT_FOUND",
+                  "direction": "reported"
+                }
+              },
+              {
+                "acl": [
+                  "readable",
+                  "reportable"
+                ],
+                "id": 2,
+                "reportingConfiguration": {
+                  "status": "NOT_FOUND",
+                  "direction": "reported"
+                }
+              },
+              {
+                "acl": [
+                  "readable",
+                  "reportable"
+                ],
+                "id": 3,
+                "reportingConfiguration": {
+                  "status": "NOT_FOUND",
+                  "direction": "reported"
+                }
+              },
+              {
+                "acl": [
+                  "readable",
+                  "reportable"
+                ],
+                "id": 4,
+                "reportingConfiguration": {
+                  "status": "NOT_FOUND",
+                  "direction": "reported"
+                }
+              },
+              {
+                "acl": [
+                  "readable",
+                  "reportable"
+                ],
+                "id": 65533,
+                "name": "clusterRevision",
+                "value": 2,
+                "reportingConfiguration": {
+                  "status": "NOT_FOUND",
+                  "direction": "reported"
+                }
+              }
+            ]
+          },
+          "basic": {}
+        },
+        "bindings": {
+          "ota": {},
+          "time": {
+            "attributes": [
+              {
+                "acl": [
+                  "readable"
+                ],
+                "id": 65533,
+                "name": "clusterRevision",
+                "value": 1
+              }
+            ]
+          }
+        }
+      },
+      "242": {
+        "clusters": {},
+        "bindings": {}
+      }
+    }
+  }

@@ -1,0 +1,82 @@
+
+  "ids": {
+    "modelId": "BASICZBR3",
+    "manufacturerName": "SONOFF"
+  },
+  "endpoints": {
+    "ieeeAddress": "00:12:4b:00:23:43:84:89",
+    "networkAddress": 16660,
+    "modelId": "BASICZBR3",
+    "manufacturerName": "SONOFF",
+    "endpointDescriptors": [
+      {
+        "status": "SUCCESS",
+        "nwkAddrOfInterest": 16660,
+        "_reserved": 20,
+        "endpointId": 1,
+        "applicationProfileId": 260,
+        "applicationDeviceId": 256,
+        "applicationDeviceVersion": 0,
+        "_reserved1": 1,
+        "inputClusters": [
+          0,
+          3,
+          4,
+          5,
+          6
+        ],
+        "outputClusters": [
+          0
+        ]
+      }
+    ],
+    "deviceType": "router",
+    "receiveWhenIdle": true,
+    "swBuildId": "1.0.5",
+    "capabilities": {
+      "alternatePANCoordinator": false,
+      "deviceType": true,
+      "powerSourceMains": true,
+      "receiveWhenIdle": true,
+      "security": false,
+      "allocateAddress": true
+    },
+    "extendedEndpointDescriptors": {
+      "1": {
+        "clusters": {
+          "basic": {
+            "attributes": "UNSUP_GENERAL_COMMAND",
+            "commandsGenerated": "UNSUP_GENERAL_COMMAND",
+            "commandsReceived": "UNSUP_GENERAL_COMMAND"
+          },
+          "identify": {
+            "attributes": "UNSUP_GENERAL_COMMAND",
+            "commandsGenerated": "UNSUP_GENERAL_COMMAND",
+            "commandsReceived": "UNSUP_GENERAL_COMMAND"
+          },
+          "groups": {
+            "attributes": "UNSUP_GENERAL_COMMAND",
+            "commandsGenerated": "UNSUP_GENERAL_COMMAND",
+            "commandsReceived": "UNSUP_GENERAL_COMMAND"
+          },
+          "scenes": {
+            "attributes": "UNSUP_GENERAL_COMMAND",
+            "commandsGenerated": "UNSUP_GENERAL_COMMAND",
+            "commandsReceived": "UNSUP_GENERAL_COMMAND"
+          },
+          "onOff": {
+            "attributes": "UNSUP_GENERAL_COMMAND",
+            "commandsGenerated": "UNSUP_GENERAL_COMMAND",
+            "commandsReceived": "UNSUP_GENERAL_COMMAND"
+          }
+        },
+        "bindings": {
+          "basic": {
+            "attributes": "UNSUP_GENERAL_COMMAND",
+            "commandsGenerated": "UNSUP_GENERAL_COMMAND",
+            "commandsReceived": "UNSUP_GENERAL_COMMAND"
+          }
+        }
+      }
+    }
+  }

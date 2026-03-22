@@ -1,0 +1,19 @@
+{
+  "type": "boolean",
+  "title": {
+    "en": "Is Available",
+    "es": "Disponible",
+    "it": "Disponibile",
+    "de": "Verfügbar"
+  },
+  "desc": {
+    "en": "true = device available, false = device unavailable. Used for availability flow triggers.",
+    "es": "true = dispositivo disponible, false = dispositivo no disponible. Usado para disparadores de flujo de disponibilidad.",
+    "it": "true = dispositivo disponibile, false = dispositivo non disponibile. Usato per i trigger di flusso di disponibilità.",
+    "de": "true = Gerät verfügbar, false = Gerät nicht verfügbar. Wird für Verfügbarkeits-Flow-Trigger verwendet."
+  },
+  "getable": true,
+  "setable": false,
+  "insights": false,
+  "uiComponent": null
+}

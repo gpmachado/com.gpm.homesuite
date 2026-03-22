@@ -1,0 +1,30 @@
+{
+  "id": "SNZB-03",
+  "name": {
+    "en": "Motion Sensor SNZB-03",
+    "es": "Sensor de movimiento SNZB-03",
+    "it": "Sensore di movimento SNZB-03",
+    "de": "Bewegungssensor SNZB-03"
+  },
+  "class": "sensor",
+  "capabilities": ["alarm_motion", "measure_battery"],
+  "energy": { "batteries": ["CR2450"] },
+  "icon": "{{driverAssetsPath}}/icon.svg",
+  "zigbee": {
+    "manufacturerName": ["eWeLink"],
+    "productId": ["MS01"],
+    "endpoints": {
+      "1": { "clusters": [1, 1280], "bindings": [1] }
+    },
+    "learnmode": {
+      "image": "{{driverAssetsPath}}/learn.svg",
+      "instruction": {
+        "en": "Press reset on bottom with a pin for approx 10 seconds until the red LED blinks rapidly.",
+        "es": "Pulsa el botón de reinicio de la parte inferior con un alfiler durante aprox. 10 segundos hasta que el LED rojo parpadee rápidamente.",
+        "it": "Premi il reset nella parte inferiore con un ago per circa 10 secondi fino a quando il LED rosso lampeggia rapidamente.",
+        "de": "Reset-Taste unten mit einer Nadel ca. 10 Sekunden drücken, bis die rote LED schnell blinkt."
+      }
+    }
+  },
+  "$extends": ["zigbee-local"]
+}

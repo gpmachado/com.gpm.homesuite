@@ -1,0 +1,1294 @@
+
+  "ids": {
+    "modelId": "TS011F",
+    "manufacturerName": "_TZ3000_cfnprab5"
+  },
+  "endpoints": {
+    "ieeeAddress": "a4:c1:38:11:79:8c:e1:fc",
+    "networkAddress": 59220,
+    "modelId": "TS011F",
+    "manufacturerName": "_TZ3000_cfnprab5",
+    "endpointDescriptors": [
+      {
+        "status": "SUCCESS",
+        "nwkAddrOfInterest": 59220,
+        "_reserved": 22,
+        "endpointId": 1,
+        "applicationProfileId": 260,
+        "applicationDeviceId": 256,
+        "applicationDeviceVersion": 0,
+        "_reserved1": 1,
+        "inputClusters": [
+          0,
+          3,
+          4,
+          5,
+          6,
+          57344
+        ],
+        "outputClusters": [
+          10
+        ]
+      },
+      {
+        "status": "SUCCESS",
+        "nwkAddrOfInterest": 59220,
+        "_reserved": 20,
+        "endpointId": 2,
+        "applicationProfileId": 260,
+        "applicationDeviceId": 256,
+        "applicationDeviceVersion": 0,
+        "_reserved1": 1,
+        "inputClusters": [
+          0,
+          3,
+          4,
+          5,
+          6,
+          57344
+        ],
+        "outputClusters": []
+      },
+      {
+        "status": "SUCCESS",
+        "nwkAddrOfInterest": 59220,
+        "_reserved": 20,
+        "endpointId": 3,
+        "applicationProfileId": 260,
+        "applicationDeviceId": 256,
+        "applicationDeviceVersion": 0,
+        "_reserved1": 1,
+        "inputClusters": [
+          0,
+          3,
+          4,
+          5,
+          6,
+          57344
+        ],
+        "outputClusters": []
+      },
+      {
+        "status": "SUCCESS",
+        "nwkAddrOfInterest": 59220,
+        "_reserved": 20,
+        "endpointId": 4,
+        "applicationProfileId": 260,
+        "applicationDeviceId": 256,
+        "applicationDeviceVersion": 0,
+        "_reserved1": 1,
+        "inputClusters": [
+          0,
+          3,
+          4,
+          5,
+          6,
+          57344
+        ],
+        "outputClusters": []
+      },
+      {
+        "status": "SUCCESS",
+        "nwkAddrOfInterest": 59220,
+        "_reserved": 20,
+        "endpointId": 5,
+        "applicationProfileId": 260,
+        "applicationDeviceId": 256,
+        "applicationDeviceVersion": 0,
+        "_reserved1": 1,
+        "inputClusters": [
+          0,
+          3,
+          4,
+          5,
+          6,
+          57344
+        ],
+        "outputClusters": []
+      }
+    ],
+    "deviceType": "router",
+    "receiveWhenIdle": true,
+    "swBuildId": "",
+    "capabilities": {
+      "alternatePANCoordinator": false,
+      "deviceType": true,
+      "powerSourceMains": true,
+      "receiveWhenIdle": true,
+      "security": false,
+      "allocateAddress": true
+    },
+    "extendedEndpointDescriptors": {
+      "1": {
+        "clusters": {
+          "basic": {
+            "attributes": [
+              {
+                "acl": [
+                  "readable"
+                ],
+                "id": 0,
+                "name": "zclVersion",
+                "value": 3
+              },
+              {
+                "acl": [
+                  "readable"
+                ],
+                "id": 1,
+                "name": "appVersion",
+                "value": 64
+              },
+              {
+                "acl": [
+                  "readable"
+                ],
+                "id": 2,
+                "name": "stackVersion",
+                "value": 0
+              },
+              {
+                "acl": [
+                  "readable"
+                ],
+                "id": 3,
+                "name": "hwVersion",
+                "value": 1
+              },
+              {
+                "acl": [
+                  "readable"
+                ],
+                "id": 4,
+                "name": "manufacturerName",
+                "value": "_TZ3000_cfnprab5"
+              },
+              {
+                "acl": [
+                  "readable"
+                ],
+                "id": 5,
+                "name": "modelId",
+                "value": "TS011F"
+              },
+              {
+                "acl": [
+                  "readable"
+                ],
+                "id": 7,
+                "name": "powerSource",
+                "value": "mains"
+              },
+              {
+                "acl": [
+                  "readable",
+                  "writable"
+                ],
+                "id": 18,
+                "name": "deviceEnabled",
+                "value": true
+              },
+              {
+                "acl": [
+                  "readable"
+                ],
+                "id": 16384,
+                "name": "swBuildId",
+                "value": ""
+              },
+              {
+                "acl": [
+                  "readable"
+                ],
+                "id": 65533,
+                "name": "clusterRevision",
+                "value": 1
+              }
+            ],
+            "commandsGenerated": "UNSUP_GENERAL_COMMAND",
+            "commandsReceived": "UNSUP_GENERAL_COMMAND"
+          },
+          "identify": {
+            "attributes": [
+              {
+                "acl": [
+                  "readable",
+                  "writable"
+                ],
+                "id": 0,
+                "name": "identifyTime",
+                "value": 0
+              },
+              {
+                "acl": [
+                  "readable"
+                ],
+                "id": 65533,
+                "name": "clusterRevision",
+                "value": 1
+              }
+            ],
+            "commandsGenerated": "UNSUP_GENERAL_COMMAND",
+            "commandsReceived": "UNSUP_GENERAL_COMMAND"
+          },
+          "groups": {
+            "attributes": [
+              {
+                "acl": [
+                  "readable"
+                ],
+                "id": 0,
+                "name": "nameSupport",
+                "value": {
+                  "type": "Buffer",
+                  "data": [
+                    0
+                  ]
+                }
+              },
+              {
+                "acl": [
+                  "readable"
+                ],
+                "id": 65533,
+                "name": "clusterRevision",
+                "value": 1
+              }
+            ],
+            "commandsGenerated": "UNSUP_GENERAL_COMMAND",
+            "commandsReceived": "UNSUP_GENERAL_COMMAND"
+          },
+          "scenes": {
+            "attributes": [
+              {
+                "acl": [],
+                "id": 25216
+              },
+              {
+                "acl": [],
+                "id": 18196
+              },
+              {
+                "acl": [],
+                "id": 2
+              },
+              {
+                "acl": [],
+                "id": 35003
+              },
+              {
+                "acl": [],
+                "id": 0
+              },
+              {
+                "acl": [],
+                "id": 0
+              }
+            ],
+            "commandsGenerated": "UNSUP_GENERAL_COMMAND",
+            "commandsReceived": "UNSUP_GENERAL_COMMAND"
+          },
+          "onOff": {
+            "attributes": [
+              {
+                "acl": [
+                  "readable",
+                  "reportable"
+                ],
+                "id": 0,
+                "name": "onOff",
+                "value": true,
+                "reportingConfiguration": {
+                  "direction": "reported",
+                  "attributeDataType": 16,
+                  "minInterval": 0,
+                  "maxInterval": 60,
+                  "status": "SUCCESS"
+                }
+              },
+              {
+                "acl": [
+                  "readable"
+                ],
+                "id": 16384
+              },
+              {
+                "acl": [
+                  "readable",
+                  "writable"
+                ],
+                "id": 16385,
+                "name": "onTime",
+                "value": 0
+              },
+              {
+                "acl": [
+                  "readable",
+                  "writable"
+                ],
+                "id": 16386,
+                "name": "offWaitTime",
+                "value": 0
+              },
+              {
+                "acl": [
+                  "readable",
+                  "writable"
+                ],
+                "id": 16387
+              },
+              {
+                "acl": [
+                  "readable"
+                ],
+                "id": 65533,
+                "name": "clusterRevision",
+                "value": 1
+              }
+            ],
+            "commandsGenerated": "UNSUP_GENERAL_COMMAND",
+            "commandsReceived": "UNSUP_GENERAL_COMMAND"
+          }
+        },
+        "bindings": {
+          "time": {
+            "attributes": [],
+            "commandsGenerated": "UNSUP_GENERAL_COMMAND",
+            "commandsReceived": "UNSUP_GENERAL_COMMAND"
+          }
+        }
+      },
+      "2": {
+        "clusters": {
+          "basic": {
+            "attributes": [
+              {
+                "acl": [
+                  "readable"
+                ],
+                "id": 0,
+                "name": "zclVersion",
+                "value": 3
+              },
+              {
+                "acl": [
+                  "readable"
+                ],
+                "id": 1,
+                "name": "appVersion",
+                "value": 64
+              },
+              {
+                "acl": [
+                  "readable"
+                ],
+                "id": 2,
+                "name": "stackVersion",
+                "value": 0
+              },
+              {
+                "acl": [
+                  "readable"
+                ],
+                "id": 3,
+                "name": "hwVersion",
+                "value": 1
+              },
+              {
+                "acl": [
+                  "readable"
+                ],
+                "id": 4,
+                "name": "manufacturerName",
+                "value": "_TZ3000_cfnprab5"
+              },
+              {
+                "acl": [
+                  "readable"
+                ],
+                "id": 5,
+                "name": "modelId",
+                "value": "TS011F"
+              },
+              {
+                "acl": [
+                  "readable"
+                ],
+                "id": 7,
+                "name": "powerSource",
+                "value": "mains"
+              },
+              {
+                "acl": [
+                  "readable",
+                  "writable"
+                ],
+                "id": 18,
+                "name": "deviceEnabled",
+                "value": true
+              },
+              {
+                "acl": [
+                  "readable"
+                ],
+                "id": 16384,
+                "name": "swBuildId",
+                "value": ""
+              },
+              {
+                "acl": [
+                  "readable"
+                ],
+                "id": 65533,
+                "name": "clusterRevision",
+                "value": 1
+              }
+            ],
+            "commandsGenerated": "UNSUP_GENERAL_COMMAND",
+            "commandsReceived": "UNSUP_GENERAL_COMMAND"
+          },
+          "identify": {
+            "attributes": [
+              {
+                "acl": [
+                  "readable",
+                  "writable"
+                ],
+                "id": 0,
+                "name": "identifyTime",
+                "value": 0
+              },
+              {
+                "acl": [
+                  "readable"
+                ],
+                "id": 65533,
+                "name": "clusterRevision",
+                "value": 1
+              }
+            ],
+            "commandsGenerated": "UNSUP_GENERAL_COMMAND",
+            "commandsReceived": "UNSUP_GENERAL_COMMAND"
+          },
+          "groups": {
+            "attributes": [
+              {
+                "acl": [
+                  "readable"
+                ],
+                "id": 0,
+                "name": "nameSupport",
+                "value": {
+                  "type": "Buffer",
+                  "data": [
+                    0
+                  ]
+                }
+              },
+              {
+                "acl": [
+                  "readable"
+                ],
+                "id": 65533,
+                "name": "clusterRevision",
+                "value": 1
+              }
+            ],
+            "commandsGenerated": "UNSUP_GENERAL_COMMAND",
+            "commandsReceived": "UNSUP_GENERAL_COMMAND"
+          },
+          "scenes": {
+            "attributes": [
+              {
+                "acl": [],
+                "id": 25216
+              },
+              {
+                "acl": [],
+                "id": 16116
+              },
+              {
+                "acl": [],
+                "id": 2
+              },
+              {
+                "acl": [],
+                "id": 35003
+              },
+              {
+                "acl": [],
+                "id": 0
+              },
+              {
+                "acl": [],
+                "id": 0
+              }
+            ],
+            "commandsGenerated": "UNSUP_GENERAL_COMMAND",
+            "commandsReceived": "UNSUP_GENERAL_COMMAND"
+          },
+          "onOff": {
+            "attributes": [
+              {
+                "acl": [
+                  "readable",
+                  "reportable"
+                ],
+                "id": 0,
+                "name": "onOff",
+                "value": true,
+                "reportingConfiguration": {
+                  "direction": "reported",
+                  "attributeDataType": 16,
+                  "minInterval": 0,
+                  "maxInterval": 60,
+                  "status": "SUCCESS"
+                }
+              },
+              {
+                "acl": [
+                  "readable"
+                ],
+                "id": 16384
+              },
+              {
+                "acl": [
+                  "readable",
+                  "writable"
+                ],
+                "id": 16385,
+                "name": "onTime",
+                "value": 0
+              },
+              {
+                "acl": [
+                  "readable",
+                  "writable"
+                ],
+                "id": 16386,
+                "name": "offWaitTime",
+                "value": 0
+              },
+              {
+                "acl": [
+                  "readable",
+                  "writable"
+                ],
+                "id": 16387
+              },
+              {
+                "acl": [
+                  "readable"
+                ],
+                "id": 65533,
+                "name": "clusterRevision",
+                "value": 1
+              }
+            ],
+            "commandsGenerated": "UNSUP_GENERAL_COMMAND",
+            "commandsReceived": "UNSUP_GENERAL_COMMAND"
+          }
+        },
+        "bindings": {}
+      },
+      "3": {
+        "clusters": {
+          "basic": {
+            "attributes": [
+              {
+                "acl": [
+                  "readable"
+                ],
+                "id": 0,
+                "name": "zclVersion",
+                "value": 3
+              },
+              {
+                "acl": [
+                  "readable"
+                ],
+                "id": 1,
+                "name": "appVersion",
+                "value": 64
+              },
+              {
+                "acl": [
+                  "readable"
+                ],
+                "id": 2,
+                "name": "stackVersion",
+                "value": 0
+              },
+              {
+                "acl": [
+                  "readable"
+                ],
+                "id": 3,
+                "name": "hwVersion",
+                "value": 1
+              },
+              {
+                "acl": [
+                  "readable"
+                ],
+                "id": 4,
+                "name": "manufacturerName",
+                "value": "_TZ3000_cfnprab5"
+              },
+              {
+                "acl": [
+                  "readable"
+                ],
+                "id": 5,
+                "name": "modelId",
+                "value": "TS011F"
+              },
+              {
+                "acl": [
+                  "readable"
+                ],
+                "id": 7,
+                "name": "powerSource",
+                "value": "mains"
+              },
+              {
+                "acl": [
+                  "readable",
+                  "writable"
+                ],
+                "id": 18,
+                "name": "deviceEnabled",
+                "value": true
+              },
+              {
+                "acl": [
+                  "readable"
+                ],
+                "id": 16384,
+                "name": "swBuildId",
+                "value": ""
+              },
+              {
+                "acl": [
+                  "readable"
+                ],
+                "id": 65533,
+                "name": "clusterRevision",
+                "value": 1
+              }
+            ],
+            "commandsGenerated": "UNSUP_GENERAL_COMMAND",
+            "commandsReceived": "UNSUP_GENERAL_COMMAND"
+          },
+          "identify": {
+            "attributes": [
+              {
+                "acl": [
+                  "readable",
+                  "writable"
+                ],
+                "id": 0,
+                "name": "identifyTime",
+                "value": 0
+              },
+              {
+                "acl": [
+                  "readable"
+                ],
+                "id": 65533,
+                "name": "clusterRevision",
+                "value": 1
+              }
+            ],
+            "commandsGenerated": "UNSUP_GENERAL_COMMAND",
+            "commandsReceived": "UNSUP_GENERAL_COMMAND"
+          },
+          "groups": {
+            "attributes": [
+              {
+                "acl": [
+                  "readable"
+                ],
+                "id": 0,
+                "name": "nameSupport",
+                "value": {
+                  "type": "Buffer",
+                  "data": [
+                    0
+                  ]
+                }
+              },
+              {
+                "acl": [
+                  "readable"
+                ],
+                "id": 65533,
+                "name": "clusterRevision",
+                "value": 1
+              }
+            ],
+            "commandsGenerated": "UNSUP_GENERAL_COMMAND",
+            "commandsReceived": "UNSUP_GENERAL_COMMAND"
+          },
+          "scenes": {
+            "attributes": [
+              {
+                "acl": [],
+                "id": 25216
+              },
+              {
+                "acl": [],
+                "id": 18612
+              },
+              {
+                "acl": [],
+                "id": 2
+              },
+              {
+                "acl": [],
+                "id": 35003
+              },
+              {
+                "acl": [],
+                "id": 0
+              },
+              {
+                "acl": [],
+                "id": 0
+              }
+            ],
+            "commandsGenerated": "UNSUP_GENERAL_COMMAND",
+            "commandsReceived": "UNSUP_GENERAL_COMMAND"
+          },
+          "onOff": {
+            "attributes": [
+              {
+                "acl": [
+                  "readable",
+                  "reportable"
+                ],
+                "id": 0,
+                "name": "onOff",
+                "value": true,
+                "reportingConfiguration": {
+                  "direction": "reported",
+                  "attributeDataType": 16,
+                  "minInterval": 0,
+                  "maxInterval": 60,
+                  "status": "SUCCESS"
+                }
+              },
+              {
+                "acl": [
+                  "readable"
+                ],
+                "id": 16384
+              },
+              {
+                "acl": [
+                  "readable",
+                  "writable"
+                ],
+                "id": 16385,
+                "name": "onTime",
+                "value": 0
+              },
+              {
+                "acl": [
+                  "readable",
+                  "writable"
+                ],
+                "id": 16386,
+                "name": "offWaitTime",
+                "value": 0
+              },
+              {
+                "acl": [
+                  "readable",
+                  "writable"
+                ],
+                "id": 16387
+              },
+              {
+                "acl": [
+                  "readable"
+                ],
+                "id": 65533,
+                "name": "clusterRevision",
+                "value": 1
+              }
+            ],
+            "commandsGenerated": "UNSUP_GENERAL_COMMAND",
+            "commandsReceived": "UNSUP_GENERAL_COMMAND"
+          }
+        },
+        "bindings": {}
+      },
+      "4": {
+        "clusters": {
+          "basic": {
+            "attributes": [
+              {
+                "acl": [
+                  "readable"
+                ],
+                "id": 0,
+                "name": "zclVersion",
+                "value": 3
+              },
+              {
+                "acl": [
+                  "readable"
+                ],
+                "id": 1,
+                "name": "appVersion",
+                "value": 64
+              },
+              {
+                "acl": [
+                  "readable"
+                ],
+                "id": 2,
+                "name": "stackVersion",
+                "value": 0
+              },
+              {
+                "acl": [
+                  "readable"
+                ],
+                "id": 3,
+                "name": "hwVersion",
+                "value": 1
+              },
+              {
+                "acl": [
+                  "readable"
+                ],
+                "id": 4,
+                "name": "manufacturerName",
+                "value": "_TZ3000_cfnprab5"
+              },
+              {
+                "acl": [
+                  "readable"
+                ],
+                "id": 5,
+                "name": "modelId",
+                "value": "TS011F"
+              },
+              {
+                "acl": [
+                  "readable"
+                ],
+                "id": 7,
+                "name": "powerSource",
+                "value": "mains"
+              },
+              {
+                "acl": [
+                  "readable",
+                  "writable"
+                ],
+                "id": 18,
+                "name": "deviceEnabled",
+                "value": true
+              },
+              {
+                "acl": [
+                  "readable"
+                ],
+                "id": 16384,
+                "name": "swBuildId",
+                "value": ""
+              },
+              {
+                "acl": [
+                  "readable"
+                ],
+                "id": 65533,
+                "name": "clusterRevision",
+                "value": 1
+              }
+            ],
+            "commandsGenerated": "UNSUP_GENERAL_COMMAND",
+            "commandsReceived": "UNSUP_GENERAL_COMMAND"
+          },
+          "identify": {
+            "attributes": [
+              {
+                "acl": [
+                  "readable",
+                  "writable"
+                ],
+                "id": 0,
+                "name": "identifyTime",
+                "value": 0
+              },
+              {
+                "acl": [
+                  "readable"
+                ],
+                "id": 65533,
+                "name": "clusterRevision",
+                "value": 1
+              }
+            ],
+            "commandsGenerated": "UNSUP_GENERAL_COMMAND",
+            "commandsReceived": "UNSUP_GENERAL_COMMAND"
+          },
+          "groups": {
+            "attributes": [
+              {
+                "acl": [
+                  "readable"
+                ],
+                "id": 0,
+                "name": "nameSupport",
+                "value": {
+                  "type": "Buffer",
+                  "data": [
+                    0
+                  ]
+                }
+              },
+              {
+                "acl": [
+                  "readable"
+                ],
+                "id": 65533,
+                "name": "clusterRevision",
+                "value": 1
+              }
+            ],
+            "commandsGenerated": "UNSUP_GENERAL_COMMAND",
+            "commandsReceived": "UNSUP_GENERAL_COMMAND"
+          },
+          "scenes": {
+            "attributes": [
+              {
+                "acl": [],
+                "id": 25216
+              },
+              {
+                "acl": [],
+                "id": 16116
+              },
+              {
+                "acl": [],
+                "id": 2
+              },
+              {
+                "acl": [],
+                "id": 35003
+              },
+              {
+                "acl": [],
+                "id": 0
+              },
+              {
+                "acl": [],
+                "id": 0
+              }
+            ],
+            "commandsGenerated": "UNSUP_GENERAL_COMMAND",
+            "commandsReceived": "UNSUP_GENERAL_COMMAND"
+          },
+          "onOff": {
+            "attributes": [
+              {
+                "acl": [
+                  "readable",
+                  "reportable"
+                ],
+                "id": 0,
+                "name": "onOff",
+                "value": true,
+                "reportingConfiguration": {
+                  "direction": "reported",
+                  "attributeDataType": 16,
+                  "minInterval": 0,
+                  "maxInterval": 60,
+                  "status": "SUCCESS"
+                }
+              },
+              {
+                "acl": [
+                  "readable"
+                ],
+                "id": 16384
+              },
+              {
+                "acl": [
+                  "readable",
+                  "writable"
+                ],
+                "id": 16385,
+                "name": "onTime",
+                "value": 0
+              },
+              {
+                "acl": [
+                  "readable",
+                  "writable"
+                ],
+                "id": 16386,
+                "name": "offWaitTime",
+                "value": 0
+              },
+              {
+                "acl": [
+                  "readable",
+                  "writable"
+                ],
+                "id": 16387
+              },
+              {
+                "acl": [
+                  "readable"
+                ],
+                "id": 65533,
+                "name": "clusterRevision",
+                "value": 1
+              }
+            ],
+            "commandsGenerated": "UNSUP_GENERAL_COMMAND",
+            "commandsReceived": "UNSUP_GENERAL_COMMAND"
+          }
+        },
+        "bindings": {}
+      },
+      "5": {
+        "clusters": {
+          "basic": {
+            "attributes": [
+              {
+                "acl": [
+                  "readable"
+                ],
+                "id": 0,
+                "name": "zclVersion",
+                "value": 3
+              },
+              {
+                "acl": [
+                  "readable"
+                ],
+                "id": 1,
+                "name": "appVersion",
+                "value": 64
+              },
+              {
+                "acl": [
+                  "readable"
+                ],
+                "id": 2,
+                "name": "stackVersion",
+                "value": 0
+              },
+              {
+                "acl": [
+                  "readable"
+                ],
+                "id": 3,
+                "name": "hwVersion",
+                "value": 1
+              },
+              {
+                "acl": [
+                  "readable"
+                ],
+                "id": 4,
+                "name": "manufacturerName",
+                "value": "_TZ3000_cfnprab5"
+              },
+              {
+                "acl": [
+                  "readable"
+                ],
+                "id": 5,
+                "name": "modelId",
+                "value": "TS011F"
+              },
+              {
+                "acl": [
+                  "readable"
+                ],
+                "id": 7,
+                "name": "powerSource",
+                "value": "mains"
+              },
+              {
+                "acl": [
+                  "readable",
+                  "writable"
+                ],
+                "id": 18,
+                "name": "deviceEnabled",
+                "value": true
+              },
+              {
+                "acl": [
+                  "readable"
+                ],
+                "id": 16384,
+                "name": "swBuildId",
+                "value": ""
+              },
+              {
+                "acl": [
+                  "readable"
+                ],
+                "id": 65533,
+                "name": "clusterRevision",
+                "value": 1
+              }
+            ],
+            "commandsGenerated": "UNSUP_GENERAL_COMMAND",
+            "commandsReceived": "UNSUP_GENERAL_COMMAND"
+          },
+          "identify": {
+            "attributes": [
+              {
+                "acl": [
+                  "readable",
+                  "writable"
+                ],
+                "id": 0,
+                "name": "identifyTime",
+                "value": 0
+              },
+              {
+                "acl": [
+                  "readable"
+                ],
+                "id": 65533,
+                "name": "clusterRevision",
+                "value": 1
+              }
+            ],
+            "commandsGenerated": "UNSUP_GENERAL_COMMAND",
+            "commandsReceived": "UNSUP_GENERAL_COMMAND"
+          },
+          "groups": {
+            "attributes": [
+              {
+                "acl": [
+                  "readable"
+                ],
+                "id": 0,
+                "name": "nameSupport",
+                "value": {
+                  "type": "Buffer",
+                  "data": [
+                    0
+                  ]
+                }
+              },
+              {
+                "acl": [
+                  "readable"
+                ],
+                "id": 65533,
+                "name": "clusterRevision",
+                "value": 1
+              }
+            ],
+            "commandsGenerated": "UNSUP_GENERAL_COMMAND",
+            "commandsReceived": "UNSUP_GENERAL_COMMAND"
+          },
+          "scenes": {
+            "attributes": [
+              {
+                "acl": [],
+                "id": 25216
+              },
+              {
+                "acl": [],
+                "id": 16116
+              },
+              {
+                "acl": [],
+                "id": 2
+              },
+              {
+                "acl": [],
+                "id": 35003
+              },
+              {
+                "acl": [],
+                "id": 0
+              },
+              {
+                "acl": [],
+                "id": 0
+              }
+            ],
+            "commandsGenerated": "UNSUP_GENERAL_COMMAND",
+            "commandsReceived": "UNSUP_GENERAL_COMMAND"
+          },
+          "onOff": {
+            "attributes": [
+              {
+                "acl": [
+                  "readable",
+                  "reportable"
+                ],
+                "id": 0,
+                "name": "onOff",
+                "value": true,
+                "reportingConfiguration": {
+                  "direction": "reported",
+                  "attributeDataType": 16,
+                  "minInterval": 0,
+                  "maxInterval": 60,
+                  "status": "SUCCESS"
+                }
+              },
+              {
+                "acl": [
+                  "readable"
+                ],
+                "id": 16384
+              },
+              {
+                "acl": [
+                  "readable",
+                  "writable"
+                ],
+                "id": 16385,
+                "name": "onTime",
+                "value": 0
+              },
+              {
+                "acl": [
+                  "readable",
+                  "writable"
+                ],
+                "id": 16386,
+                "name": "offWaitTime",
+                "value": 0
+              },
+              {
+                "acl": [
+                  "readable",
+                  "writable"
+                ],
+                "id": 16387
+              },
+              {
+                "acl": [
+                  "readable"
+                ],
+                "id": 65533,
+                "name": "clusterRevision",
+                "value": 1
+              }
+            ],
+            "commandsGenerated": "UNSUP_GENERAL_COMMAND",
+            "commandsReceived": "UNSUP_GENERAL_COMMAND"
+          }
+        },
+        "bindings": {}
+      }
+    }
+  }

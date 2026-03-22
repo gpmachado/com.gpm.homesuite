@@ -1,0 +1,88 @@
+Device Interview:
+
+"ids": {
+"modelId": "TS0601",
+"manufacturerName": "_TZE200_cirvgep4"
+},
+"endpoints": {
+"endpointDescriptors": [
+{
+"endpointId": 1,
+"applicationProfileId": 260,
+"applicationDeviceId": 81,
+"applicationDeviceVersion": 0,
+"_reserved1": 1,
+"inputClusters": [
+4,
+5,
+61184,
+0
+],
+"outputClusters": [
+25,
+10
+]
+}
+],
+"endpoints": {
+"1": {
+"clusters": {
+"groups": {},
+"scenes": {
+"attributes": [
+{
+"acl": [
+"readable",
+"reportable"
+],
+"id": 0
+},
+{
+"acl": [
+"readable",
+"reportable"
+],
+"id": 1
+},
+{
+"acl": [
+"readable",
+"reportable"
+],
+"id": 2
+},
+{
+"acl": [
+"readable",
+"reportable"
+],
+"id": 3
+},
+{
+"acl": [
+"readable",
+"reportable"
+],
+"id": 4
+},
+{
+"acl": [
+"readable",
+"reportable"
+],
+"id": 65533,
+"name": "clusterRevision",
+"value": 2
+}
+]
+},
+"basic": {}
+},
+"bindings": {
+"ota": {},
+"time": {}
+}
+}
+}
+}
+

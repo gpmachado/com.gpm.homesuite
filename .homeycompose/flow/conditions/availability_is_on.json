@@ -1,0 +1,28 @@
+{
+    "id": "availability_is_on",
+    "title": {
+        "en": "Availability is on",
+        "es": "Disponibilidad activada",
+        "it": "Disponibilità attiva",
+        "de": "Verfügbarkeit ist aktiv"
+    },
+    "titleFormatted": {
+        "en": "Is available",
+        "es": "Está disponible",
+        "it": "È disponibile",
+        "de": "Ist verfügbar"
+    },
+    "hint": {
+        "en": "True when the device is currently online",
+        "es": "Verdadero cuando el dispositivo está actualmente en línea",
+        "it": "Vero quando il dispositivo è attualmente online",
+        "de": "Wahr, wenn das Gerät aktuell online ist"
+    },
+    "args": [
+        {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=ekaza_siren|gas_detector|lcdtemphumidsensor|moes_dimmer_3_gang|novadigital_switch_1_gang|novadigital_switch_2_gang|novadigital_switch_3_gang|novadigital_switch_4_gang|novadigital_switch_6_gang|smartplug|socket_power_strip|temphumidclock|zigbee_repeater"
+        }
+    ]
+}

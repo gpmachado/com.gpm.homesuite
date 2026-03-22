@@ -1,0 +1,45 @@
+{
+  "id": "gas_detector",
+  "name": {
+    "en": "Smart Gas Detector",
+    "es": "Detector de gas inteligente",
+    "it": "Rilevatore gas smart",
+    "de": "Intelligenter Gasdetektor"
+  },
+  "class": "sensor",
+  "capabilities": ["alarm_gas", "alarm_problem"],
+  "capabilitiesOptions": {
+    "alarm_gas": {
+      "title": { "en": "Gas alarm", "es": "Alarma de gas", "it": "Allarme gas", "de": "Gasalarm" },
+      "uiComponent": "alarm",
+      "alarm": true,
+      "insightsTitleTrue":  { "en": "Gas detected!",      "es": "¡Gas detectado!",           "it": "Gas rilevato!",           "de": "Gas erkannt!"            },
+      "insightsTitleFalse": { "en": "Gas alarm cleared",  "es": "Alarma de gas desactivada", "it": "Allarme gas disattivato", "de": "Gasalarm zurückgesetzt"  }
+    },
+    "alarm_problem": {
+      "title": { "en": "Device fault", "es": "Fallo del dispositivo", "it": "Guasto dispositivo", "de": "Gerätefehler" },
+      "uiComponent": "alarm",
+      "alarm": true,
+      "insightsTitleTrue":  { "en": "Device fault detected", "es": "Fallo del dispositivo detectado", "it": "Guasto dispositivo rilevato", "de": "Gerätefehler erkannt"       },
+      "insightsTitleFalse": { "en": "Device fault cleared",  "es": "Fallo del dispositivo resuelto",  "it": "Guasto dispositivo risolto",  "de": "Gerätefehler behoben"       }
+    }
+  },
+  "energy": { "approximation": { "usageConstant": 1.5 } },
+  "zigbee": {
+    "manufacturerName": ["_TYZB01_0w3d5uw3"],
+    "productId": ["TS0204"],
+    "endpoints": {
+      "1": { "clusters": [0, 3, 1280, 2821], "bindings": [3, 1280] }
+    },
+    "learnmode": {
+      "image": "{{driverAssetsPath}}/icon.svg",
+      "instruction": {
+        "en": "Insert a pin or paperclip into the reset pinhole and hold for 5 seconds until the LED flashes rapidly.",
+        "es": "Introduce un alfiler o clip en el orificio de reinicio y mantenlo durante 5 segundos hasta que el LED parpadee rápidamente.",
+        "it": "Inserisci un ago o una graffetta nel foro di reset e tieni premuto per 5 secondi fino a quando il LED lampeggia rapidamente.",
+        "de": "Stecke eine Nadel oder Büroklammer in das Reset-Loch und halte sie 5 Sekunden, bis die LED schnell blinkt."
+      }
+    }
+  },
+  "$extends": ["zigbee-local"]
+}

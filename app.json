@@ -1,0 +1,5224 @@
+{
+  "_comment": "This file is generated. Please edit .homeycompose/app.json instead.",
+  "id": "com.gpm.homesuite",
+  "version": "1.0.4",
+  "compatibility": ">=12.4.0",
+  "sdk": 3,
+  "platforms": [
+    "local"
+  ],
+  "name": {
+    "en": "HomeSuite"
+  },
+  "description": {
+    "en": "Personal suite for Zigbee devices like Zemismart & NovaDigital switches, sirens, sensors and more",
+    "es": "Suite personal para dispositivos Zigbee como interruptores Zemismart y NovaDigital, sirenas, sensores y más",
+    "it": "Suite personale per dispositivi Zigbee come interruttori Zemismart e NovaDigital, sirene, sensori e altro",
+    "de": "Persönliche Suite für Zigbee-Geräte wie Zemismart- und NovaDigital-Schalter, Sirenen, Sensoren und mehr"
+  },
+  "category": [
+    "appliances"
+  ],
+  "tags": {
+    "en": [
+      "zigbee",
+      "zemismart",
+      "novadigital",
+      "switch",
+      "sensor",
+      "dimmer",
+      "smart plug",
+      "power strip",
+      "power metering",
+      "dimmer /fan controller",
+      "temperature",
+      "humidity",
+      "gas detector",
+      "siren"
+    ],
+    "es": [
+      "zigbee",
+      "zemismart",
+      "novadigital",
+      "interruptor",
+      "sensor",
+      "atenuador",
+      "enchufe inteligente",
+      "regleta",
+      "medición de energía",
+      "controlador de ventilador",
+      "temperatura",
+      "humedad",
+      "detector de gas",
+      "sirena"
+    ],
+    "it": [
+      "zigbee",
+      "zemismart",
+      "novadigital",
+      "interruttore",
+      "sensore",
+      "dimmer",
+      "presa intelligente",
+      "ciabatta",
+      "misurazione energia",
+      "regolatore ventilatore",
+      "temperatura",
+      "umidità",
+      "rilevatore gas",
+      "sirena"
+    ],
+    "de": [
+      "zigbee",
+      "zemismart",
+      "novadigital",
+      "schalter",
+      "sensor",
+      "dimmer",
+      "smart plug",
+      "steckdosenleiste",
+      "energiemessung",
+      "lüfterregler",
+      "temperatur",
+      "feuchtigkeit",
+      "gasdetektor",
+      "sirene"
+    ]
+  },
+  "brandColor": "#5078C4",
+  "permissions": [],
+  "images": {
+    "small": "/assets/images/small.png",
+    "large": "/assets/images/large.png",
+    "xlarge": "/assets/images/xlarge.png"
+  },
+  "author": {
+    "name": "Gabriel Pedrosa Machado",
+    "email": "g.machado@me.com"
+  },
+  "dependencies": {
+    "homey-zigbeedriver": "^2.2.15",
+    "zigbee-clusters": "^2.6.0"
+  },
+  "flow": {
+    "triggers": [
+      {
+        "id": "availability_turned_off",
+        "title": {
+          "en": "Availability turned off",
+          "es": "Disponibilidad desactivada",
+          "it": "Disponibilità disattivata",
+          "de": "Verfügbarkeit ausgeschaltet"
+        },
+        "titleFormatted": {
+          "en": "Availability of [[device]] turned off",
+          "es": "Disponibilidad de [[device]] desactivada",
+          "it": "Disponibilità di [[device]] disattivata",
+          "de": "Verfügbarkeit von [[device]] ausgeschaltet"
+        },
+        "hint": {
+          "en": "Fires when the device becomes unavailable.",
+          "es": "Se activa cuando el dispositivo deja de estar disponible.",
+          "it": "Si attiva quando il dispositivo non è più disponibile.",
+          "de": "Wird ausgelöst, wenn das Gerät nicht mehr verfügbar ist."
+        },
+        "tokens": [
+          {
+            "name": "device_name",
+            "type": "string",
+            "title": {
+              "en": "Device name",
+              "es": "Nombre del dispositivo",
+              "it": "Nome del dispositivo",
+              "de": "Gerätename"
+            }
+          },
+          {
+            "name": "timestamp",
+            "type": "string",
+            "title": {
+              "en": "Timestamp",
+              "es": "Marca de tiempo",
+              "it": "Data e ora",
+              "de": "Zeitstempel"
+            }
+          }
+        ],
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "capabilities=is_availability"
+          }
+        ]
+      },
+      {
+        "id": "availability_turned_on",
+        "title": {
+          "en": "Availability turned on",
+          "es": "Disponibilidad activada",
+          "it": "Disponibilità attivata",
+          "de": "Verfügbarkeit eingeschaltet"
+        },
+        "titleFormatted": {
+          "en": "Availability of [[device]] turned on",
+          "es": "Disponibilidad de [[device]] activada",
+          "it": "Disponibilità di [[device]] attivata",
+          "de": "Verfügbarkeit von [[device]] eingeschaltet"
+        },
+        "hint": {
+          "en": "Fires when the device becomes available.",
+          "es": "Se activa cuando el dispositivo está disponible.",
+          "it": "Si attiva quando il dispositivo diventa disponibile.",
+          "de": "Wird ausgelöst, wenn das Gerät verfügbar wird."
+        },
+        "tokens": [
+          {
+            "name": "device_name",
+            "type": "string",
+            "title": {
+              "en": "Device name",
+              "es": "Nombre del dispositivo",
+              "it": "Nome del dispositivo",
+              "de": "Gerätename"
+            }
+          },
+          {
+            "name": "timestamp",
+            "type": "string",
+            "title": {
+              "en": "Timestamp",
+              "es": "Marca de tiempo",
+              "it": "Data e ora",
+              "de": "Zeitstempel"
+            }
+          }
+        ],
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "capabilities=is_availability"
+          }
+        ]
+      },
+      {
+        "id": "ZBMINIR2:click",
+        "title": {
+          "en": "Single click",
+          "pt": "Clique único"
+        },
+        "hint": {
+          "en": "This trigger fires when the physical switch is pressed and the 'Detach Relay' setting is enabled.",
+          "pt": "Este gatilho é acionado quando o interruptor físico é pressionado e a configuração 'Desconectar Relé' está ativada."
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=ZBMINIR2"
+          }
+        ]
+      },
+      {
+        "id": "siren_activated",
+        "title": {
+          "en": "Siren activated"
+        },
+        "titleFormatted": {
+          "en": "[[device]] siren was activated"
+        },
+        "hint": {
+          "en": "Triggered when the siren starts playing."
+        },
+        "tokens": [
+          {
+            "name": "duration",
+            "type": "number",
+            "title": {
+              "en": "Duration (seconds)"
+            },
+            "example": 10
+          }
+        ],
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=ekaza_siren"
+          }
+        ]
+      },
+      {
+        "id": "siren_deactivated",
+        "title": {
+          "en": "Siren deactivated"
+        },
+        "titleFormatted": {
+          "en": "[[device]] siren was deactivated"
+        },
+        "hint": {
+          "en": "Triggered when the siren stops playing (automatic or manual)."
+        },
+        "tokens": [
+          {
+            "name": "reason",
+            "type": "string",
+            "title": {
+              "en": "Stop reason"
+            },
+            "example": "auto"
+          }
+        ],
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=ekaza_siren"
+          }
+        ]
+      }
+    ],
+    "conditions": [
+      {
+        "id": "availability_is_on",
+        "title": {
+          "en": "Availability is on",
+          "es": "Disponibilidad activada",
+          "it": "Disponibilità attiva",
+          "de": "Verfügbarkeit ist aktiv"
+        },
+        "titleFormatted": {
+          "en": "Is available",
+          "es": "Está disponible",
+          "it": "È disponibile",
+          "de": "Ist verfügbar"
+        },
+        "hint": {
+          "en": "True when the device is currently online",
+          "es": "Verdadero cuando el dispositivo está actualmente en línea",
+          "it": "Vero quando il dispositivo è attualmente online",
+          "de": "Wahr, wenn das Gerät aktuell online ist"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=ekaza_siren|gas_detector|lcdtemphumidsensor|moes_dimmer_3_gang|novadigital_switch_1_gang|novadigital_switch_2_gang|novadigital_switch_3_gang|novadigital_switch_4_gang|novadigital_switch_6_gang|smartplug|socket_power_strip|temphumidclock|zigbee_repeater"
+          }
+        ]
+      },
+      {
+        "id": "is_playing",
+        "title": {
+          "en": "Siren is !{{playing|not playing}}"
+        },
+        "titleFormatted": {
+          "en": "[[device]] siren is !{{playing|not playing}}"
+        },
+        "hint": {
+          "en": "Check if the siren is currently active."
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=ekaza_siren"
+          }
+        ]
+      }
+    ],
+    "actions": [
+      {
+        "id": "siren_play",
+        "title": {
+          "en": "Play siren with melody"
+        },
+        "titleFormatted": {
+          "en": "Play [[melody]] for [[duration]] seconds"
+        },
+        "hint": {
+          "en": "Play a specific melody for the given duration (volume is taken from Settings)."
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=ekaza_siren"
+          },
+          {
+            "name": "melody",
+            "type": "dropdown",
+            "values": [
+              {
+                "id": "0",
+                "label": {
+                  "en": "Doorbell Chime"
+                }
+              },
+              {
+                "id": "1",
+                "label": {
+                  "en": "Für Elise"
+                }
+              },
+              {
+                "id": "2",
+                "label": {
+                  "en": "Westminster Chimes"
+                }
+              },
+              {
+                "id": "3",
+                "label": {
+                  "en": "Fast Double Doorbell"
+                }
+              },
+              {
+                "id": "4",
+                "label": {
+                  "en": "William Tell Overture"
+                }
+              },
+              {
+                "id": "5",
+                "label": {
+                  "en": "Turkish March"
+                }
+              },
+              {
+                "id": "6",
+                "label": {
+                  "en": "Safe / Security Alarm"
+                }
+              },
+              {
+                "id": "7",
+                "label": {
+                  "en": "Chemical Spill Alert"
+                }
+              },
+              {
+                "id": "8",
+                "label": {
+                  "en": "Piercing Alarm Clock"
+                }
+              },
+              {
+                "id": "9",
+                "label": {
+                  "en": "Smoke Alarm"
+                }
+              },
+              {
+                "id": "10",
+                "label": {
+                  "en": "Dog Barking"
+                }
+              },
+              {
+                "id": "11",
+                "label": {
+                  "en": "Police Siren"
+                }
+              },
+              {
+                "id": "12",
+                "label": {
+                  "en": "Doorbell Chime (reverb)"
+                }
+              },
+              {
+                "id": "13",
+                "label": {
+                  "en": "Mechanical Telephone"
+                }
+              },
+              {
+                "id": "14",
+                "label": {
+                  "en": "Fire / Ambulance"
+                }
+              },
+              {
+                "id": "15",
+                "label": {
+                  "en": "3/1 Elevator"
+                }
+              },
+              {
+                "id": "16",
+                "label": {
+                  "en": "Buzzing Alarm Clock"
+                }
+              },
+              {
+                "id": "17",
+                "label": {
+                  "en": "School Bell"
+                }
+              }
+            ]
+          },
+          {
+            "name": "duration",
+            "type": "number",
+            "min": 1,
+            "max": 1800,
+            "step": 1,
+            "placeholder": {
+              "en": "10"
+            }
+          }
+        ]
+      },
+      {
+        "id": "siren_stop",
+        "title": {
+          "en": "Stop siren"
+        },
+        "titleFormatted": {
+          "en": "Stop the siren"
+        },
+        "hint": {
+          "en": "Immediately stop the siren if it is playing."
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=ekaza_siren"
+          }
+        ]
+      }
+    ]
+  },
+  "drivers": [
+    {
+      "platforms": [
+        "local"
+      ],
+      "connectivity": [
+        "zigbee"
+      ],
+      "images": {
+        "xlarge": "/drivers/BASICZBR3/assets/images/xlarge.png",
+        "large": "/drivers/BASICZBR3/assets/images/large.png",
+        "small": "/drivers/BASICZBR3/assets/images/small.png"
+      },
+      "id": "BASICZBR3",
+      "name": {
+        "en": "Switch (Basic ZBR3)",
+        "es": "Interruptor (Basic ZBR3)",
+        "it": "Interruttore (Basic ZBR3)",
+        "de": "Schalter (Basic ZBR3)"
+      },
+      "class": "socket",
+      "capabilities": [
+        "onoff"
+      ],
+      "energy": {
+        "approximation": {
+          "usageOn": 1,
+          "usageOff": 1
+        }
+      },
+      "icon": "/drivers/BASICZBR3/assets/icon.svg",
+      "zigbee": {
+        "manufacturerName": "SONOFF",
+        "productId": [
+          "BASICZBR3"
+        ],
+        "endpoints": {
+          "1": {
+            "clusters": [
+              0,
+              3,
+              4,
+              5,
+              6
+            ],
+            "bindings": [
+              6
+            ]
+          }
+        },
+        "learnmode": {
+          "image": "/drivers/BASICZBR3/assets/learn.svg",
+          "instruction": {
+            "en": "Push the button for approx 8 seconds until the LED blinks rapidly.",
+            "es": "Pulsa el botón durante aprox. 8 segundos hasta que el LED parpadee rápidamente.",
+            "it": "Premi il pulsante per circa 8 secondi fino a quando il LED lampeggia rapidamente.",
+            "de": "Drücke die Taste ca. 8 Sekunden, bis die LED schnell blinkt."
+          }
+        }
+      },
+      "settings": []
+    },
+    {
+      "platforms": [
+        "local"
+      ],
+      "connectivity": [
+        "zigbee"
+      ],
+      "images": {
+        "xlarge": "/drivers/SNZB-02LD/assets/images/xlarge.png",
+        "large": "/drivers/SNZB-02LD/assets/images/large.png",
+        "small": "/drivers/SNZB-02LD/assets/images/small.png"
+      },
+      "id": "SNZB-02LD",
+      "name": {
+        "en": "Thermometer SNZB-02LD",
+        "es": "Termómetro SNZB-02LD",
+        "it": "Termometro SNZB-02LD",
+        "de": "Thermometer SNZB-02LD"
+      },
+      "class": "sensor",
+      "capabilities": [
+        "measure_temperature",
+        "measure_battery"
+      ],
+      "energy": {
+        "batteries": [
+          "CR2450"
+        ]
+      },
+      "icon": "/drivers/SNZB-02LD/assets/icon.svg",
+      "zigbee": {
+        "manufacturerName": [
+          "SONOFF"
+        ],
+        "productId": [
+          "SNZB-02LD"
+        ],
+        "endpoints": {
+          "1": {
+            "clusters": [
+              0,
+              1,
+              1026
+            ],
+            "bindings": [
+              0,
+              1,
+              1026
+            ]
+          }
+        },
+        "learnmode": {
+          "instruction": {
+            "en": "Press button on side for approx 10 seconds until the red LED blinks rapidly.",
+            "es": "Pulsa el botón lateral durante aprox. 10 segundos hasta que el LED rojo parpadee rápidamente.",
+            "it": "Premi il pulsante laterale per circa 10 secondi fino a quando il LED rosso lampeggia rapidamente.",
+            "de": "Seitliche Taste ca. 10 Sekunden drücken, bis die rote LED schnell blinkt."
+          }
+        }
+      }
+    },
+    {
+      "platforms": [
+        "local"
+      ],
+      "connectivity": [
+        "zigbee"
+      ],
+      "images": {
+        "xlarge": "/drivers/SNZB-02WD/assets/images/xlarge.png",
+        "large": "/drivers/SNZB-02WD/assets/images/large.png",
+        "small": "/drivers/SNZB-02WD/assets/images/small.png"
+      },
+      "id": "SNZB-02WD",
+      "name": {
+        "en": "Thermometer SNZB-02WD",
+        "es": "Termómetro SNZB-02WD",
+        "it": "Termometro SNZB-02WD",
+        "de": "Thermometer SNZB-02WD"
+      },
+      "class": "sensor",
+      "capabilities": [
+        "measure_temperature",
+        "measure_humidity",
+        "measure_battery"
+      ],
+      "energy": {
+        "batteries": [
+          "CR2450"
+        ]
+      },
+      "icon": "/drivers/SNZB-02WD/assets/icon.svg",
+      "zigbee": {
+        "manufacturerName": [
+          "SONOFF"
+        ],
+        "productId": [
+          "SNZB-02WD"
+        ],
+        "endpoints": {
+          "1": {
+            "clusters": [
+              0,
+              1,
+              1026,
+              1029
+            ],
+            "bindings": [
+              0,
+              1,
+              1026,
+              1029
+            ]
+          }
+        },
+        "learnmode": {
+          "instruction": {
+            "en": "Press button on side for approx 10 seconds until the red LED blinks rapidly.",
+            "es": "Pulsa el botón lateral durante aprox. 10 segundos hasta que el LED rojo parpadee rápidamente.",
+            "it": "Premi il pulsante laterale per circa 10 secondi fino a quando il LED rosso lampeggia rapidamente.",
+            "de": "Seitliche Taste ca. 10 Sekunden drücken, bis die rote LED schnell blinkt."
+          }
+        }
+      }
+    },
+    {
+      "platforms": [
+        "local"
+      ],
+      "connectivity": [
+        "zigbee"
+      ],
+      "images": {
+        "xlarge": "/drivers/SNZB-03/assets/images/xlarge.png",
+        "large": "/drivers/SNZB-03/assets/images/large.png",
+        "small": "/drivers/SNZB-03/assets/images/small.png"
+      },
+      "id": "SNZB-03",
+      "name": {
+        "en": "Motion Sensor SNZB-03",
+        "es": "Sensor de movimiento SNZB-03",
+        "it": "Sensore di movimento SNZB-03",
+        "de": "Bewegungssensor SNZB-03"
+      },
+      "class": "sensor",
+      "capabilities": [
+        "alarm_motion",
+        "measure_battery"
+      ],
+      "energy": {
+        "batteries": [
+          "CR2450"
+        ]
+      },
+      "icon": "/drivers/SNZB-03/assets/icon.svg",
+      "zigbee": {
+        "manufacturerName": [
+          "eWeLink"
+        ],
+        "productId": [
+          "MS01"
+        ],
+        "endpoints": {
+          "1": {
+            "clusters": [
+              1,
+              1280
+            ],
+            "bindings": [
+              1
+            ]
+          }
+        },
+        "learnmode": {
+          "image": "/drivers/SNZB-03/assets/learn.svg",
+          "instruction": {
+            "en": "Press reset on bottom with a pin for approx 10 seconds until the red LED blinks rapidly.",
+            "es": "Pulsa el botón de reinicio de la parte inferior con un alfiler durante aprox. 10 segundos hasta que el LED rojo parpadee rápidamente.",
+            "it": "Premi il reset nella parte inferiore con un ago per circa 10 secondi fino a quando il LED rosso lampeggia rapidamente.",
+            "de": "Reset-Taste unten mit einer Nadel ca. 10 Sekunden drücken, bis die rote LED schnell blinkt."
+          }
+        }
+      }
+    },
+    {
+      "platforms": [
+        "local"
+      ],
+      "connectivity": [
+        "zigbee"
+      ],
+      "images": {
+        "xlarge": "/drivers/ZBMINIR2/assets/images/xlarge.png",
+        "large": "/drivers/ZBMINIR2/assets/images/large.png",
+        "small": "/drivers/ZBMINIR2/assets/images/small.png"
+      },
+      "id": "ZBMINIR2",
+      "name": {
+        "en": "ZBMINI-R2 Switch",
+        "es": "Interruptor ZBMINI-R2",
+        "it": "Interruttore ZBMINI-R2",
+        "de": "ZBMINI-R2 Schalter"
+      },
+      "class": "socket",
+      "capabilities": [
+        "onoff"
+      ],
+      "icon": "/drivers/ZBMINIR2/assets/icon.svg",
+      "zigbee": {
+        "manufacturerName": [
+          "SONOFF"
+        ],
+        "productId": [
+          "ZBMINIR2"
+        ],
+        "endpoints": {
+          "1": {
+            "clusters": [
+              0,
+              6,
+              64529
+            ],
+            "bindings": [
+              6
+            ]
+          }
+        },
+        "learnmode": {
+          "image": "/drivers/ZBMINIR2/assets/learn.svg",
+          "instruction": {
+            "en": "Press the button on the top for approx 10 seconds until the green LED blinks rapidly.",
+            "es": "Pulsa el botón de la parte superior durante aprox. 10 segundos hasta que el LED verde parpadee rápidamente.",
+            "it": "Premi il pulsante nella parte superiore per circa 10 secondi fino a quando il LED verde lampeggia rapidamente.",
+            "de": "Drücke die Taste oben ca. 10 Sekunden, bis die grüne LED schnell blinkt."
+          }
+        }
+      },
+      "settings": [
+        {
+          "id": "TurboMode",
+          "type": "checkbox",
+          "value": false,
+          "label": {
+            "en": "Turbo Mode",
+            "it": "Modalità Turbo"
+          },
+          "hint": {
+            "en": "Enhancing the signal strength.",
+            "it": "Migliora la forza del segnale."
+          }
+        },
+        {
+          "id": "network_led",
+          "type": "checkbox",
+          "value": true,
+          "label": {
+            "en": "Network Indicator",
+            "it": "Indicatore di rete"
+          }
+        },
+        {
+          "type": "group",
+          "label": {
+            "en": "Switch Mode",
+            "it": "Cambia Modalità"
+          },
+          "children": [
+            {
+              "id": "switch_mode",
+              "type": "dropdown",
+              "label": {
+                "en": "Mode",
+                "it": "Modalità"
+              },
+              "value": "0",
+              "values": [
+                {
+                  "id": "0",
+                  "label": {
+                    "en": "Edge Mode",
+                    "it": "Modalità Edge"
+                  }
+                },
+                {
+                  "id": "1",
+                  "label": {
+                    "en": "Pulse Mode",
+                    "it": "Modalità Impulso"
+                  }
+                },
+                {
+                  "id": "2",
+                  "label": {
+                    "en": "Following Mode",
+                    "it": "Modalità Inseguimento"
+                  }
+                },
+                {
+                  "id": "130",
+                  "label": {
+                    "en": "Following Mode (Reverse)",
+                    "it": "Modalità Inseguimento (Inverti)"
+                  }
+                }
+              ]
+            },
+            {
+              "id": "detach_mode",
+              "type": "checkbox",
+              "value": false,
+              "label": {
+                "en": "Detach Relay",
+                "it": "Stacca Relè"
+              }
+            }
+          ]
+        },
+        {
+          "type": "group",
+          "label": {
+            "en": "Power-on",
+            "it": "Accensione"
+          },
+          "children": [
+            {
+              "id": "power_on_behavior",
+              "type": "dropdown",
+              "label": {
+                "en": "Power-on State",
+                "it": "Stato all'Accensione"
+              },
+              "hint": {
+                "en": "The state of the device when the power restores from a power outage or being turned off physically.",
+                "it": "Stato del dispositivo al momento dell'interruzione dell'alimentazione o dello spegnimento dell'interruttore."
+              },
+              "value": "off",
+              "values": [
+                {
+                  "id": "on",
+                  "label": {
+                    "en": "On",
+                    "it": "Acceso"
+                  }
+                },
+                {
+                  "id": "off",
+                  "label": {
+                    "en": "Off",
+                    "it": "Spento"
+                  }
+                },
+                {
+                  "id": "last_state",
+                  "label": {
+                    "en": "Last state",
+                    "it": "Ultimo stato"
+                  }
+                }
+              ]
+            },
+            {
+              "id": "power_on_delay_state",
+              "type": "checkbox",
+              "value": false,
+              "hint": {
+                "en": "Power-on state will be delayed for the time you set.",
+                "it": "Lo stato all'accensione sarà ritardato per il tempo impostato."
+              },
+              "label": {
+                "en": "Delay",
+                "it": "Ritardo"
+              }
+            },
+            {
+              "id": "power_on_delay_time",
+              "type": "number",
+              "label": {
+                "en": "Duration (seconds)",
+                "it": "Durata (secondi)"
+              },
+              "value": 28,
+              "min": 0.5,
+              "max": 3599.5,
+              "step": 0.5
+            }
+          ]
+        },
+        {
+          "type": "group",
+          "label": {
+            "en": "Inching Settings",
+            "it": "Impostazioni di Inching"
+          },
+          "children": [
+            {
+              "id": "inching_enabled",
+              "type": "checkbox",
+              "value": false,
+              "label": {
+                "en": "Enable Inching",
+                "it": "Abilita Inching"
+              },
+              "hint": {
+                "en": "Automatically turn off/on after a set time.",
+                "it": "Spegne/accende automaticamente dopo un tempo impostato."
+              }
+            },
+            {
+              "id": "inching_time",
+              "type": "number",
+              "label": {
+                "en": "Inching time (seconds)",
+                "it": "Tempo di Inching (secondi)"
+              },
+              "value": 1,
+              "min": 0.5,
+              "max": 3599.5,
+              "step": 0.5
+            },
+            {
+              "id": "inching_mode",
+              "type": "dropdown",
+              "label": {
+                "en": "Status",
+                "it": "Stato"
+              },
+              "hint": {
+                "en": "Choose whether to turn on or off after the set time.",
+                "it": "Scegli se accendere o spegnere dopo il tempo impostato."
+              },
+              "value": "on",
+              "values": [
+                {
+                  "id": "on",
+                  "label": {
+                    "en": "Auto-On",
+                    "it": "Auto-acceso"
+                  }
+                },
+                {
+                  "id": "off",
+                  "label": {
+                    "en": "Auto-Off",
+                    "it": "Auto-spento"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "platforms": [
+        "local"
+      ],
+      "connectivity": [
+        "zigbee"
+      ],
+      "images": {
+        "xlarge": "/drivers/ekaza_siren/assets/images/xlarge.png",
+        "large": "/drivers/ekaza_siren/assets/images/large.png",
+        "small": "/drivers/ekaza_siren/assets/images/small.png"
+      },
+      "id": "ekaza_siren",
+      "name": {
+        "en": "Ekaza Smart Siren",
+        "es": "Sirena inteligente Ekaza",
+        "it": "Sirena smart Ekaza",
+        "de": "Ekaza Smart-Sirene"
+      },
+      "class": "siren",
+      "capabilities": [
+        "onoff",
+        "measure_battery"
+      ],
+      "capabilitiesOptions": {
+        "onoff": {
+          "title": {
+            "en": "Siren",
+            "es": "Sirena",
+            "it": "Sirena",
+            "de": "Sirene"
+          },
+          "greyout": false
+        },
+        "measure_battery": {
+          "title": {
+            "en": "Battery Backup",
+            "es": "Batería de reserva",
+            "it": "Batteria di riserva",
+            "de": "Backup-Batterie"
+          }
+        }
+      },
+      "energy": {
+        "approximation": {
+          "usageOn": 10,
+          "usageOff": 1
+        },
+        "batteries": [
+          "AA",
+          "AA",
+          "AA"
+        ]
+      },
+      "settings": [
+        {
+          "type": "group",
+          "label": {
+            "en": "Alarm Settings",
+            "es": "Configuración de alarma",
+            "it": "Impostazioni allarme",
+            "de": "Alarmeinstellungen"
+          },
+          "children": [
+            {
+              "id": "alarmvolume",
+              "type": "dropdown",
+              "label": {
+                "en": "Volume",
+                "es": "Volumen",
+                "it": "Volume",
+                "de": "Lautstärke"
+              },
+              "hint": {
+                "en": "Alarm volume level. Applied each time the siren is triggered.",
+                "es": "Nivel de volumen de la alarma. Se aplica cada vez que se activa la sirena.",
+                "it": "Livello di volume dell'allarme. Applicato ogni volta che la sirena viene attivata.",
+                "de": "Alarmlautstärke. Wird bei jeder Auslösung der Sirene angewendet."
+              },
+              "value": "2",
+              "values": [
+                {
+                  "id": "0",
+                  "label": {
+                    "en": "Low",
+                    "es": "Bajo",
+                    "it": "Basso",
+                    "de": "Niedrig"
+                  }
+                },
+                {
+                  "id": "1",
+                  "label": {
+                    "en": "Medium",
+                    "es": "Medio",
+                    "it": "Medio",
+                    "de": "Mittel"
+                  }
+                },
+                {
+                  "id": "2",
+                  "label": {
+                    "en": "High (default)",
+                    "es": "Alto (predeterminado)",
+                    "it": "Alto (predefinito)",
+                    "de": "Hoch (Standard)"
+                  }
+                }
+              ]
+            },
+            {
+              "id": "alarmsoundtime",
+              "type": "number",
+              "label": {
+                "en": "Alarm Duration",
+                "es": "Duración de la alarma",
+                "it": "Durata allarme",
+                "de": "Alarmdauer"
+              },
+              "hint": {
+                "en": "How long the alarm plays in seconds (1–1800). Homey UI auto-resets 2 seconds after this time.",
+                "es": "Duración de la alarma en segundos (1–1800). El panel de Homey se reinicia automáticamente 2 segundos después.",
+                "it": "Durata dell'allarme in secondi (1–1800). L'interfaccia Homey si ripristina automaticamente 2 secondi dopo.",
+                "de": "Wie lange der Alarm in Sekunden läuft (1–1800). Die Homey-UI setzt sich 2 Sekunden danach automatisch zurück."
+              },
+              "value": 10,
+              "min": 1,
+              "max": 1800,
+              "step": 1,
+              "units": "s"
+            },
+            {
+              "id": "alarmtune",
+              "type": "dropdown",
+              "label": {
+                "en": "Melody",
+                "es": "Melodía",
+                "it": "Melodia",
+                "de": "Melodie"
+              },
+              "hint": {
+                "en": "Alarm sound type. Applied each time the siren is triggered.",
+                "es": "Tipo de sonido de alarma. Se aplica cada vez que se activa la sirena.",
+                "it": "Tipo di suono dell'allarme. Applicato ogni volta che la sirena viene attivata.",
+                "de": "Alarmtontyp. Wird bei jeder Auslösung der Sirene angewendet."
+              },
+              "value": "5",
+              "values": [
+                {
+                  "id": "0",
+                  "label": {
+                    "en": "Doorbell Chime",
+                    "es": "Timbre de puerta",
+                    "it": "Campanello porta",
+                    "de": "Türklingel"
+                  }
+                },
+                {
+                  "id": "1",
+                  "label": {
+                    "en": "Für Elise",
+                    "es": "Para Elisa",
+                    "it": "Per Elisa",
+                    "de": "Für Elise"
+                  }
+                },
+                {
+                  "id": "2",
+                  "label": {
+                    "en": "Westminster Chimes",
+                    "es": "Carillón Westminster",
+                    "it": "Rintocchi Westminster",
+                    "de": "Westminster-Glocken"
+                  }
+                },
+                {
+                  "id": "3",
+                  "label": {
+                    "en": "Fast Double Doorbell",
+                    "es": "Timbre doble rápido",
+                    "it": "Doppio campanello veloce",
+                    "de": "Schnelle Doppelklingel"
+                  }
+                },
+                {
+                  "id": "4",
+                  "label": {
+                    "en": "William Tell Overture",
+                    "es": "Obertura Guillermo Tell",
+                    "it": "Ouverture Guglielmo Tell",
+                    "de": "Wilhelm Tell Ouvertüre"
+                  }
+                },
+                {
+                  "id": "5",
+                  "label": {
+                    "en": "Turkish March (default)",
+                    "es": "Marcha turca (predeter.)",
+                    "it": "Marcia turca (predef.)",
+                    "de": "Türkischer Marsch (Std)"
+                  }
+                },
+                {
+                  "id": "6",
+                  "label": {
+                    "en": "Safe / Security Alarm",
+                    "es": "Alarma de seguridad",
+                    "it": "Allarme sicurezza",
+                    "de": "Sicherheitsalarm"
+                  }
+                },
+                {
+                  "id": "7",
+                  "label": {
+                    "en": "Chemical Spill Alert",
+                    "es": "Alerta de derrame químico",
+                    "it": "Allarme sostanze chimiche",
+                    "de": "Chemikalienalarm"
+                  }
+                },
+                {
+                  "id": "8",
+                  "label": {
+                    "en": "Piercing Alarm Clock",
+                    "es": "Despertador estridente",
+                    "it": "Sveglia acuta",
+                    "de": "Schriller Wecker"
+                  }
+                },
+                {
+                  "id": "9",
+                  "label": {
+                    "en": "Smoke Alarm",
+                    "es": "Alarma de humo",
+                    "it": "Allarme fumo",
+                    "de": "Rauchmelder"
+                  }
+                },
+                {
+                  "id": "10",
+                  "label": {
+                    "en": "Dog Barking",
+                    "es": "Ladrido de perro",
+                    "it": "Abbaiare di cane",
+                    "de": "Hundegebell"
+                  }
+                },
+                {
+                  "id": "11",
+                  "label": {
+                    "en": "Police Siren",
+                    "es": "Sirena policial",
+                    "it": "Sirena polizia",
+                    "de": "Polizeisirene"
+                  }
+                },
+                {
+                  "id": "12",
+                  "label": {
+                    "en": "Doorbell Chime (reverb)",
+                    "es": "Timbre con reverb",
+                    "it": "Campanello con riverbero",
+                    "de": "Türklingel (Hall)"
+                  }
+                },
+                {
+                  "id": "13",
+                  "label": {
+                    "en": "Mechanical Telephone",
+                    "es": "Teléfono mecánico",
+                    "it": "Telefono meccanico",
+                    "de": "Mechanisches Telefon"
+                  }
+                },
+                {
+                  "id": "14",
+                  "label": {
+                    "en": "Fire / Ambulance",
+                    "es": "Bomberos / Ambulancia",
+                    "it": "Pompieri / Ambulanza",
+                    "de": "Feuerwehr / Krankenwagen"
+                  }
+                },
+                {
+                  "id": "15",
+                  "label": {
+                    "en": "3/1 Elevator",
+                    "es": "Ascensor 3/1",
+                    "it": "Ascensore 3/1",
+                    "de": "Aufzug 3/1"
+                  }
+                },
+                {
+                  "id": "16",
+                  "label": {
+                    "en": "Buzzing Alarm Clock",
+                    "es": "Despertador zumbador",
+                    "it": "Sveglia ronzante",
+                    "de": "Summender Wecker"
+                  }
+                },
+                {
+                  "id": "17",
+                  "label": {
+                    "en": "School Bell",
+                    "es": "Timbre escolar",
+                    "it": "Campanella scolastica",
+                    "de": "Schulklingel"
+                  }
+                }
+              ]
+            },
+            {
+              "id": "melody_name",
+              "type": "label",
+              "label": {
+                "en": "Current Melody",
+                "es": "Melodía actual",
+                "it": "Melodia attuale",
+                "de": "Aktuelle Melodie"
+              },
+              "value": "Turkish March"
+            }
+          ]
+        }
+      ],
+      "zigbee": {
+        "manufacturerName": [
+          "_TZE204_q76rtoa9"
+        ],
+        "productId": [
+          "TS0601"
+        ],
+        "endpoints": {
+          "1": {
+            "clusters": [
+              0,
+              4,
+              5,
+              61184
+            ],
+            "bindings": [
+              61184
+            ]
+          }
+        },
+        "learnmode": {
+          "image": "/drivers/ekaza_siren/assets/icon.svg",
+          "instruction": {
+            "en": "Press and hold the button inside the battery compartment for approximately 5 seconds until the LED blinks rapidly.",
+            "es": "Mantén pulsado el botón del compartimento de la batería durante aproximadamente 5 segundos hasta que el LED parpadee rápidamente.",
+            "it": "Tieni premuto il pulsante nel vano batterie per circa 5 secondi fino a quando il LED lampeggia rapidamente.",
+            "de": "Halte die Taste im Batteriefach ca. 5 Sekunden gedrückt, bis die LED schnell blinkt."
+          }
+        }
+      }
+    },
+    {
+      "platforms": [
+        "local"
+      ],
+      "connectivity": [
+        "zigbee"
+      ],
+      "images": {
+        "xlarge": "/drivers/gas_detector/assets/images/xlarge.png",
+        "large": "/drivers/gas_detector/assets/images/large.png",
+        "small": "/drivers/gas_detector/assets/images/small.png"
+      },
+      "id": "gas_detector",
+      "name": {
+        "en": "Smart Gas Detector",
+        "es": "Detector de gas inteligente",
+        "it": "Rilevatore gas smart",
+        "de": "Intelligenter Gasdetektor"
+      },
+      "class": "sensor",
+      "capabilities": [
+        "alarm_gas",
+        "alarm_problem"
+      ],
+      "capabilitiesOptions": {
+        "alarm_gas": {
+          "title": {
+            "en": "Gas alarm",
+            "es": "Alarma de gas",
+            "it": "Allarme gas",
+            "de": "Gasalarm"
+          },
+          "uiComponent": "alarm",
+          "alarm": true,
+          "insightsTitleTrue": {
+            "en": "Gas detected!",
+            "es": "¡Gas detectado!",
+            "it": "Gas rilevato!",
+            "de": "Gas erkannt!"
+          },
+          "insightsTitleFalse": {
+            "en": "Gas alarm cleared",
+            "es": "Alarma de gas desactivada",
+            "it": "Allarme gas disattivato",
+            "de": "Gasalarm zurückgesetzt"
+          }
+        },
+        "alarm_problem": {
+          "title": {
+            "en": "Device fault",
+            "es": "Fallo del dispositivo",
+            "it": "Guasto dispositivo",
+            "de": "Gerätefehler"
+          },
+          "uiComponent": "alarm",
+          "alarm": true,
+          "insightsTitleTrue": {
+            "en": "Device fault detected",
+            "es": "Fallo del dispositivo detectado",
+            "it": "Guasto dispositivo rilevato",
+            "de": "Gerätefehler erkannt"
+          },
+          "insightsTitleFalse": {
+            "en": "Device fault cleared",
+            "es": "Fallo del dispositivo resuelto",
+            "it": "Guasto dispositivo risolto",
+            "de": "Gerätefehler behoben"
+          }
+        }
+      },
+      "energy": {
+        "approximation": {
+          "usageConstant": 1.5
+        }
+      },
+      "zigbee": {
+        "manufacturerName": [
+          "_TYZB01_0w3d5uw3"
+        ],
+        "productId": [
+          "TS0204"
+        ],
+        "endpoints": {
+          "1": {
+            "clusters": [
+              0,
+              3,
+              1280,
+              2821
+            ],
+            "bindings": [
+              3,
+              1280
+            ]
+          }
+        },
+        "learnmode": {
+          "image": "/drivers/gas_detector/assets/icon.svg",
+          "instruction": {
+            "en": "Insert a pin or paperclip into the reset pinhole and hold for 5 seconds until the LED flashes rapidly.",
+            "es": "Introduce un alfiler o clip en el orificio de reinicio y mantenlo durante 5 segundos hasta que el LED parpadee rápidamente.",
+            "it": "Inserisci un ago o una graffetta nel foro di reset e tieni premuto per 5 secondi fino a quando il LED lampeggia rapidamente.",
+            "de": "Stecke eine Nadel oder Büroklammer in das Reset-Loch und halte sie 5 Sekunden, bis die LED schnell blinkt."
+          }
+        }
+      },
+      "settings": [
+        {
+          "type": "group",
+          "label": {
+            "en": "Alerts"
+          },
+          "children": [
+            {
+              "id": "alarm_problem_enabled",
+              "type": "checkbox",
+              "label": {
+                "en": "Enable device fault alert"
+              },
+              "hint": {
+                "en": "Show alert when the sensor reports a hardware fault."
+              },
+              "value": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "platforms": [
+        "local"
+      ],
+      "connectivity": [
+        "zigbee"
+      ],
+      "images": {
+        "xlarge": "/drivers/lcdtemphumidsensor/assets/images/xlarge.png",
+        "large": "/drivers/lcdtemphumidsensor/assets/images/large.png",
+        "small": "/drivers/lcdtemphumidsensor/assets/images/small.png"
+      },
+      "id": "lcdtemphumidsensor",
+      "name": {
+        "en": "LCD Temperature & Humidity Sensor",
+        "es": "Sensor de temperatura y humedad LCD",
+        "it": "Sensore temperatura e umidità LCD",
+        "de": "LCD Temperatur- und Feuchtigkeitssensor"
+      },
+      "class": "sensor",
+      "capabilities": [
+        "measure_temperature",
+        "measure_humidity",
+        "measure_battery"
+      ],
+      "capabilitiesOptions": {
+        "measure_temperature": {
+          "decimals": 1,
+          "title": {
+            "en": "Temperature",
+            "es": "Temperatura",
+            "it": "Temperatura",
+            "de": "Temperatur"
+          }
+        },
+        "measure_humidity": {
+          "decimals": 1,
+          "title": {
+            "en": "Humidity",
+            "es": "Humedad",
+            "it": "Umidità",
+            "de": "Feuchtigkeit"
+          }
+        },
+        "measure_battery": {
+          "title": {
+            "en": "Battery",
+            "es": "Batería",
+            "it": "Batteria",
+            "de": "Batterie"
+          }
+        }
+      },
+      "energy": {
+        "batteries": [
+          "CR2032"
+        ]
+      },
+      "zigbee": {
+        "manufacturerName": [
+          "_TZ3000_ywagc4rj"
+        ],
+        "productId": [
+          "TS0201"
+        ],
+        "endpoints": {
+          "1": {
+            "clusters": [
+              0,
+              1,
+              3,
+              1026,
+              1029
+            ],
+            "bindings": []
+          }
+        },
+        "learnmode": {
+          "image": "/drivers/lcdtemphumidsensor/assets/icon.svg",
+          "instruction": {
+            "en": "Hold reset 5s until LCD blinks",
+            "es": "Mantén el botón de reinicio 5 s hasta que el LCD parpadee",
+            "it": "Tieni premuto il reset per 5 s fino a quando il display LCD lampeggia",
+            "de": "Reset 5 s gedrückt halten, bis das LCD blinkt"
+          }
+        }
+      },
+      "settings": []
+    },
+    {
+      "platforms": [
+        "local"
+      ],
+      "connectivity": [
+        "zigbee"
+      ],
+      "images": {
+        "xlarge": "/drivers/moes_dimmer_3_gang/assets/images/xlarge.png",
+        "large": "/drivers/moes_dimmer_3_gang/assets/images/large.png",
+        "small": "/drivers/moes_dimmer_3_gang/assets/images/small.png"
+      },
+      "id": "moes_dimmer_3_gang",
+      "name": {
+        "en": "Moes Dimmer 3 Gang",
+        "es": "Regulador Moes 3 canales",
+        "it": "Dimmer Moes 3 canali",
+        "de": "Moes Dimmer 3-fach"
+      },
+      "class": "socket",
+      "capabilities": [
+        "onoff",
+        "dim",
+        "is_availability"
+      ],
+      "capabilitiesOptions": {
+        "dim": {
+          "opts": {
+            "duration": true
+          },
+          "title": {
+            "en": "Fan Speed",
+            "es": "Velocidad del ventilador",
+            "it": "Velocità ventilatore",
+            "de": "Lüftergeschwindigkeit"
+          },
+          "units": {
+            "en": "%",
+            "es": "%",
+            "it": "%",
+            "de": "%"
+          }
+        }
+      },
+      "energy": {
+        "approximation": {
+          "usageOn": 150,
+          "usageOff": 0
+        }
+      },
+      "settings": [
+        {
+          "id": "device_siblings_info",
+          "type": "label",
+          "label": {
+            "en": "Connected Controllers",
+            "es": "Controladores conectados",
+            "it": "Controller collegati",
+            "de": "Verbundene Regler"
+          },
+          "hint": {
+            "en": "Other fan controllers sharing this physical device",
+            "es": "Otros controladores de ventilador que comparten este dispositivo",
+            "it": "Altri controller del ventilatore che condividono questo dispositivo",
+            "de": "Andere Lüftungsregler, die dieses physische Gerät teilen"
+          },
+          "value": "-"
+        },
+        {
+          "type": "group",
+          "label": {
+            "en": "Speed Control",
+            "es": "Control de velocidad",
+            "it": "Controllo velocità",
+            "de": "Geschwindigkeitsregelung"
+          },
+          "children": [
+            {
+              "id": "minimumBrightness",
+              "type": "number",
+              "label": {
+                "en": "Min Speed",
+                "es": "Velocidad mínima",
+                "it": "Velocità minima",
+                "de": "Mindestgeschwindigkeit"
+              },
+              "hint": {
+                "en": "Hardware-enforced minimum fan speed (1–46%). Written directly to device.",
+                "es": "Velocidad mínima del ventilador impuesta por hardware (1–46%). Se escribe directamente en el dispositivo.",
+                "it": "Velocità minima del ventilatore imposta dall'hardware (1–46%). Scritta direttamente sul dispositivo.",
+                "de": "Hardware-erzwungene Mindestlüftergeschwindigkeit (1–46 %). Direkt auf das Gerät geschrieben."
+              },
+              "value": 10,
+              "min": 1,
+              "max": 46,
+              "step": 1,
+              "units": "%"
+            },
+            {
+              "id": "maximumBrightness",
+              "type": "number",
+              "label": {
+                "en": "Max Speed",
+                "es": "Velocidad máxima",
+                "it": "Velocità massima",
+                "de": "Höchstgeschwindigkeit"
+              },
+              "hint": {
+                "en": "Hardware-enforced maximum fan speed (56–100%). Written directly to device.",
+                "es": "Velocidad máxima del ventilador impuesta por hardware (56–100%). Se escribe directamente en el dispositivo.",
+                "it": "Velocità massima del ventilatore imposta dall'hardware (56–100%). Scritta direttamente sul dispositivo.",
+                "de": "Hardware-erzwungene Höchstlüftergeschwindigkeit (56–100 %). Direkt auf das Gerät geschrieben."
+              },
+              "value": 100,
+              "min": 56,
+              "max": 100,
+              "step": 1,
+              "units": "%"
+            }
+          ]
+        },
+        {
+          "type": "group",
+          "label": {
+            "en": "Performance & Protection",
+            "es": "Rendimiento y protección",
+            "it": "Prestazioni e protezione",
+            "de": "Leistung und Schutz"
+          },
+          "children": [
+            {
+              "id": "enableDebouncing",
+              "type": "checkbox",
+              "label": {
+                "en": "Enable Debouncing",
+                "es": "Activar antirrebote",
+                "it": "Abilita antirimbalzo",
+                "de": "Entprellung aktivieren"
+              },
+              "hint": {
+                "en": "Reduces motor stress and network traffic during rapid speed changes",
+                "es": "Reduce el estrés del motor y el tráfico de red durante cambios rápidos de velocidad",
+                "it": "Riduce lo stress del motore e il traffico di rete durante cambi rapidi di velocità",
+                "de": "Reduziert Motorbelastung und Netzwerkverkehr bei schnellen Geschwindigkeitsänderungen"
+              },
+              "value": true
+            },
+            {
+              "id": "debounceDelay",
+              "type": "number",
+              "label": {
+                "en": "Debounce Delay",
+                "es": "Retardo antirrebote",
+                "it": "Ritardo antirimbalzo",
+                "de": "Entprellverzögerung"
+              },
+              "hint": {
+                "en": "Wait time before applying speed changes (ms)",
+                "es": "Tiempo de espera antes de aplicar cambios de velocidad (ms)",
+                "it": "Tempo di attesa prima di applicare i cambi di velocità (ms)",
+                "de": "Wartezeit vor dem Anwenden von Geschwindigkeitsänderungen (ms)"
+              },
+              "value": 800,
+              "min": 0,
+              "max": 3000,
+              "step": 100,
+              "units": "ms"
+            },
+            {
+              "id": "enableMotorProtection",
+              "type": "checkbox",
+              "label": {
+                "en": "Motor Protection",
+                "es": "Protección del motor",
+                "it": "Protezione motore",
+                "de": "Motorschutz"
+              },
+              "hint": {
+                "en": "Adds startup delay to prevent motor stress. Disable for LED dimmers",
+                "es": "Añade un retardo de arranque para evitar el estrés del motor. Desactivar para atenuadores LED",
+                "it": "Aggiunge un ritardo di avvio per prevenire lo stress del motore. Disabilita per dimmer LED",
+                "de": "Fügt eine Anlaufverzögerung hinzu, um Motorbelastung zu vermeiden. Für LED-Dimmer deaktivieren"
+              },
+              "value": true
+            },
+            {
+              "id": "motorStartupDelay",
+              "type": "number",
+              "label": {
+                "en": "Motor Startup Delay",
+                "es": "Retardo de arranque del motor",
+                "it": "Ritardo avvio motore",
+                "de": "Motoranlaufverzögerung"
+              },
+              "hint": {
+                "en": "Delay between setting speed and powering on motor (ms)",
+                "es": "Retardo entre ajustar la velocidad y encender el motor (ms)",
+                "it": "Ritardo tra l'impostazione della velocità e l'accensione del motore (ms)",
+                "de": "Verzögerung zwischen Geschwindigkeitseinstellung und Motorstart (ms)"
+              },
+              "value": 1500,
+              "min": 0,
+              "max": 3000,
+              "step": 100,
+              "units": "ms"
+            }
+          ]
+        },
+        {
+          "type": "group",
+          "label": {
+            "en": "Global Settings",
+            "es": "Ajustes globales",
+            "it": "Impostazioni globali",
+            "de": "Globale Einstellungen"
+          },
+          "children": [
+            {
+              "id": "powerOnState",
+              "type": "dropdown",
+              "label": {
+                "en": "Power-On Behavior (All Gangs)",
+                "es": "Comportamiento al encender (todos los grupos)",
+                "it": "Comportamento all'accensione (tutti i gruppi)",
+                "de": "Einschaltverhalten (alle Gruppen)"
+              },
+              "hint": {
+                "en": "Controls all 3 gangs after power outage",
+                "es": "Controla los 3 grupos tras un corte de luz",
+                "it": "Controlla tutti e 3 i gruppi dopo un'interruzione di corrente",
+                "de": "Steuert alle 3 Gruppen nach einem Stromausfall"
+              },
+              "value": "memory",
+              "values": [
+                {
+                  "id": "off",
+                  "label": {
+                    "en": "Always Off",
+                    "es": "Siempre apagado",
+                    "it": "Sempre spento",
+                    "de": "Immer aus"
+                  }
+                },
+                {
+                  "id": "on",
+                  "label": {
+                    "en": "Always On",
+                    "es": "Siempre encendido",
+                    "it": "Sempre acceso",
+                    "de": "Immer ein"
+                  }
+                },
+                {
+                  "id": "memory",
+                  "label": {
+                    "en": "Remember State",
+                    "es": "Recordar estado",
+                    "it": "Ricorda stato",
+                    "de": "Zustand merken"
+                  }
+                }
+              ]
+            },
+            {
+              "id": "backlightMode",
+              "type": "dropdown",
+              "label": {
+                "en": "LED Mode (All Gangs)",
+                "es": "Modo LED (todos los grupos)",
+                "it": "Modalità LED (tutti i gruppi)",
+                "de": "LED-Modus (alle Gruppen)"
+              },
+              "hint": {
+                "en": "Status LED behavior for all 3 gangs",
+                "es": "Comportamiento del LED de estado para los 3 grupos",
+                "it": "Comportamento del LED di stato per tutti e 3 i gruppi",
+                "de": "Status-LED-Verhalten für alle 3 Gruppen"
+              },
+              "value": "normal",
+              "values": [
+                {
+                  "id": "off",
+                  "label": {
+                    "en": "Always Off",
+                    "es": "Siempre apagado",
+                    "it": "Sempre spento",
+                    "de": "Immer aus"
+                  }
+                },
+                {
+                  "id": "normal",
+                  "label": {
+                    "en": "On when running",
+                    "es": "Encendido cuando en marcha",
+                    "it": "Acceso quando in funzione",
+                    "de": "Ein bei Betrieb"
+                  }
+                },
+                {
+                  "id": "inverted",
+                  "label": {
+                    "en": "On when stopped",
+                    "es": "Encendido cuando parado",
+                    "it": "Acceso quando fermo",
+                    "de": "Ein bei Stillstand"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "zigbee": {
+        "manufacturerName": [
+          "_TZE204_1v1dxkck"
+        ],
+        "productId": [
+          "TS0601"
+        ],
+        "endpoints": {
+          "1": {
+            "clusters": [
+              0,
+              4,
+              5,
+              61184
+            ],
+            "bindings": [
+              61184
+            ]
+          }
+        },
+        "devices": {
+          "secondGang": {
+            "class": "socket",
+            "capabilities": [
+              "onoff",
+              "dim"
+            ],
+            "capabilitiesOptions": {
+              "dim": {
+                "title": {
+                  "en": "Fan Speed",
+                  "es": "Velocidad del ventilador",
+                  "it": "Velocità ventilatore",
+                  "de": "Lüftergeschwindigkeit"
+                },
+                "units": {
+                  "en": "%",
+                  "es": "%",
+                  "it": "%",
+                  "de": "%"
+                }
+              }
+            },
+            "name": {
+              "en": "Moes Dimmer 3 Gang - Gang 2",
+              "es": "Regulador Moes 3 canales - Canal 2",
+              "it": "Dimmer Moes 3 canali - Canale 2",
+              "de": "Moes Dimmer 3-fach - Gruppe 2"
+            },
+            "energy": {
+              "approximation": {
+                "usageOn": 150,
+                "usageOff": 0
+              }
+            },
+            "settings": [
+              {
+                "id": "device_siblings_info",
+                "type": "label",
+                "label": {
+                  "en": "Connected Controllers",
+                  "es": "Controladores conectados",
+                  "it": "Controller collegati",
+                  "de": "Verbundene Regler"
+                },
+                "hint": {
+                  "en": "Other fan controllers sharing this physical device",
+                  "es": "Otros controladores de ventilador que comparten este dispositivo",
+                  "it": "Altri controller del ventilatore che condividono questo dispositivo",
+                  "de": "Andere Lüftungsregler, die dieses physische Gerät teilen"
+                },
+                "value": "-"
+              },
+              {
+                "type": "group",
+                "label": {
+                  "en": "Speed Control",
+                  "es": "Control de velocidad",
+                  "it": "Controllo velocità",
+                  "de": "Geschwindigkeitsregelung"
+                },
+                "children": [
+                  {
+                    "id": "minimumBrightness",
+                    "type": "number",
+                    "label": {
+                      "en": "Min Speed",
+                      "es": "Velocidad mínima",
+                      "it": "Velocità minima",
+                      "de": "Mindestgeschwindigkeit"
+                    },
+                    "hint": {
+                      "en": "Hardware-enforced minimum fan speed (1–46%). Written directly to device.",
+                      "es": "Velocidad mínima del ventilador impuesta por hardware (1–46%).",
+                      "it": "Velocità minima del ventilatore imposta dall'hardware (1–46%).",
+                      "de": "Hardware-erzwungene Mindestlüftergeschwindigkeit (1–46 %)."
+                    },
+                    "value": 10,
+                    "min": 1,
+                    "max": 46,
+                    "step": 1,
+                    "units": "%"
+                  },
+                  {
+                    "id": "maximumBrightness",
+                    "type": "number",
+                    "label": {
+                      "en": "Max Speed",
+                      "es": "Velocidad máxima",
+                      "it": "Velocità massima",
+                      "de": "Höchstgeschwindigkeit"
+                    },
+                    "hint": {
+                      "en": "Hardware-enforced maximum fan speed (56–100%). Written directly to device.",
+                      "es": "Velocidad máxima del ventilador impuesta por hardware (56–100%).",
+                      "it": "Velocità massima del ventilatore imposta dall'hardware (56–100%).",
+                      "de": "Hardware-erzwungene Höchstlüftergeschwindigkeit (56–100 %)."
+                    },
+                    "value": 100,
+                    "min": 56,
+                    "max": 100,
+                    "step": 1,
+                    "units": "%"
+                  }
+                ]
+              },
+              {
+                "type": "group",
+                "label": {
+                  "en": "Performance & Protection",
+                  "es": "Rendimiento y protección",
+                  "it": "Prestazioni e protezione",
+                  "de": "Leistung und Schutz"
+                },
+                "children": [
+                  {
+                    "id": "enableDebouncing",
+                    "type": "checkbox",
+                    "label": {
+                      "en": "Enable Debouncing",
+                      "es": "Activar antirrebote",
+                      "it": "Abilita antirimbalzo",
+                      "de": "Entprellung aktivieren"
+                    },
+                    "hint": {
+                      "en": "Reduces motor stress and network traffic during rapid speed changes",
+                      "es": "Reduce el estrés del motor y el tráfico de red.",
+                      "it": "Riduce lo stress del motore e il traffico di rete.",
+                      "de": "Reduziert Motorbelastung und Netzwerkverkehr."
+                    },
+                    "value": true
+                  },
+                  {
+                    "id": "debounceDelay",
+                    "type": "number",
+                    "label": {
+                      "en": "Debounce Delay",
+                      "es": "Retardo antirrebote",
+                      "it": "Ritardo antirimbalzo",
+                      "de": "Entprellverzögerung"
+                    },
+                    "hint": {
+                      "en": "Wait time before applying speed changes (ms)",
+                      "es": "Tiempo de espera antes de aplicar cambios de velocidad (ms)",
+                      "it": "Tempo di attesa prima di applicare i cambi di velocità (ms)",
+                      "de": "Wartezeit vor dem Anwenden von Geschwindigkeitsänderungen (ms)"
+                    },
+                    "value": 800,
+                    "min": 0,
+                    "max": 3000,
+                    "step": 100,
+                    "units": "ms"
+                  },
+                  {
+                    "id": "enableMotorProtection",
+                    "type": "checkbox",
+                    "label": {
+                      "en": "Motor Protection",
+                      "es": "Protección del motor",
+                      "it": "Protezione motore",
+                      "de": "Motorschutz"
+                    },
+                    "hint": {
+                      "en": "Adds startup delay to prevent motor stress. Disable for LED dimmers",
+                      "es": "Añade retardo de arranque. Desactivar para atenuadores LED.",
+                      "it": "Aggiunge ritardo di avvio. Disabilita per dimmer LED.",
+                      "de": "Fügt Anlaufverzögerung hinzu. Für LED-Dimmer deaktivieren."
+                    },
+                    "value": true
+                  },
+                  {
+                    "id": "motorStartupDelay",
+                    "type": "number",
+                    "label": {
+                      "en": "Motor Startup Delay",
+                      "es": "Retardo de arranque del motor",
+                      "it": "Ritardo avvio motore",
+                      "de": "Motoranlaufverzögerung"
+                    },
+                    "hint": {
+                      "en": "Delay between setting speed and powering on motor (ms)",
+                      "es": "Retardo entre ajustar la velocidad y encender el motor (ms)",
+                      "it": "Ritardo tra velocità e accensione motore (ms)",
+                      "de": "Verzögerung zwischen Geschwindigkeit und Motorstart (ms)"
+                    },
+                    "value": 1500,
+                    "min": 0,
+                    "max": 3000,
+                    "step": 100,
+                    "units": "ms"
+                  }
+                ]
+              },
+              {
+                "type": "group",
+                "label": {
+                  "en": "Global Settings",
+                  "es": "Ajustes globales",
+                  "it": "Impostazioni globali",
+                  "de": "Globale Einstellungen"
+                },
+                "children": [
+                  {
+                    "id": "_globalSettingsInfo",
+                    "type": "label",
+                    "label": {
+                      "en": "Power-On & LED Settings",
+                      "es": "Ajustes de encendido y LED",
+                      "it": "Impostazioni accensione e LED",
+                      "de": "Einschalt- und LED-Einstellungen"
+                    },
+                    "hint": {
+                      "en": "Global settings (Power-On behavior and LED mode) are configured in Gang 1 (Main) and apply to all 3 gangs.",
+                      "es": "Los ajustes globales se configuran en el canal 1 (principal) y se aplican a los 3 canales.",
+                      "it": "Le impostazioni globali si configurano nel canale 1 (principale) e si applicano a tutti e 3 i canali.",
+                      "de": "Globale Einstellungen werden in Gruppe 1 (Haupt) konfiguriert und gelten für alle 3 Gruppen."
+                    },
+                    "value": ""
+                  }
+                ]
+              }
+            ]
+          },
+          "thirdGang": {
+            "class": "socket",
+            "capabilities": [
+              "onoff",
+              "dim"
+            ],
+            "capabilitiesOptions": {
+              "dim": {
+                "title": {
+                  "en": "Fan Speed",
+                  "es": "Velocidad del ventilador",
+                  "it": "Velocità ventilatore",
+                  "de": "Lüftergeschwindigkeit"
+                },
+                "units": {
+                  "en": "%",
+                  "es": "%",
+                  "it": "%",
+                  "de": "%"
+                }
+              }
+            },
+            "name": {
+              "en": "Moes Dimmer 3 Gang - Gang 3",
+              "es": "Regulador Moes 3 canales - Canal 3",
+              "it": "Dimmer Moes 3 canali - Canale 3",
+              "de": "Moes Dimmer 3-fach - Gruppe 3"
+            },
+            "energy": {
+              "approximation": {
+                "usageOn": 150,
+                "usageOff": 0
+              }
+            },
+            "settings": [
+              {
+                "id": "device_siblings_info",
+                "type": "label",
+                "label": {
+                  "en": "Connected Controllers",
+                  "es": "Controladores conectados",
+                  "it": "Controller collegati",
+                  "de": "Verbundene Regler"
+                },
+                "hint": {
+                  "en": "Other fan controllers sharing this physical device",
+                  "es": "Otros controladores de ventilador que comparten este dispositivo",
+                  "it": "Altri controller del ventilatore che condividono questo dispositivo",
+                  "de": "Andere Lüftungsregler, die dieses physische Gerät teilen"
+                },
+                "value": "-"
+              },
+              {
+                "type": "group",
+                "label": {
+                  "en": "Speed Control",
+                  "es": "Control de velocidad",
+                  "it": "Controllo velocità",
+                  "de": "Geschwindigkeitsregelung"
+                },
+                "children": [
+                  {
+                    "id": "minimumBrightness",
+                    "type": "number",
+                    "label": {
+                      "en": "Min Speed",
+                      "es": "Velocidad mínima",
+                      "it": "Velocità minima",
+                      "de": "Mindestgeschwindigkeit"
+                    },
+                    "hint": {
+                      "en": "Hardware-enforced minimum fan speed (1–46%). Written directly to device.",
+                      "es": "Velocidad mínima del ventilador impuesta por hardware (1–46%).",
+                      "it": "Velocità minima del ventilatore imposta dall'hardware (1–46%).",
+                      "de": "Hardware-erzwungene Mindestlüftergeschwindigkeit (1–46 %)."
+                    },
+                    "value": 10,
+                    "min": 1,
+                    "max": 46,
+                    "step": 1,
+                    "units": "%"
+                  },
+                  {
+                    "id": "maximumBrightness",
+                    "type": "number",
+                    "label": {
+                      "en": "Max Speed",
+                      "es": "Velocidad máxima",
+                      "it": "Velocità massima",
+                      "de": "Höchstgeschwindigkeit"
+                    },
+                    "hint": {
+                      "en": "Hardware-enforced maximum fan speed (56–100%). Written directly to device.",
+                      "es": "Velocidad máxima del ventilador impuesta por hardware (56–100%).",
+                      "it": "Velocità massima del ventilatore imposta dall'hardware (56–100%).",
+                      "de": "Hardware-erzwungene Höchstlüftergeschwindigkeit (56–100 %)."
+                    },
+                    "value": 100,
+                    "min": 56,
+                    "max": 100,
+                    "step": 1,
+                    "units": "%"
+                  }
+                ]
+              },
+              {
+                "type": "group",
+                "label": {
+                  "en": "Performance & Protection",
+                  "es": "Rendimiento y protección",
+                  "it": "Prestazioni e protezione",
+                  "de": "Leistung und Schutz"
+                },
+                "children": [
+                  {
+                    "id": "enableDebouncing",
+                    "type": "checkbox",
+                    "label": {
+                      "en": "Enable Debouncing",
+                      "es": "Activar antirrebote",
+                      "it": "Abilita antirimbalzo",
+                      "de": "Entprellung aktivieren"
+                    },
+                    "hint": {
+                      "en": "Reduces motor stress and network traffic during rapid speed changes",
+                      "es": "Reduce el estrés del motor y el tráfico de red.",
+                      "it": "Riduce lo stress del motore e il traffico di rete.",
+                      "de": "Reduziert Motorbelastung und Netzwerkverkehr."
+                    },
+                    "value": true
+                  },
+                  {
+                    "id": "debounceDelay",
+                    "type": "number",
+                    "label": {
+                      "en": "Debounce Delay",
+                      "es": "Retardo antirrebote",
+                      "it": "Ritardo antirimbalzo",
+                      "de": "Entprellverzögerung"
+                    },
+                    "hint": {
+                      "en": "Wait time before applying speed changes (ms)",
+                      "es": "Tiempo de espera antes de aplicar cambios de velocidad (ms)",
+                      "it": "Tempo di attesa prima di applicare i cambi di velocità (ms)",
+                      "de": "Wartezeit vor dem Anwenden von Geschwindigkeitsänderungen (ms)"
+                    },
+                    "value": 800,
+                    "min": 0,
+                    "max": 3000,
+                    "step": 100,
+                    "units": "ms"
+                  },
+                  {
+                    "id": "enableMotorProtection",
+                    "type": "checkbox",
+                    "label": {
+                      "en": "Motor Protection",
+                      "es": "Protección del motor",
+                      "it": "Protezione motore",
+                      "de": "Motorschutz"
+                    },
+                    "hint": {
+                      "en": "Adds startup delay to prevent motor stress. Disable for LED dimmers",
+                      "es": "Añade retardo de arranque. Desactivar para atenuadores LED.",
+                      "it": "Aggiunge ritardo di avvio. Disabilita per dimmer LED.",
+                      "de": "Fügt Anlaufverzögerung hinzu. Für LED-Dimmer deaktivieren."
+                    },
+                    "value": true
+                  },
+                  {
+                    "id": "motorStartupDelay",
+                    "type": "number",
+                    "label": {
+                      "en": "Motor Startup Delay",
+                      "es": "Retardo de arranque del motor",
+                      "it": "Ritardo avvio motore",
+                      "de": "Motoranlaufverzögerung"
+                    },
+                    "hint": {
+                      "en": "Delay between setting speed and powering on motor (ms)",
+                      "es": "Retardo entre ajustar la velocidad y encender el motor (ms)",
+                      "it": "Ritardo tra velocità e accensione motore (ms)",
+                      "de": "Verzögerung zwischen Geschwindigkeit und Motorstart (ms)"
+                    },
+                    "value": 1500,
+                    "min": 0,
+                    "max": 3000,
+                    "step": 100,
+                    "units": "ms"
+                  }
+                ]
+              },
+              {
+                "type": "group",
+                "label": {
+                  "en": "Global Settings",
+                  "es": "Ajustes globales",
+                  "it": "Impostazioni globali",
+                  "de": "Globale Einstellungen"
+                },
+                "children": [
+                  {
+                    "id": "_globalSettingsInfo",
+                    "type": "label",
+                    "label": {
+                      "en": "Power-On & LED Settings",
+                      "es": "Ajustes de encendido y LED",
+                      "it": "Impostazioni accensione e LED",
+                      "de": "Einschalt- und LED-Einstellungen"
+                    },
+                    "hint": {
+                      "en": "Global settings (Power-On behavior and LED mode) are configured in Gang 1 (Main) and apply to all 3 gangs.",
+                      "es": "Los ajustes globales se configuran en el canal 1 (principal) y se aplican a los 3 canales.",
+                      "it": "Le impostazioni globali si configurano nel canale 1 (principale) e si applicano a tutti e 3 i canali.",
+                      "de": "Globale Einstellungen werden in Gruppe 1 (Haupt) konfiguriert und gelten für alle 3 Gruppen."
+                    },
+                    "value": ""
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        "learnmode": {
+          "image": "/drivers/moes_dimmer_3_gang/assets/icon.svg",
+          "instruction": {
+            "en": "Three fan controllers will be created, one for each channel. Gang 1 (Main) contains global settings that affect all gangs. Press the reset switch 6 times rapidly, then hold until the LED flashes to enter pairing mode.",
+            "es": "Se crearán tres controladores de ventilador, uno por canal. El canal 1 (principal) contiene ajustes globales. Pulsa el interruptor de reinicio 6 veces rápidamente y luego mantenlo hasta que el LED parpadee.",
+            "it": "Verranno creati tre controller del ventilatore, uno per canale. Il canale 1 (principale) contiene le impostazioni globali. Premi l'interruttore di reset 6 volte rapidamente, poi tieni premuto fino a quando il LED lampeggia.",
+            "de": "Es werden drei Lüftungsregler erstellt, einer pro Kanal. Gruppe 1 (Haupt) enthält globale Einstellungen. Drücke den Reset-Schalter 6-mal schnell, dann halte ihn gedrückt, bis die LED blinkt."
+          }
+        }
+      }
+    },
+    {
+      "platforms": [
+        "local"
+      ],
+      "connectivity": [
+        "zigbee"
+      ],
+      "images": {
+        "xlarge": "/drivers/novadigital_switch_1_gang/assets/images/xlarge.png",
+        "large": "/drivers/novadigital_switch_1_gang/assets/images/large.png",
+        "small": "/drivers/novadigital_switch_1_gang/assets/images/small.png"
+      },
+      "id": "novadigital_switch_1_gang",
+      "name": {
+        "en": "NovaDigital Switch 1 Gang",
+        "es": "Interruptor NovaDigital 1 canal",
+        "it": "Interruttore NovaDigital 1 canale",
+        "de": "NovaDigital Schalter 1-fach"
+      },
+      "class": "socket",
+      "capabilities": [
+        "onoff",
+        "main_gang",
+        "is_availability"
+      ],
+      "energy": {
+        "approximation": {
+          "usageOn": 0,
+          "usageOff": 0
+        }
+      },
+      "settings": [
+        {
+          "type": "group",
+          "label": {
+            "en": "Switch Settings",
+            "es": "Configuración del interruptor",
+            "it": "Impostazioni interruttore",
+            "de": "Schaltereinstellungen"
+          },
+          "children": [
+            {
+              "id": "backlight_enabled",
+              "type": "checkbox",
+              "label": {
+                "en": "LED Backlight",
+                "es": "Retroiluminación LED",
+                "it": "Retroilluminazione LED",
+                "de": "LED-Hintergrundbeleuchtung"
+              },
+              "hint": {
+                "en": "Status LED on physical button. If disabled, it will automatically stay OFF after a power failure.",
+                "es": "LED de estado en el botón físico. Si está desactivado, permanecerá APAGADO automáticamente tras un corte de luz.",
+                "it": "LED di stato sul pulsante fisico. Se disabilitato, rimarrà SPENTO automaticamente dopo un'interruzione di corrente.",
+                "de": "Status-LED an der physischen Taste. Wenn deaktiviert, bleibt sie nach einem Stromausfall automatisch AUS."
+              },
+              "value": true
+            },
+            {
+              "id": "switch_mode_global",
+              "type": "dropdown",
+              "label": {
+                "en": "Switch Mode",
+                "es": "Modo del interruptor",
+                "it": "Modalità interruttore",
+                "de": "Schaltmodus"
+              },
+              "hint": {
+                "en": "Physical button behavior",
+                "es": "Comportamiento del botón físico",
+                "it": "Comportamento del pulsante fisico",
+                "de": "Verhalten der physischen Taste"
+              },
+              "value": "toggle",
+              "values": [
+                {
+                  "id": "toggle",
+                  "label": {
+                    "en": "Toggle (Standard)",
+                    "es": "Alternante (estándar)",
+                    "it": "Alternante (standard)",
+                    "de": "Umschalten (Standard)"
+                  }
+                },
+                {
+                  "id": "momentary",
+                  "label": {
+                    "en": "Momentary (Pulse)",
+                    "es": "Momentáneo (pulso)",
+                    "it": "Momentaneo (impulso)",
+                    "de": "Momentan (Impuls)"
+                  }
+                }
+              ]
+            },
+            {
+              "id": "switch_mode_current",
+              "type": "label",
+              "label": {
+                "en": "Current Mode",
+                "es": "Modo actual",
+                "it": "Modalità attuale",
+                "de": "Aktueller Modus"
+              },
+              "hint": {
+                "en": "Read from device",
+                "es": "Leído del dispositivo",
+                "it": "Letto dal dispositivo",
+                "de": "Vom Gerät gelesen"
+              },
+              "value": "-"
+            }
+          ]
+        },
+        {
+          "type": "group",
+          "label": {
+            "en": "Power-On Global",
+            "es": "Encendido global",
+            "it": "Accensione globale",
+            "de": "Globales Einschalten"
+          },
+          "children": [
+            {
+              "id": "power_on_behavior_global",
+              "type": "dropdown",
+              "label": {
+                "en": "Default behavior",
+                "es": "Comportamiento predeterminado",
+                "it": "Comportamento predefinito",
+                "de": "Standardverhalten"
+              },
+              "hint": {
+                "en": "Applies and propagates to individual setting when changed",
+                "es": "Se aplica y propaga al ajuste individual al cambiar",
+                "it": "Si applica e si propaga all'impostazione individuale quando viene modificato",
+                "de": "Wird bei Änderung auf die individuelle Einstellung angewendet und weitergegeben"
+              },
+              "value": "lastState",
+              "values": [
+                {
+                  "id": "off",
+                  "label": {
+                    "en": "Always Off",
+                    "es": "Siempre apagado",
+                    "it": "Sempre spento",
+                    "de": "Immer aus"
+                  }
+                },
+                {
+                  "id": "on",
+                  "label": {
+                    "en": "Always On",
+                    "es": "Siempre encendido",
+                    "it": "Sempre acceso",
+                    "de": "Immer ein"
+                  }
+                },
+                {
+                  "id": "lastState",
+                  "label": {
+                    "en": "Last State",
+                    "es": "Último estado",
+                    "it": "Ultimo stato",
+                    "de": "Letzter Zustand"
+                  }
+                }
+              ]
+            },
+            {
+              "id": "power_on_current_global",
+              "type": "label",
+              "label": {
+                "en": "Current (Global)",
+                "es": "Actual (global)",
+                "it": "Attuale (globale)",
+                "de": "Aktuell (global)"
+              },
+              "hint": {
+                "en": "Read from device",
+                "es": "Leído del dispositivo",
+                "it": "Letto dal dispositivo",
+                "de": "Vom Gerät gelesen"
+              },
+              "value": "-"
+            }
+          ]
+        },
+        {
+          "type": "group",
+          "label": {
+            "en": "Power-On Individual",
+            "es": "Encendido individual",
+            "it": "Accensione individuale",
+            "de": "Individuelles Einschalten"
+          },
+          "children": [
+            {
+              "id": "power_on_behavior_gang1",
+              "type": "dropdown",
+              "label": {
+                "en": "Override",
+                "es": "Anular",
+                "it": "Ignora",
+                "de": "Überschreiben"
+              },
+              "hint": {
+                "en": "Individual override (cluster 0xE001) -- overrides global",
+                "es": "Anulación individual (cluster 0xE001) -- anula el ajuste global",
+                "it": "Ignoranza individuale (cluster 0xE001) -- ignora il globale",
+                "de": "Individuelle Überschreibung (Cluster 0xE001) -- überschreibt global"
+              },
+              "value": "lastState",
+              "values": [
+                {
+                  "id": "off",
+                  "label": {
+                    "en": "Always Off",
+                    "es": "Siempre apagado",
+                    "it": "Sempre spento",
+                    "de": "Immer aus"
+                  }
+                },
+                {
+                  "id": "on",
+                  "label": {
+                    "en": "Always On",
+                    "es": "Siempre encendido",
+                    "it": "Sempre acceso",
+                    "de": "Immer ein"
+                  }
+                },
+                {
+                  "id": "lastState",
+                  "label": {
+                    "en": "Last State",
+                    "es": "Último estado",
+                    "it": "Ultimo stato",
+                    "de": "Letzter Zustand"
+                  }
+                }
+              ]
+            },
+            {
+              "id": "power_on_current_gang1",
+              "type": "label",
+              "label": {
+                "en": "Current (Individual)",
+                "es": "Actual (individual)",
+                "it": "Attuale (individuale)",
+                "de": "Aktuell (individuell)"
+              },
+              "hint": {
+                "en": "Read from device",
+                "es": "Leído del dispositivo",
+                "it": "Letto dal dispositivo",
+                "de": "Vom Gerät gelesen"
+              },
+              "value": "-"
+            }
+          ]
+        }
+      ],
+      "zigbee": {
+        "manufacturerName": [
+          "_TZ3000_ovyaisip",
+          "_TZ3000_pk8tgtdb"
+        ],
+        "productId": [
+          "TS0001"
+        ],
+        "endpoints": {
+          "1": {
+            "clusters": [
+              0,
+              3,
+              4,
+              5,
+              6,
+              10,
+              57344,
+              57345
+            ],
+            "bindings": [
+              6
+            ]
+          }
+        },
+        "learnmode": {
+          "image": "/drivers/novadigital_switch_1_gang/assets/icon.svg",
+          "instruction": {
+            "en": "Hold the setup button 5s until LED blinks.",
+            "es": "Mantén el botón de configuración 5 s hasta que el LED parpadee.",
+            "it": "Tieni premuto il pulsante di configurazione per 5 s fino a quando il LED lampeggia.",
+            "de": "Halte die Setup-Taste 5 s gedrückt, bis die LED blinkt."
+          }
+        }
+      }
+    },
+    {
+      "platforms": [
+        "local"
+      ],
+      "connectivity": [
+        "zigbee"
+      ],
+      "images": {
+        "xlarge": "/drivers/novadigital_switch_2_gang/assets/images/xlarge.png",
+        "large": "/drivers/novadigital_switch_2_gang/assets/images/large.png",
+        "small": "/drivers/novadigital_switch_2_gang/assets/images/small.png"
+      },
+      "id": "novadigital_switch_2_gang",
+      "name": {
+        "en": "NovaDigital Switch 2 Gang",
+        "es": "Interruptor NovaDigital 2 canales",
+        "it": "Interruttore NovaDigital 2 canali",
+        "de": "NovaDigital Schalter 2-fach"
+      },
+      "class": "socket",
+      "capabilities": [
+        "onoff",
+        "main_gang",
+        "is_availability"
+      ],
+      "energy": {
+        "approximation": {
+          "usageOn": 0,
+          "usageOff": 0
+        }
+      },
+      "settings": [
+        {
+          "type": "group",
+          "label": {
+            "en": "Switch Settings",
+            "es": "Configuración del interruptor",
+            "it": "Impostazioni interruttore",
+            "de": "Schaltereinstellungen"
+          },
+          "children": [
+            {
+              "id": "device_siblings_info",
+              "type": "label",
+              "label": {
+                "en": "Connected Switches",
+                "es": "Interruptores conectados",
+                "it": "Interruttori collegati",
+                "de": "Verbundene Schalter"
+              },
+              "hint": {
+                "en": "Other switches sharing this physical board",
+                "es": "Otros interruptores que comparten esta placa física",
+                "it": "Altri interruttori che condividono questa scheda fisica",
+                "de": "Andere Schalter, die diese physische Platine teilen"
+              },
+              "value": "-"
+            },
+            {
+              "id": "backlight_enabled",
+              "type": "checkbox",
+              "label": {
+                "en": "LED Backlight",
+                "es": "Retroiluminación LED",
+                "it": "Retroilluminazione LED",
+                "de": "LED-Hintergrundbeleuchtung"
+              },
+              "hint": {
+                "en": "Status LED on physical buttons. If disabled, it will automatically stay OFF after a power failure.",
+                "es": "LED de estado en los botones físicos. Si está desactivado, permanecerá APAGADO automáticamente tras un corte de luz.",
+                "it": "LED di stato sui pulsanti fisici. Se disabilitato, rimarrà SPENTO automaticamente dopo un'interruzione di corrente.",
+                "de": "Status-LED an den physischen Tasten. Wenn deaktiviert, bleibt sie nach einem Stromausfall automatisch AUS."
+              },
+              "value": true
+            },
+            {
+              "id": "switch_mode_global",
+              "type": "dropdown",
+              "label": {
+                "en": "Switch Mode",
+                "es": "Modo del interruptor",
+                "it": "Modalità interruttore",
+                "de": "Schaltmodus"
+              },
+              "hint": {
+                "en": "Physical button behavior (global, all gangs)",
+                "es": "Comportamiento del botón físico (global, todos los grupos)",
+                "it": "Comportamento del pulsante fisico (globale, tutti i gruppi)",
+                "de": "Verhalten der physischen Taste (global, alle Gruppen)"
+              },
+              "value": "toggle",
+              "values": [
+                {
+                  "id": "toggle",
+                  "label": {
+                    "en": "Toggle (Standard)",
+                    "es": "Alternante (estándar)",
+                    "it": "Alternante (standard)",
+                    "de": "Umschalten (Standard)"
+                  }
+                },
+                {
+                  "id": "momentary",
+                  "label": {
+                    "en": "Momentary (Pulse)",
+                    "es": "Momentáneo (pulso)",
+                    "it": "Momentaneo (impulso)",
+                    "de": "Momentan (Impuls)"
+                  }
+                }
+              ]
+            },
+            {
+              "id": "switch_mode_current",
+              "type": "label",
+              "label": {
+                "en": "Current Mode",
+                "es": "Modo actual",
+                "it": "Modalità attuale",
+                "de": "Aktueller Modus"
+              },
+              "hint": {
+                "en": "Read from device",
+                "es": "Leído del dispositivo",
+                "it": "Letto dal dispositivo",
+                "de": "Vom Gerät gelesen"
+              },
+              "value": "-"
+            }
+          ]
+        },
+        {
+          "type": "group",
+          "label": {
+            "en": "Power-On Global",
+            "es": "Encendido global",
+            "it": "Accensione globale",
+            "de": "Globales Einschalten"
+          },
+          "children": [
+            {
+              "id": "power_on_behavior_global",
+              "type": "dropdown",
+              "label": {
+                "en": "Default (all gangs)",
+                "es": "Predeterminado (todos los grupos)",
+                "it": "Predefinito (tutti i gruppi)",
+                "de": "Standard (alle Gruppen)"
+              },
+              "hint": {
+                "en": "Applies to all gangs when changed. Individual gang settings below can override.",
+                "es": "Se aplica a todos los grupos al cambiar. Los ajustes individuales de cada grupo pueden anularlo.",
+                "it": "Si applica a tutti i gruppi quando viene modificato. Le impostazioni individuali dei gruppi possono ignorarlo.",
+                "de": "Gilt bei Änderung für alle Gruppen. Individuelle Gruppeneinstellungen unten können überschreiben."
+              },
+              "value": "lastState",
+              "values": [
+                {
+                  "id": "off",
+                  "label": {
+                    "en": "Always Off",
+                    "es": "Siempre apagado",
+                    "it": "Sempre spento",
+                    "de": "Immer aus"
+                  }
+                },
+                {
+                  "id": "on",
+                  "label": {
+                    "en": "Always On",
+                    "es": "Siempre encendido",
+                    "it": "Sempre acceso",
+                    "de": "Immer ein"
+                  }
+                },
+                {
+                  "id": "lastState",
+                  "label": {
+                    "en": "Last State",
+                    "es": "Último estado",
+                    "it": "Ultimo stato",
+                    "de": "Letzter Zustand"
+                  }
+                }
+              ]
+            },
+            {
+              "id": "power_on_current_global",
+              "type": "label",
+              "label": {
+                "en": "Current (Global)",
+                "es": "Actual (global)",
+                "it": "Attuale (globale)",
+                "de": "Aktuell (global)"
+              },
+              "hint": {
+                "en": "Read from device",
+                "es": "Leído del dispositivo",
+                "it": "Letto dal dispositivo",
+                "de": "Vom Gerät gelesen"
+              },
+              "value": "-"
+            }
+          ]
+        },
+        {
+          "type": "group",
+          "label": {
+            "en": "Power-On Gang 1",
+            "es": "Encendido grupo 1",
+            "it": "Accensione gruppo 1",
+            "de": "Einschalten Gruppe 1"
+          },
+          "children": [
+            {
+              "id": "power_on_behavior_gang1",
+              "type": "dropdown",
+              "label": {
+                "en": "Gang 1 Override",
+                "es": "Anular grupo 1",
+                "it": "Ignora gruppo 1",
+                "de": "Gruppe 1 überschreiben"
+              },
+              "hint": {
+                "en": "Overrides global for this gang only",
+                "es": "Anula el ajuste global solo para este grupo",
+                "it": "Ignora il globale solo per questo gruppo",
+                "de": "Überschreibt global nur für diese Gruppe"
+              },
+              "value": "lastState",
+              "values": [
+                {
+                  "id": "off",
+                  "label": {
+                    "en": "Always Off",
+                    "es": "Siempre apagado",
+                    "it": "Sempre spento",
+                    "de": "Immer aus"
+                  }
+                },
+                {
+                  "id": "on",
+                  "label": {
+                    "en": "Always On",
+                    "es": "Siempre encendido",
+                    "it": "Sempre acceso",
+                    "de": "Immer ein"
+                  }
+                },
+                {
+                  "id": "lastState",
+                  "label": {
+                    "en": "Last State",
+                    "es": "Último estado",
+                    "it": "Ultimo stato",
+                    "de": "Letzter Zustand"
+                  }
+                }
+              ]
+            },
+            {
+              "id": "power_on_current_gang1",
+              "type": "label",
+              "label": {
+                "en": "Current (Gang 1)",
+                "es": "Actual (grupo 1)",
+                "it": "Attuale (gruppo 1)",
+                "de": "Aktuell (Gruppe 1)"
+              },
+              "hint": {
+                "en": "Read from device",
+                "es": "Leído del dispositivo",
+                "it": "Letto dal dispositivo",
+                "de": "Vom Gerät gelesen"
+              },
+              "value": "-"
+            }
+          ]
+        },
+        {
+          "type": "group",
+          "label": {
+            "en": "Gang 2 (info)",
+            "es": "Grupo 2 (información)",
+            "it": "Gruppo 2 (informazioni)",
+            "de": "Gruppe 2 (Info)"
+          },
+          "children": [
+            {
+              "id": "power_on_current_gang2",
+              "type": "label",
+              "label": {
+                "en": "Current (Gang 2)",
+                "es": "Actual (grupo 2)",
+                "it": "Attuale (gruppo 2)",
+                "de": "Aktuell (Gruppe 2)"
+              },
+              "hint": {
+                "en": "Change from Gang 2 tile settings",
+                "es": "Cambiar desde los ajustes del mosaico del grupo 2",
+                "it": "Modifica dalle impostazioni del riquadro del gruppo 2",
+                "de": "Über die Einstellungen der Gruppe-2-Kachel ändern"
+              },
+              "value": "-"
+            }
+          ]
+        }
+      ],
+      "zigbee": {
+        "manufacturerName": [
+          "_TZ3000_ywubfuvt",
+          "_TZ3000_kgxej1dv"
+        ],
+        "productId": [
+          "TS0002"
+        ],
+        "endpoints": {
+          "1": {
+            "clusters": [
+              0,
+              3,
+              4,
+              5,
+              6,
+              10,
+              57344,
+              57345
+            ],
+            "bindings": [
+              6
+            ]
+          },
+          "2": {
+            "clusters": [
+              4,
+              5,
+              6,
+              57345
+            ],
+            "bindings": [
+              6
+            ]
+          }
+        },
+        "learnmode": {
+          "image": "/drivers/novadigital_switch_2_gang/assets/icon.svg",
+          "instruction": {
+            "en": "Hold the setup button 5s until LED blinks. Two tiles will be created.",
+            "es": "Mantén el botón de configuración 5 s hasta que el LED parpadee. Se crearán dos mosaicos.",
+            "it": "Tieni premuto il pulsante di configurazione per 5 s fino a quando il LED lampeggia. Verranno creati due riquadri.",
+            "de": "Halte die Setup-Taste 5 s gedrückt, bis die LED blinkt. Es werden zwei Kacheln erstellt."
+          }
+        },
+        "devices": {
+          "secondSwitch": {
+            "class": "socket",
+            "capabilities": [
+              "onoff"
+            ],
+            "name": {
+              "en": "NovaDigital 2 Gang - Switch 2",
+              "es": "NovaDigital 2 canales - Interruptor 2",
+              "it": "NovaDigital 2 canali - Interruttore 2",
+              "de": "NovaDigital 2-fach - Schalter 2"
+            },
+            "energy": {
+              "approximation": {
+                "usageOn": 0,
+                "usageOff": 0
+              }
+            },
+            "settings": [
+              {
+                "id": "device_siblings_info",
+                "type": "label",
+                "label": {
+                  "en": "Connected Switches",
+                  "es": "Interruptores conectados",
+                  "it": "Interruttori collegati",
+                  "de": "Verbundene Schalter"
+                },
+                "hint": {
+                  "en": "Other switches sharing this physical board",
+                  "es": "Otros interruptores que comparten esta placa física",
+                  "it": "Altri interruttori che condividono questa scheda fisica",
+                  "de": "Andere Schalter, die diese physische Platine teilen"
+                },
+                "value": "-"
+              },
+              {
+                "type": "group",
+                "label": {
+                  "en": "Power-On Gang 2",
+                  "es": "Encendido grupo 2",
+                  "it": "Accensione gruppo 2",
+                  "de": "Einschalten Gruppe 2"
+                },
+                "children": [
+                  {
+                    "id": "power_on_behavior_gang2",
+                    "type": "dropdown",
+                    "label": {
+                      "en": "Gang 2 Override",
+                      "es": "Anular grupo 2",
+                      "it": "Ignora gruppo 2",
+                      "de": "Gruppe 2 überschreiben"
+                    },
+                    "hint": {
+                      "en": "Overrides global for this gang only",
+                      "es": "Anula el ajuste global solo para este grupo",
+                      "it": "Ignora il globale solo per questo gruppo",
+                      "de": "Überschreibt global nur für diese Gruppe"
+                    },
+                    "value": "lastState",
+                    "values": [
+                      {
+                        "id": "off",
+                        "label": {
+                          "en": "Always Off",
+                          "es": "Siempre apagado",
+                          "it": "Sempre spento",
+                          "de": "Immer aus"
+                        }
+                      },
+                      {
+                        "id": "on",
+                        "label": {
+                          "en": "Always On",
+                          "es": "Siempre encendido",
+                          "it": "Sempre acceso",
+                          "de": "Immer ein"
+                        }
+                      },
+                      {
+                        "id": "lastState",
+                        "label": {
+                          "en": "Last State",
+                          "es": "Último estado",
+                          "it": "Ultimo stato",
+                          "de": "Letzter Zustand"
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "id": "power_on_current_gang2",
+                    "type": "label",
+                    "label": {
+                      "en": "Current (Gang 2)",
+                      "es": "Actual (grupo 2)",
+                      "it": "Attuale (gruppo 2)",
+                      "de": "Aktuell (Gruppe 2)"
+                    },
+                    "hint": {
+                      "en": "Read from device",
+                      "es": "Leído del dispositivo",
+                      "it": "Letto dal dispositivo",
+                      "de": "Vom Gerät gelesen"
+                    },
+                    "value": "-"
+                  }
+                ]
+              },
+              {
+                "type": "group",
+                "label": {
+                  "en": "Switch Mode",
+                  "es": "Modo del interruptor",
+                  "it": "Modalità interruttore",
+                  "de": "Schaltmodus"
+                },
+                "children": [
+                  {
+                    "id": "switch_mode_readonly",
+                    "type": "label",
+                    "label": {
+                      "en": "Mode",
+                      "es": "Modo",
+                      "it": "Modalità",
+                      "de": "Modus"
+                    },
+                    "hint": {
+                      "en": "Global setting -- change from Gang 1 (main tile)",
+                      "es": "Ajuste global -- cambiar desde el grupo 1 (mosaico principal)",
+                      "it": "Impostazione globale -- modifica dal gruppo 1 (riquadro principale)",
+                      "de": "Globale Einstellung -- über Gruppe 1 (Hauptkachel) ändern"
+                    },
+                    "value": "-"
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "platforms": [
+        "local"
+      ],
+      "connectivity": [
+        "zigbee"
+      ],
+      "images": {
+        "xlarge": "/drivers/novadigital_switch_3_gang/assets/images/xlarge.png",
+        "large": "/drivers/novadigital_switch_3_gang/assets/images/large.png",
+        "small": "/drivers/novadigital_switch_3_gang/assets/images/small.png"
+      },
+      "id": "novadigital_switch_3_gang",
+      "name": {
+        "en": "NovaDigital Switch 3 Gang",
+        "es": "Interruptor NovaDigital 3 canales",
+        "it": "Interruttore NovaDigital 3 canali",
+        "de": "NovaDigital Schalter 3-fach"
+      },
+      "class": "socket",
+      "capabilities": [
+        "onoff",
+        "main_gang",
+        "is_availability"
+      ],
+      "energy": {
+        "approximation": {
+          "usageOn": 0,
+          "usageOff": 0
+        }
+      },
+      "settings": [
+        {
+          "id": "device_siblings_info",
+          "type": "label",
+          "label": {
+            "en": "Connected Switches",
+            "es": "Interruptores conectados",
+            "it": "Interruttori collegati",
+            "de": "Verbundene Schalter"
+          },
+          "hint": {
+            "en": "Other switches sharing this physical board",
+            "es": "Otros interruptores que comparten esta placa física",
+            "it": "Altri interruttori che condividono questa scheda fisica",
+            "de": "Andere Schalter, die diese physische Platine teilen"
+          },
+          "value": "-"
+        },
+        {
+          "id": "backlight_enabled",
+          "type": "checkbox",
+          "label": {
+            "en": "LED Backlight",
+            "es": "Retroiluminación LED",
+            "it": "Retroilluminazione LED",
+            "de": "LED-Hintergrundbeleuchtung"
+          },
+          "hint": {
+            "en": "Status LED on physical buttons. If disabled, it will automatically stay OFF after a power failure.",
+            "es": "LED de estado en los botones físicos. Si está desactivado, permanecerá APAGADO automáticamente tras un corte de luz.",
+            "it": "LED di stato sui pulsanti fisici. Se disabilitato, rimarrà SPENTO automaticamente dopo un'interruzione di corrente.",
+            "de": "Status-LED an den physischen Tasten. Wenn deaktiviert, bleibt sie nach einem Stromausfall automatisch AUS."
+          },
+          "value": true
+        },
+        {
+          "id": "indicator_mode",
+          "type": "dropdown",
+          "label": {
+            "en": "LED Indicator",
+            "es": "Indicador LED",
+            "it": "Indicatore LED",
+            "de": "LED-Anzeige"
+          },
+          "hint": {
+            "en": "When to light the LED indicator.",
+            "es": "Cuándo encender el indicador LED.",
+            "it": "Quando accendere l'indicatore LED.",
+            "de": "Wann die LED-Anzeige leuchten soll."
+          },
+          "value": "status",
+          "values": [
+            {
+              "id": "off",
+              "label": {
+                "en": "Always Off",
+                "es": "Siempre apagado",
+                "it": "Sempre spento",
+                "de": "Immer aus"
+              }
+            },
+            {
+              "id": "status",
+              "label": {
+                "en": "On when powered",
+                "es": "Encendido con corriente",
+                "it": "Acceso con corrente",
+                "de": "Ein bei Strom"
+              }
+            },
+            {
+              "id": "position",
+              "label": {
+                "en": "Off when powered",
+                "es": "Apagado con corriente",
+                "it": "Spento con corrente",
+                "de": "Aus bei Strom"
+              }
+            }
+          ]
+        },
+        {
+          "id": "power_on_global",
+          "type": "dropdown",
+          "label": {
+            "en": "Power-On Behavior (All Gangs)",
+            "es": "Comportamiento al encender (todos los grupos)",
+            "it": "Comportamento all'accensione (tutti i gruppi)",
+            "de": "Einschaltverhalten (alle Gruppen)"
+          },
+          "value": "lastState",
+          "values": [
+            {
+              "id": "on",
+              "label": {
+                "en": "Always On",
+                "es": "Siempre encendido",
+                "it": "Sempre acceso",
+                "de": "Immer ein"
+              }
+            },
+            {
+              "id": "off",
+              "label": {
+                "en": "Always Off",
+                "es": "Siempre apagado",
+                "it": "Sempre spento",
+                "de": "Immer aus"
+              }
+            },
+            {
+              "id": "lastState",
+              "label": {
+                "en": "Last State",
+                "es": "Último estado",
+                "it": "Ultimo stato",
+                "de": "Letzter Zustand"
+              }
+            }
+          ]
+        },
+        {
+          "id": "power_on_global_current",
+          "type": "label",
+          "label": {
+            "en": "Power-On Global (current)",
+            "es": "Encendido global (actual)",
+            "it": "Accensione globale (attuale)",
+            "de": "Globales Einschalten (aktuell)"
+          },
+          "value": "-"
+        },
+        {
+          "id": "switch_mode",
+          "type": "dropdown",
+          "label": {
+            "en": "Switch Mode",
+            "es": "Modo del interruptor",
+            "it": "Modalità interruttore",
+            "de": "Schaltmodus"
+          },
+          "hint": {
+            "en": "Physical button behavior",
+            "es": "Comportamiento del botón físico",
+            "it": "Comportamento del pulsante fisico",
+            "de": "Verhalten der physischen Taste"
+          },
+          "value": "toggle",
+          "values": [
+            {
+              "id": "toggle",
+              "label": {
+                "en": "Toggle (Standard)",
+                "es": "Alternante (estándar)",
+                "it": "Alternante (standard)",
+                "de": "Umschalten (Standard)"
+              }
+            },
+            {
+              "id": "momentary",
+              "label": {
+                "en": "Momentary (Pulse)",
+                "es": "Momentáneo (pulso)",
+                "it": "Momentaneo (impulso)",
+                "de": "Momentan (Impuls)"
+              }
+            }
+          ]
+        },
+        {
+          "id": "switch_mode_current",
+          "type": "label",
+          "label": {
+            "en": "Current Mode",
+            "es": "Modo actual",
+            "it": "Modalità attuale",
+            "de": "Aktueller Modus"
+          },
+          "hint": {
+            "en": "Read from device",
+            "es": "Leído del dispositivo",
+            "it": "Letto dal dispositivo",
+            "de": "Vom Gerät gelesen"
+          },
+          "value": "-"
+        },
+        {
+          "id": "power_on_gang1",
+          "type": "dropdown",
+          "label": {
+            "en": "Power-On Gang 1",
+            "es": "Encendido grupo 1",
+            "it": "Accensione gruppo 1",
+            "de": "Einschalten Gruppe 1"
+          },
+          "value": "lastState",
+          "values": [
+            {
+              "id": "on",
+              "label": {
+                "en": "Always On",
+                "es": "Siempre encendido",
+                "it": "Sempre acceso",
+                "de": "Immer ein"
+              }
+            },
+            {
+              "id": "off",
+              "label": {
+                "en": "Always Off",
+                "es": "Siempre apagado",
+                "it": "Sempre spento",
+                "de": "Immer aus"
+              }
+            },
+            {
+              "id": "lastState",
+              "label": {
+                "en": "Last State",
+                "es": "Último estado",
+                "it": "Ultimo stato",
+                "de": "Letzter Zustand"
+              }
+            }
+          ]
+        },
+        {
+          "id": "power_on_gang1_current",
+          "type": "label",
+          "label": {
+            "en": "Power-On Gang 1 (current)",
+            "es": "Encendido grupo 1 (actual)",
+            "it": "Accensione gruppo 1 (attuale)",
+            "de": "Einschalten Gruppe 1 (aktuell)"
+          },
+          "value": "-"
+        },
+        {
+          "id": "power_on_gang2",
+          "type": "dropdown",
+          "label": {
+            "en": "Power-On Gang 2",
+            "es": "Encendido grupo 2",
+            "it": "Accensione gruppo 2",
+            "de": "Einschalten Gruppe 2"
+          },
+          "value": "lastState",
+          "values": [
+            {
+              "id": "on",
+              "label": {
+                "en": "Always On",
+                "es": "Siempre encendido",
+                "it": "Sempre acceso",
+                "de": "Immer ein"
+              }
+            },
+            {
+              "id": "off",
+              "label": {
+                "en": "Always Off",
+                "es": "Siempre apagado",
+                "it": "Sempre spento",
+                "de": "Immer aus"
+              }
+            },
+            {
+              "id": "lastState",
+              "label": {
+                "en": "Last State",
+                "es": "Último estado",
+                "it": "Ultimo stato",
+                "de": "Letzter Zustand"
+              }
+            }
+          ]
+        },
+        {
+          "id": "power_on_gang2_current",
+          "type": "label",
+          "label": {
+            "en": "Power-On Gang 2 (current)",
+            "es": "Encendido grupo 2 (actual)",
+            "it": "Accensione gruppo 2 (attuale)",
+            "de": "Einschalten Gruppe 2 (aktuell)"
+          },
+          "value": "-"
+        },
+        {
+          "id": "power_on_gang3",
+          "type": "dropdown",
+          "label": {
+            "en": "Power-On Gang 3",
+            "es": "Encendido grupo 3",
+            "it": "Accensione gruppo 3",
+            "de": "Einschalten Gruppe 3"
+          },
+          "value": "lastState",
+          "values": [
+            {
+              "id": "on",
+              "label": {
+                "en": "Always On",
+                "es": "Siempre encendido",
+                "it": "Sempre acceso",
+                "de": "Immer ein"
+              }
+            },
+            {
+              "id": "off",
+              "label": {
+                "en": "Always Off",
+                "es": "Siempre apagado",
+                "it": "Sempre spento",
+                "de": "Immer aus"
+              }
+            },
+            {
+              "id": "lastState",
+              "label": {
+                "en": "Last State",
+                "es": "Último estado",
+                "it": "Ultimo stato",
+                "de": "Letzter Zustand"
+              }
+            }
+          ]
+        },
+        {
+          "id": "power_on_gang3_current",
+          "type": "label",
+          "label": {
+            "en": "Power-On Gang 3 (current)",
+            "es": "Encendido grupo 3 (actual)",
+            "it": "Accensione gruppo 3 (attuale)",
+            "de": "Einschalten Gruppe 3 (aktuell)"
+          },
+          "value": "-"
+        }
+      ],
+      "zigbee": {
+        "manufacturerName": [
+          "_TZ3000_yervjnlj",
+          "_TZ3000_vjhcenzo",
+          "_TZ3000_qxcnwv26",
+          "_TZ3000_eqsair32",
+          "_TZ3000_f09j9qjb",
+          "_TZ3000_fawk5xjv",
+          "_TZ3000_ok0ggpk7"
+        ],
+        "productId": [
+          "TS0003"
+        ],
+        "endpoints": {
+          "1": {
+            "clusters": [
+              0,
+              3,
+              4,
+              5,
+              6,
+              10,
+              57344,
+              57345
+            ],
+            "bindings": [
+              6
+            ]
+          },
+          "2": {
+            "clusters": [
+              4,
+              5,
+              6,
+              57345
+            ],
+            "bindings": [
+              6
+            ]
+          },
+          "3": {
+            "clusters": [
+              4,
+              5,
+              6,
+              57345
+            ],
+            "bindings": [
+              6
+            ]
+          }
+        },
+        "learnmode": {
+          "image": "/drivers/novadigital_switch_3_gang/assets/icon.svg",
+          "instruction": {
+            "en": "Hold the setup button 5s until LED blinks. Three tiles will be created.",
+            "es": "Mantén el botón de configuración 5 s hasta que el LED parpadee. Se crearán tres mosaicos.",
+            "it": "Tieni premuto il pulsante di configurazione per 5 s fino a quando il LED lampeggia. Verranno creati tre riquadri.",
+            "de": "Halte die Setup-Taste 5 s gedrückt, bis die LED blinkt. Es werden drei Kacheln erstellt."
+          }
+        },
+        "devices": {
+          "secondSwitch": {
+            "class": "socket",
+            "capabilities": [
+              "onoff"
+            ],
+            "name": {
+              "en": "NovaDigital 3 Gang - Switch 2",
+              "es": "NovaDigital 3 canales - Interruptor 2",
+              "it": "NovaDigital 3 canali - Interruttore 2",
+              "de": "NovaDigital 3-fach - Schalter 2"
+            },
+            "energy": {
+              "approximation": {
+                "usageOn": 0,
+                "usageOff": 0
+              }
+            },
+            "settings": [
+              {
+                "id": "device_siblings_info",
+                "type": "label",
+                "label": {
+                  "en": "Connected Switches",
+                  "es": "Interruptores conectados",
+                  "it": "Interruttori collegati",
+                  "de": "Verbundene Schalter"
+                },
+                "hint": {
+                  "en": "Other switches sharing this physical board",
+                  "es": "Otros interruptores que comparten esta placa física",
+                  "it": "Altri interruttori che condividono questa scheda fisica",
+                  "de": "Andere Schalter, die diese physische Platine teilen"
+                },
+                "value": "-"
+              },
+              {
+                "id": "power_on_gang2",
+                "type": "dropdown",
+                "label": {
+                  "en": "Power-On Gang 2",
+                  "es": "Encendido grupo 2",
+                  "it": "Accensione gruppo 2",
+                  "de": "Einschalten Gruppe 2"
+                },
+                "value": "lastState",
+                "values": [
+                  {
+                    "id": "on",
+                    "label": {
+                      "en": "Always On",
+                      "es": "Siempre encendido",
+                      "it": "Sempre acceso",
+                      "de": "Immer ein"
+                    }
+                  },
+                  {
+                    "id": "off",
+                    "label": {
+                      "en": "Always Off",
+                      "es": "Siempre apagado",
+                      "it": "Sempre spento",
+                      "de": "Immer aus"
+                    }
+                  },
+                  {
+                    "id": "lastState",
+                    "label": {
+                      "en": "Last State",
+                      "es": "Último estado",
+                      "it": "Ultimo stato",
+                      "de": "Letzter Zustand"
+                    }
+                  }
+                ]
+              },
+              {
+                "id": "power_on_gang2_current",
+                "type": "label",
+                "label": {
+                  "en": "Power-On Gang 2 (current)",
+                  "es": "Encendido grupo 2 (actual)",
+                  "it": "Accensione gruppo 2 (attuale)",
+                  "de": "Einschalten Gruppe 2 (aktuell)"
+                },
+                "value": "-"
+              }
+            ]
+          },
+          "thirdSwitch": {
+            "class": "socket",
+            "capabilities": [
+              "onoff"
+            ],
+            "name": {
+              "en": "NovaDigital 3 Gang - Switch 3",
+              "es": "NovaDigital 3 canales - Interruptor 3",
+              "it": "NovaDigital 3 canali - Interruttore 3",
+              "de": "NovaDigital 3-fach - Schalter 3"
+            },
+            "energy": {
+              "approximation": {
+                "usageOn": 0,
+                "usageOff": 0
+              }
+            },
+            "settings": [
+              {
+                "id": "device_siblings_info",
+                "type": "label",
+                "label": {
+                  "en": "Connected Switches",
+                  "es": "Interruptores conectados",
+                  "it": "Interruttori collegati",
+                  "de": "Verbundene Schalter"
+                },
+                "hint": {
+                  "en": "Other switches sharing this physical board",
+                  "es": "Otros interruptores que comparten esta placa física",
+                  "it": "Altri interruttori che condividono questa scheda fisica",
+                  "de": "Andere Schalter, die diese physische Platine teilen"
+                },
+                "value": "-"
+              },
+              {
+                "id": "power_on_gang3",
+                "type": "dropdown",
+                "label": {
+                  "en": "Power-On Gang 3",
+                  "es": "Encendido grupo 3",
+                  "it": "Accensione gruppo 3",
+                  "de": "Einschalten Gruppe 3"
+                },
+                "value": "lastState",
+                "values": [
+                  {
+                    "id": "on",
+                    "label": {
+                      "en": "Always On",
+                      "es": "Siempre encendido",
+                      "it": "Sempre acceso",
+                      "de": "Immer ein"
+                    }
+                  },
+                  {
+                    "id": "off",
+                    "label": {
+                      "en": "Always Off",
+                      "es": "Siempre apagado",
+                      "it": "Sempre spento",
+                      "de": "Immer aus"
+                    }
+                  },
+                  {
+                    "id": "lastState",
+                    "label": {
+                      "en": "Last State",
+                      "es": "Último estado",
+                      "it": "Ultimo stato",
+                      "de": "Letzter Zustand"
+                    }
+                  }
+                ]
+              },
+              {
+                "id": "power_on_gang3_current",
+                "type": "label",
+                "label": {
+                  "en": "Power-On Gang 3 (current)",
+                  "es": "Encendido grupo 3 (actual)",
+                  "it": "Accensione gruppo 3 (attuale)",
+                  "de": "Einschalten Gruppe 3 (aktuell)"
+                },
+                "value": "-"
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "platforms": [
+        "local"
+      ],
+      "connectivity": [
+        "zigbee"
+      ],
+      "images": {
+        "xlarge": "/drivers/novadigital_switch_4_gang/assets/images/xlarge.png",
+        "large": "/drivers/novadigital_switch_4_gang/assets/images/large.png",
+        "small": "/drivers/novadigital_switch_4_gang/assets/images/small.png"
+      },
+      "id": "novadigital_switch_4_gang",
+      "name": {
+        "en": "NovaDigital Switch 4 Gang",
+        "es": "Interruptor NovaDigital 4 canales",
+        "it": "Interruttore NovaDigital 4 canali",
+        "de": "NovaDigital Schalter 4-fach"
+      },
+      "class": "socket",
+      "capabilities": [
+        "onoff",
+        "is_availability"
+      ],
+      "energy": {
+        "approximation": {
+          "usageOn": 0,
+          "usageOff": 0
+        }
+      },
+      "settings": [
+        {
+          "type": "group",
+          "label": {
+            "en": "Switch Settings",
+            "es": "Configuración del interruptor",
+            "it": "Impostazioni interruttore",
+            "de": "Schaltereinstellungen"
+          },
+          "children": [
+            {
+              "id": "device_siblings_info",
+              "type": "label",
+              "label": {
+                "en": "Connected Switches",
+                "es": "Interruptores conectados",
+                "it": "Interruttori collegati",
+                "de": "Verbundene Schalter"
+              },
+              "hint": {
+                "en": "Other switches sharing this physical board",
+                "es": "Otros interruptores que comparten esta placa física",
+                "it": "Altri interruttori che condividono questa scheda fisica",
+                "de": "Andere Schalter, die diese physische Platine teilen"
+              },
+              "value": "-"
+            },
+            {
+              "id": "power_on_behavior",
+              "type": "dropdown",
+              "label": {
+                "en": "Power-On Behavior",
+                "es": "Comportamiento al encender",
+                "it": "Comportamento all'accensione",
+                "de": "Einschaltverhalten"
+              },
+              "hint": {
+                "en": "How switches behave when power returns after an outage.",
+                "es": "Cómo se comportan los interruptores cuando vuelve la corriente tras un corte.",
+                "it": "Come si comportano gli interruttori quando ritorna la corrente dopo un'interruzione.",
+                "de": "Wie sich die Schalter verhalten, wenn die Stromversorgung nach einem Ausfall zurückkehrt."
+              },
+              "value": "memory",
+              "values": [
+                {
+                  "id": "off",
+                  "label": {
+                    "en": "Always Off",
+                    "es": "Siempre apagado",
+                    "it": "Sempre spento",
+                    "de": "Immer aus"
+                  }
+                },
+                {
+                  "id": "on",
+                  "label": {
+                    "en": "Always On",
+                    "es": "Siempre encendido",
+                    "it": "Sempre acceso",
+                    "de": "Immer ein"
+                  }
+                },
+                {
+                  "id": "memory",
+                  "label": {
+                    "en": "Remember Last State",
+                    "es": "Recordar último estado",
+                    "it": "Ricorda l'ultimo stato",
+                    "de": "Letzten Zustand merken"
+                  }
+                }
+              ]
+            },
+            {
+              "id": "power_on_behavior_current",
+              "type": "label",
+              "label": {
+                "en": "Current (read from device)",
+                "es": "Actual (leído del dispositivo)",
+                "it": "Attuale (letto dal dispositivo)",
+                "de": "Aktuell (vom Gerät gelesen)"
+              },
+              "hint": {
+                "en": "Last value reported by the device. Updated automatically when the device sends its status.",
+                "es": "Último valor notificado por el dispositivo. Se actualiza automáticamente cuando el dispositivo envía su estado.",
+                "it": "Ultimo valore segnalato dal dispositivo. Si aggiorna automaticamente quando il dispositivo invia il suo stato.",
+                "de": "Letzter vom Gerät gemeldeter Wert. Wird automatisch aktualisiert, wenn das Gerät seinen Status sendet."
+              },
+              "value": "—"
+            }
+          ]
+        }
+      ],
+      "zigbee": {
+        "manufacturerName": [
+          "_TZE200_shkxsgis",
+          "_TZE204_aagrxlbd"
+        ],
+        "productId": [
+          "TS0601"
+        ],
+        "endpoints": {
+          "1": {
+            "clusters": [
+              0,
+              4,
+              5,
+              10,
+              61184
+            ],
+            "bindings": [
+              61184
+            ]
+          }
+        },
+        "devices": {
+          "secondGang": {
+            "class": "socket",
+            "capabilities": [
+              "onoff"
+            ],
+            "name": {
+              "en": "NovaDigital 4 Gang - Switch 2",
+              "es": "NovaDigital 4 canales - Interruptor 2",
+              "it": "NovaDigital 4 canali - Interruttore 2",
+              "de": "NovaDigital 4-fach - Schalter 2"
+            },
+            "energy": {
+              "approximation": {
+                "usageOn": 0,
+                "usageOff": 0
+              }
+            },
+            "settings": [
+              {
+                "id": "device_siblings_info",
+                "type": "label",
+                "label": {
+                  "en": "Connected Switches",
+                  "es": "Interruptores conectados",
+                  "it": "Interruttori collegati",
+                  "de": "Verbundene Schalter"
+                },
+                "hint": {
+                  "en": "Other switches sharing this physical board",
+                  "es": "Otros interruptores que comparten esta placa física",
+                  "it": "Altri interruttori che condividono questa scheda fisica",
+                  "de": "Andere Schalter, die diese physische Platine teilen"
+                },
+                "value": "-"
+              }
+            ]
+          },
+          "thirdGang": {
+            "class": "socket",
+            "capabilities": [
+              "onoff"
+            ],
+            "name": {
+              "en": "NovaDigital 4 Gang - Switch 3",
+              "es": "NovaDigital 4 canales - Interruptor 3",
+              "it": "NovaDigital 4 canali - Interruttore 3",
+              "de": "NovaDigital 4-fach - Schalter 3"
+            },
+            "energy": {
+              "approximation": {
+                "usageOn": 0,
+                "usageOff": 0
+              }
+            },
+            "settings": [
+              {
+                "id": "device_siblings_info",
+                "type": "label",
+                "label": {
+                  "en": "Connected Switches",
+                  "es": "Interruptores conectados",
+                  "it": "Interruttori collegati",
+                  "de": "Verbundene Schalter"
+                },
+                "hint": {
+                  "en": "Other switches sharing this physical board",
+                  "es": "Otros interruptores que comparten esta placa física",
+                  "it": "Altri interruttori che condividono questa scheda fisica",
+                  "de": "Andere Schalter, die diese physische Platine teilen"
+                },
+                "value": "-"
+              }
+            ]
+          },
+          "fourthGang": {
+            "class": "socket",
+            "capabilities": [
+              "onoff"
+            ],
+            "name": {
+              "en": "NovaDigital 4 Gang - Switch 4",
+              "es": "NovaDigital 4 canales - Interruptor 4",
+              "it": "NovaDigital 4 canali - Interruttore 4",
+              "de": "NovaDigital 4-fach - Schalter 4"
+            },
+            "energy": {
+              "approximation": {
+                "usageOn": 0,
+                "usageOff": 0
+              }
+            },
+            "settings": [
+              {
+                "id": "device_siblings_info",
+                "type": "label",
+                "label": {
+                  "en": "Connected Switches",
+                  "es": "Interruptores conectados",
+                  "it": "Interruttori collegati",
+                  "de": "Verbundene Schalter"
+                },
+                "hint": {
+                  "en": "Other switches sharing this physical board",
+                  "es": "Otros interruptores que comparten esta placa física",
+                  "it": "Altri interruttori che condividono questa scheda fisica",
+                  "de": "Andere Schalter, die diese physische Platine teilen"
+                },
+                "value": "-"
+              }
+            ]
+          }
+        },
+        "learnmode": {
+          "image": "/drivers/novadigital_switch_4_gang/assets/icon.svg",
+          "instruction": {
+            "en": "Press and hold the setup button for 5 seconds until the LED starts blinking. Four device tiles will be created, one for each gang.",
+            "es": "Mantén pulsado el botón de configuración durante 5 segundos hasta que el LED parpadee. Se crearán cuatro mosaicos, uno por grupo.",
+            "it": "Tieni premuto il pulsante di configurazione per 5 secondi fino a quando il LED inizia a lampeggiare. Verranno creati quattro riquadri, uno per ogni gruppo.",
+            "de": "Halte die Setup-Taste 5 Sekunden gedrückt, bis die LED blinkt. Es werden vier Kacheln erstellt, eine pro Gruppe."
+          }
+        }
+      }
+    },
+    {
+      "platforms": [
+        "local"
+      ],
+      "connectivity": [
+        "zigbee"
+      ],
+      "images": {
+        "xlarge": "/drivers/novadigital_switch_6_gang/assets/images/xlarge.png",
+        "large": "/drivers/novadigital_switch_6_gang/assets/images/large.png",
+        "small": "/drivers/novadigital_switch_6_gang/assets/images/small.png"
+      },
+      "id": "novadigital_switch_6_gang",
+      "name": {
+        "en": "NovaDigital Wall Switch 6 Gang",
+        "es": "Interruptor de pared NovaDigital 6 canales",
+        "it": "Interruttore a muro NovaDigital 6 canali",
+        "de": "NovaDigital Wandschalter 6-fach"
+      },
+      "class": "socket",
+      "capabilities": [
+        "onoff",
+        "is_availability"
+      ],
+      "energy": {
+        "approximation": {
+          "usageOn": 0,
+          "usageOff": 0
+        }
+      },
+      "settings": [
+        {
+          "type": "group",
+          "label": {
+            "en": "Device information"
+          },
+          "children": [
+            {
+              "id": "_power_on_info",
+              "type": "label",
+              "label": {
+                "en": "Power-on behavior"
+              },
+              "hint": {
+                "en": "This firmware does not support configurable power-on behavior. All switches turn OFF when power is restored."
+              },
+              "value": "Always Off (firmware default)"
+            }
+          ]
+        }
+      ],
+      "zigbee": {
+        "manufacturerName": [
+          "_TZE200_r731zlxk"
+        ],
+        "productId": [
+          "TS0601"
+        ],
+        "endpoints": {
+          "1": {
+            "clusters": [
+              0,
+              10,
+              61184
+            ],
+            "bindings": []
+          }
+        },
+        "devices": {
+          "secondGang": {
+            "class": "socket",
+            "capabilities": [
+              "onoff"
+            ],
+            "name": {
+              "en": "NovaDigital 6 Gang - Switch 2",
+              "es": "NovaDigital 6 canales - Interruptor 2",
+              "it": "NovaDigital 6 canali - Interruttore 2",
+              "de": "NovaDigital 6-fach - Schalter 2"
+            },
+            "energy": {
+              "approximation": {
+                "usageOn": 0,
+                "usageOff": 0
+              }
+            },
+            "settings": [
+              {
+                "id": "device_siblings_info",
+                "type": "label",
+                "label": {
+                  "en": "Connected Switches",
+                  "es": "Interruptores conectados",
+                  "it": "Interruttori collegati",
+                  "de": "Verbundene Schalter"
+                },
+                "hint": {
+                  "en": "Other switches sharing this physical board",
+                  "es": "Otros interruptores que comparten esta placa física",
+                  "it": "Altri interruttori che condividono questa scheda fisica",
+                  "de": "Andere Schalter, die diese physische Platine teilen"
+                },
+                "value": "-"
+              }
+            ]
+          },
+          "thirdGang": {
+            "class": "socket",
+            "capabilities": [
+              "onoff"
+            ],
+            "name": {
+              "en": "NovaDigital 6 Gang - Switch 3",
+              "es": "NovaDigital 6 canales - Interruptor 3",
+              "it": "NovaDigital 6 canali - Interruttore 3",
+              "de": "NovaDigital 6-fach - Schalter 3"
+            },
+            "energy": {
+              "approximation": {
+                "usageOn": 0,
+                "usageOff": 0
+              }
+            },
+            "settings": [
+              {
+                "id": "device_siblings_info",
+                "type": "label",
+                "label": {
+                  "en": "Connected Switches",
+                  "es": "Interruptores conectados",
+                  "it": "Interruttori collegati",
+                  "de": "Verbundene Schalter"
+                },
+                "hint": {
+                  "en": "Other switches sharing this physical board",
+                  "es": "Otros interruptores que comparten esta placa física",
+                  "it": "Altri interruttori che condividono questa scheda fisica",
+                  "de": "Andere Schalter, die diese physische Platine teilen"
+                },
+                "value": "-"
+              }
+            ]
+          },
+          "fourthGang": {
+            "class": "socket",
+            "capabilities": [
+              "onoff"
+            ],
+            "name": {
+              "en": "NovaDigital 6 Gang - Switch 4",
+              "es": "NovaDigital 6 canales - Interruptor 4",
+              "it": "NovaDigital 6 canali - Interruttore 4",
+              "de": "NovaDigital 6-fach - Schalter 4"
+            },
+            "energy": {
+              "approximation": {
+                "usageOn": 0,
+                "usageOff": 0
+              }
+            },
+            "settings": [
+              {
+                "id": "device_siblings_info",
+                "type": "label",
+                "label": {
+                  "en": "Connected Switches",
+                  "es": "Interruptores conectados",
+                  "it": "Interruttori collegati",
+                  "de": "Verbundene Schalter"
+                },
+                "hint": {
+                  "en": "Other switches sharing this physical board",
+                  "es": "Otros interruptores que comparten esta placa física",
+                  "it": "Altri interruttori che condividono questa scheda fisica",
+                  "de": "Andere Schalter, die diese physische Platine teilen"
+                },
+                "value": "-"
+              }
+            ]
+          },
+          "fifthGang": {
+            "class": "socket",
+            "capabilities": [
+              "onoff"
+            ],
+            "name": {
+              "en": "NovaDigital 6 Gang - Switch 5",
+              "es": "NovaDigital 6 canales - Interruptor 5",
+              "it": "NovaDigital 6 canali - Interruttore 5",
+              "de": "NovaDigital 6-fach - Schalter 5"
+            },
+            "energy": {
+              "approximation": {
+                "usageOn": 0,
+                "usageOff": 0
+              }
+            },
+            "settings": [
+              {
+                "id": "device_siblings_info",
+                "type": "label",
+                "label": {
+                  "en": "Connected Switches",
+                  "es": "Interruptores conectados",
+                  "it": "Interruttori collegati",
+                  "de": "Verbundene Schalter"
+                },
+                "hint": {
+                  "en": "Other switches sharing this physical board",
+                  "es": "Otros interruptores que comparten esta placa física",
+                  "it": "Altri interruttori che condividono questa scheda fisica",
+                  "de": "Andere Schalter, die diese physische Platine teilen"
+                },
+                "value": "-"
+              }
+            ]
+          },
+          "sixthGang": {
+            "class": "socket",
+            "capabilities": [
+              "onoff"
+            ],
+            "name": {
+              "en": "NovaDigital 6 Gang - Switch 6",
+              "es": "NovaDigital 6 canales - Interruptor 6",
+              "it": "NovaDigital 6 canali - Interruttore 6",
+              "de": "NovaDigital 6-fach - Schalter 6"
+            },
+            "energy": {
+              "approximation": {
+                "usageOn": 0,
+                "usageOff": 0
+              }
+            },
+            "settings": [
+              {
+                "id": "device_siblings_info",
+                "type": "label",
+                "label": {
+                  "en": "Connected Switches",
+                  "es": "Interruptores conectados",
+                  "it": "Interruttori collegati",
+                  "de": "Verbundene Schalter"
+                },
+                "hint": {
+                  "en": "Other switches sharing this physical board",
+                  "es": "Otros interruptores que comparten esta placa física",
+                  "it": "Altri interruttori che condividono questa scheda fisica",
+                  "de": "Andere Schalter, die diese physische Platine teilen"
+                },
+                "value": "-"
+              }
+            ]
+          }
+        },
+        "learnmode": {
+          "image": "/drivers/novadigital_switch_6_gang/assets/icon.svg",
+          "instruction": {
+            "en": "Press and hold the setup button for 5 seconds until the LED starts blinking. Six device tiles will be created, one for each gang.",
+            "es": "Mantén pulsado el botón de configuración durante 5 segundos hasta que el LED parpadee. Se crearán seis mosaicos, uno por grupo.",
+            "it": "Tieni premuto il pulsante di configurazione per 5 secondi fino a quando il LED inizia a lampeggiare. Verranno creati sei riquadri, uno per ogni gruppo.",
+            "de": "Halte die Setup-Taste 5 Sekunden gedrückt, bis die LED blinkt. Es werden sechs Kacheln erstellt, eine pro Gruppe."
+          }
+        }
+      }
+    },
+    {
+      "platforms": [
+        "local"
+      ],
+      "connectivity": [
+        "zigbee"
+      ],
+      "images": {
+        "xlarge": "/drivers/smartplug/assets/images/xlarge.png",
+        "large": "/drivers/smartplug/assets/images/large.png",
+        "small": "/drivers/smartplug/assets/images/small.png"
+      },
+      "id": "smartplug",
+      "name": {
+        "en": "Smart Plug with metering",
+        "es": "Enchufe inteligente con medición",
+        "it": "Presa smart con misurazione",
+        "de": "Smart Plug mit Messung"
+      },
+      "class": "socket",
+      "capabilities": [
+        "onoff",
+        "measure_power",
+        "meter_power",
+        "measure_current",
+        "measure_voltage",
+        "is_availability"
+      ],
+      "energy": {
+        "meterPowerImportedCapability": "meter_power"
+      },
+      "zigbee": {
+        "manufacturerName": [
+          "_TZ3000_88iqnhvd",
+          "_TZ3000_okaz9tjs",
+          "_TZ3210_cehuw1lw",
+          "_TZ3210_fgwhjm9j"
+        ],
+        "productId": [
+          "TS011F"
+        ],
+        "endpoints": {
+          "1": {
+            "clusters": [
+              0,
+              4,
+              5,
+              6,
+              1794,
+              2820,
+              57344,
+              57345
+            ],
+            "bindings": [
+              6,
+              1794,
+              2820
+            ]
+          }
+        },
+        "learnmode": {
+          "instruction": {
+            "en": "Press and hold down on/off switch for aprox 5 seconds until the LED blinks rapidly.",
+            "es": "Mantén pulsado el interruptor on/off durante aprox. 5 segundos hasta que el LED parpadee rápidamente.",
+            "it": "Tieni premuto l'interruttore on/off per circa 5 secondi fino a quando il LED lampeggia rapidamente.",
+            "de": "Halte den Ein/Aus-Schalter ca. 5 Sekunden gedrückt, bis die LED schnell blinkt."
+          }
+        }
+      },
+      "settings": [
+        {
+          "type": "group",
+          "label": {
+            "en": "Device control"
+          },
+          "children": [
+            {
+              "id": "relay_status",
+              "type": "dropdown",
+              "label": {
+                "en": "Power-on behavior"
+              },
+              "hint": {
+                "en": "State after power is restored."
+              },
+              "value": "lastState",
+              "values": [
+                {
+                  "id": "off",
+                  "label": {
+                    "en": "Always off"
+                  }
+                },
+                {
+                  "id": "on",
+                  "label": {
+                    "en": "Always on"
+                  }
+                },
+                {
+                  "id": "lastState",
+                  "label": {
+                    "en": "Remember last state"
+                  }
+                }
+              ]
+            },
+            {
+              "id": "relay_status_current",
+              "type": "label",
+              "label": {
+                "en": "Current (read from device)"
+              },
+              "hint": {
+                "en": "Last power-on behavior reported by the device. Updated at startup."
+              },
+              "value": "—"
+            },
+            {
+              "id": "indicator_mode",
+              "type": "dropdown",
+              "label": {
+                "en": "LED indicator"
+              },
+              "hint": {
+                "en": "When to light the LED."
+              },
+              "value": "status",
+              "values": [
+                {
+                  "id": "off",
+                  "label": {
+                    "en": "Always off"
+                  }
+                },
+                {
+                  "id": "status",
+                  "label": {
+                    "en": "On when powered"
+                  }
+                },
+                {
+                  "id": "position",
+                  "label": {
+                    "en": "Off when powered"
+                  }
+                }
+              ]
+            },
+            {
+              "id": "indicator_mode_current",
+              "type": "label",
+              "label": {
+                "en": "Current (read from device)"
+              },
+              "hint": {
+                "en": "Last LED indicator mode reported by the device. Updated at startup."
+              },
+              "value": "—"
+            },
+            {
+              "id": "child_lock",
+              "type": "checkbox",
+              "label": {
+                "en": "Child lock"
+              },
+              "hint": {
+                "en": "Disable physical button."
+              },
+              "value": false
+            }
+          ]
+        },
+        {
+          "type": "group",
+          "label": {
+            "en": "Reporting intervals"
+          },
+          "children": [
+            {
+              "id": "reportIntervalPower",
+              "type": "number",
+              "label": {
+                "en": "Power report interval (s)"
+              },
+              "hint": {
+                "en": "How often the device reports active power. Recommended: 60s. Minimum accepted by most devices is 60s."
+              },
+              "value": 60,
+              "min": 60,
+              "max": 3600,
+              "step": 1
+            },
+            {
+              "id": "reportIntervalCurrent",
+              "type": "number",
+              "label": {
+                "en": "Current report interval (s)"
+              },
+              "hint": {
+                "en": "How often the device reports current (A). Recommended: 60s. Use the same value as Power for consistency."
+              },
+              "value": 60,
+              "min": 60,
+              "max": 3600,
+              "step": 1
+            },
+            {
+              "id": "reportIntervalVoltage",
+              "type": "number",
+              "label": {
+                "en": "Voltage report interval (s)"
+              },
+              "hint": {
+                "en": "How often the device reports voltage (V). Recommended: 300s. Voltage is stable and rarely changes significantly."
+              },
+              "value": 300,
+              "min": 60,
+              "max": 3600,
+              "step": 1
+            }
+          ]
+        },
+        {
+          "type": "group",
+          "label": {
+            "en": "Energy measurement"
+          },
+          "children": [
+            {
+              "id": "powerFactor",
+              "type": "number",
+              "label": {
+                "en": "Power correction factor"
+              },
+              "hint": {
+                "en": "Multiply reported active power by this value. Use 1.0 for no correction."
+              },
+              "value": 1,
+              "min": 0.1,
+              "max": 2,
+              "step": 0.01
+            },
+            {
+              "id": "energyFactor",
+              "type": "number",
+              "label": {
+                "en": "Energy correction factor"
+              },
+              "hint": {
+                "en": "Multiply reported energy (kWh) by this value. Use 1.0 for no correction."
+              },
+              "value": 1,
+              "min": 0.1,
+              "max": 2,
+              "step": 0.01
+            },
+            {
+              "id": "calcPower",
+              "type": "checkbox",
+              "label": {
+                "en": "Calculate power from V × A"
+              },
+              "hint": {
+                "en": "Compute power as Voltage × Current instead of using reported active power. Enabled by default because TS011F firmware variants typically report activePower = 0."
+              },
+              "value": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "platforms": [
+        "local"
+      ],
+      "connectivity": [
+        "zigbee"
+      ],
+      "images": {
+        "xlarge": "/drivers/socket_power_strip/assets/images/xlarge.png",
+        "large": "/drivers/socket_power_strip/assets/images/large.png",
+        "small": "/drivers/socket_power_strip/assets/images/small.png"
+      },
+      "id": "socket_power_strip",
+      "name": {
+        "en": "Power Strip 4 Sockets + USB",
+        "es": "Regleta 4 enchufes + USB",
+        "it": "Ciabatta 4 prese + USB",
+        "de": "Steckdosenleiste 4 Steckdosen + USB"
+      },
+      "class": "socket",
+      "capabilities": [
+        "onoff",
+        "is_availability"
+      ],
+      "capabilitiesOptions": {
+        "onoff": {
+          "title": {
+            "en": "Power",
+            "es": "Corriente",
+            "it": "Alimentazione",
+            "de": "Strom"
+          }
+        }
+      },
+      "settings": [
+        {
+          "id": "device_siblings_info",
+          "type": "label",
+          "label": {
+            "en": "Connected Sockets",
+            "es": "Enchufes conectados",
+            "it": "Prese collegate",
+            "de": "Verbundene Steckdosen"
+          },
+          "hint": {
+            "en": "Other sockets sharing this power strip",
+            "es": "Otros enchufes que comparten esta regleta",
+            "it": "Altre prese che condividono questa ciabatta",
+            "de": "Andere Steckdosen, die diese Steckdosenleiste teilen"
+          },
+          "value": "-"
+        },
+        {
+          "type": "group",
+          "label": {
+            "en": "Power-On Behavior",
+            "es": "Comportamiento al encender",
+            "it": "Comportamento all'accensione",
+            "de": "Einschaltverhalten"
+          },
+          "children": [
+            {
+              "id": "power_on_behavior_global",
+              "type": "dropdown",
+              "label": {
+                "en": "Power-On (all sockets)",
+                "es": "Encendido (todos los enchufes)",
+                "it": "Accensione (tutte le prese)",
+                "de": "Einschalten (alle Steckdosen)"
+              },
+              "hint": {
+                "en": "Behavior of all sockets when power is restored.",
+                "es": "Comportamiento de todos los enchufes al restaurar la corriente.",
+                "it": "Comportamento di tutte le prese quando viene ripristinata l'alimentazione.",
+                "de": "Verhalten aller Steckdosen bei Wiederherstellung der Stromversorgung."
+              },
+              "value": "lastState",
+              "values": [
+                {
+                  "id": "off",
+                  "label": {
+                    "en": "Always Off",
+                    "es": "Siempre apagado",
+                    "it": "Sempre spento",
+                    "de": "Immer aus"
+                  }
+                },
+                {
+                  "id": "on",
+                  "label": {
+                    "en": "Always On",
+                    "es": "Siempre encendido",
+                    "it": "Sempre acceso",
+                    "de": "Immer ein"
+                  }
+                },
+                {
+                  "id": "lastState",
+                  "label": {
+                    "en": "Last State",
+                    "es": "Último estado",
+                    "it": "Ultimo stato",
+                    "de": "Letzter Zustand"
+                  }
+                }
+              ]
+            },
+            {
+              "id": "power_on_current_global",
+              "type": "label",
+              "label": {
+                "en": "Current Power-On",
+                "es": "Encendido actual",
+                "it": "Accensione attuale",
+                "de": "Aktuelles Einschalten"
+              },
+              "hint": {
+                "en": "Read from device.",
+                "es": "Leído del dispositivo.",
+                "it": "Letto dal dispositivo.",
+                "de": "Vom Gerät gelesen."
+              },
+              "value": "—"
+            }
+          ]
+        },
+        {
+          "type": "group",
+          "label": {
+            "en": "Physical Controls",
+            "es": "Controles físicos",
+            "it": "Controlli fisici",
+            "de": "Physische Bedienelemente"
+          },
+          "children": [
+            {
+              "id": "indicator_mode",
+              "type": "dropdown",
+              "label": {
+                "en": "LED Indicator",
+                "es": "Indicador LED",
+                "it": "Indicatore LED",
+                "de": "LED-Anzeige"
+              },
+              "hint": {
+                "en": "When to light the LED on the power strip.",
+                "es": "Cuándo encender el LED de la regleta.",
+                "it": "Quando accendere il LED della ciabatta.",
+                "de": "Wann die LED der Steckdosenleiste leuchten soll."
+              },
+              "value": "status",
+              "values": [
+                {
+                  "id": "off",
+                  "label": {
+                    "en": "Always Off",
+                    "es": "Siempre apagado",
+                    "it": "Sempre spento",
+                    "de": "Immer aus"
+                  }
+                },
+                {
+                  "id": "status",
+                  "label": {
+                    "en": "On when powered",
+                    "es": "Encendido con corriente",
+                    "it": "Acceso con corrente",
+                    "de": "Ein bei Strom"
+                  }
+                },
+                {
+                  "id": "position",
+                  "label": {
+                    "en": "Off when powered",
+                    "es": "Apagado con corriente",
+                    "it": "Spento con corrente",
+                    "de": "Aus bei Strom"
+                  }
+                }
+              ]
+            },
+            {
+              "id": "child_lock",
+              "type": "checkbox",
+              "label": {
+                "en": "Child Lock",
+                "es": "Bloqueo infantil",
+                "it": "Blocco bambini",
+                "de": "Kindersicherung"
+              },
+              "hint": {
+                "en": "Disable the physical button on the power strip.",
+                "es": "Desactiva el botón físico de la regleta.",
+                "it": "Disabilita il pulsante fisico della ciabatta.",
+                "de": "Deaktiviert die physische Taste der Steckdosenleiste."
+              },
+              "value": false
+            }
+          ]
+        }
+      ],
+      "zigbee": {
+        "manufacturerName": [
+          "_TZ3000_cfnprab5"
+        ],
+        "productId": [
+          "TS011F"
+        ],
+        "endpoints": {
+          "1": {
+            "clusters": [
+              0,
+              3,
+              4,
+              5,
+              6
+            ],
+            "bindings": [
+              6
+            ]
+          },
+          "2": {
+            "clusters": [
+              0,
+              3,
+              4,
+              5,
+              6
+            ],
+            "bindings": [
+              6
+            ]
+          },
+          "3": {
+            "clusters": [
+              0,
+              3,
+              4,
+              5,
+              6
+            ],
+            "bindings": [
+              6
+            ]
+          },
+          "4": {
+            "clusters": [
+              0,
+              3,
+              4,
+              5,
+              6
+            ],
+            "bindings": [
+              6
+            ]
+          },
+          "5": {
+            "clusters": [
+              0,
+              3,
+              4,
+              5,
+              6
+            ],
+            "bindings": [
+              6
+            ]
+          }
+        },
+        "devices": {
+          "socket2": {
+            "class": "socket",
+            "capabilities": [
+              "onoff"
+            ],
+            "name": {
+              "en": "Socket 2/4",
+              "es": "Enchufe 2/4",
+              "it": "Presa 2/4",
+              "de": "Steckdose 2/4"
+            },
+            "energy": {
+              "approximation": {
+                "usageOn": 0,
+                "usageOff": 0
+              }
+            },
+            "settings": [
+              {
+                "id": "device_siblings_info",
+                "type": "label",
+                "label": {
+                  "en": "Connected Sockets",
+                  "es": "Enchufes conectados",
+                  "it": "Prese collegate",
+                  "de": "Verbundene Steckdosen"
+                },
+                "hint": {
+                  "en": "Other sockets sharing this power strip",
+                  "es": "Otros enchufes que comparten esta regleta",
+                  "it": "Altre prese che condividono questa ciabatta",
+                  "de": "Andere Steckdosen, die diese Steckdosenleiste teilen"
+                },
+                "value": "-"
+              }
+            ]
+          },
+          "socket3": {
+            "class": "socket",
+            "capabilities": [
+              "onoff"
+            ],
+            "name": {
+              "en": "Socket 3/4",
+              "es": "Enchufe 3/4",
+              "it": "Presa 3/4",
+              "de": "Steckdose 3/4"
+            },
+            "energy": {
+              "approximation": {
+                "usageOn": 0,
+                "usageOff": 0
+              }
+            },
+            "settings": [
+              {
+                "id": "device_siblings_info",
+                "type": "label",
+                "label": {
+                  "en": "Connected Sockets",
+                  "es": "Enchufes conectados",
+                  "it": "Prese collegate",
+                  "de": "Verbundene Steckdosen"
+                },
+                "hint": {
+                  "en": "Other sockets sharing this power strip",
+                  "es": "Otros enchufes que comparten esta regleta",
+                  "it": "Altre prese che condividono questa ciabatta",
+                  "de": "Andere Steckdosen, die diese Steckdosenleiste teilen"
+                },
+                "value": "-"
+              }
+            ]
+          },
+          "socket4": {
+            "class": "socket",
+            "capabilities": [
+              "onoff"
+            ],
+            "name": {
+              "en": "Socket 4/4",
+              "es": "Enchufe 4/4",
+              "it": "Presa 4/4",
+              "de": "Steckdose 4/4"
+            },
+            "energy": {
+              "approximation": {
+                "usageOn": 0,
+                "usageOff": 0
+              }
+            },
+            "settings": [
+              {
+                "id": "device_siblings_info",
+                "type": "label",
+                "label": {
+                  "en": "Connected Sockets",
+                  "es": "Enchufes conectados",
+                  "it": "Prese collegate",
+                  "de": "Verbundene Steckdosen"
+                },
+                "hint": {
+                  "en": "Other sockets sharing this power strip",
+                  "es": "Otros enchufes que comparten esta regleta",
+                  "it": "Altre prese che condividono questa ciabatta",
+                  "de": "Andere Steckdosen, die diese Steckdosenleiste teilen"
+                },
+                "value": "-"
+              }
+            ]
+          },
+          "usb": {
+            "class": "socket",
+            "capabilities": [
+              "onoff"
+            ],
+            "name": {
+              "en": "USB Port",
+              "es": "Puerto USB",
+              "it": "Porta USB",
+              "de": "USB-Anschluss"
+            },
+            "energy": {
+              "approximation": {
+                "usageOn": 5,
+                "usageOff": 0
+              }
+            },
+            "settings": [
+              {
+                "id": "device_siblings_info",
+                "type": "label",
+                "label": {
+                  "en": "Connected Sockets",
+                  "es": "Enchufes conectados",
+                  "it": "Prese collegate",
+                  "de": "Verbundene Steckdosen"
+                },
+                "hint": {
+                  "en": "Other sockets sharing this power strip",
+                  "es": "Otros enchufes que comparten esta regleta",
+                  "it": "Altre prese che condividono questa ciabatta",
+                  "de": "Andere Steckdosen, die diese Steckdosenleiste teilen"
+                },
+                "value": "-"
+              }
+            ]
+          }
+        },
+        "learnmode": {
+          "instruction": {
+            "en": "Press and hold on/off switch for 5 seconds until LED blinks.",
+            "es": "Mantén pulsado el interruptor on/off durante 5 segundos hasta que el LED parpadee.",
+            "it": "Tieni premuto l'interruttore on/off per 5 secondi fino a quando il LED lampeggia.",
+            "de": "Halte den Ein/Aus-Schalter 5 Sekunden gedrückt, bis die LED blinkt."
+          }
+        }
+      },
+      "energy": {
+        "approximation": {
+          "usageOn": 1,
+          "usageOff": 0.5
+        }
+      }
+    },
+    {
+      "platforms": [
+        "local"
+      ],
+      "connectivity": [
+        "zigbee"
+      ],
+      "images": {
+        "xlarge": "/drivers/temphumidclock/assets/images/xlarge.png",
+        "large": "/drivers/temphumidclock/assets/images/large.png",
+        "small": "/drivers/temphumidclock/assets/images/small.png"
+      },
+      "id": "temphumidclock",
+      "name": {
+        "en": "Tuya Temperature & Humidity Sensor with Clock",
+        "es": "Sensor de temperatura y humedad Tuya con reloj",
+        "it": "Sensore Tuya temperatura e umidità con orologio",
+        "de": "Tuya Temperatur- und Feuchtigkeitssensor mit Uhr"
+      },
+      "class": "sensor",
+      "capabilities": [
+        "measure_temperature",
+        "measure_humidity",
+        "measure_battery"
+      ],
+      "capabilitiesOptions": {
+        "measure_temperature": {
+          "decimals": 1,
+          "title": {
+            "en": "Temperature",
+            "es": "Temperatura",
+            "it": "Temperatura",
+            "de": "Temperatur"
+          },
+          "units": {
+            "en": "°C",
+            "es": "°C",
+            "it": "°C",
+            "de": "°C"
+          }
+        },
+        "measure_humidity": {
+          "decimals": 1,
+          "title": {
+            "en": "Humidity",
+            "es": "Humedad",
+            "it": "Umidità",
+            "de": "Feuchtigkeit"
+          },
+          "units": {
+            "en": "%",
+            "es": "%",
+            "it": "%",
+            "de": "%"
+          }
+        },
+        "measure_battery": {
+          "title": {
+            "en": "Battery",
+            "es": "Batería",
+            "it": "Batteria",
+            "de": "Batterie"
+          }
+        }
+      },
+      "energy": {
+        "batteries": [
+          "AAA",
+          "AAA",
+          "AAA"
+        ]
+      },
+      "zigbee": {
+        "manufacturerName": [
+          "_TZE200_cirvgep4",
+          "_TZE204_cirvgep4"
+        ],
+        "productId": [
+          "TS0601"
+        ],
+        "endpoints": {
+          "1": {
+            "clusters": [
+              0,
+              4,
+              5,
+              61184
+            ],
+            "bindings": [
+              61184
+            ]
+          }
+        },
+        "learnmode": {
+          "image": "/drivers/temphumidclock/assets/learnmode.svg",
+          "instruction": {
+            "en": "Hold reset 10s until wireless icon blinks",
+            "es": "Mantén el botón de reinicio 10 s hasta que el icono inalámbrico parpadee",
+            "it": "Tieni premuto il reset per 10 s fino a quando l'icona wireless lampeggia",
+            "de": "Reset 10 s gedrückt halten, bis das WLAN-Symbol blinkt"
+          }
+        }
+      },
+      "settings": []
+    },
+    {
+      "platforms": [
+        "local"
+      ],
+      "connectivity": [
+        "zigbee"
+      ],
+      "images": {
+        "xlarge": "/drivers/zigbee_repeater/assets/images/xlarge.png",
+        "large": "/drivers/zigbee_repeater/assets/images/large.png",
+        "small": "/drivers/zigbee_repeater/assets/images/small.png"
+      },
+      "id": "zigbee_repeater",
+      "name": {
+        "en": "Zigbee Repeater",
+        "es": "Repetidor Zigbee",
+        "it": "Ripetitore Zigbee",
+        "de": "Zigbee-Repeater"
+      },
+      "class": "other",
+      "capabilities": [],
+      "zigbee": {
+        "manufacturerName": [
+          "_TZ3000_m0vaazab",
+          "_TZ3000_5k5vh43t",
+          "_TZ3000_ufttklsz",
+          "_TZ3000_gszjt2xx",
+          "_TZ3000_nkkl7uzv",
+          "_TZ3000_nlsszmzl",
+          "_TZ3000_misw04hq",
+          "_TZ3000_wlquqiiz"
+        ],
+        "productId": [
+          "TS0207"
+        ],
+        "endpoints": {
+          "1": {
+            "clusters": [
+              0,
+              3
+            ]
+          }
+        },
+        "learnmode": {
+          "image": "/drivers/zigbee_repeater/assets/icon.svg",
+          "instruction": {
+            "en": "Put the device in a USB slot and let it power up.",
+            "es": "Introduce el dispositivo en un puerto USB y deja que se encienda.",
+            "it": "Inserisci il dispositivo in una porta USB e lascia che si accenda.",
+            "de": "Stecke das Gerät in einen USB-Anschluss und lass es hochfahren."
+          }
+        }
+      },
+      "settings": []
+    }
+  ],
+  "capabilities": {
+    "is_availability": {
+      "type": "boolean",
+      "title": {
+        "en": "Is Available",
+        "es": "Disponible",
+        "it": "Disponibile",
+        "de": "Verfügbar"
+      },
+      "desc": {
+        "en": "true = device available, false = device unavailable. Used for availability flow triggers.",
+        "es": "true = dispositivo disponible, false = dispositivo no disponible. Usado para disparadores de flujo de disponibilidad.",
+        "it": "true = dispositivo disponibile, false = dispositivo non disponibile. Usato per i trigger di flusso di disponibilità.",
+        "de": "true = Gerät verfügbar, false = Gerät nicht verfügbar. Wird für Verfügbarkeits-Flow-Trigger verwendet."
+      },
+      "getable": true,
+      "setable": false,
+      "insights": false,
+      "uiComponent": null
+    },
+    "main_gang": {
+      "type": "boolean",
+      "title": {
+        "en": "Main Gang",
+        "es": "Grupo principal",
+        "it": "Gruppo principale",
+        "de": "Hauptgruppe"
+      },
+      "desc": {
+        "en": "Indicates this is the main gang (Gang 1) of a multi-gang switch. Used to filter flow cards.",
+        "es": "Indica que este es el grupo principal (Grupo 1) de un interruptor multigrupo. Usado para filtrar tarjetas de flujo.",
+        "it": "Indica che questo è il gruppo principale (Gruppo 1) di un interruttore multi-gruppo. Usato per filtrare le card di flusso.",
+        "de": "Gibt an, dass dies die Hauptgruppe (Gruppe 1) eines Mehrfachschalters ist. Wird zum Filtern von Flow-Karten verwendet."
+      },
+      "getable": true,
+      "setable": false,
+      "insights": false,
+      "uiComponent": null
+    }
+  }
+}

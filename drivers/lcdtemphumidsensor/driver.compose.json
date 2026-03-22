@@ -1,0 +1,34 @@
+{
+  "id": "lcdtemphumidsensor",
+  "name": {
+    "en": "LCD Temperature & Humidity Sensor",
+    "es": "Sensor de temperatura y humedad LCD",
+    "it": "Sensore temperatura e umidità LCD",
+    "de": "LCD Temperatur- und Feuchtigkeitssensor"
+  },
+  "class": "sensor",
+  "capabilities": ["measure_temperature", "measure_humidity", "measure_battery"],
+  "capabilitiesOptions": {
+    "measure_temperature": { "decimals": 1, "title": { "en": "Temperature", "es": "Temperatura", "it": "Temperatura", "de": "Temperatur" } },
+    "measure_humidity":    { "decimals": 1, "title": { "en": "Humidity",    "es": "Humedad",     "it": "Umidità",      "de": "Feuchtigkeit" } },
+    "measure_battery":     {               "title": { "en": "Battery",     "es": "Batería",     "it": "Batteria",     "de": "Batterie"     } }
+  },
+  "energy": { "batteries": ["CR2032"] },
+  "zigbee": {
+    "manufacturerName": ["_TZ3000_ywagc4rj"],
+    "productId": ["TS0201"],
+    "endpoints": {
+      "1": { "clusters": [0, 1, 3, 1026, 1029], "bindings": [] }
+    },
+    "learnmode": {
+      "image": "{{driverAssetsPath}}/icon.svg",
+      "instruction": {
+        "en": "Hold reset 5s until LCD blinks",
+        "es": "Mantén el botón de reinicio 5 s hasta que el LCD parpadee",
+        "it": "Tieni premuto il reset per 5 s fino a quando il display LCD lampeggia",
+        "de": "Reset 5 s gedrückt halten, bis das LCD blinkt"
+      }
+    }
+  },
+  "$extends": ["zigbee-local"]
+}

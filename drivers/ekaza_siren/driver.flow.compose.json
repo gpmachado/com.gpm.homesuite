@@ -1,0 +1,124 @@
+{
+  "triggers": [
+    {
+      "id": "siren_activated",
+      "title": {
+        "en": "Siren activated"
+      },
+      "titleFormatted": {
+        "en": "[[device]] siren was activated"
+      },
+      "hint": {
+        "en": "Triggered when the siren starts playing."
+      },
+      "tokens": [
+        {
+          "name": "duration",
+          "type": "number",
+          "title": {
+            "en": "Duration (seconds)"
+          },
+          "example": 10
+        }
+      ]
+    },
+    {
+      "id": "siren_deactivated",
+      "title": {
+        "en": "Siren deactivated"
+      },
+      "titleFormatted": {
+        "en": "[[device]] siren was deactivated"
+      },
+      "hint": {
+        "en": "Triggered when the siren stops playing (automatic or manual)."
+      },
+      "tokens": [
+        {
+          "name": "reason",
+          "type": "string",
+          "title": {
+            "en": "Stop reason"
+          },
+          "example": "auto"
+        }
+      ]
+    }
+  ],
+  "conditions": [
+    {
+      "id": "is_playing",
+      "title": {
+        "en": "Siren is !{{playing|not playing}}"
+      },
+      "titleFormatted": {
+        "en": "[[device]] siren is !{{playing|not playing}}"
+      },
+      "hint": {
+        "en": "Check if the siren is currently active."
+      }
+    }
+  ],
+  "actions": [
+    {
+      "id": "siren_play",
+      "title": {
+        "en": "Play siren with melody"
+      },
+      "titleFormatted": {
+        "en": "Play [[melody]] for [[duration]] seconds"
+      },
+      "hint": {
+        "en": "Play a specific melody for the given duration (volume is taken from Settings)."
+      },
+      "args": [
+        {
+          "name": "melody",
+          "type": "dropdown",
+          "values": [
+            { "id": "0",  "label": { "en": "Doorbell Chime" } },
+            { "id": "1",  "label": { "en": "Für Elise" } },
+            { "id": "2",  "label": { "en": "Westminster Chimes" } },
+            { "id": "3",  "label": { "en": "Fast Double Doorbell" } },
+            { "id": "4",  "label": { "en": "William Tell Overture" } },
+            { "id": "5",  "label": { "en": "Turkish March" } },
+            { "id": "6",  "label": { "en": "Safe / Security Alarm" } },
+            { "id": "7",  "label": { "en": "Chemical Spill Alert" } },
+            { "id": "8",  "label": { "en": "Piercing Alarm Clock" } },
+            { "id": "9",  "label": { "en": "Smoke Alarm" } },
+            { "id": "10", "label": { "en": "Dog Barking" } },
+            { "id": "11", "label": { "en": "Police Siren" } },
+            { "id": "12", "label": { "en": "Doorbell Chime (reverb)" } },
+            { "id": "13", "label": { "en": "Mechanical Telephone" } },
+            { "id": "14", "label": { "en": "Fire / Ambulance" } },
+            { "id": "15", "label": { "en": "3/1 Elevator" } },
+            { "id": "16", "label": { "en": "Buzzing Alarm Clock" } },
+            { "id": "17", "label": { "en": "School Bell" } }
+          ]
+        },
+        {
+          "name": "duration",
+          "type": "number",
+          "min": 1,
+          "max": 1800,
+          "step": 1,
+          "placeholder": {
+            "en": "10"
+          }
+        }
+      ]
+    },
+    {
+      "id": "siren_stop",
+      "title": {
+        "en": "Stop siren"
+      },
+      "titleFormatted": {
+        "en": "Stop the siren"
+      },
+      "hint": {
+        "en": "Immediately stop the siren if it is playing."
+      }
+    }
+  ]
+}

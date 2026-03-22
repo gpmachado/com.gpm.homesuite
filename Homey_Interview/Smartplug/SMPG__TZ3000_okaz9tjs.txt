@@ -1,0 +1,87 @@
+
+  "ids": {
+    "modelId": "TS011F",
+    "manufacturerName": "_TZ3000_okaz9tjs"
+  },
+  "endpoints": {
+    "ieeeAddress": "70:b3:d5:2b:60:03:bd:d3",
+    "networkAddress": 42071,
+    "modelId": "TS011F",
+    "manufacturerName": "_TZ3000_okaz9tjs",
+    "endpointDescriptors": [
+      {
+        "status": "SUCCESS",
+        "nwkAddrOfInterest": 42071,
+        "_reserved": 24,
+        "endpointId": 1,
+        "applicationProfileId": 260,
+        "applicationDeviceId": 81,
+        "applicationDeviceVersion": 0,
+        "_reserved1": 1,
+        "inputClusters": [
+          0,
+          6,
+          3,
+          4,
+          5,
+          57345,
+          2820,
+          1794
+        ],
+        "outputClusters": []
+      }
+    ],
+    "deviceType": "router",
+    "receiveWhenIdle": true,
+    "swBuildId": "500+TZSKT31BS102",
+    "capabilities": {
+      "alternatePANCoordinator": false,
+      "deviceType": true,
+      "powerSourceMains": true,
+      "receiveWhenIdle": true,
+      "security": false,
+      "allocateAddress": true
+    },
+    "extendedEndpointDescriptors": {
+      "1": {
+        "clusters": {
+          "basic": {
+            "attributes": "UNSUP_GENERAL_COMMAND",
+            "commandsGenerated": "UNSUP_GENERAL_COMMAND",
+            "commandsReceived": "UNSUP_GENERAL_COMMAND"
+          },
+          "onOff": {
+            "attributes": "UNSUP_GENERAL_COMMAND",
+            "commandsGenerated": "UNSUP_GENERAL_COMMAND",
+            "commandsReceived": "UNSUP_GENERAL_COMMAND"
+          },
+          "identify": {
+            "attributes": "UNSUP_GENERAL_COMMAND",
+            "commandsGenerated": "UNSUP_GENERAL_COMMAND",
+            "commandsReceived": "UNSUP_GENERAL_COMMAND"
+          },
+          "groups": {
+            "attributes": "UNSUP_GENERAL_COMMAND",
+            "commandsGenerated": "UNSUP_GENERAL_COMMAND",
+            "commandsReceived": "UNSUP_GENERAL_COMMAND"
+          },
+          "scenes": {
+            "attributes": "UNSUP_GENERAL_COMMAND",
+            "commandsGenerated": "UNSUP_GENERAL_COMMAND",
+            "commandsReceived": "UNSUP_GENERAL_COMMAND"
+          },
+          "electricalMeasurement": {
+            "attributes": "UNSUP_GENERAL_COMMAND",
+            "commandsGenerated": "UNSUP_GENERAL_COMMAND",
+            "commandsReceived": "UNSUP_GENERAL_COMMAND"
+          },
+          "metering": {
+            "attributes": "UNSUP_GENERAL_COMMAND",
+            "commandsGenerated": "UNSUP_GENERAL_COMMAND",
+            "commandsReceived": "UNSUP_GENERAL_COMMAND"
+          }
+        },
+        "bindings": {}
+      }
+    }
+  }

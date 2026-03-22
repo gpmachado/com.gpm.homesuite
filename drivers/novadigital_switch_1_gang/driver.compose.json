@@ -1,0 +1,280 @@
+{
+  "id": "novadigital_switch_1_gang",
+  "name": {
+    "en": "NovaDigital Switch 1 Gang",
+    "es": "Interruptor NovaDigital 1 canal",
+    "it": "Interruttore NovaDigital 1 canale",
+    "de": "NovaDigital Schalter 1-fach"
+  },
+  "class": "socket",
+  "capabilities": [
+    "onoff",
+    "main_gang",
+    "is_availability"
+  ],
+  "energy": {
+    "approximation": {
+      "usageOn": 0,
+      "usageOff": 0
+    }
+  },
+  "settings": [
+    {
+      "type": "group",
+      "label": {
+        "en": "Switch Settings",
+        "es": "Configuración del interruptor",
+        "it": "Impostazioni interruttore",
+        "de": "Schaltereinstellungen"
+      },
+      "children": [
+        {
+          "id": "backlight_enabled",
+          "type": "checkbox",
+          "label": {
+            "en": "LED Backlight",
+            "es": "Retroiluminación LED",
+            "it": "Retroilluminazione LED",
+            "de": "LED-Hintergrundbeleuchtung"
+          },
+          "hint": {
+            "en": "Status LED on physical button. If disabled, it will automatically stay OFF after a power failure.",
+            "es": "LED de estado en el botón físico. Si está desactivado, permanecerá APAGADO automáticamente tras un corte de luz.",
+            "it": "LED di stato sul pulsante fisico. Se disabilitato, rimarrà SPENTO automaticamente dopo un'interruzione di corrente.",
+            "de": "Status-LED an der physischen Taste. Wenn deaktiviert, bleibt sie nach einem Stromausfall automatisch AUS."
+          },
+          "value": true
+        },
+        {
+          "id": "switch_mode_global",
+          "type": "dropdown",
+          "label": {
+            "en": "Switch Mode",
+            "es": "Modo del interruptor",
+            "it": "Modalità interruttore",
+            "de": "Schaltmodus"
+          },
+          "hint": {
+            "en": "Physical button behavior",
+            "es": "Comportamiento del botón físico",
+            "it": "Comportamento del pulsante fisico",
+            "de": "Verhalten der physischen Taste"
+          },
+          "value": "toggle",
+          "values": [
+            {
+              "id": "toggle",
+              "label": {
+                "en": "Toggle (Standard)",
+                "es": "Alternante (estándar)",
+                "it": "Alternante (standard)",
+                "de": "Umschalten (Standard)"
+              }
+            },
+            {
+              "id": "momentary",
+              "label": {
+                "en": "Momentary (Pulse)",
+                "es": "Momentáneo (pulso)",
+                "it": "Momentaneo (impulso)",
+                "de": "Momentan (Impuls)"
+              }
+            }
+          ]
+        },
+        {
+          "id": "switch_mode_current",
+          "type": "label",
+          "label": {
+            "en": "Current Mode",
+            "es": "Modo actual",
+            "it": "Modalità attuale",
+            "de": "Aktueller Modus"
+          },
+          "hint": {
+            "en": "Read from device",
+            "es": "Leído del dispositivo",
+            "it": "Letto dal dispositivo",
+            "de": "Vom Gerät gelesen"
+          },
+          "value": "-"
+        }
+      ]
+    },
+    {
+      "type": "group",
+      "label": {
+        "en": "Power-On Global",
+        "es": "Encendido global",
+        "it": "Accensione globale",
+        "de": "Globales Einschalten"
+      },
+      "children": [
+        {
+          "id": "power_on_behavior_global",
+          "type": "dropdown",
+          "label": {
+            "en": "Default behavior",
+            "es": "Comportamiento predeterminado",
+            "it": "Comportamento predefinito",
+            "de": "Standardverhalten"
+          },
+          "hint": {
+            "en": "Applies and propagates to individual setting when changed",
+            "es": "Se aplica y propaga al ajuste individual al cambiar",
+            "it": "Si applica e si propaga all'impostazione individuale quando viene modificato",
+            "de": "Wird bei Änderung auf die individuelle Einstellung angewendet und weitergegeben"
+          },
+          "value": "lastState",
+          "values": [
+            {
+              "id": "off",
+              "label": {
+                "en": "Always Off",
+                "es": "Siempre apagado",
+                "it": "Sempre spento",
+                "de": "Immer aus"
+              }
+            },
+            {
+              "id": "on",
+              "label": {
+                "en": "Always On",
+                "es": "Siempre encendido",
+                "it": "Sempre acceso",
+                "de": "Immer ein"
+              }
+            },
+            {
+              "id": "lastState",
+              "label": {
+                "en": "Last State",
+                "es": "Último estado",
+                "it": "Ultimo stato",
+                "de": "Letzter Zustand"
+              }
+            }
+          ]
+        },
+        {
+          "id": "power_on_current_global",
+          "type": "label",
+          "label": {
+            "en": "Current (Global)",
+            "es": "Actual (global)",
+            "it": "Attuale (globale)",
+            "de": "Aktuell (global)"
+          },
+          "hint": {
+            "en": "Read from device",
+            "es": "Leído del dispositivo",
+            "it": "Letto dal dispositivo",
+            "de": "Vom Gerät gelesen"
+          },
+          "value": "-"
+        }
+      ]
+    },
+    {
+      "type": "group",
+      "label": {
+        "en": "Power-On Individual",
+        "es": "Encendido individual",
+        "it": "Accensione individuale",
+        "de": "Individuelles Einschalten"
+      },
+      "children": [
+        {
+          "id": "power_on_behavior_gang1",
+          "type": "dropdown",
+          "label": {
+            "en": "Override",
+            "es": "Anular",
+            "it": "Ignora",
+            "de": "Überschreiben"
+          },
+          "hint": {
+            "en": "Individual override (cluster 0xE001) -- overrides global",
+            "es": "Anulación individual (cluster 0xE001) -- anula el ajuste global",
+            "it": "Ignoranza individuale (cluster 0xE001) -- ignora il globale",
+            "de": "Individuelle Überschreibung (Cluster 0xE001) -- überschreibt global"
+          },
+          "value": "lastState",
+          "values": [
+            {
+              "id": "off",
+              "label": {
+                "en": "Always Off",
+                "es": "Siempre apagado",
+                "it": "Sempre spento",
+                "de": "Immer aus"
+              }
+            },
+            {
+              "id": "on",
+              "label": {
+                "en": "Always On",
+                "es": "Siempre encendido",
+                "it": "Sempre acceso",
+                "de": "Immer ein"
+              }
+            },
+            {
+              "id": "lastState",
+              "label": {
+                "en": "Last State",
+                "es": "Último estado",
+                "it": "Ultimo stato",
+                "de": "Letzter Zustand"
+              }
+            }
+          ]
+        },
+        {
+          "id": "power_on_current_gang1",
+          "type": "label",
+          "label": {
+            "en": "Current (Individual)",
+            "es": "Actual (individual)",
+            "it": "Attuale (individuale)",
+            "de": "Aktuell (individuell)"
+          },
+          "hint": {
+            "en": "Read from device",
+            "es": "Leído del dispositivo",
+            "it": "Letto dal dispositivo",
+            "de": "Vom Gerät gelesen"
+          },
+          "value": "-"
+        }
+      ]
+    }
+  ],
+  "zigbee": {
+    "manufacturerName": [
+      "_TZ3000_ovyaisip",
+      "_TZ3000_pk8tgtdb"
+    ],
+    "productId": [
+      "TS0001"
+    ],
+    "endpoints": {
+      "1": {
+        "clusters": [0, 3, 4, 5, 6, 10, 57344, 57345],
+        "bindings": [6]
+      }
+    },
+    "learnmode": {
+      "image": "{{driverAssetsPath}}/icon.svg",
+      "instruction": {
+        "en": "Hold the setup button 5s until LED blinks.",
+        "es": "Mantén el botón de configuración 5 s hasta que el LED parpadee.",
+        "it": "Tieni premuto il pulsante di configurazione per 5 s fino a quando il LED lampeggia.",
+        "de": "Halte die Setup-Taste 5 s gedrückt, bis die LED blinkt."
+      }
+    }
+  },
+  "$extends": [
+    "zigbee-local"
+  ]
+}

@@ -1,0 +1,50 @@
+{
+    "id": "availability_turned_off",
+    "title": {
+        "en": "Availability turned off",
+        "es": "Disponibilidad desactivada",
+        "it": "Disponibilità disattivata",
+        "de": "Verfügbarkeit ausgeschaltet"
+    },
+    "titleFormatted": {
+        "en": "Availability of [[device]] turned off",
+        "es": "Disponibilidad de [[device]] desactivada",
+        "it": "Disponibilità di [[device]] disattivata",
+        "de": "Verfügbarkeit von [[device]] ausgeschaltet"
+    },
+    "hint": {
+        "en": "Fires when the device becomes unavailable.",
+        "es": "Se activa cuando el dispositivo deja de estar disponible.",
+        "it": "Si attiva quando il dispositivo non è più disponibile.",
+        "de": "Wird ausgelöst, wenn das Gerät nicht mehr verfügbar ist."
+    },
+    "tokens": [
+        {
+            "name": "device_name",
+            "type": "string",
+            "title": {
+                "en": "Device name",
+                "es": "Nombre del dispositivo",
+                "it": "Nome del dispositivo",
+                "de": "Gerätename"
+            }
+        },
+        {
+            "name": "timestamp",
+            "type": "string",
+            "title": {
+                "en": "Timestamp",
+                "es": "Marca de tiempo",
+                "it": "Data e ora",
+                "de": "Zeitstempel"
+            }
+        }
+    ],
+    "args": [
+        {
+            "name": "device",
+            "type": "device",
+            "filter": "capabilities=is_availability"
+        }
+    ]
+}

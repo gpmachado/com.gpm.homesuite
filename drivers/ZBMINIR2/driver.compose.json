@@ -1,0 +1,29 @@
+{
+  "id": "ZBMINIR2",
+  "name": {
+    "en": "ZBMINI-R2 Switch",
+    "es": "Interruptor ZBMINI-R2",
+    "it": "Interruttore ZBMINI-R2",
+    "de": "ZBMINI-R2 Schalter"
+  },
+  "class": "socket",
+  "capabilities": ["onoff"],
+  "icon": "{{driverAssetsPath}}/icon.svg",
+  "zigbee": {
+    "manufacturerName": ["SONOFF"],
+    "productId": ["ZBMINIR2"],
+    "endpoints": {
+      "1": { "clusters": [0, 6, 64529], "bindings": [6] }
+    },
+    "learnmode": {
+      "image": "{{driverAssetsPath}}/learn.svg",
+      "instruction": {
+        "en": "Press the button on the top for approx 10 seconds until the green LED blinks rapidly.",
+        "es": "Pulsa el botón de la parte superior durante aprox. 10 segundos hasta que el LED verde parpadee rápidamente.",
+        "it": "Premi il pulsante nella parte superiore per circa 10 secondi fino a quando il LED verde lampeggia rapidamente.",
+        "de": "Drücke die Taste oben ca. 10 Sekunden, bis die grüne LED schnell blinkt."
+      }
+    }
+  },
+  "$extends": ["zigbee-local"]
+}

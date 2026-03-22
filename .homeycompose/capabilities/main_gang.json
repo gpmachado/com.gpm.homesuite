@@ -1,0 +1,19 @@
+{
+  "type": "boolean",
+  "title": {
+    "en": "Main Gang",
+    "es": "Grupo principal",
+    "it": "Gruppo principale",
+    "de": "Hauptgruppe"
+  },
+  "desc": {
+    "en": "Indicates this is the main gang (Gang 1) of a multi-gang switch. Used to filter flow cards.",
+    "es": "Indica que este es el grupo principal (Grupo 1) de un interruptor multigrupo. Usado para filtrar tarjetas de flujo.",
+    "it": "Indica che questo è il gruppo principale (Gruppo 1) di un interruttore multi-gruppo. Usato per filtrare le card di flusso.",
+    "de": "Gibt an, dass dies die Hauptgruppe (Gruppe 1) eines Mehrfachschalters ist. Wird zum Filtern von Flow-Karten verwendet."
+  },
+  "getable": true,
+  "setable": false,
+  "insights": false,
+  "uiComponent": null
+}

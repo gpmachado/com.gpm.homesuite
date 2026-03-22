@@ -1,0 +1,21 @@
+[
+  {
+    "type": "group",
+    "label": {
+      "en": "Alerts"
+    },
+    "children": [
+      {
+        "id": "alarm_problem_enabled",
+        "type": "checkbox",
+        "label": {
+          "en": "Enable device fault alert"
+        },
+        "hint": {
+          "en": "Show alert when the sensor reports a hardware fault."
+        },
+        "value": true
+      }
+    ]
+  }
+]
