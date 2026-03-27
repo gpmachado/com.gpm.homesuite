@@ -76,21 +76,10 @@ class SonoffZBMINIR2 extends SonoffBase {
             };
         }
 
-        this.checkAttributes();
-
-        // Apply inching settings on initialization
-        const settings = this.getSettings();
-        if (settings.inching_enabled !== undefined) {
-            try {
-                await this.setInching(
-                    settings.inching_enabled,
-                    settings.inching_time || 1,
-                    settings.inching_mode || 'on'
-                );
-                this.log('Initial inching settings applied');
-            } catch (error) {
-                this.error('Failed to apply initial inching settings:', error);
-            }
+        // checkAttributes only on first pairing or if settings are unpopulated.
+        // Device stores all config in non-volatile memory — no need to re-read on every boot.
+        if (this.isFirstInit() || !this.getSetting('switch_mode')) {
+            this.checkAttributes();
         }
 
         this.log('ZBMINIR2 initialized');
@@ -208,6 +197,14 @@ class SonoffZBMINIR2 extends SonoffBase {
             };
             this.setSettings(settingsData).catch(this.error);
         });
+    }
+
+    async onBecameAvailable() {
+        this.log('Device became available');
+        // Re-read attrs only if settings appear unpopulated (e.g. after factory reset).
+        if (!this.getSetting('switch_mode')) {
+            this.checkAttributes();
+        }
     }
 
     async onDeleted() {

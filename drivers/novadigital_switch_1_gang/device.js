@@ -3,6 +3,7 @@
 const OnOffBoundCluster = require('../../lib/OnOffBoundCluster');
 const { readAttrCatch } = require('../../lib/errorUtils');
 const { ONOFF_REPORT_MAX_INTERVAL_S } = require('../../lib/constants');
+const { BasicSilentBoundCluster } = require('../../lib/TimeCluster');
 const {
   NovaDigitalSwitchBase,
   POWER_ON_DISPLAY,
@@ -15,12 +16,13 @@ class novadigital_switch_1gang extends NovaDigitalSwitchBase {
   async onNodeInit({ zclNode }) {
 
     this.printNode();
+    try { if (zclNode.endpoints[1]?.clusters?.basic) zclNode.endpoints[1].bind('basic', new BasicSilentBoundCluster()); } catch {}
 
     this._endpoint  = 1;
     this._gangLabel = 'Gang 1';
 
     const firstInit = this.isFirstInit();
-    this.log(`[${this._gangLabel}] init -- ep:1 firstInit:${firstInit}`);
+    this.log(`[${this._gangLabel}] init -- ${this.getName()} ep:1 firstInit:${firstInit}`);
 
     // -- OnOff capability ----------------------------------------------------
     // registerCapability intentionally omitted: it registers an internal listener
@@ -86,28 +88,30 @@ class novadigital_switch_1gang extends NovaDigitalSwitchBase {
     // -- Read basic cluster attributes ---------------------------------------
     await this._readBasicAttributes(zclNode);
 
-    // -- Read extended onOff attrs + boot backlight persistence --------------
+    // -- Read extended onOff attrs ------------------------------------------
     await this._readExtendedOnOffAttrs(onOffCluster, 'power_on_behavior_global', 'power_on_current_global');
-    this._bootPersistBacklight(onOffCluster);
 
-    // -- Read tuyaPowerOnState (gang + switchMode) ---------------------------
-    await gangCluster
-      .readAttributes(['powerOnStateGang', 'switchMode'])
-      .then(attrs => {
-        this.log('[EP1] read tuyaPowerOnState:', attrs);
-        const s = {};
-        if (attrs.powerOnStateGang != null) {
-          s.power_on_behavior_gang1 = attrs.powerOnStateGang;
-          s.power_on_current_gang1  = POWER_ON_DISPLAY[attrs.powerOnStateGang] || attrs.powerOnStateGang;
-        }
-        if (attrs.switchMode != null) {
-          const norm            = SWITCH_NORMALIZE(attrs.switchMode);
-          s.switch_mode_global  = norm;
-          s.switch_mode_current = SWITCH_DISPLAY[norm] || norm;
-        }
-        return Object.keys(s).length ? this.setSettings(s) : null;
-      })
-      .catch(readAttrCatch(this, '[EP1] readAttributes tuyaPowerOnState'));
+    // -- Read tuyaPowerOnState (gang + switchMode) — first pairing only ------
+    // Device stores these in non-volatile memory; no need to re-read every boot.
+    if (firstInit || !this.getSetting('power_on_behavior_gang1')) {
+      await gangCluster
+        .readAttributes(['powerOnStateGang', 'switchMode'])
+        .then(attrs => {
+          this.log('[EP1] read tuyaPowerOnState:', attrs);
+          const s = {};
+          if (attrs.powerOnStateGang != null) {
+            s.power_on_behavior_gang1 = attrs.powerOnStateGang;
+            s.power_on_current_gang1  = POWER_ON_DISPLAY[attrs.powerOnStateGang] || attrs.powerOnStateGang;
+          }
+          if (attrs.switchMode != null) {
+            const norm            = SWITCH_NORMALIZE(attrs.switchMode);
+            s.switch_mode_global  = norm;
+            s.switch_mode_current = SWITCH_DISPLAY[norm] || norm;
+          }
+          return Object.keys(s).length ? this.setSettings(s) : null;
+        })
+        .catch(readAttrCatch(this, '[EP1] readAttributes tuyaPowerOnState'));
+    }
 
     // -- First pairing: configure reporting ----------------------------------
     if (firstInit) {

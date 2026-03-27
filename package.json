@@ -1,5 +1,5 @@
 {
-  "name": "MiHome.zigbee.gpm",
+  "name": "com.gpm.homesuite",
   "version": "1.0.0",
   "main": "app.js",
   "scripts": {
@@ -12,6 +12,6 @@
   },
   "dependencies": {
     "homey-zigbeedriver": "^2.2.15",
-    "zigbee-clusters": "^2.9.1"
+    "zigbee-clusters": "^3.0.2"
   }
 }

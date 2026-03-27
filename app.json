@@ -5028,6 +5028,55 @@
         "zigbee"
       ],
       "images": {
+        "xlarge": "/drivers/sonoff_dongle/assets/images/xlarge.png",
+        "large": "/drivers/sonoff_dongle/assets/images/large.png",
+        "small": "/drivers/sonoff_dongle/assets/images/small.png"
+      },
+      "id": "sonoff_dongle",
+      "name": {
+        "en": "Sonoff Zigbee Dongle",
+        "es": "Dongle Zigbee Sonoff",
+        "it": "Dongle Zigbee Sonoff",
+        "de": "Sonoff Zigbee-Dongle"
+      },
+      "class": "other",
+      "capabilities": [],
+      "zigbee": {
+        "manufacturerName": [
+          "SONOFF"
+        ],
+        "productId": [
+          "DONGLE-E_R"
+        ],
+        "endpoints": {
+          "1": {
+            "clusters": [
+              0,
+              3,
+              6
+            ]
+          }
+        },
+        "learnmode": {
+          "image": "/drivers/sonoff_dongle/assets/icon.svg",
+          "instruction": {
+            "en": "Put the dongle in a USB slot and let it power up.",
+            "es": "Introduce el dongle en un puerto USB y deja que se encienda.",
+            "it": "Inserisci il dongle in una porta USB e lascia che si accenda.",
+            "de": "Stecke den Dongle in einen USB-Anschluss und lass ihn hochfahren."
+          }
+        }
+      },
+      "settings": []
+    },
+    {
+      "platforms": [
+        "local"
+      ],
+      "connectivity": [
+        "zigbee"
+      ],
+      "images": {
         "xlarge": "/drivers/temphumidclock/assets/images/xlarge.png",
         "large": "/drivers/temphumidclock/assets/images/large.png",
         "small": "/drivers/temphumidclock/assets/images/small.png"
@@ -5148,14 +5197,7 @@
       "capabilities": [],
       "zigbee": {
         "manufacturerName": [
-          "_TZ3000_m0vaazab",
-          "_TZ3000_5k5vh43t",
-          "_TZ3000_ufttklsz",
-          "_TZ3000_gszjt2xx",
-          "_TZ3000_nkkl7uzv",
-          "_TZ3000_nlsszmzl",
-          "_TZ3000_misw04hq",
-          "_TZ3000_wlquqiiz"
+          "_TZ3000_nkkl7uzv"
         ],
         "productId": [
           "TS0207"
