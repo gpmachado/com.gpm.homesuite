@@ -1,50 +1,168 @@
-# Contributing to Athom and Homey
+# Contributing — Adding a New Device
 
-First off all, thank you for taking the time to contribute!
+This guide walks you through adding support for a device whose clusters are compatible
+with existing drivers but has a different `manufacturerName`.
 
-The following is a set of guidelines for contributing to Athom and its packages, which are hosted in the [Athom Organization](https://github.com/athombv) on GitHub. These are just guidelines, not rules. Use your best judgment, and feel free to contact us if you have any questions.
+---
 
-Please join our [community slack](https://slack.athom.com), if you have not done so already.
-We also have a [community forum](https://community.homey.app) for general discussions.
+## 1. Get the device interview
 
+Pair the device temporarily using the **Homey Developer Tools** interview.
+This gives you a JSON file with the device's endpoints and cluster IDs.
 
-## Before submitting a bug or feature request
+The `Homey_Interview/` folder in this repo contains examples for every supported device.
+Use them as reference.
 
-* **Have you actually read the error message**?
-* Have you searched for similar issues?
-* Have you updated homey, all apps, and the development tools (if applicable)?
-* Have you checked that it's not a problem with one of the apps you're using, rather than Homey itself?
-* Have you looked at what's involved in fixing/implementing this?
- 
-Capable programmers should always attempt to investigate and fix problems themselves before asking for others to help. Submit a pull request instead of an issue!
+A typical interview output looks like this:
 
-## A great bug report contains
+```json
+{
+  "ids": {
+    "modelId": "TS0003",
+    "manufacturerName": "_TZ3000_eqsair32"
+  },
+  "endpoints": {
+    "endpointDescriptors": [
+      {
+        "endpointId": 1,
+        "inputClusters": [0, 3, 4, 5, 6, 10, 57344, 57345],
+        "outputClusters": [10, 25]
+      },
+      {
+        "endpointId": 2,
+        "inputClusters": [4, 5, 6, 57345]
+      }
+    ]
+  }
+}
+```
 
-* Context – what were you trying to achieve?
-* Detailed steps to reproduce the error from scratch. Try isolating the minimal amount of code needed to reproduce the error.
-* Any applicable log files or ID's.
-* Evidence you've looked into solving the problem and ideally, a theory on the cause and a possible solution.
+---
 
-## A great feature request contains
+## 2. Compare clusters with the driver.compose.json
 
-* The current situation.
-* How and why the current situation is problematic.
-* A detailed proposal or pull request that demonstrates how the problem could be solved.
-* A use case – who needs this feature and why?
-* Any caveats.
+Open the `driver.compose.json` of the most similar existing driver and compare
+the `endpoints.clusters` arrays with the interview data.
 
-## A great pull request contains
+**Common cluster IDs:**
 
-* Minimal changes. Only submit code relevant to the current issue. Other changes should go in new pull requests.
-* Minimal commits. Please squash to a single commit before sending your pull request.
-* No conflicts. Please rebase off the latest master before submitting.
-* Code conforming to the existing conventions and formats. i.e. Please don't reformat whitespace.
-* Passing tests in the test folder (if applicable). Use existing tests as a reference.
-* Relevant documentation.
+| ID    | Name             | Purpose |
+|-------|------------------|---------|
+| 0     | Basic            | Device info, manufacturer, model |
+| 3     | Identify         | Blink/identify |
+| 4     | Groups           | Zigbee group membership |
+| 5     | Scenes           | Scene recall |
+| 6     | On/Off           | Switch control, backlight, powerOnState |
+| 10    | Time             | Clock sync (silenced in this app) |
+| 57344 | tuyaE000         | Tuya-specific (inching/pulse) |
+| 57345 | tuyaPowerOnState | Per-gang power-on behaviour, switch mode |
 
-## Speeding up your pull request
-Merging pull requests takes time. While we always try to merge your pull request as soon as possible, there are certain things you can do to speed up this process.
+If the clusters match the existing driver, only the `manufacturerName` needs to be added.
+Open the driver's `driver.compose.json` and append the new value to the array:
 
-* Ask developers to review your code changes and post their feedback.
-* Ask users to test your changes and post their feedback.
-* Keep your changes to the minimal required amount, and dedicated to one issue/feature only.
+```json
+"manufacturerName": [
+  "_TZ3000_yervjnlj",
+  "_TZ3000_newdevice"
+]
+```
+
+If the cluster layout is different (different endpoints, missing clusters), a new driver
+may be needed — open an issue first to discuss.
+
+---
+
+## 3. Install dependencies
+
+```bash
+cd com.gpm.homesuite
+npm install
+```
+
+---
+
+## 4. Run the app on your Homey
+
+```bash
+homey app run --remote
+```
+
+This installs and runs the app directly on your Homey over the network.
+Keep the terminal open — logs stream in real time.
+
+---
+
+## 5. Pair the device and analyse the log
+
+Pair the new device through Homey. Watch the terminal for the init sequence.
+
+**What to look for:**
+
+```
+[Main (Gang 1)] init -- My Switch ep:1 firstInit:true
+[EP1] read switchMode: toggle
+[EP1] read powerOnStateGang: lastState
+[EP2] read powerOnStateGang: lastState
+```
+
+**Red flags:**
+
+- `Could not reach device` during init → mesh/timing issue, retry pairing
+- `already registered` warning on capability → duplicate listener registration
+- `readAttributes failed` on first init → non-critical, device will report on rejoin
+- Silent init (no logs at all) → `manufacturerName` not matched in `driver.compose.json`
+
+---
+
+## 6. Test the device
+
+Run through this checklist before submitting a pull request.
+
+### On/Off
+
+- [ ] Toggle the switch in Homey UI → correct gang turns on/off physically
+- [ ] Press physical button → Homey UI updates correctly
+- [ ] No other gang changes state (no crosslink)
+
+### Multi-gang (if applicable)
+
+- [ ] Each gang controls only its own endpoint
+- [ ] Renaming one gang updates the sibling info on all gangs
+
+### Power restore
+
+- [ ] Cut and restore power to the device
+- [ ] All gang states are restored correctly in Homey
+- [ ] Backlight behaviour matches the setting (on/off)
+
+### Settings
+
+- [ ] **Backlight**: toggle off → device backlight turns off; restore power → stays off
+- [ ] **Power-on behaviour (per gang)**: set to Always Off / Always On / Last State → restore power → device respects setting
+- [ ] **Switch mode**: toggle Momentary ↔ Standard → physical button behaves accordingly
+
+### Availability
+
+- [ ] Unplug device → after timeout Homey marks it unavailable
+- [ ] Replug device → Homey marks it available again
+
+---
+
+## 7. Save the interview file
+
+Save the raw interview JSON to `Homey_Interview/<category>/` using the naming convention:
+
+```
+3G_TZ3000_newdevice.txt
+```
+
+This helps future contributors verify cluster compatibility without pairing the device.
+
+---
+
+## 8. Submit the pull request
+
+- One device (or one manufacturer variant) per PR
+- Include the interview file
+- Describe what was tested and on which hardware
+- If behaviour differs from existing devices, document it in the PR description
