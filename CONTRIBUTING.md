@@ -7,8 +7,12 @@ with existing drivers but has a different `manufacturerName`.
 
 ## 1. Get the device interview
 
-Pair the device temporarily using the **Homey Developer Tools** interview.
-This gives you a JSON file with the device's endpoints and cluster IDs.
+1. Pair the device in Homey normally
+2. Open [tools.developer.homey.app](https://tools.developer.homey.app) in your browser
+3. Go to **Zigbee** → select your device → click **Interview**
+4. Copy or download the resulting JSON
+
+This gives you the device's endpoints and cluster IDs.
 
 The `Homey_Interview/` folder in this repo contains examples for every supported device.
 Use them as reference.
