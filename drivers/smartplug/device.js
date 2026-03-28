@@ -80,10 +80,10 @@ class SmartPlugDevice extends ZigBeeDevice {
     await this._addMissingCapabilities();
     this._registerCapabilities();
 
-    const reachable = await this._safeReadAndSyncTuyaSettings();
-    // Stagger attribute reporting setup across devices to avoid mesh congestion on startup.
+    // Stagger all init reads across devices to avoid mesh congestion on startup.
     const startupJitter = 2000 + Math.random() * 6000; // 2–8 s
     await new Promise(r => this.homey.setTimeout(r, startupJitter));
+    const reachable = await this._safeReadAndSyncTuyaSettings();
     await this._safeSetupAttributeReporting();
     await this._safeReadDeviceInfo(zclNode);
     this._attachOnOffListeners(zclNode);

@@ -21,9 +21,28 @@ class SonoffDongleDevice extends ZigBeeDevice {
     // Silence ZCL time cluster frames.
     try { zclNode.endpoints[1].bind('time', new TimeSilentBoundCluster()); } catch {}
 
-    // Passive availability watchdog: cluster 6 (onOff) is configured with
-    // maxInterval 600s — the device sends reports every ≤10 min, which keeps
-    // last_seen_ts fresh via handleFrame. Timeout = 25 min (2.5× max interval).
+    // Configure onOff reporting — maxInterval 300s (5 min) so the device sends
+    // periodic frames even when idle. These frames are caught by handleFrame to
+    // keep last_seen_ts fresh. Must be configured on every init (re-pair resets it).
+    try {
+      await zclNode.endpoints[1].clusters.onOff.configureReporting({
+        minInterval: 0,
+        maxInterval: 300,
+        minChange: 0,
+      });
+      this.log('onOff reporting configured (max 300s)');
+    } catch (e) {
+      this.log('onOff reporting config failed — using ping fallback:', e.message);
+      // Fallback: periodic ping so handleFrame still fires every 10 min.
+      this._pingInterval = this.homey.setInterval(async () => {
+        zclNode.endpoints[1].clusters.basic
+          .readAttributes(['zclVersion'])
+          .catch(() => {});
+      }, 10 * 60 * 1000);
+    }
+
+    // Passive availability watchdog: fires if no frame received within timeout.
+    // Timeout = 15 min = 3× the 5 min reporting interval.
     this._availability = new AvailabilityManagerCluster0(this, {
       timeout: SONOFF_DONGLE_HEARTBEAT_MS,
     });
@@ -35,6 +54,7 @@ class SonoffDongleDevice extends ZigBeeDevice {
   }
 
   onDeleted() {
+    if (this._pingInterval) this.homey.clearInterval(this._pingInterval);
     this._availability?.uninstall().catch(() => {});
     this.log('Sonoff Dongle removed');
   }

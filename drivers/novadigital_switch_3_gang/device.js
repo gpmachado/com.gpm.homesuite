@@ -218,7 +218,10 @@ class novadigital_switch_3gang extends NovaDigitalSwitchBase {
 
         case 'power_on_global': {
           const label    = POWER_ON_DISPLAY[value] || value;
-          const siblings = this.driver.getDevices().filter(d => d !== this && !d._isMainDevice);
+          const myIeee   = this.getData().ieeeAddress;
+          const siblings = this.driver.getDevices().filter(d => {
+            try { return d !== this && !d._isMainDevice && d.getData().ieeeAddress === myIeee; } catch { return false; }
+          });
           await this.zclNode.endpoints[1].clusters.onOff
             .setGlobalPowerOnState(value)
             .catch(err => this.error('Write powerOnStateGlobal:', err));

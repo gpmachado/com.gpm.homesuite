@@ -31,7 +31,8 @@ class TempHumidClock extends TuyaSpecificClusterDevice {
     const tuyaCluster = zclNode.endpoints[1].clusters.tuya;
 
     this.lastQueryAt = 0;
-    this.lastTimeSyncAt = 0;  // Track proactive time sync
+    this.lastTimeSyncAt = 0;
+    this._lastReported = {};  // Deduplicate repeated datapoint reports
 
     // Device woke up and reported data - opportunistic query
     tuyaCluster.on('reporting', async value => {
@@ -120,6 +121,10 @@ class TempHumidClock extends TuyaSpecificClusterDevice {
       return;
     }
 
+    // Skip if value hasn't changed — device sends bursts of repeated frames on wake
+    if (this._lastReported[dp] === value) return;
+    this._lastReported[dp] = value;
+
     switch (dp) {
       case dataPoints.temperature: {
         const temp = value / 10;
@@ -135,8 +140,7 @@ class TempHumidClock extends TuyaSpecificClusterDevice {
         break;
       }
 
-      case dataPoints.battery:
-        // Battery: enum with 3 states (0=low/33%, 1=medium/66%, 2=high/100%)
+      case dataPoints.battery: {
         const batteryPercent = [33, 66, 100][value];
         if (batteryPercent !== undefined) {
           this.log(`Battery: ${batteryPercent}%`);
@@ -145,12 +149,13 @@ class TempHumidClock extends TuyaSpecificClusterDevice {
           this.log(`Battery: unknown value ${value}`);
         }
         break;
+      }
 
-      case dataPoints.tempUnit:
-        // Temperature unit setting (informational only)
+      case dataPoints.tempUnit: {
         const unit = value === 0 ? 'C' : 'F';
         this.log(`Unit: ${unit}`);
         break;
+      }
 
       default:
         this.log(`Unknown DP${dp}=${value}`);
