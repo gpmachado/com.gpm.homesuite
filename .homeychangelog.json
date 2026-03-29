@@ -12,6 +12,6 @@
     "en": "adjust in 4gang"
   },
   "1.0.4": {
-    "en": "Add translations"
+    "en": "Fix 3-gang power-on label sync; add Sonoff Zigbee Dongle (router firmware)"
   }
 }
