@@ -116,6 +116,10 @@ Pair the new device through Homey. Watch the terminal for the init sequence.
 - `readAttributes failed` on first init → non-critical, device will report on rejoin
 - Silent init (no logs at all) → `manufacturerName` not matched in `driver.compose.json`
 
+If you are unsure about what the log means, copy it and ask [Claude](https://claude.ai) —
+paste the log and describe what the device should be doing. It can identify missing clusters,
+wrong endpoint mappings, and attribute report issues.
+
 ---
 
 ## 6. Test the device
