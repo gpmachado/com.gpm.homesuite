@@ -13,5 +13,8 @@
   },
   "1.0.4": {
     "en": "Fix 3-gang power-on label sync; add Sonoff Zigbee Dongle (router firmware)"
+  },
+  "1.0.5": {
+    "en": "Fix 3-gang settings label sync when multiple switches are paired; add Sonoff Zigbee USB Dongle with router firmware support"
   }
 }
