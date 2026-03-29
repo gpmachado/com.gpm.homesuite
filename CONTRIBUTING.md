@@ -83,6 +83,11 @@ cd com.gpm.homesuite
 npm install
 ```
 
+> **No Node.js experience?** That's fine for simple additions (adding a `manufacturerName`
+> to an existing driver). If you get stuck at any point — installing dependencies, reading
+> errors, understanding the code — paste the problem to [Claude](https://claude.ai) with
+> context about what you are trying to do. It can guide you step by step.
+
 ---
 
 ## 4. Run the app on your Homey
