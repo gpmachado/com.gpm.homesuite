@@ -1,21 +1,6 @@
 MIT License
 
-Copyright (c) 2026 Gabriel P. M.
-
-This software was generated with AI assistance and is based in part on, or used as reference:
-
-- Tuya Zigbee app for Homey by Johan Bendz (https://github.com/JohanBendz/com.tuya.zigbee)
-  Copyright (c) Johan Bendz — MIT License
-- Sonoff Zigbee app for Homey by StyraHem (https://github.com/StyraHem/Homey.Sonoff.Zigbee)
-  Copyright (c) StyraHem — MIT License
-
-Referenced for protocol and implementation guidance:
-- Zigbee2MQTT (https://github.com/Koenkk/zigbee2mqtt) — MIT License
-- Hubitat Tuya/Zigbee drivers by kkossev (https://github.com/kkossev/Hubitat)
-  - Tuya Zigbee Metering Plug driver
-  - Tuya Temperature Humidity Illuminance LCD Display with Clock driver
-  - Zemismart Zigbee Multi-Gang Switch driver (muxa-fork, https://github.com/kkossev/hubitat-muxa-fork)
-- Moes ZigBee Wall Switch driver by martinkura-svk (https://github.com/martinkura-svk/Hubitat)
+Copyright (c) 2025 Gabriel Pedrosa Machado
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
