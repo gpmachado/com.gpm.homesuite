@@ -2,9 +2,6 @@
   "name": "com.gpm.homesuite",
   "version": "1.0.0",
   "main": "app.js",
-  "scripts": {
-    "lint": "eslint --ext .js,.ts --ignore-path .gitignore ."
-  },
   "dependencies": {
     "homey-zigbeedriver": "^2.2.15",
     "zigbee-clusters": "^3.0.2"
