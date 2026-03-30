@@ -59,6 +59,10 @@ class PowerStripDevice extends NovaDigitalSwitchBase {
     // ── Main device only (EP1) ───────────────────────────────────────────────
     if (this._isMainDevice) {
 
+      // Install availability watchdog FIRST so any ZCL response during init reads
+      // updates last_seen_ts and triggers onBecameAvailable if device is reachable.
+      await this._installAvailability();
+
       // Silence Time cluster requests from TS011F
       const { TimeSilentBoundCluster } = require('../../lib/TimeCluster');
       for (const ep of [1, 2, 3, 4, 5]) {
@@ -138,8 +142,6 @@ class PowerStripDevice extends NovaDigitalSwitchBase {
         })
         .catch(err => this.log('[EP1] read onOff extended failed:', err.message));
 
-      // ── Availability watchdog ────────────────────────────────────────────
-      await this._installAvailability();
     }
 
     // ── Sibling labels ─────────────────────────────────────────────────────
