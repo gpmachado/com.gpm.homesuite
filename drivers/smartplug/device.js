@@ -80,6 +80,13 @@ class SmartPlugDevice extends ZigBeeDevice {
     await this._addMissingCapabilities();
     this._registerCapabilities();
 
+    // Install availability watchdog FIRST so any ZCL response (including error
+    // frames) during init reads updates last_seen_ts and triggers onBecameAvailable.
+    this._availability = new AvailabilityManagerCluster0(this, {
+      timeout: SMART_PLUG_TIMEOUT_MS,
+    });
+    await this._availability.install();
+
     // Stagger all init reads across devices to avoid mesh congestion on startup.
     const startupJitter = 2000 + Math.random() * 6000; // 2–8 s
     await new Promise(r => this.homey.setTimeout(r, startupJitter));
@@ -95,14 +102,6 @@ class SmartPlugDevice extends ZigBeeDevice {
         zclNode.endpoints[1].clusters.time.on('unhandled', () => { });
       }
     } catch (err) { }
-
-    // Passive availability: handleFrame hook fires on every inbound Zigbee frame,
-    // including poll responses. onBecameAvailable / onBecameUnavailable below
-    // connect availability state directly to the polling engine.
-    this._availability = new AvailabilityManagerCluster0(this, {
-      timeout: SMART_PLUG_TIMEOUT_MS,
-    });
-    await this._availability.install();
 
     if (reachable) {
       // Device responded at init — start polling immediately.

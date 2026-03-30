@@ -83,7 +83,7 @@ class PowerStripDevice extends NovaDigitalSwitchBase {
       }
 
       // Reduce heartbeat traffic — deferred 30 s to let mesh stabilise after restart
-      setTimeout(() => {
+      this.homey.setTimeout(() => {
         if (!this.zclNode) return;
         this.configureAttributeReporting(
           [1, 2, 3, 4, 5].map(ep => ({
@@ -119,8 +119,9 @@ class PowerStripDevice extends NovaDigitalSwitchBase {
         this.setSettings({ child_lock: Boolean(value) }).catch(() => {});
       });
 
-      // Read initial powerOnStateGlobal + indicatorMode from device.
-      // (backlightControl not supported by TS011F — omitted)
+      // Read initial powerOnStateGlobal + indicatorMode — first pairing only.
+      // Non-volatile settings; no need to re-read on every boot.
+      if (this.isFirstInit() || !this.getSetting('power_on_behavior_global'))
       await onOffCluster.readAttributes(['powerOnStateGlobal', 'indicatorMode'])
         .then(attrs => {
           this.log('[EP1] read onOff extended:', attrs);

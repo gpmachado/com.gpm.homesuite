@@ -2,7 +2,7 @@
 
 const TuyaSpecificClusterDevice = require('../../lib/TuyaSpecificClusterDevice');
 const { AvailabilityManagerCluster0 } = require('../../lib/AvailabilityManager');
-const { HEARTBEAT_TIMEOUT_MS } = require('../../lib/constants');
+const { TUYA_HEARTBEAT_TIMEOUT_MS } = require('../../lib/constants');
 
 
 const DP = {
@@ -46,7 +46,7 @@ class NovaDigitalSwitch4Gang extends TuyaSpecificClusterDevice {
       // Passive availability: handleFrame hook captures every inbound frame.
       // Sibling cascade handled by AvailabilityManagerCluster0._getSiblings().
       this._availability = new AvailabilityManagerCluster0(this, {
-        timeout: HEARTBEAT_TIMEOUT_MS,
+        timeout: TUYA_HEARTBEAT_TIMEOUT_MS,
       });
       await this._availability.install();
       await this._updateSiblingNames();
