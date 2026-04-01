@@ -18,8 +18,7 @@ debug(ZCL_DEBUG);
 class MyHomeSuiteApp extends Homey.App {
 
   async onInit() {
-    registerCustomClusters(); // Ensure registered
-    this.log('MiHome Zigbee initiating...');
+    this.log('HomeSuite initiating...');
     this._registerFlowCards();
   }
 

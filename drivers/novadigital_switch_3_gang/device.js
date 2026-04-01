@@ -241,8 +241,10 @@ class novadigital_switch_3gang extends NovaDigitalSwitchBase {
         }
 
         case 'indicator_mode':
+          this.log(`[EP1] setIndicatorMode → ${value}`);
           await this.zclNode.endpoints[1].clusters.onOff
             .setIndicatorMode(value)
+            .then(() => this.log('[EP1] setIndicatorMode OK'))
             .catch(err => { this.error('Write indicatorMode:', err); throw err; });
           break;
 

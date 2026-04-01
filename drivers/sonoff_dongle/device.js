@@ -12,6 +12,14 @@ class SonoffDongleDevice extends ZigBeeDevice {
   async onNodeInit({ zclNode }) {
     this.log('Sonoff Dongle init:', this.getName());
 
+    // Passive availability watchdog — install FIRST so ZCL responses during
+    // readAttributes and configureReporting below update last_seen_ts.
+    // Timeout = 15 min = 3× the 5 min reporting interval.
+    this._availability = new AvailabilityManagerCluster0(this, {
+      timeout: SONOFF_DONGLE_HEARTBEAT_MS,
+    });
+    await this._availability.install();
+
     // Read basic attributes once to confirm communication on first contact.
     await zclNode.endpoints[1].clusters.basic
       .readAttributes(['manufacturerName', 'modelId', 'appVersion'])
@@ -40,13 +48,6 @@ class SonoffDongleDevice extends ZigBeeDevice {
           .catch(() => {});
       }, 10 * 60 * 1000);
     }
-
-    // Passive availability watchdog: fires if no frame received within timeout.
-    // Timeout = 15 min = 3× the 5 min reporting interval.
-    this._availability = new AvailabilityManagerCluster0(this, {
-      timeout: SONOFF_DONGLE_HEARTBEAT_MS,
-    });
-    await this._availability.install();
   }
 
   onEndDeviceAnnounce() {

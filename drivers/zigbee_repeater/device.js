@@ -13,6 +13,13 @@ class ZigbeeRepeaterDevice extends ZigBeeDevice {
   async onNodeInit({ zclNode }) {
     this.log('Repeater init:', this.getName());
 
+    // Passive availability watchdog — install FIRST so the ZCL response to
+    // readAttributes below updates last_seen_ts and fires onBecameAvailable.
+    this._availability = new AvailabilityManagerCluster0(this, {
+      timeout: HEARTBEAT_TIMEOUT_MS,
+    });
+    await this._availability.install();
+
     // Read basic attributes once to confirm communication on first contact.
     await zclNode.endpoints[1].clusters.basic
       .readAttributes(['manufacturerName', 'modelId', 'appVersion'])
@@ -21,13 +28,6 @@ class ZigbeeRepeaterDevice extends ZigBeeDevice {
 
     // Silence ZCL time cluster frames (repeater probes coordinator's time cluster)
     try { zclNode.endpoints[1].bind('time', new TimeSilentBoundCluster()); } catch {}
-
-    // Passive availability watchdog: handleFrame hook on raw ZigBee node.
-    // Fires on every inbound frame (basic attr reports, poll responses, etc.).
-    this._availability = new AvailabilityManagerCluster0(this, {
-      timeout: HEARTBEAT_TIMEOUT_MS,
-    });
-    await this._availability.install();
   }
 
   // ---------------------------------------------------------------------------

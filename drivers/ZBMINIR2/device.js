@@ -49,6 +49,11 @@ class SonoffZBMINIR2 extends SonoffBase {
             this.registerCapability('onoff', CLUSTER.ON_OFF);
         }
 
+        // Availability tracking — install FIRST so ZCL responses during init reads
+        // (configureReporting, checkAttributes) update last_seen_ts.
+        this._availability = new AvailabilityManagerCluster0(this, { timeout: SONOFF_HEARTBEAT_TIMEOUT_MS });
+        await this._availability.install();
+
         this.configureAttributeReporting([
             {
                 endpointId: 1,
@@ -60,10 +65,6 @@ class SonoffZBMINIR2 extends SonoffBase {
         ]).catch(this.error);
 
         this.zclNode.endpoints[1].bind(CLUSTER.ON_OFF.NAME, new MyOnOffBoundCluster(this));
-
-        // Availability tracking
-        this._availability = new AvailabilityManagerCluster0(this, { timeout: SONOFF_HEARTBEAT_TIMEOUT_MS });
-        await this._availability.install();
 
         // Filter Sonoff inching ACK (cmdId 0x0B) before cluster dispatch.
         // This frame lacks clusterSpecific so zigbee-clusters can't route it via BoundCluster.

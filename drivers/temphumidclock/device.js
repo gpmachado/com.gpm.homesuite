@@ -2,8 +2,9 @@
 
 const TuyaSpecificClusterDevice = require('../../lib/TuyaSpecificClusterDevice');
 const AvailabilityManager = require('../../lib/AvailabilityManager');
+const { AvailabilityManagerCluster0 } = AvailabilityManager;
 const { TimeSilentBoundCluster } = require('../../lib/TimeCluster');
-const { APP_VERSION } = require('../../lib/constants');
+const { APP_VERSION, TEMPHUMID_CLOCK_HEARTBEAT_MS } = require('../../lib/constants');
 
 const VERSION = APP_VERSION;
 
@@ -24,6 +25,13 @@ class TempHumidClock extends TuyaSpecificClusterDevice {
 
     this.log(`Tuya Temp/Hum Clock [v${VERSION}]`);
     this.log('Battery optimized - Auto timezone');
+
+    // Availability watchdog — install FIRST so the boot time sync (sendTimeResponse)
+    // and initial queryDatapoints generate frames that mark the device as available.
+    this._availability = new AvailabilityManagerCluster0(this, {
+      timeout: TEMPHUMID_CLOCK_HEARTBEAT_MS,
+    });
+    await this._availability.install();
 
     // Silence ZCL time cluster frames (clock syncs via Tuya ef00, not ZCL time cluster)
     try { zclNode.endpoints[1].bind('time', new TimeSilentBoundCluster()); } catch {}
@@ -189,6 +197,7 @@ class TempHumidClock extends TuyaSpecificClusterDevice {
   }
 
   onDeleted() {
+    this._availability?.uninstall().catch(() => {});
     this.log(`Removed [v${VERSION}]`);
     if (super.onDeleted) super.onDeleted();
   }

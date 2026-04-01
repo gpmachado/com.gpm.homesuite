@@ -77,10 +77,10 @@ class PowerStripDevice extends NovaDigitalSwitchBase {
       // (allow attribute reports cmdId=10 so Homey UI stays in sync)
       const OnOffBoundCluster = require('../../lib/OnOffBoundCluster');
       const silent = new OnOffBoundCluster();
-      const origFrame = zclNode.handleFrame;
+      this._origHandleFrame = zclNode.handleFrame;
       zclNode.handleFrame = (ep, cl, frame, meta) => {
         if (ep > 1 && ep <= 5 && cl === 6 && frame?.cmdId && frame.cmdId !== 10) return true;
-        return typeof origFrame === 'function' ? origFrame(ep, cl, frame, meta) : false;
+        return typeof this._origHandleFrame === 'function' ? this._origHandleFrame(ep, cl, frame, meta) : false;
       };
       for (const ep of [1, 2, 3, 4, 5]) {
         try { if (zclNode.endpoints[ep]) zclNode.endpoints[ep].bind(CLUSTER.ON_OFF.NAME, silent); } catch {}
@@ -255,7 +255,11 @@ class PowerStripDevice extends NovaDigitalSwitchBase {
   }
 
   onDeleted() {
-    if (this.zclNode) this.zclNode.handleFrame = null;
+    // Restore original handleFrame (set during init) instead of nulling it.
+    // Nulling breaks async frame processing on the shared node after device removal.
+    if (this.zclNode && this._origHandleFrame !== undefined) {
+      this.zclNode.handleFrame = this._origHandleFrame;
+    }
     super.onDeleted();
     this.log('Power Strip removed');
   }
