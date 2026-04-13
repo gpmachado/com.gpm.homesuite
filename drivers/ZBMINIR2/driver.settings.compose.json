@@ -98,27 +98,9 @@
         },
         "value": "off",
         "values": [
-          {
-            "id": "on",
-            "label": {
-              "en": "On",
-              "it": "Acceso"
-            }
-          },
-          {
-            "id": "off",
-            "label": {
-              "en": "Off",
-              "it": "Spento"
-            }
-          },
-          {
-            "id": "last_state",
-            "label": {
-              "en": "Last state",
-              "it": "Ultimo stato"
-            }
-          }
+          { "id": "on",         "label": { "en": "Always On",  "it": "Sempre acceso" } },
+          { "id": "off",        "label": { "en": "Always Off", "it": "Sempre spento" } },
+          { "id": "last_state", "label": { "en": "Last State", "it": "Ultimo stato"  } }
         ]
       },
       {

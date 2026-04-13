@@ -40,7 +40,7 @@ const ENERGY_POLL_DIVISOR  = SMART_PLUG_ENERGY_POLL_EVERY;
 //   relay_status   → 'off' | 'on' | 'lastState'  (powerOnStateGlobal)
 //   indicator_mode → 'off' | 'status' | 'position' (indicatorMode)
 //   child_lock     → boolean                        (childLock)
-const RELAY_STATUS_LABELS  = { off: 'Always off', on: 'Always on', lastState: 'Remember last state' };
+const RELAY_STATUS_LABELS  = { off: 'Always Off', on: 'Always On', lastState: 'Last State' };
 const INDICATOR_MODE_LABELS = { off: 'Always off', status: 'On when powered', position: 'Off when powered' };
 
 const TUYA_CONTROL_SETTINGS = [

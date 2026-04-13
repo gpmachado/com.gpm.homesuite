@@ -10,9 +10,9 @@
         "hint": { "en": "State after power is restored." },
         "value": "lastState",
         "values": [
-          { "id": "off",       "label": { "en": "Always off"          } },
-          { "id": "on",        "label": { "en": "Always on"           } },
-          { "id": "lastState", "label": { "en": "Remember last state" } }
+          { "id": "off",       "label": { "en": "Always Off" } },
+          { "id": "on",        "label": { "en": "Always On"  } },
+          { "id": "lastState", "label": { "en": "Last State" } }
         ]
       },
       {
