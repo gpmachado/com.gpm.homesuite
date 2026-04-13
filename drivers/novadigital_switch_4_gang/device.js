@@ -13,11 +13,11 @@ const DP = {
   POWER_ON: 14,
 };
 
-const POWER_ON_MODE = { 0: 'off', 1: 'on', 2: 'memory' };
+const POWER_ON_MODE = { 0: 'off', 1: 'on', 2: 'lastState' };
 const POWER_ON_LABELS = {
   off: 'Always Off',
   on: 'Always On',
-  memory: 'Remember Last State',
+  lastState: 'Last State',
 };
 
 const GANG_LABELS = {
@@ -132,8 +132,10 @@ class NovaDigitalSwitch4Gang extends TuyaSpecificClusterDevice {
     for (const key of changedKeys) {
       switch (key) {
         case 'power_on_behavior': {
+          // Accept 'memory' as legacy alias for 'lastState' (backward compat)
+          const normalized = newSettings[key] === 'memory' ? 'lastState' : newSettings[key];
           const enumValue = Object.entries(POWER_ON_MODE)
-            .find(([, v]) => v === newSettings[key])?.[0];
+            .find(([, v]) => v === normalized)?.[0];
           if (enumValue === undefined) throw new Error(`Invalid power_on_behavior: ${newSettings[key]}`);
           await this.writeEnum(DP.POWER_ON, Number(enumValue))
             .catch(err => { this.error('Write powerOn:', err.message); throw err; });

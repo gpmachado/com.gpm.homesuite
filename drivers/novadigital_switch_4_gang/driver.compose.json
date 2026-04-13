@@ -51,11 +51,11 @@
             "it": "Come si comportano gli interruttori quando ritorna la corrente dopo un'interruzione.",
             "de": "Wie sich die Schalter verhalten, wenn die Stromversorgung nach einem Ausfall zurückkehrt."
           },
-          "value": "memory",
+          "value": "lastState",
           "values": [
-            { "id": "off",    "label": { "en": "Always Off",          "es": "Siempre apagado",       "it": "Sempre spento",          "de": "Immer aus"              } },
-            { "id": "on",     "label": { "en": "Always On",           "es": "Siempre encendido",     "it": "Sempre acceso",          "de": "Immer ein"              } },
-            { "id": "memory", "label": { "en": "Remember Last State", "es": "Recordar último estado","it": "Ricorda l'ultimo stato",  "de": "Letzten Zustand merken" } }
+            { "id": "off",       "label": { "en": "Always Off", "es": "Siempre apagado",   "it": "Sempre spento",  "de": "Immer aus"        } },
+            { "id": "on",        "label": { "en": "Always On",  "es": "Siempre encendido", "it": "Sempre acceso",  "de": "Immer ein"        } },
+            { "id": "lastState", "label": { "en": "Last State", "es": "Último estado",     "it": "Ultimo stato",   "de": "Letzter Zustand"  } }
           ]
         },
         {
