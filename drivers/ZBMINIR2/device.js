@@ -204,7 +204,7 @@ class SonoffZBMINIR2 extends SonoffBase {
     async onBecameAvailable() {
         this.log('Device became available');
         if (super.onBecameAvailable) await super.onBecameAvailable();
-        AvailabilityManager.trigger(this, true);
+        // AvailabilityManager._markAllAvailable already fires the flow trigger.
         // Re-read attrs only if settings appear unpopulated (e.g. after factory reset).
         if (!this.getSetting('switch_mode')) {
             this.checkAttributes();
@@ -214,7 +214,7 @@ class SonoffZBMINIR2 extends SonoffBase {
     async onBecameUnavailable(reason) {
         this.log(`Device became unavailable (${reason})`);
         if (super.onBecameUnavailable) await super.onBecameUnavailable(reason);
-        AvailabilityManager.trigger(this, false);
+        // AvailabilityManager._markAllUnavailable already fires the flow trigger.
     }
 
     async onDeleted() {
