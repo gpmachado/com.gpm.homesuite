@@ -2,7 +2,8 @@
 
 const { CLUSTER } = require('zigbee-clusters');
 const SonoffBase = require('../../lib/SonoffBase');
-const { AvailabilityManagerCluster0 } = require('../../lib/AvailabilityManager');
+const AvailabilityManager = require('../../lib/AvailabilityManager');
+const { AvailabilityManagerCluster0 } = AvailabilityManager;
 const { SONOFF_HEARTBEAT_TIMEOUT_MS } = require('../../lib/constants');
 
 class SonoffBASICZBR3 extends SonoffBase {
@@ -19,6 +20,18 @@ class SonoffBASICZBR3 extends SonoffBase {
     await this._availability.install();
 
     this.log('BASICZBR3 initialized');
+  }
+
+  async onBecameAvailable() {
+    this.log('Device became available');
+    if (super.onBecameAvailable) await super.onBecameAvailable();
+    AvailabilityManager.trigger(this, true);
+  }
+
+  async onBecameUnavailable(reason) {
+    this.log(`Device became unavailable (${reason})`);
+    if (super.onBecameUnavailable) await super.onBecameUnavailable(reason);
+    AvailabilityManager.trigger(this, false);
   }
 
   async onDeleted() {

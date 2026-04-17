@@ -3,7 +3,8 @@
 const SonoffCluster = require('../../lib/SonoffCluster');
 const { Cluster, CLUSTER, BoundCluster } = require('zigbee-clusters');
 const SonoffBase = require('../../lib/SonoffBase');
-const { AvailabilityManagerCluster0 } = require('../../lib/AvailabilityManager');
+const AvailabilityManager = require('../../lib/AvailabilityManager');
+const { AvailabilityManagerCluster0 } = AvailabilityManager;
 const { SONOFF_HEARTBEAT_TIMEOUT_MS } = require('../../lib/constants');
 
 // Handles external switch commands (detach_mode) sent directly to the hub
@@ -202,10 +203,18 @@ class SonoffZBMINIR2 extends SonoffBase {
 
     async onBecameAvailable() {
         this.log('Device became available');
+        if (super.onBecameAvailable) await super.onBecameAvailable();
+        AvailabilityManager.trigger(this, true);
         // Re-read attrs only if settings appear unpopulated (e.g. after factory reset).
         if (!this.getSetting('switch_mode')) {
             this.checkAttributes();
         }
+    }
+
+    async onBecameUnavailable(reason) {
+        this.log(`Device became unavailable (${reason})`);
+        if (super.onBecameUnavailable) await super.onBecameUnavailable(reason);
+        AvailabilityManager.trigger(this, false);
     }
 
     async onDeleted() {
