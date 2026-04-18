@@ -33,6 +33,10 @@ class LCDTempHumidSensor extends ZigBeeDevice {
     this._registerHumidity();
     this._registerBattery();
 
+    // Migrate existing paired devices: add is_availability if missing
+    if (!this.hasCapability('is_availability'))
+      await this.addCapability('is_availability').catch(err => this.error('addCapability is_availability:', err));
+
     // Availability: Cluster6 watchdog — resets on each reportParser call.
     // cluster.on('report') is unreliable in some homey-zigbeedriver versions;
     // calling _markAliveFromAvailability inside reportParser is more robust.

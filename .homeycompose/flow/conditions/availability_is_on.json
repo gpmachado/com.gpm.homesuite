@@ -22,7 +22,7 @@
         {
             "name": "device",
             "type": "device",
-            "filter": "driver_id=ekaza_siren|gas_detector|lcdtemphumidsensor|moes_dimmer_3_gang|novadigital_switch_1_gang|novadigital_switch_2_gang|novadigital_switch_3_gang|novadigital_switch_4_gang|novadigital_switch_6_gang|smartplug|socket_power_strip|temphumidclock|zigbee_repeater"
+            "filter": "capabilities=is_availability"
         }
     ]
 }

@@ -7,7 +7,7 @@
     "de": "ZBMINI-R2 Schalter"
   },
   "class": "socket",
-  "capabilities": ["onoff"],
+  "capabilities": ["onoff", "is_availability"],
   "icon": "{{driverAssetsPath}}/icon.svg",
   "zigbee": {
     "manufacturerName": ["SONOFF"],

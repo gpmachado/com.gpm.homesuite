@@ -59,6 +59,10 @@ class GasDetector extends ZigBeeDevice {
     this.log(`${DRIVER_NAME} v${APP_VERSION} - init`);
     this.printNode();
 
+    // Migrate existing paired devices: add is_availability if missing
+    if (!this.hasCapability('is_availability'))
+      await this.addCapability('is_availability').catch(err => this.error('addCapability is_availability:', err));
+
     // Silence Tuya manufacturer-specific commands on basic cluster (0xF1 device-ident frame).
     // ZCLMfgSpecificHeader frames have a manufacturerId field; standard frames do not.
     this._origZclHandle = zclNode.handleFrame?.bind(zclNode);

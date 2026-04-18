@@ -12,6 +12,10 @@ class SonoffDongleDevice extends ZigBeeDevice {
   async onNodeInit({ zclNode }) {
     this.log('Sonoff Dongle init:', this.getName());
 
+    // Migrate existing paired devices: add is_availability if missing
+    if (!this.hasCapability('is_availability'))
+      await this.addCapability('is_availability').catch(err => this.error('addCapability is_availability:', err));
+
     // Passive availability watchdog — install FIRST so ZCL responses during
     // readAttributes and configureReporting below update last_seen_ts.
     // Timeout = 15 min = 3× the 5 min reporting interval.

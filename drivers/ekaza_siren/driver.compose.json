@@ -7,7 +7,7 @@
     "de": "Ekaza Smart-Sirene"
   },
   "class": "siren",
-  "capabilities": ["onoff", "measure_battery"],
+  "capabilities": ["onoff", "measure_battery", "is_availability"],
   "capabilitiesOptions": {
     "onoff": {
       "title": {

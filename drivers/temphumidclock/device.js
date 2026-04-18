@@ -26,6 +26,10 @@ class TempHumidClock extends TuyaSpecificClusterDevice {
     this.log(`Tuya Temp/Hum Clock [v${VERSION}]`);
     this.log('Battery optimized - Auto timezone');
 
+    // Migrate existing paired devices: add is_availability if missing
+    if (!this.hasCapability('is_availability'))
+      await this.addCapability('is_availability').catch(err => this.error('addCapability is_availability:', err));
+
     // Availability watchdog — install FIRST so the boot time sync (sendTimeResponse)
     // and initial queryDatapoints generate frames that mark the device as available.
     this._availability = new AvailabilityManagerCluster0(this, {

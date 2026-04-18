@@ -7,7 +7,7 @@
     "de": "Zigbee-Repeater"
   },
   "class": "other",
-  "capabilities": [],
+  "capabilities": ["is_availability"],
   "zigbee": {
     "manufacturerName": ["_TZ3000_nkkl7uzv"],
     "productId": ["TS0207"],

@@ -50,6 +50,10 @@ class SonoffZBMINIR2 extends SonoffBase {
             this.registerCapability('onoff', CLUSTER.ON_OFF);
         }
 
+        // Migrate existing paired devices: add is_availability if missing
+        if (!this.hasCapability('is_availability'))
+          await this.addCapability('is_availability').catch(err => this.error('addCapability is_availability:', err));
+
         // Availability tracking — install FIRST so ZCL responses during init reads
         // (configureReporting, checkAttributes) update last_seen_ts.
         this._availability = new AvailabilityManagerCluster0(this, { timeout: SONOFF_HEARTBEAT_TIMEOUT_MS });

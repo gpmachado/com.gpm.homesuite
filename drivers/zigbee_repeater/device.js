@@ -13,6 +13,10 @@ class ZigbeeRepeaterDevice extends ZigBeeDevice {
   async onNodeInit({ zclNode }) {
     this.log('Repeater init:', this.getName());
 
+    // Migrate existing paired devices: add is_availability if missing
+    if (!this.hasCapability('is_availability'))
+      await this.addCapability('is_availability').catch(err => this.error('addCapability is_availability:', err));
+
     // Passive availability watchdog — install FIRST so the ZCL response to
     // readAttributes below updates last_seen_ts and fires onBecameAvailable.
     this._availability = new AvailabilityManagerCluster0(this, {

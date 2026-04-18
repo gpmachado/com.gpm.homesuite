@@ -52,6 +52,10 @@ class EkazaSiren extends TuyaSpecificClusterDevice {
 
     this._alarmAutoResetTimer = null;
 
+    // Migrate existing paired devices: add is_availability if missing
+    if (!this.hasCapability('is_availability'))
+      await this.addCapability('is_availability').catch(err => this.error('addCapability is_availability:', err));
+
     // Availability management (non-fatal: getNode() may fail on first pairing)
     try {
       this._availability = new AvailabilityManagerCluster0(this, {

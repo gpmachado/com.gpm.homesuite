@@ -7,7 +7,7 @@
     "de": "Tuya Temperatur- und Feuchtigkeitssensor mit Uhr"
   },
   "class": "sensor",
-  "capabilities": ["measure_temperature", "measure_humidity", "measure_battery"],
+  "capabilities": ["measure_temperature", "measure_humidity", "measure_battery", "is_availability"],
   "capabilitiesOptions": {
     "measure_temperature": { "decimals": 1, "title": { "en": "Temperature", "es": "Temperatura", "it": "Temperatura", "de": "Temperatur" }, "units": { "en": "°C", "es": "°C", "it": "°C", "de": "°C" } },
     "measure_humidity":    { "decimals": 1, "title": { "en": "Humidity",    "es": "Humedad",     "it": "Umidità",      "de": "Feuchtigkeit" }, "units": { "en": "%", "es": "%", "it": "%", "de": "%" } },

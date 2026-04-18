@@ -7,7 +7,7 @@
     "de": "Schalter (Basic ZBR3)"
   },
   "class": "socket",
-  "capabilities": ["onoff"],
+  "capabilities": ["onoff", "is_availability"],
   "energy": { "approximation": { "usageOn": 1, "usageOff": 1 } },
   "icon": "{{driverAssetsPath}}/icon.svg",
   "zigbee": {

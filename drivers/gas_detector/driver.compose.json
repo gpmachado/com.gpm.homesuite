@@ -7,7 +7,7 @@
     "de": "Intelligenter Gasdetektor"
   },
   "class": "sensor",
-  "capabilities": ["alarm_gas", "alarm_problem"],
+  "capabilities": ["alarm_gas", "alarm_problem", "is_availability"],
   "capabilitiesOptions": {
     "alarm_gas": {
       "title": { "en": "Gas alarm", "es": "Alarma de gas", "it": "Allarme gas", "de": "Gasalarm" },
