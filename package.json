@@ -1,6 +1,6 @@
 {
   "name": "com.gpm.homesuite",
-  "version": "1.0.0",
+  "version": "1.0.6",
   "main": "app.js",
   "dependencies": {
     "homey-zigbeedriver": "^2.2.17",

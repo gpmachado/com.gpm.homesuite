@@ -10,7 +10,7 @@
   "capabilities": ["onoff", "measure_power", "meter_power", "measure_current", "measure_voltage", "is_availability"],
   "energy": { "meterPowerImportedCapability": "meter_power" },
   "zigbee": {
-    "manufacturerName": ["_TZ3000_88iqnhvd", "_TZ3000_okaz9tjs", "_TZ3210_cehuw1lw", "_TZ3210_fgwhjm9j"],
+    "manufacturerName": ["_TZ3000_88iqnhvd", "_TZ3000_okaz9tjs", "_TZ3210_cehuw1lw", "_TZ3210_fgwhjm9j", "_TZ3000_cehuw1lw"],
     "productId": ["TS011F"],
     "endpoints": {
       "1": { "clusters": [0, 4, 5, 6, 1794, 2820, 57344, 57345], "bindings": [6, 1794, 2820] }

@@ -1,1 +1,10 @@
-Homey_interview/
+Homey_Interview/
+.homeybuild/
+debug*.log
+Arquivo.zip
+Analise_HomeSuite.md
+todo.md
+.DS_Store
+**/.DS_Store
+.claude/
+.claude-session-notes.md

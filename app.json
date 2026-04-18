@@ -895,21 +895,21 @@
                 {
                   "id": "on",
                   "label": {
-                    "en": "On",
-                    "it": "Acceso"
+                    "en": "Always On",
+                    "it": "Sempre acceso"
                   }
                 },
                 {
                   "id": "off",
                   "label": {
-                    "en": "Off",
-                    "it": "Spento"
+                    "en": "Always Off",
+                    "it": "Sempre spento"
                   }
                 },
                 {
                   "id": "last_state",
                   "label": {
-                    "en": "Last state",
+                    "en": "Last State",
                     "it": "Ultimo stato"
                   }
                 }
@@ -3849,7 +3849,7 @@
                 "it": "Come si comportano gli interruttori quando ritorna la corrente dopo un'interruzione.",
                 "de": "Wie sich die Schalter verhalten, wenn die Stromversorgung nach einem Ausfall zurückkehrt."
               },
-              "value": "memory",
+              "value": "lastState",
               "values": [
                 {
                   "id": "off",
@@ -3870,12 +3870,12 @@
                   }
                 },
                 {
-                  "id": "memory",
+                  "id": "lastState",
                   "label": {
-                    "en": "Remember Last State",
-                    "es": "Recordar último estado",
-                    "it": "Ricorda l'ultimo stato",
-                    "de": "Letzten Zustand merken"
+                    "en": "Last State",
+                    "es": "Último estado",
+                    "it": "Ultimo stato",
+                    "de": "Letzter Zustand"
                   }
                 }
               ]
@@ -4403,19 +4403,19 @@
                 {
                   "id": "off",
                   "label": {
-                    "en": "Always off"
+                    "en": "Always Off"
                   }
                 },
                 {
                   "id": "on",
                   "label": {
-                    "en": "Always on"
+                    "en": "Always On"
                   }
                 },
                 {
                   "id": "lastState",
                   "label": {
-                    "en": "Remember last state"
+                    "en": "Last State"
                   }
                 }
               ]

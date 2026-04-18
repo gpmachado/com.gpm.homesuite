@@ -61,10 +61,10 @@ class GasDetector extends ZigBeeDevice {
 
     // Silence Tuya manufacturer-specific commands on basic cluster (0xF1 device-ident frame).
     // ZCLMfgSpecificHeader frames have a manufacturerId field; standard frames do not.
-    const _origHandle = zclNode.handleFrame?.bind(zclNode);
+    this._origZclHandle = zclNode.handleFrame?.bind(zclNode);
     zclNode.handleFrame = (ep, cl, frame, meta) => {
       if (cl === 0 && frame?.manufacturerId !== undefined) return true;
-      return _origHandle ? _origHandle(ep, cl, frame, meta) : false;
+      return this._origZclHandle ? this._origZclHandle(ep, cl, frame, meta) : false;
     };
 
     await this._setupIASZone(zclNode);
@@ -227,6 +227,10 @@ class GasDetector extends ZigBeeDevice {
   // ─── Lifecycle ─────────────────────────────────────────────────────────
 
   onDeleted() {
+    // Restore zclNode.handleFrame to the original before our mfg-specific filter was installed.
+    if (this.zclNode && this._origZclHandle !== undefined) {
+      this.zclNode.handleFrame = this._origZclHandle;
+    }
     this._availability?.uninstall().catch(() => {});
     this.log(`${DRIVER_NAME} - removed`);
   }
