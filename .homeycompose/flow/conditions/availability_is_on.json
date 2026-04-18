@@ -7,10 +7,10 @@
         "de": "Verfügbarkeit ist aktiv"
     },
     "titleFormatted": {
-        "en": "Is available",
-        "es": "Está disponible",
-        "it": "È disponibile",
-        "de": "Ist verfügbar"
+        "en": "[[device]] is available",
+        "es": "[[device]] está disponible",
+        "it": "[[device]] è disponibile",
+        "de": "[[device]] ist verfügbar"
     },
     "hint": {
         "en": "True when the device is currently online",

@@ -97,8 +97,8 @@
     "email": "g.machado@me.com"
   },
   "dependencies": {
-    "homey-zigbeedriver": "^2.2.15",
-    "zigbee-clusters": "^2.6.0"
+    "homey-zigbeedriver": "^2.2.17",
+    "zigbee-clusters": "^3.0.2"
   },
   "flow": {
     "triggers": [
@@ -289,10 +289,10 @@
           "de": "Verfügbarkeit ist aktiv"
         },
         "titleFormatted": {
-          "en": "Is available",
-          "es": "Está disponible",
-          "it": "È disponibile",
-          "de": "Ist verfügbar"
+          "en": "[[device]] is available",
+          "es": "[[device]] está disponible",
+          "it": "[[device]] è disponibile",
+          "de": "[[device]] ist verfügbar"
         },
         "hint": {
           "en": "True when the device is currently online",
@@ -304,7 +304,7 @@
           {
             "name": "device",
             "type": "device",
-            "filter": "driver_id=ekaza_siren|gas_detector|lcdtemphumidsensor|moes_dimmer_3_gang|novadigital_switch_1_gang|novadigital_switch_2_gang|novadigital_switch_3_gang|novadigital_switch_4_gang|novadigital_switch_6_gang|smartplug|socket_power_strip|temphumidclock|zigbee_repeater"
+            "filter": "capabilities=is_availability"
           }
         ]
       },
@@ -515,7 +515,8 @@
       },
       "class": "socket",
       "capabilities": [
-        "onoff"
+        "onoff",
+        "is_availability"
       ],
       "energy": {
         "approximation": {
@@ -760,7 +761,8 @@
       },
       "class": "socket",
       "capabilities": [
-        "onoff"
+        "onoff",
+        "is_availability"
       ],
       "icon": "/drivers/ZBMINIR2/assets/icon.svg",
       "zigbee": {
@@ -1029,7 +1031,8 @@
       "class": "siren",
       "capabilities": [
         "onoff",
-        "measure_battery"
+        "measure_battery",
+        "is_availability"
       ],
       "capabilitiesOptions": {
         "onoff": {
@@ -1386,7 +1389,8 @@
       "class": "sensor",
       "capabilities": [
         "alarm_gas",
-        "alarm_problem"
+        "alarm_problem",
+        "is_availability"
       ],
       "capabilitiesOptions": {
         "alarm_gas": {
@@ -1515,7 +1519,8 @@
       "capabilities": [
         "measure_temperature",
         "measure_humidity",
-        "measure_battery"
+        "measure_battery",
+        "is_availability"
       ],
       "capabilitiesOptions": {
         "measure_temperature": {
@@ -5041,7 +5046,9 @@
         "de": "Sonoff Zigbee-Dongle"
       },
       "class": "other",
-      "capabilities": [],
+      "capabilities": [
+        "is_availability"
+      ],
       "zigbee": {
         "manufacturerName": [
           "SONOFF"
@@ -5093,7 +5100,8 @@
       "capabilities": [
         "measure_temperature",
         "measure_humidity",
-        "measure_battery"
+        "measure_battery",
+        "is_availability"
       ],
       "capabilitiesOptions": {
         "measure_temperature": {
@@ -5195,7 +5203,9 @@
         "de": "Zigbee-Repeater"
       },
       "class": "other",
-      "capabilities": [],
+      "capabilities": [
+        "is_availability"
+      ],
       "zigbee": {
         "manufacturerName": [
           "_TZ3000_nkkl7uzv"
