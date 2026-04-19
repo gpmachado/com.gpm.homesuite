@@ -12,7 +12,7 @@
     "manufacturerName": ["SONOFF"],
     "productId": ["DONGLE-E_R"],
     "endpoints": {
-      "1": { "clusters": [0, 3, 6] }
+      "1": { "clusters": [0, 3, 4, 5, 6, 4096] }
     },
     "learnmode": {
       "image": "{{driverAssetsPath}}/icon.svg",

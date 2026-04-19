@@ -24,10 +24,8 @@
  */
 
 const { CLUSTER } = require('zigbee-clusters');
-const {
-  NovaDigitalSwitchBase,
-  POWER_ON_DISPLAY,
-} = require('../../lib/NovaDigitalSwitchBase');
+const { NovaDigitalSwitchBase, POWER_ON_DISPLAY } = require('../../lib/NovaDigitalSwitchBase');
+const { normalizeIndicatorMode } = require('../../lib/ZclOnOffSettings');
 const { AvailabilityManagerCluster0 } = require('../../lib/AvailabilityManager');
 const { writeSiblingNames } = require('../../lib/connectedDevices');
 const { SOCKET_POWER_STRIP_TIMEOUT_MS, ONOFF_REPORT_MAX_INTERVAL_S } = require('../../lib/constants');
@@ -115,7 +113,7 @@ class PowerStripDevice extends NovaDigitalSwitchBase {
 
       onOffCluster.on('attr.indicatorMode', value => {
         this.log('[EP1] indicatorMode:', value);
-        this.setSettings({ indicator_mode: NovaDigitalSwitchBase._normalizeIndicatorMode(value) }).catch(() => {});
+        this.setSettings({ indicator_mode: normalizeIndicatorMode(value) }).catch(() => {});
       });
 
       onOffCluster.on('attr.childLock', value => {

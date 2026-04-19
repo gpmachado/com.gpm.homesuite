@@ -96,7 +96,7 @@
           "en": "The state of the device when the power restores from a power outage or being turned off physically.",
           "it": "Stato del dispositivo al momento dell'interruzione dell'alimentazione o dello spegnimento dell'interruttore."
         },
-        "value": "off",
+        "value": "last_state",
         "values": [
           { "id": "on",         "label": { "en": "Always On",  "it": "Sempre acceso" } },
           { "id": "off",        "label": { "en": "Always Off", "it": "Sempre spento" } },

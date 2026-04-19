@@ -3,6 +3,7 @@
 const TuyaSpecificClusterDevice = require('../../lib/TuyaSpecificClusterDevice');
 const AvailabilityManager = require('../../lib/AvailabilityManager');
 const { AvailabilityManagerCluster0 } = AvailabilityManager;
+const { isDeviceUnreachable } = require('../../lib/zigbeeErrorUtils');
 const { TimeSilentBoundCluster } = require('../../lib/TimeCluster');
 const { APP_VERSION, TEMPHUMID_CLOCK_HEARTBEAT_MS } = require('../../lib/constants');
 
@@ -88,7 +89,8 @@ class TempHumidClock extends TuyaSpecificClusterDevice {
           await this.sendTimeResponse();
           this.log('Proactive time sync sent');
         } catch (err) {
-          this.error('Proactive sync failed:', err.message);
+          if (isDeviceUnreachable(err)) this.log('Proactive sync skipped — device sleeping');
+          else this.error('Proactive sync failed:', err.message);
         }
       }
     });
@@ -99,7 +101,8 @@ class TempHumidClock extends TuyaSpecificClusterDevice {
       try {
         await this.sendTimeResponse(request);
       } catch (err) {
-        this.error('Time sync failed:', err.message);
+        if (isDeviceUnreachable(err)) this.log('Time sync skipped — device sleeping');
+        else this.error('Time sync failed:', err.message);
       }
     });
 
@@ -116,7 +119,8 @@ class TempHumidClock extends TuyaSpecificClusterDevice {
         await this.sendTimeResponse();
         this.log('Initial time sync sent');
       } catch (err) {
-        this.error('Initial sync failed:', err.message);
+        if (isDeviceUnreachable(err)) this.log('Initial sync skipped — device sleeping');
+        else this.error('Initial sync failed:', err.message);
       }
 
       const tz = this.homey.clock.getTimezone();

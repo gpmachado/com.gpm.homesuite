@@ -1,6 +1,7 @@
 'use strict';
 
 const { ZigBeeDevice } = require('homey-zigbeedriver');
+const { CLUSTER } = require('zigbee-clusters');
 const AvailabilityManager = require('../../lib/AvailabilityManager');
 const { AvailabilityManagerCluster0 } = AvailabilityManager;
 const { readAttrCatch } = require('../../lib/errorUtils');
@@ -35,23 +36,26 @@ class SonoffDongleDevice extends ZigBeeDevice {
 
     // Configure onOff reporting — maxInterval 300s (5 min) so the device sends
     // periodic frames even when idle. These frames are caught by handleFrame to
-    // keep last_seen_ts fresh. Must be configured on every init (re-pair resets it).
-    try {
-      await zclNode.endpoints[1].clusters.onOff.configureReporting({
+    // keep last_seen_ts fresh.
+    // Uses this.configureAttributeReporting (ZigBeeDevice API) instead of calling
+    // cluster.configureReporting() directly — ExtendedOnOffCluster expects attribute-keyed
+    // format which is not compatible with the old flat { minInterval, maxInterval, minChange }.
+    // Deferred 30 s: mesh routes may be stale immediately after boot.
+    // Interview shows device already has reporting configured (status: SUCCESS, max 600s),
+    // so this is a best-effort re-enforce on re-pair / factory reset only.
+    this.homey.setTimeout(() => {
+      if (!this.zclNode) return;
+      this.configureAttributeReporting([{
+        endpointId: 1,
+        cluster: CLUSTER.ON_OFF,
+        attributeName: 'onOff',
         minInterval: 0,
         maxInterval: 300,
         minChange: 0,
-      });
-      this.log('onOff reporting configured (max 300s)');
-    } catch (e) {
-      this.log('onOff reporting config failed — using ping fallback:', e.message);
-      // Fallback: periodic ping so handleFrame still fires every 10 min.
-      this._pingInterval = this.homey.setInterval(async () => {
-        zclNode.endpoints[1].clusters.basic
-          .readAttributes(['zclVersion'])
-          .catch(() => {});
-      }, 10 * 60 * 1000);
-    }
+      }])
+        .then(() => this.log('onOff reporting configured (max 300s)'))
+        .catch(err => this.log('onOff reporting config failed (non-fatal):', err.message));
+    }, 30_000);
   }
 
   onEndDeviceAnnounce() {
@@ -59,7 +63,6 @@ class SonoffDongleDevice extends ZigBeeDevice {
   }
 
   onDeleted() {
-    if (this._pingInterval) this.homey.clearInterval(this._pingInterval);
     this._availability?.uninstall().catch(() => {});
     this.log('Sonoff Dongle removed');
   }

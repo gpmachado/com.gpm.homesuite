@@ -776,8 +776,12 @@
           "1": {
             "clusters": [
               0,
+              3,
+              4,
               6,
-              64529
+              2821,
+              64529,
+              64599
             ],
             "bindings": [
               6
@@ -892,7 +896,7 @@
                 "en": "The state of the device when the power restores from a power outage or being turned off physically.",
                 "it": "Stato del dispositivo al momento dell'interruzione dell'alimentazione o dello spegnimento dell'interruttore."
               },
-              "value": "off",
+              "value": "last_state",
               "values": [
                 {
                   "id": "on",
@@ -4113,10 +4117,14 @@
           "1": {
             "clusters": [
               0,
+              4,
+              5,
               10,
               61184
             ],
-            "bindings": []
+            "bindings": [
+              61184
+            ]
           }
         },
         "devices": {
@@ -4363,6 +4371,7 @@
           "1": {
             "clusters": [
               0,
+              3,
               4,
               5,
               6,
@@ -4805,7 +4814,8 @@
               3,
               4,
               5,
-              6
+              6,
+              57344
             ],
             "bindings": [
               6
@@ -4817,7 +4827,8 @@
               3,
               4,
               5,
-              6
+              6,
+              57344
             ],
             "bindings": [
               6
@@ -4829,7 +4840,8 @@
               3,
               4,
               5,
-              6
+              6,
+              57344
             ],
             "bindings": [
               6
@@ -4841,7 +4853,8 @@
               3,
               4,
               5,
-              6
+              6,
+              57344
             ],
             "bindings": [
               6
@@ -4853,7 +4866,8 @@
               3,
               4,
               5,
-              6
+              6,
+              57344
             ],
             "bindings": [
               6
@@ -5061,7 +5075,10 @@
             "clusters": [
               0,
               3,
-              6
+              4,
+              5,
+              6,
+              4096
             ]
           }
         },
@@ -5217,7 +5234,8 @@
           "1": {
             "clusters": [
               0,
-              3
+              3,
+              10
             ]
           }
         },

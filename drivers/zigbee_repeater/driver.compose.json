@@ -12,7 +12,7 @@
     "manufacturerName": ["_TZ3000_nkkl7uzv"],
     "productId": ["TS0207"],
     "endpoints": {
-      "1": { "clusters": [0, 3] }
+      "1": { "clusters": [0, 3, 10] }
     },
     "learnmode": {
       "image": "{{driverAssetsPath}}/icon.svg",

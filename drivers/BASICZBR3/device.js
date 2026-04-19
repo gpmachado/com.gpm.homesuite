@@ -23,6 +23,9 @@ class SonoffBASICZBR3 extends SonoffBase {
     this._availability = new AvailabilityManagerCluster0(this, { timeout: SONOFF_HEARTBEAT_TIMEOUT_MS });
     await this._availability.install();
 
+    // NOTE: BASICZBR3 firmware responds UNSUP_GENERAL_COMMAND to all ZCL general commands
+    // (confirmed via Homey Interview). configureAttributeReporting is not supported.
+    // Availability is tracked via handleFrame (state-change commands and AM watchdog).
     this.log('BASICZBR3 initialized');
   }
 
@@ -30,6 +33,7 @@ class SonoffBASICZBR3 extends SonoffBase {
     this.log('Device became available');
     if (super.onBecameAvailable) await super.onBecameAvailable();
     // AvailabilityManager._markAllAvailable already fires the flow trigger.
+    // configureAttributeReporting omitted: BASICZBR3 does not support it (UNSUP_GENERAL_COMMAND).
   }
 
   async onBecameUnavailable(reason) {

@@ -10,6 +10,9 @@ const { ZigBeeDevice } = require('homey-zigbeedriver');
 const { CLUSTER } = require('zigbee-clusters');
 const ExtendedOnOffCluster = require('../../lib/ExtendedOnOffCluster');
 const { AvailabilityManagerCluster0 } = require('../../lib/AvailabilityManager');
+const { safeGetNumberSettings } = require('../../lib/settingsUtils');
+const { isDeviceUnreachable } = require('../../lib/zigbeeErrorUtils');
+const { normalizePowerOnState, normalizeIndicatorMode } = require('../../lib/ZclOnOffSettings');
 const {
   SMART_PLUG_TIMEOUT_MS,
   SMART_PLUG_POLL_MIN_MS,
@@ -76,7 +79,7 @@ class SmartPlugDevice extends ZigBeeDevice {
   async onNodeInit({ zclNode }) {
     this.log(`${DRIVER_NAME} v${APP_VERSION} - Init: ${this.getName()}`);
 
-    this._loadSettings();
+    await this._loadSettings();
     await this._addMissingCapabilities();
     this._registerCapabilities();
 
@@ -111,7 +114,7 @@ class SmartPlugDevice extends ZigBeeDevice {
       // waiting for the 10-min AvailabilityManager heartbeat timeout.
       // Polling will be started by onBecameAvailable() when the device rejoins.
       this.log('[Init] Device offline at boot — skipping poll start');
-      await this.setUnavailable('Device not reachable').catch(() => {});
+      await this._availability.markUnavailable('Device not reachable');
     }
 
     this.log(`${DRIVER_NAME} initialized`);
@@ -127,6 +130,7 @@ class SmartPlugDevice extends ZigBeeDevice {
   async onBecameAvailable() {
     this.log('[Polling] Device back online — restart polling');
     this._stopPolling();
+    await this._safeSetupAttributeReporting();
     this._startPolling();
   }
 
@@ -142,18 +146,24 @@ class SmartPlugDevice extends ZigBeeDevice {
 
   // ─── Settings ──────────────────────────────────────────────────────────
 
-  _loadSettings() {
+  async _loadSettings() {
     this._energyFactor = parseFloat(this.getSetting('energyFactor')) || 1;
     this._powerFactor  = parseFloat(this.getSetting('powerFactor'))  || 1;
     this._calcPower    = this.getSetting('calcPower') === true;
 
-    this._reportIntervalPower   = Math.max(SMART_PLUG_REPORT_INTERVAL_MIN_S, parseInt(this.getSetting('reportIntervalPower'),   10) || SMART_PLUG_REPORT_POWER_DEFAULT_S);
-    this._reportIntervalCurrent = Math.max(SMART_PLUG_REPORT_INTERVAL_MIN_S, parseInt(this.getSetting('reportIntervalCurrent'), 10) || SMART_PLUG_REPORT_CURRENT_DEFAULT_S);
-    this._reportIntervalVoltage = Math.max(SMART_PLUG_REPORT_INTERVAL_MIN_S, parseInt(this.getSetting('reportIntervalVoltage'), 10) || SMART_PLUG_REPORT_VOLTAGE_DEFAULT_S);
+    const intervals = await safeGetNumberSettings(this, {
+      reportIntervalPower:   { min: SMART_PLUG_REPORT_INTERVAL_MIN_S, max: 3600, fallback: SMART_PLUG_REPORT_POWER_DEFAULT_S },
+      reportIntervalCurrent: { min: SMART_PLUG_REPORT_INTERVAL_MIN_S, max: 3600, fallback: SMART_PLUG_REPORT_CURRENT_DEFAULT_S },
+      reportIntervalVoltage: { min: SMART_PLUG_REPORT_INTERVAL_MIN_S, max: 3600, fallback: SMART_PLUG_REPORT_VOLTAGE_DEFAULT_S },
+    });
+
+    this._reportIntervalPower   = intervals.reportIntervalPower;
+    this._reportIntervalCurrent = intervals.reportIntervalCurrent;
+    this._reportIntervalVoltage = intervals.reportIntervalVoltage;
   }
 
   async onSettings({ oldSettings, newSettings, changedKeys }) {
-    this._loadSettings();
+    await this._loadSettings();
 
     for (const { key, attribute } of TUYA_CONTROL_SETTINGS) {
       if (!changedKeys.includes(key)) continue;
@@ -377,8 +387,7 @@ class SmartPlugDevice extends ZigBeeDevice {
     });
 
     onOff.on('attr.indicatorMode', value => {
-      const norm = { 0: 'off', 1: 'status', 2: 'position' };
-      const v = (typeof value === 'string') ? value : (norm[value] ?? String(value));
+      const v = normalizeIndicatorMode(value);
       this.setSettings({
         indicator_mode:         v,
         indicator_mode_current: INDICATOR_MODE_LABELS[v] ?? v,
@@ -386,8 +395,7 @@ class SmartPlugDevice extends ZigBeeDevice {
     });
 
     onOff.on('attr.powerOnStateGlobal', value => {
-      const map = { 0: 'off', 1: 'on', 2: 'lastState' };
-      const v = map[value] ?? String(value);
+      const v = normalizePowerOnState(value);
       this.setSettings({
         relay_status:         v,
         relay_status_current: RELAY_STATUS_LABELS[v] ?? v,
@@ -408,18 +416,13 @@ class SmartPlugDevice extends ZigBeeDevice {
         .readAttributes(['powerOnStateGlobal', 'indicatorMode', 'childLock']);
 
       const update = {};
-      // Store enum strings directly — matches dropdown IDs in driver.settings.compose.json.
-      // indicatorMode arrives as uint8 (0/1/2) from the device; normalise to string enum.
-      const INDICATOR_NORM = { 0: 'off', 1: 'status', 2: 'position' };
       if (attrs.powerOnStateGlobal !== undefined) {
         const val = attrs.powerOnStateGlobal;
         update.relay_status         = val;
         update.relay_status_current = RELAY_STATUS_LABELS[val] ?? String(val);
       }
       if (attrs.indicatorMode !== undefined) {
-        const normalized = (typeof attrs.indicatorMode === 'string')
-          ? attrs.indicatorMode
-          : (INDICATOR_NORM[attrs.indicatorMode] ?? String(attrs.indicatorMode));
+        const normalized = normalizeIndicatorMode(attrs.indicatorMode);
         update.indicator_mode         = normalized;
         update.indicator_mode_current = INDICATOR_MODE_LABELS[normalized] ?? normalized;
       }
@@ -440,16 +443,14 @@ class SmartPlugDevice extends ZigBeeDevice {
   }
 
   async _safeSetupAttributeReporting() {
-    // onOff — physical button presses must arrive as reports
+    // onOff — physical button presses must arrive as reports.
+    // Use cluster.configureReporting() directly (same as electricalMeasurement below)
+    // to bypass the SDK wrapper that logs a verbose [err] stack trace before rethrowing.
     try {
-      await this.configureAttributeReporting([{
-        endpointId: ENDPOINT_ID,
-        cluster: ExtendedOnOffCluster,
-        attributeName: 'onOff',
-        minInterval: 0,
-        maxInterval: ONOFF_REPORT_MAX_INTERVAL_S,
-        minChange: 1,
-      }]);
+      const onOffCluster = this.zclNode.endpoints[ENDPOINT_ID].clusters.onOff;
+      await onOffCluster.configureReporting({
+        onOff: { minInterval: 0, maxInterval: ONOFF_REPORT_MAX_INTERVAL_S, minChange: 1 },
+      });
     } catch (err) {
       this.log('Could not configure onOff reporting:', err.message);
     }
@@ -469,7 +470,11 @@ class SmartPlugDevice extends ZigBeeDevice {
       });
       this.log(`ElectricalMeasurement reporting configured — power:${this._reportIntervalPower}s current:${this._reportIntervalCurrent}s voltage:${this._reportIntervalVoltage}s`);
     } catch (err) {
-      this.log(`ElectricalMeasurement reporting not supported (${err.message}) — polling will be used`);
+      if (isDeviceUnreachable(err)) {
+        this.log('ElectricalMeasurement reporting deferred — device offline, will retry on rejoin');
+      } else {
+        this.log(`ElectricalMeasurement reporting not supported (${err.message}) — polling will be used`);
+      }
     }
   }
 

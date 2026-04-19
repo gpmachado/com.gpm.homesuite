@@ -81,11 +81,11 @@
     "manufacturerName": ["_TZ3000_cfnprab5"],
     "productId": ["TS011F"],
     "endpoints": {
-      "1": { "clusters": [0, 3, 4, 5, 6], "bindings": [6] },
-      "2": { "clusters": [0, 3, 4, 5, 6], "bindings": [6] },
-      "3": { "clusters": [0, 3, 4, 5, 6], "bindings": [6] },
-      "4": { "clusters": [0, 3, 4, 5, 6], "bindings": [6] },
-      "5": { "clusters": [0, 3, 4, 5, 6], "bindings": [6] }
+      "1": { "clusters": [0, 3, 4, 5, 6, 57344], "bindings": [6] },
+      "2": { "clusters": [0, 3, 4, 5, 6, 57344], "bindings": [6] },
+      "3": { "clusters": [0, 3, 4, 5, 6, 57344], "bindings": [6] },
+      "4": { "clusters": [0, 3, 4, 5, 6, 57344], "bindings": [6] },
+      "5": { "clusters": [0, 3, 4, 5, 6, 57344], "bindings": [6] }
     },
     "devices": {
       "socket2": {

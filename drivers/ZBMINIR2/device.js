@@ -5,7 +5,7 @@ const { Cluster, CLUSTER, BoundCluster } = require('zigbee-clusters');
 const SonoffBase = require('../../lib/SonoffBase');
 const AvailabilityManager = require('../../lib/AvailabilityManager');
 const { AvailabilityManagerCluster0 } = AvailabilityManager;
-const { SONOFF_HEARTBEAT_TIMEOUT_MS } = require('../../lib/constants');
+const { SONOFF_HEARTBEAT_TIMEOUT_MS, SONOFF_REPORT_MAX_INTERVAL_S } = require('../../lib/constants');
 
 // Handles external switch commands (detach_mode) sent directly to the hub
 class MyOnOffBoundCluster extends BoundCluster {
@@ -59,34 +59,30 @@ class SonoffZBMINIR2 extends SonoffBase {
         this._availability = new AvailabilityManagerCluster0(this, { timeout: SONOFF_HEARTBEAT_TIMEOUT_MS });
         await this._availability.install();
 
-        this.configureAttributeReporting([
-            {
-                endpointId: 1,
-                cluster: CLUSTER.ON_OFF,
-                attributeName: 'onOff',
-                minInterval: 0,
-                maxInterval: 3600
-            }
-        ]).catch(this.error);
+        // Deferred 30 s: mesh routes are stale immediately after boot.
+        // Firing configureAttributeReporting before the route is established generates
+        // [err] stack traces from homey-zigbeedriver's executeMethod — harmless but noisy.
+        // onBecameAvailable() retries after power-cycle / rejoin.
+        this.homey.setTimeout(() => {
+            if (!this.zclNode) return;
+            this.zclNode.endpoints[1].clusters.onOff.configureReporting({
+                onOff: { minInterval: 0, maxInterval: SONOFF_REPORT_MAX_INTERVAL_S, minChange: 1 },
+            }).catch(err => this.log('[Reporting] boot config failed:', err.message));
+        }, 30_000);
 
         this.zclNode.endpoints[1].bind(CLUSTER.ON_OFF.NAME, new MyOnOffBoundCluster(this));
 
-        // Filter Sonoff inching ACK (cmdId 0x0B) before cluster dispatch.
-        // This frame lacks clusterSpecific so zigbee-clusters can't route it via BoundCluster.
+        // Filter Sonoff ACK frames (cmdId 0x0B) that zigbee-clusters can't route via BoundCluster.
+        // Covers: SonoffCluster inching ACK and stray defaultResponse on onOff cluster.
         {
             const _hook = this.node.handleFrame.bind(this.node);
             this.node.handleFrame = (...args) => {
                 const [, clusterId, frame] = args;
-                if (clusterId === SonoffCluster.ID && frame?.cmdId === 0x0B) return Promise.resolve();
+                if (frame?.cmdId === 0x0B && (clusterId === SonoffCluster.ID || clusterId === 6)) return Promise.resolve();
                 return _hook(...args);
             };
         }
 
-        // checkAttributes only on first pairing or if settings are unpopulated.
-        // Device stores all config in non-volatile memory — no need to re-read on every boot.
-        if (this.isFirstInit() || !this.getSetting('switch_mode')) {
-            this.checkAttributes();
-        }
 
         this.log('ZBMINIR2 initialized');
     }
@@ -202,17 +198,13 @@ class SonoffZBMINIR2 extends SonoffBase {
                 detach_mode: Boolean(data.detach_mode)
             };
             this.setSettings(settingsData).catch(this.error);
-        });
+            });
     }
 
     async onBecameAvailable() {
         this.log('Device became available');
         if (super.onBecameAvailable) await super.onBecameAvailable();
         // AvailabilityManager._markAllAvailable already fires the flow trigger.
-        // Re-read attrs only if settings appear unpopulated (e.g. after factory reset).
-        if (!this.getSetting('switch_mode')) {
-            this.checkAttributes();
-        }
     }
 
     async onBecameUnavailable(reason) {
