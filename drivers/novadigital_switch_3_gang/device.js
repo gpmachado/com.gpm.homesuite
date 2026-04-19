@@ -4,13 +4,13 @@ const { TimeSilentBoundCluster, BasicSilentBoundCluster } = require('../../lib/T
 const { readAttrCatch } = require('../../lib/errorUtils');
 const { ONOFF_REPORT_MAX_INTERVAL_S } = require('../../lib/constants');
 const {
-  NovaDigitalSwitchBase,
+  TuyaZclBase,
   POWER_ON_DISPLAY,
   SWITCH_DISPLAY,
   SWITCH_NORMALIZE,
-} = require('../../lib/NovaDigitalSwitchBase');
+} = require('../../lib/TuyaZclBase');
 
-class novadigital_switch_3gang extends NovaDigitalSwitchBase {
+class novadigital_switch_3gang extends TuyaZclBase {
 
   async onNodeInit({ zclNode }) {
 

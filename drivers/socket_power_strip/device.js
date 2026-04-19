@@ -4,14 +4,14 @@
  * @file device.js
  * @description Power Strip 4 Sockets + USB (TS011F / _TZ3000_cfnprab5)
  *
- * Extends NovaDigitalSwitchBase — reuses:
+ * Extends TuyaZclBase — reuses:
  *   _onCapabilityOnOff      retry + _markAllUnreachable
- *   _attachBacklightListener          (NovaDigitalSwitchBase)
- *   _attachPowerOnGlobalListener      (NovaDigitalSwitchBase)
- *   _readExtendedOnOffAttrs           (NovaDigitalSwitchBase)
- *   _bootPersistBacklight             (NovaDigitalSwitchBase)
- *   _onSettingBacklight               (NovaDigitalSwitchBase)
- *   onRenamed / onDeleted / onBecameUnavailable  (NovaDigitalSwitchBase)
+ *   _attachBacklightListener          (TuyaZclBase)
+ *   _attachPowerOnGlobalListener      (TuyaZclBase)
+ *   _readExtendedOnOffAttrs           (TuyaZclBase)
+ *   _bootPersistBacklight             (TuyaZclBase)
+ *   _onSettingBacklight               (TuyaZclBase)
+ *   onRenamed / onDeleted / onBecameUnavailable  (TuyaZclBase)
  *
  * Overrides:
  *   _installAvailability  → SOCKET_POWER_STRIP_TIMEOUT_MS
@@ -24,7 +24,7 @@
  */
 
 const { CLUSTER } = require('zigbee-clusters');
-const { NovaDigitalSwitchBase, POWER_ON_DISPLAY } = require('../../lib/NovaDigitalSwitchBase');
+const { TuyaZclBase, POWER_ON_DISPLAY } = require('../../lib/TuyaZclBase');
 const { normalizeIndicatorMode } = require('../../lib/ZclOnOffSettings');
 const { AvailabilityManagerCluster0 } = require('../../lib/AvailabilityManager');
 const { updateSiblingNames } = require('../../lib/connectedDevices');
@@ -36,7 +36,7 @@ const ENDPOINT_MAP = Object.freeze({ socket2: 2, socket3: 3, socket4: 4, usb: 5 
 /** Sort order for sibling label sync */
 const SOCKET_ORDER  = Object.freeze({ '': 0, socket2: 1, socket3: 2, socket4: 3, usb: 4 });
 
-class PowerStripDevice extends NovaDigitalSwitchBase {
+class PowerStripDevice extends TuyaZclBase {
 
   async onNodeInit({ zclNode }) {
     this.printNode();
