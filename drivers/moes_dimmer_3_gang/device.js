@@ -43,6 +43,11 @@ const GANG_DP = {
 const POWER_ON_MODE  = { 0: 'off', 1: 'on', 2: 'memory' };
 const BACKLIGHT_MODE = { 0: 'off', 1: 'normal', 2: 'inverted' };
 
+const GANG_ORDER = Object.freeze({ '': 0, secondGang: 1, thirdGang: 2 });
+const GANG_SORT  = (a, b) =>
+  (GANG_ORDER[a.getData().subDeviceId ?? ''] ?? 99) -
+  (GANG_ORDER[b.getData().subDeviceId ?? ''] ?? 99);
+
 // Speed conversion helpers
 const WIRE_MAX = 1000;
 const WIRE_MIN = 10;
@@ -90,7 +95,7 @@ class MoesDimmer3Gang extends TuyaSpecificClusterDevice {
     this.registerCapabilityListener('dim',   v => this._onCapabilityDim(v));
 
     this.log(`${this._gangName} ready`);
-    this._updateSiblingNames();
+    this._updateSiblingNames({ sortFn: GANG_SORT });
   }
 
   // ─── Tuya cluster listeners ────────────────────────────────────────────────
@@ -309,22 +314,7 @@ class MoesDimmer3Gang extends TuyaSpecificClusterDevice {
 
   onRenamed(name) {
     this.log(`Device renamed to: ${name}`);
-    this._updateSiblingNames();
-  }
-
-  async _updateSiblingNames() {
-    try {
-      const GANG_ORDER = { '': 0, secondGang: 1, thirdGang: 2 };
-      const siblings = this._getNodeDevices();
-      siblings.sort((a, b) => {
-        const aOrder = GANG_ORDER[a.getData().subDeviceId ?? ''] ?? 99;
-        const bOrder = GANG_ORDER[b.getData().subDeviceId ?? ''] ?? 99;
-        return aOrder - bOrder;
-      });
-      await this._writeSiblingNames(siblings);
-    } catch (err) {
-      this.error('Error updating sibling names:', err.message);
-    }
+    this._updateSiblingNames({ sortFn: GANG_SORT });
   }
 
   onDeleted() {

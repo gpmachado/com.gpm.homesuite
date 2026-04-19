@@ -1,6 +1,5 @@
 'use strict';
 
-const OnOffBoundCluster = require('../../lib/OnOffBoundCluster');
 const { readAttrCatch } = require('../../lib/errorUtils');
 const { ONOFF_REPORT_MAX_INTERVAL_S } = require('../../lib/constants');
 const { BasicSilentBoundCluster } = require('../../lib/TimeCluster');
@@ -25,34 +24,7 @@ class novadigital_switch_1gang extends NovaDigitalSwitchBase {
     this.log(`[${this._gangLabel}] init -- ${this.getName()} ep:1 firstInit:${firstInit}`);
 
     // -- OnOff capability ----------------------------------------------------
-    // registerCapability intentionally omitted: it registers an internal listener
-    // that conflicts with registerCapabilityListener ("already registered" warning).
-    //
-    // Physical button → Homey:
-    //   attr.onOff   — handles ZCL attribute reports (cmdId=10, most common)
-    //   OnOffBoundCluster — handles ZCL commands (setOn/setOff/toggle via binding)
-    //
-    // Homey UI → device:
-    //   registerCapabilityListener — calls _onCapabilityOnOff (with retry logic)
-    const onOffCluster = zclNode.endpoints[1].clusters.onOff;
-
-    onOffCluster.on('attr.onOff', value => {
-      this.log(`[${this._gangLabel}] attr.onOff: ${value}`);
-      this.setCapabilityValue('onoff', value)
-        .catch(err => this.error(`[${this._gangLabel}] setCapabilityValue onoff:`, err));
-    });
-
-    try {
-      zclNode.endpoints[1].bind('onOff', new OnOffBoundCluster({
-        onSetOn:  () => { this.log(`[${this._gangLabel}] bound setOn`);  this.setCapabilityValue('onoff', true).catch(() => {}); },
-        onSetOff: () => { this.log(`[${this._gangLabel}] bound setOff`); this.setCapabilityValue('onoff', false).catch(() => {}); },
-        onToggle: () => { this.log(`[${this._gangLabel}] bound toggle`); this.setCapabilityValue('onoff', !this.getCapabilityValue('onoff')).catch(() => {}); },
-      }));
-    } catch (err) {
-      this.log(`[${this._gangLabel}] OnOffBoundCluster bind failed:`, err.message);
-    }
-
-    this.registerCapabilityListener('onoff', v => this._onCapabilityOnOff(v));
+    const onOffCluster = this._setupOnOffEndpoint(zclNode);
     this.setCapabilityValue('main_gang', true).catch(() => {});
 
     // -- tuyaPowerOnState listeners (EP1) ------------------------------------

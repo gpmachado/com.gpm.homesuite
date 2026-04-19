@@ -15,7 +15,7 @@
  *
  * Overrides:
  *   _installAvailability  → SOCKET_POWER_STRIP_TIMEOUT_MS
- *   _updateSiblingNames   → SOCKET_ORDER + writeSiblingNames
+ *   _updateSiblingNames   → SOCKET_ORDER sort via updateSiblingNames
  *   onBecameAvailable     → re-sync onOff state on rejoin
  *   onDeleted             → clear handleFrame override
  *
@@ -27,7 +27,7 @@ const { CLUSTER } = require('zigbee-clusters');
 const { NovaDigitalSwitchBase, POWER_ON_DISPLAY } = require('../../lib/NovaDigitalSwitchBase');
 const { normalizeIndicatorMode } = require('../../lib/ZclOnOffSettings');
 const { AvailabilityManagerCluster0 } = require('../../lib/AvailabilityManager');
-const { writeSiblingNames } = require('../../lib/connectedDevices');
+const { updateSiblingNames } = require('../../lib/connectedDevices');
 const { SOCKET_POWER_STRIP_TIMEOUT_MS, ONOFF_REPORT_MAX_INTERVAL_S } = require('../../lib/constants');
 
 /** subDeviceId → Zigbee endpoint number */
@@ -134,7 +134,7 @@ class PowerStripDevice extends NovaDigitalSwitchBase {
             update.power_on_current_global  = POWER_ON_DISPLAY[val] || String(val);
           }
           if (attrs.indicatorMode != null) {
-            update.indicator_mode = NovaDigitalSwitchBase._normalizeIndicatorMode(attrs.indicatorMode);
+            update.indicator_mode = normalizeIndicatorMode(attrs.indicatorMode);
           }
           return Object.keys(update).length ? this.setSettings(update) : null;
         })
@@ -197,10 +197,7 @@ class PowerStripDevice extends NovaDigitalSwitchBase {
     this.log(`[${this._gangLabel}] became available`);
     if (!this._isMainDevice) return;
     try {
-      const myIeee = this.getData()?.ieeeAddress;
-      const siblings = this.driver.getDevices().filter(d => {
-        try { return d.getData().ieeeAddress === myIeee; } catch { return false; }
-      });
+      const siblings = this._getNodeDevices();
       for (const device of siblings) {
         const ep = ENDPOINT_MAP[device.getData().subDeviceId] || 1;
         const attrs = await this.zclNode.endpoints[ep].clusters.onOff
@@ -234,22 +231,11 @@ class PowerStripDevice extends NovaDigitalSwitchBase {
   }
 
   async _updateSiblingNames() {
-    try {
-      const myIeee = this.getData()?.ieeeAddress;
-      const siblings = this.driver.getDevices()
-        .filter(d => {
-          try {
-            return myIeee ? d.getData().ieeeAddress === myIeee : d.zclNode === this.zclNode;
-          } catch { return false; }
-        })
-        .sort((a, b) =>
-          (SOCKET_ORDER[a.getData().subDeviceId ?? ''] ?? 99) -
-          (SOCKET_ORDER[b.getData().subDeviceId ?? ''] ?? 99)
-        );
-      await writeSiblingNames(siblings);
-    } catch (err) {
-      this.error('Error updating sibling names:', err.message);
-    }
+    await updateSiblingNames(this, {
+      sortFn: (a, b) =>
+        (SOCKET_ORDER[a.getData().subDeviceId ?? ''] ?? 99) -
+        (SOCKET_ORDER[b.getData().subDeviceId ?? ''] ?? 99),
+    });
   }
 
   onDeleted() {

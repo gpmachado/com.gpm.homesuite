@@ -1,7 +1,6 @@
 'use strict';
 
 const { TimeSilentBoundCluster, BasicSilentBoundCluster } = require('../../lib/TimeCluster');
-const OnOffBoundCluster = require('../../lib/OnOffBoundCluster');
 const { readAttrCatch } = require('../../lib/errorUtils');
 const { ONOFF_REPORT_MAX_INTERVAL_S } = require('../../lib/constants');
 const {
@@ -35,34 +34,7 @@ class novadigital_switch_3gang extends NovaDigitalSwitchBase {
     this.log(`[${this._gangLabel}] init -- ${this.getName()} ep:${this._endpoint} firstInit:${firstInit}`);
 
     // -- OnOff capability ----------------------------------------------------
-    // registerCapability is intentionally omitted: it registers an internal listener
-    // that conflicts with registerCapabilityListener ("already registered" warning).
-    //
-    // Physical button → Homey:
-    //   attr.onOff   — handles ZCL attribute reports (cmdId=10, most common)
-    //   OnOffBoundCluster — handles ZCL commands (setOn/setOff/toggle via binding)
-    //
-    // Homey UI → device:
-    //   registerCapabilityListener — calls _onCapabilityOnOff (with retry logic)
-    const onOffCluster = zclNode.endpoints[this._endpoint].clusters.onOff;
-
-    onOffCluster.on('attr.onOff', value => {
-      this.log(`[${this._gangLabel}] attr.onOff: ${value}`);
-      this.setCapabilityValue('onoff', value)
-        .catch(err => this.error(`[${this._gangLabel}] setCapabilityValue onoff:`, err));
-    });
-
-    try {
-      zclNode.endpoints[this._endpoint].bind('onOff', new OnOffBoundCluster({
-        onSetOn:  () => { this.log(`[${this._gangLabel}] bound setOn`);  this.setCapabilityValue('onoff', true).catch(() => {}); },
-        onSetOff: () => { this.log(`[${this._gangLabel}] bound setOff`); this.setCapabilityValue('onoff', false).catch(() => {}); },
-        onToggle: () => { this.log(`[${this._gangLabel}] bound toggle`); this.setCapabilityValue('onoff', !this.getCapabilityValue('onoff')).catch(() => {}); },
-      }));
-    } catch (err) {
-      this.log(`[${this._gangLabel}] OnOffBoundCluster bind failed:`, err.message);
-    }
-
-    this.registerCapabilityListener('onoff', v => this._onCapabilityOnOff(v));
+    this._setupOnOffEndpoint(zclNode);
 
     // -- Per-gang: tuyaPowerOnState listeners --------------------------------
     const gangCluster = zclNode.endpoints[this._endpoint].clusters.tuyaPowerOnState;
@@ -131,10 +103,7 @@ class novadigital_switch_3gang extends NovaDigitalSwitchBase {
           });
       }
 
-      // Inching attrs (tuyaE000 — not implemented; suppress noisy log entries)
-      zclNode.endpoints[1].clusters.tuyaE000
-        .on('attr.inchingTime',   () => {})
-        .on('attr.inchingRemain', () => {});
+      this._suppressTuyaE000(zclNode);
 
       // Suppress Time + Basic cluster frame spam
       try {
@@ -218,10 +187,7 @@ class novadigital_switch_3gang extends NovaDigitalSwitchBase {
 
         case 'power_on_global': {
           const label    = POWER_ON_DISPLAY[value] || value;
-          const myIeee   = this.getData().ieeeAddress;
-          const siblings = this.driver.getDevices().filter(d => {
-            try { return d !== this && !d._isMainDevice && d.getData().ieeeAddress === myIeee; } catch { return false; }
-          });
+          const siblings = this._getNodeDevices().filter(d => !d._isMainDevice);
           await this.zclNode.endpoints[1].clusters.onOff
             .setGlobalPowerOnState(value)
             .catch(err => this.error('Write powerOnStateGlobal:', err));
