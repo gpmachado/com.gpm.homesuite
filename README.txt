@@ -15,4 +15,4 @@ Supported devices:
 - Temperature & humidity clock
 - Gas detector and siren
 - Zigbee repeater
-- Sonoff Zigbee USB Dongle (coordinator)
+- Sonoff Zigbee USB Dongle (repeater)
