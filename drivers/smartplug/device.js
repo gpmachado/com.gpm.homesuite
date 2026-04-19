@@ -11,7 +11,7 @@ const { CLUSTER } = require('zigbee-clusters');
 const ExtendedOnOffCluster = require('../../lib/ExtendedOnOffCluster');
 const { AvailabilityManagerCluster0 } = require('../../lib/AvailabilityManager');
 const { safeGetNumberSettings } = require('../../lib/settingsUtils');
-const { isDeviceUnreachable } = require('../../lib/zigbeeErrorUtils');
+const { isDeviceUnreachable } = require('../../lib/errorUtils');
 const { normalizePowerOnState, normalizeIndicatorMode } = require('../../lib/ZclOnOffSettings');
 const {
   SMART_PLUG_TIMEOUT_MS,

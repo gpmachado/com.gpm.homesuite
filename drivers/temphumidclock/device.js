@@ -3,7 +3,7 @@
 const TuyaSpecificClusterDevice = require('../../lib/TuyaSpecificClusterDevice');
 const AvailabilityManager = require('../../lib/AvailabilityManager');
 const { AvailabilityManagerCluster0 } = AvailabilityManager;
-const { isDeviceUnreachable } = require('../../lib/zigbeeErrorUtils');
+const { isDeviceUnreachable } = require('../../lib/errorUtils');
 const { TimeSilentBoundCluster } = require('../../lib/TimeCluster');
 const { APP_VERSION, TEMPHUMID_CLOCK_HEARTBEAT_MS } = require('../../lib/constants');
 
