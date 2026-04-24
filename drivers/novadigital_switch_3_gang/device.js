@@ -2,7 +2,6 @@
 
 const { TimeSilentBoundCluster, BasicSilentBoundCluster } = require('../../lib/TimeCluster');
 const { readAttrCatch } = require('../../lib/errorUtils');
-const { ONOFF_REPORT_MAX_INTERVAL_S } = require('../../lib/constants');
 const {
   TuyaZclBase,
   POWER_ON_DISPLAY,
@@ -39,13 +38,10 @@ class novadigital_switch_3gang extends TuyaZclBase {
     // -- Per-gang: tuyaPowerOnState listeners --------------------------------
     const gangCluster = zclNode.endpoints[this._endpoint].clusters.tuyaPowerOnState;
 
-    gangCluster.on('attr.powerOnStateGang', value => {
-      this.log(`[EP${this._endpoint}] powerOnStateGang:`, value);
-      this.setSettings({
-        [`power_on_gang${this._endpoint}`]:         value,
-        [`power_on_gang${this._endpoint}_current`]: POWER_ON_DISPLAY[value] || value,
-      }).catch(err => this.error('setSettings powerOnStateGang:', err));
-    });
+    this._attachGangPowerOnListener(
+      gangCluster, this._endpoint,
+      `power_on_gang${this._endpoint}`, `power_on_gang${this._endpoint}_current`
+    );
 
     if (this._isMainDevice) {
       gangCluster.on('attr.switchMode', value => {
@@ -61,18 +57,10 @@ class novadigital_switch_3gang extends TuyaZclBase {
     // Read gang power-on state — first pairing only (stored in non-volatile memory).
     // On rejoin the device reports it via attr.powerOnStateGang listener automatically.
     if (firstInit || !this.getSetting(`power_on_gang${this._endpoint}`)) {
-      gangCluster.readAttributes(['powerOnStateGang'])
-        .then(attrs => {
-          this.log(`[EP${this._endpoint}] read powerOnStateGang:`, attrs.powerOnStateGang);
-          if (attrs.powerOnStateGang != null) {
-            const v = attrs.powerOnStateGang;
-            return this.setSettings({
-              [`power_on_gang${this._endpoint}`]:         v,
-              [`power_on_gang${this._endpoint}_current`]: POWER_ON_DISPLAY[v] || v,
-            });
-          }
-        })
-        .catch(readAttrCatch(this, `[EP${this._endpoint}] readAttributes tuyaPowerOnState`));
+      this._readGangPowerOnState(
+        gangCluster, this._endpoint,
+        `power_on_gang${this._endpoint}`, `power_on_gang${this._endpoint}_current`
+      );
     }
 
     // -- Main device only (EP1) ----------------------------------------------
@@ -91,16 +79,12 @@ class novadigital_switch_3gang extends TuyaZclBase {
       // childLock: TS0003 reports it but it's not user-configurable on a wall switch
       onOffCluster.on('attr.childLock', value => this.log('[EP1] childLock:', value));
 
-      // Cross-endpoint: keep main device's gang2/gang3 current labels in sync
+      // Cross-endpoint: keep main device's gang2/gang3 settings in sync
       for (const epId of [2, 3]) {
-        zclNode.endpoints[epId].clusters.tuyaPowerOnState
-          .on('attr.powerOnStateGang', value => {
-            this.log(`[EP${epId}] powerOnStateGang (main listener):`, value);
-            this.setSettings({
-              [`power_on_gang${epId}`]:         value,
-              [`power_on_gang${epId}_current`]: POWER_ON_DISPLAY[value] || value,
-            }).catch(err => this.error(`setSettings gang${epId} current:`, err));
-          });
+        this._attachGangPowerOnListener(
+          zclNode.endpoints[epId].clusters.tuyaPowerOnState, epId,
+          `power_on_gang${epId}`, `power_on_gang${epId}_current`
+        );
       }
 
       this._suppressTuyaE000(zclNode);
@@ -143,30 +127,17 @@ class novadigital_switch_3gang extends TuyaZclBase {
           .catch(readAttrCatch(this, '[EP1] readAttributes switchMode'));
 
         for (const epId of [2, 3]) {
-          await zclNode.endpoints[epId].clusters.tuyaPowerOnState
-            .readAttributes(['powerOnStateGang'])
-            .then(attrs => {
-              this.log(`[EP${epId}] read powerOnStateGang:`, attrs.powerOnStateGang);
-              if (attrs.powerOnStateGang != null) {
-                const v = attrs.powerOnStateGang;
-                return this.setSettings({
-                  [`power_on_gang${epId}`]:         v,
-                  [`power_on_gang${epId}_current`]: POWER_ON_DISPLAY[v] || v,
-                });
-              }
-            })
-            .catch(readAttrCatch(this, `[EP${epId}] readAttributes tuyaPowerOnState`));
+          await this._readGangPowerOnState(
+            zclNode.endpoints[epId].clusters.tuyaPowerOnState, epId,
+            `power_on_gang${epId}`, `power_on_gang${epId}_current`
+          );
         }
       }
 
       // -- First pairing: configure reporting --------------------------------
       if (firstInit) {
         this.log('First init -- configuring onOff reporting on all endpoints');
-        for (const epId of [1, 2, 3]) {
-          await zclNode.endpoints[epId].clusters.onOff
-            .configureReporting({ onOff: { minInterval: 0, maxInterval: ONOFF_REPORT_MAX_INTERVAL_S, minChange: 0 } })
-            .catch(err => this.error(`configureReporting onOff EP${epId}:`, err));
-        }
+        await this._configureOnOffReporting(zclNode, [1, 2, 3]);
       }
     }
   }
@@ -219,24 +190,15 @@ class novadigital_switch_3gang extends TuyaZclBase {
           break;
 
         case 'power_on_gang1':
-          await this.zclNode.endpoints[1].clusters.tuyaPowerOnState
-            .writeAttributes({ powerOnStateGang: value })
-            .catch(err => this.error('Write powerOnStateGang EP1:', err));
-          setImmediate(() => this.setSettings({ power_on_gang1_current: POWER_ON_DISPLAY[value] || value }).catch(() => {}));
+          await this._writeGangPowerOnState(1, value, 'power_on_gang1_current');
           break;
 
         case 'power_on_gang2':
-          await this.zclNode.endpoints[2].clusters.tuyaPowerOnState
-            .writeAttributes({ powerOnStateGang: value })
-            .catch(err => this.error('Write powerOnStateGang EP2:', err));
-          setImmediate(() => this.setSettings({ power_on_gang2_current: POWER_ON_DISPLAY[value] || value }).catch(() => {}));
+          await this._writeGangPowerOnState(2, value, 'power_on_gang2_current');
           break;
 
         case 'power_on_gang3':
-          await this.zclNode.endpoints[3].clusters.tuyaPowerOnState
-            .writeAttributes({ powerOnStateGang: value })
-            .catch(err => this.error('Write powerOnStateGang EP3:', err));
-          setImmediate(() => this.setSettings({ power_on_gang3_current: POWER_ON_DISPLAY[value] || value }).catch(() => {}));
+          await this._writeGangPowerOnState(3, value, 'power_on_gang3_current');
           break;
 
         default:

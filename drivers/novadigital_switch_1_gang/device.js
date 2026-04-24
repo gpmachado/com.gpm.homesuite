@@ -1,7 +1,6 @@
 'use strict';
 
 const { readAttrCatch } = require('../../lib/errorUtils');
-const { ONOFF_REPORT_MAX_INTERVAL_S } = require('../../lib/constants');
 const { BasicSilentBoundCluster } = require('../../lib/TimeCluster');
 const {
   TuyaZclBase,
@@ -30,13 +29,7 @@ class novadigital_switch_1gang extends TuyaZclBase {
     // -- tuyaPowerOnState listeners (EP1) ------------------------------------
     const gangCluster = zclNode.endpoints[1].clusters.tuyaPowerOnState;
 
-    gangCluster.on('attr.powerOnStateGang', value => {
-      this.log('[EP1] powerOnStateGang:', value);
-      this.setSettings({
-        power_on_behavior_gang1: value,
-        power_on_current_gang1:  POWER_ON_DISPLAY[value] || value,
-      }).catch(err => this.error('setSettings powerOnStateGang:', err));
-    });
+    this._attachGangPowerOnListener(gangCluster, 1, 'power_on_behavior_gang1', 'power_on_current_gang1');
 
     gangCluster.on('attr.switchMode', value => {
       this.log('[EP1] switchMode:', value);
@@ -71,10 +64,8 @@ class novadigital_switch_1gang extends TuyaZclBase {
         .then(attrs => {
           this.log('[EP1] read tuyaPowerOnState:', attrs);
           const s = {};
-          if (attrs.powerOnStateGang != null) {
-            s.power_on_behavior_gang1 = attrs.powerOnStateGang;
-            s.power_on_current_gang1  = POWER_ON_DISPLAY[attrs.powerOnStateGang] || attrs.powerOnStateGang;
-          }
+          if (attrs.powerOnStateGang != null)
+            Object.assign(s, powerOnSettingsPatch('power_on_behavior_gang1', 'power_on_current_gang1', attrs.powerOnStateGang));
           if (attrs.switchMode != null) {
             const norm            = SWITCH_NORMALIZE(attrs.switchMode);
             s.switch_mode_global  = norm;
@@ -88,9 +79,7 @@ class novadigital_switch_1gang extends TuyaZclBase {
     // -- First pairing: configure reporting ----------------------------------
     if (firstInit) {
       this.log('First init -- configuring onOff reporting');
-      await zclNode.endpoints[1].clusters.onOff
-        .configureReporting({ onOff: { minInterval: 0, maxInterval: ONOFF_REPORT_MAX_INTERVAL_S, minChange: 0 } })
-        .catch(err => this.error('configureReporting onOff EP1:', err));
+      await this._configureOnOffReporting(zclNode, [1]);
     }
   }
 
@@ -120,10 +109,7 @@ class novadigital_switch_1gang extends TuyaZclBase {
           break;
 
         case 'power_on_behavior_gang1':
-          await this.zclNode.endpoints[1].clusters.tuyaPowerOnState
-            .writeAttributes({ powerOnStateGang: value })
-            .catch(err => this.error('Write powerOnStateGang EP1:', err));
-          setImmediate(() => this.setSettings({ power_on_current_gang1: POWER_ON_DISPLAY[value] || value }).catch(() => {}));
+          await this._writeGangPowerOnState(1, value, 'power_on_current_gang1');
           break;
 
         default:
