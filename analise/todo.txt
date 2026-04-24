@@ -1,0 +1,75 @@
+# TODO - HomeSuite
+
+Atualizado em 2026-04-20 (revisao 4). Itens resolvidos marcados com ✅.
+
+---
+
+## ✅ Resolvido
+
+- ✅ `temphumidclock` learnmode.svg ausente — criado
+- ✅ `zigbee_repeater` ID divergente — corrigido
+- ✅ Versoes / dependencias desalinhadas — `package.json` alinhado para `1.0.6`
+- ✅ `.homeyignore` corrigido; `.DS_Store` removidos do git
+- ✅ `app.json` regenerado e validado
+- ✅ `availability_is_on` condition — filtro `capabilities=is_availability`
+- ✅ `is_availability` adicionado a todos os drivers monitorados
+- ✅ `gas_detector` handleFrame restaurado em `onDeleted`
+- ✅ Ficheiros duplicados `TimeSilentBoundCluster.js` / `TuyaTimeCluster.js` removidos
+- ✅ AvailabilityManager hardening (install-first, cleanup, throttle I/O 60s)
+- ✅ Flow double-fire corrigido (5 drivers)
+- ✅ `powerOn` labels e IDs uniformizados (4-gang `memory`→`lastState`, smartplug, ZBMINIR2)
+- ✅ ZBMINIR2 + BASICZBR3 — `onBecameAvailable/Unavailable` adicionados
+- ✅ `smartplug` — clamp/migracao de intervalos; device offline no boot marca unavailable e nao inicia polling; reporting reconfigurado em `onBecameAvailable`
+- ✅ NovaDigital ZCL 1/2/3 — `_setupOnOffEndpoint()` + `OnOffBoundCluster` centralizados na base
+- ✅ NovaDigital ZCL 2/3 — siblings via `getNodeDevices()` (elimina confusao por `ieeeAddress`)
+- ✅ NovaDigital Tuya 4/6 — `lib/NovaDigitalTuyaDpSwitchBase.js` criada e aplicada
+- ✅ `ZclOnOffSettings.js` criado com normalizacao, labels, patches e `applyJitter`
+- ✅ `connectedDevices.js` — dead code removido; import circular eliminado
+- ✅ `AvailabilityManager._getSiblings` delegado para `getNodeDevices`
+- ✅ `NovaDigitalSwitchBase` renomeado para `TuyaZclBase` — base unificada para ZCL 1/2/3-gang, smartplug e socket_power_strip
+- ✅ `smartplug` migrado para `TuyaZclBase`
+- ✅ `AvailabilityManager` watchdog — early return quando device ja esta unavailable (elimina log de idle ruidoso)
+- ✅ Helpers de gang adicionados a `TuyaZclBase`:
+  - `_attachGangPowerOnListener(cluster, epId, behaviorKey, currentKey)`
+  - `_readGangPowerOnState(cluster, epId, behaviorKey, currentKey)`
+  - `_writeGangPowerOnState(epId, value, currentKey)`
+  - `_configureOnOffReporting(zclNode, endpointIds)`
+- ✅ Helpers aplicados nos drivers ZCL 1/2/3-gang (-96 linhas; `ONOFF_REPORT_MAX_INTERVAL_S` removido dos drivers)
+- ✅ Bug corrigido: `powerOnSettingsPatch` sem import no 1-gang — substituido por `_readGangPowerOnState` + switchMode separado
+
+---
+
+## Pendente
+
+### Publicacao
+
+- [ ] Bump versao para `1.0.7` e publicar no Homey App Store.
+  - `package.json`, `.homeycompose/app.json`, `CHANGELOG.md`
+
+### Melhorias tecnicas (ver detalhes em `recomendacoes_codigo_consolidadas_2026-04-20.txt`)
+
+- [ ] **AvailabilityManager** — tornar log de idle opcional (`logIdle: false` por padrao). §P1
+- [ ] **smartplug** — proteger `measure_power` contra `activePower=0` espurio quando `calcPower=true`. §P2
+- [ ] **smartplug** — `onSettings` usar metodos do `ExtendedOnOffCluster` em vez de `writeAttributes` generico. §P3
+- [ ] **socket_power_strip** — limpar cabecalho desatualizado (`_bootPersistBacklight` nao existe). §P4
+- [ ] **Reporting** — aplicar `applyJitter()` em `_configureOnOffReporting`. §P6
+- [ ] **Setup essencial** — schema version para garantir reporting em re-pair sem remocao (`isFirstInit()` pode ser falso apos reset fisico). §P5
+- [ ] **smartplug** — decidir sobre `firmwareVersion`/`driverVersion` em store. §P7
+
+### Testes pendentes
+
+- [ ] Testar re-pair sem remover device (smartplug ou ZBMINIR2).
+- [ ] Teste manual para drivers com `handleFrame` (ZBMINIR2, socket_power_strip, gas_detector).
+- [ ] Confirmar learn mode do `temphumidclock`.
+- [ ] Testar disponibilidade com `socket_power_strip` apos queda de energia.
+
+### Validacao (opcional)
+
+- [ ] Scripts npm: `node --check` para todos os JS; validar JSONs do app.
+
+---
+
+## Observacoes
+
+- Polling de energia do `smartplug` deve continuar local — nao mover para `TuyaZclBase`.
+- Referencia tecnica atual: `analise/recomendacoes_codigo_consolidadas_2026-04-20.txt`

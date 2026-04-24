@@ -59,21 +59,19 @@ class novadigital_switch_1gang extends TuyaZclBase {
     // -- Read tuyaPowerOnState (gang + switchMode) — first pairing only ------
     // Device stores these in non-volatile memory; no need to re-read every boot.
     if (firstInit || !this.getSetting('power_on_behavior_gang1')) {
+      await this._readGangPowerOnState(gangCluster, 1, 'power_on_behavior_gang1', 'power_on_current_gang1');
+    }
+    if (firstInit || !this.getSetting('switch_mode_global')) {
       await gangCluster
-        .readAttributes(['powerOnStateGang', 'switchMode'])
+        .readAttributes(['switchMode'])
         .then(attrs => {
-          this.log('[EP1] read tuyaPowerOnState:', attrs);
-          const s = {};
-          if (attrs.powerOnStateGang != null)
-            Object.assign(s, powerOnSettingsPatch('power_on_behavior_gang1', 'power_on_current_gang1', attrs.powerOnStateGang));
+          this.log('[EP1] read switchMode:', attrs.switchMode);
           if (attrs.switchMode != null) {
-            const norm            = SWITCH_NORMALIZE(attrs.switchMode);
-            s.switch_mode_global  = norm;
-            s.switch_mode_current = SWITCH_DISPLAY[norm] || norm;
+            const norm = SWITCH_NORMALIZE(attrs.switchMode);
+            return this.setSettings({ switch_mode_global: norm, switch_mode_current: SWITCH_DISPLAY[norm] || norm });
           }
-          return Object.keys(s).length ? this.setSettings(s) : null;
         })
-        .catch(readAttrCatch(this, '[EP1] readAttributes tuyaPowerOnState'));
+        .catch(readAttrCatch(this, '[EP1] readAttributes switchMode'));
     }
 
     // -- First pairing: configure reporting ----------------------------------
