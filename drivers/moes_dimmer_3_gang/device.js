@@ -83,11 +83,11 @@ class MoesDimmer3Gang extends TuyaSpecificClusterDevice {
 
     // Tuya cluster listeners are shared — attach only once, on the main device
     if (this._isMain) {
+      this._startedAt = Date.now();
       this._availability = new AvailabilityManagerCluster0(this, {
         timeout: require('../../lib/constants').HEARTBEAT_TIMEOUT_MS,
       });
       await this._availability.install();
-
       this._setupTuyaListeners(zclNode);
     }
 
@@ -163,7 +163,10 @@ class MoesDimmer3Gang extends TuyaSpecificClusterDevice {
 
       // ── global (main device only) ─────────────────────────────────────────
       case DP.POWER_ON:
-        if (this._isMain) await this._syncSetting('powerOnState', POWER_ON_MODE[value]);
+        if (this._isMain) {
+          await this._syncSetting('powerOnState', POWER_ON_MODE[value]);
+          this._notifyRejoin();
+        }
         break;
 
       case DP.BACKLIGHT:
@@ -310,6 +313,22 @@ class MoesDimmer3Gang extends TuyaSpecificClusterDevice {
 
   _sleep(ms) {
     return new Promise(r => this.homey.setTimeout(r, ms));
+  }
+
+  /** DP.POWER_ON only fires on power restore — use as rejoin signal. */
+  _notifyRejoin() {
+    const now = Date.now();
+    if ((now - (this._startedAt ?? 0)) < 120_000) return;  // boot guard
+    if ((now - (this._lastRejoinTs ?? 0)) < 30_000) return; // burst cooldown
+    this._lastRejoinTs = now;
+    this.onDeviceRejoin();
+  }
+
+  onDeviceRejoin() {
+    this.log(`${this._gangName} Device rejoined`);
+    const AvailabilityManager = require('../../lib/AvailabilityManager');
+    const cardId = this.driver?.id ? `${this.driver.id}:device_rejoined` : null;
+    AvailabilityManager.triggerRejoin(this, 0, cardId);
   }
 
   onRenamed(name) {

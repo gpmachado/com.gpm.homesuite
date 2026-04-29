@@ -66,10 +66,6 @@ class novadigital_switch_3gang extends TuyaZclBase {
     // -- Main device only (EP1) ----------------------------------------------
     if (this._isMainDevice) {
 
-      if (this.hasCapability('main_gang')) {
-        this.setCapabilityValue('main_gang', true).catch(() => {});
-      }
-
       const onOffCluster = zclNode.endpoints[1].clusters.onOff;
 
       // Extended onOff listeners (backlight + powerOnStateGlobal + indicator + childLock)
@@ -87,7 +83,7 @@ class novadigital_switch_3gang extends TuyaZclBase {
         );
       }
 
-      this._suppressTuyaE000(zclNode);
+      this._attachTuyaBootListener(zclNode);
 
       // Suppress Time + Basic cluster frame spam
       try {

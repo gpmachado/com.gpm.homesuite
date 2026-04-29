@@ -47,12 +47,10 @@ class SonoffZBMINIR2 extends SonoffBase {
         super.onNodeInit({ zclNode });
 
         if (this.hasCapability('onoff')) {
-            this.registerCapability('onoff', CLUSTER.ON_OFF);
+            // getOnStart: false — prevents SDK from restoring last state on rejoin,
+            // which would unexpectedly turn ON a device configured as "always off".
+            this.registerCapability('onoff', CLUSTER.ON_OFF, { getOpts: { getOnStart: false } });
         }
-
-        // Migrate existing paired devices: add is_availability if missing
-        if (!this.hasCapability('is_availability'))
-          await this.addCapability('is_availability').catch(err => this.error('addCapability is_availability:', err));
 
         // Availability tracking — install FIRST so ZCL responses during init reads
         // (configureReporting, checkAttributes) update last_seen_ts.
@@ -72,17 +70,35 @@ class SonoffZBMINIR2 extends SonoffBase {
 
         this.zclNode.endpoints[1].bind(CLUSTER.ON_OFF.NAME, new MyOnOffBoundCluster(this));
 
-        // Filter Sonoff ACK frames (cmdId 0x0B) that zigbee-clusters can't route via BoundCluster.
-        // Covers: SonoffCluster inching ACK and stray defaultResponse on onOff cluster.
+        // Unified handleFrame hook (node-level: frame is a raw Buffer, not a parsed object).
+        //   ZCL frame layout (non-manufacturer-specific): [frameCtrl, seqNum, cmdId, ...payload]
+        //   ZCL frame layout (manufacturer-specific):     [frameCtrl, mfrLo, mfrHi, seqNum, cmdId, ...payload]
+        //   Bit 2 of frameCtrl = manufacturer-specific flag.
+        //
+        //   1. Filter Sonoff ACK frames (cmdId 0x0B, mfr-specific) that zigbee-clusters can't route
+        //      via BoundCluster. Covers: SonoffCluster inching ACK and stray defaultResponse on onOff.
+        //   2. Rejoin detection: SonoffCluster reportAttributes (cmdId 0x0A, global/non-mfr-specific)
+        //      fires on power restore. Guard: skip if settings written < 30s ago.
+        this._startedAt = Date.now();
         {
             const _hook = this.node.handleFrame.bind(this.node);
             this.node.handleFrame = (...args) => {
                 const [, clusterId, frame] = args;
-                if (frame?.cmdId === 0x0B && (clusterId === SonoffCluster.ID || clusterId === 6)) return Promise.resolve();
+                if (Buffer.isBuffer(frame) && frame.length >= 3) {
+                    const mfrSpecific = frame[0] & 0x04;
+                    const cmdId = mfrSpecific ? (frame.length >= 5 ? frame[4] : -1) : frame[2];
+                    // 1. Drop Sonoff manufacturer ACK (0x0B) — prevents unknown_command_received errors
+                    if (cmdId === 0x0B && (clusterId === SonoffCluster.ID || clusterId === 6)) return Promise.resolve();
+                    // 2. Detect SonoffCluster attribute reports (0x0A, global) as rejoin signal
+                    if (cmdId === 0x0A && !mfrSpecific && clusterId === SonoffCluster.ID) {
+                        if (Date.now() - (this._lastSonoffWriteAt ?? 0) >= 30_000) {
+                            this._notifyRejoin();
+                        }
+                    }
+                }
                 return _hook(...args);
             };
         }
-
 
         this.log('ZBMINIR2 initialized');
     }
@@ -109,6 +125,7 @@ class SonoffZBMINIR2 extends SonoffBase {
         if (settingsToWrite.switch_mode !== undefined) {
             settingsToWrite.switch_mode = Number(settingsToWrite.switch_mode);
         }
+        this._lastSonoffWriteAt = Date.now();
         this.writeAttributes(SonoffCluster, settingsToWrite, changedKeys).catch(this.error);
 
         // Handle inching settings changes
@@ -180,6 +197,24 @@ class SonoffZBMINIR2 extends SonoffBase {
             this.error('Failed to set inching:', error);
             throw error;
         }
+    }
+
+    /**
+     * Fires the device_rejoined flow trigger.
+     * Guards: 120s post-startup (ignores boot dump) + 30s cooldown (burst dedup).
+     */
+    _notifyRejoin() {
+        const now = Date.now();
+        if ((now - (this._startedAt ?? 0)) < 120_000) return;   // boot guard
+        if ((now - (this._lastRejoinTs ?? 0)) < 30_000) return;  // burst cooldown
+        this._lastRejoinTs = now;
+        this.onDeviceRejoin();
+    }
+
+    onDeviceRejoin() {
+        this.log('Device rejoined');
+        const AvailabilityManager = require('../../lib/AvailabilityManager');
+        AvailabilityManager.triggerRejoin(this, 0, 'ZBMINIR2:device_rejoined');
     }
 
     async checkAttributes() {

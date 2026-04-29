@@ -7,13 +7,33 @@
     "de": "ZBMINI-R2 Schalter"
   },
   "class": "socket",
-  "capabilities": ["onoff", "is_availability"],
+  "capabilities": [
+    "onoff",
+    "is_availability"
+  ],
   "icon": "{{driverAssetsPath}}/icon.svg",
   "zigbee": {
-    "manufacturerName": ["SONOFF"],
-    "productId": ["ZBMINIR2"],
+    "manufacturerName": [
+      "SONOFF"
+    ],
+    "productId": [
+      "ZBMINIR2"
+    ],
     "endpoints": {
-      "1": { "clusters": [0, 3, 4, 6, 2821, 64529, 64599], "bindings": [6] }
+      "1": {
+        "clusters": [
+          0,
+          3,
+          4,
+          6,
+          2821,
+          64529,
+          64599
+        ],
+        "bindings": [
+          6
+        ]
+      }
     },
     "learnmode": {
       "image": "{{driverAssetsPath}}/learn.svg",
@@ -25,5 +45,7 @@
       }
     }
   },
-  "$extends": ["zigbee-local"]
+  "$extends": [
+    "zigbee-local"
+  ]
 }

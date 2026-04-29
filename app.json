@@ -1,7 +1,7 @@
 {
   "_comment": "This file is generated. Please edit .homeycompose/app.json instead.",
   "id": "com.gpm.homesuite",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "compatibility": ">=12.4.0",
   "sdk": 3,
   "platforms": [
@@ -203,6 +203,34 @@
         ]
       },
       {
+        "id": "ZBMINIR2:device_rejoined",
+        "title": {
+          "en": "Reconnected after power cut",
+          "pt": "Reconectou após queda de energia"
+        },
+        "hint": {
+          "en": "Fires when this ZBMINIR2 rejoins the Zigbee network after a power cut.",
+          "pt": "Dispara quando este ZBMINIR2 reconecta à rede Zigbee após queda de energia."
+        },
+        "tokens": [
+          {
+            "name": "device_name",
+            "type": "string",
+            "title": {
+              "en": "Device name",
+              "pt": "Nome do dispositivo"
+            }
+          }
+        ],
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=ZBMINIR2"
+          }
+        ]
+      },
+      {
         "id": "ZBMINIR2:click",
         "title": {
           "en": "Single click",
@@ -275,6 +303,206 @@
             "type": "device",
             "name": "device",
             "filter": "driver_id=ekaza_siren"
+          }
+        ]
+      },
+      {
+        "id": "moes_dimmer_3_gang:device_rejoined",
+        "title": {
+          "en": "Reconnected after power cut"
+        },
+        "hint": {
+          "en": "Fires when this dimmer rejoins the Zigbee network after a power cut."
+        },
+        "tokens": [
+          {
+            "name": "device_name",
+            "type": "string",
+            "title": {
+              "en": "Device name"
+            }
+          }
+        ],
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=moes_dimmer_3_gang"
+          }
+        ]
+      },
+      {
+        "id": "novadigital_switch_1_gang:device_rejoined",
+        "title": {
+          "en": "Reconnected after power cut"
+        },
+        "hint": {
+          "en": "Fires when this switch rejoins the Zigbee network after a power cut."
+        },
+        "tokens": [
+          {
+            "name": "device_name",
+            "type": "string",
+            "title": {
+              "en": "Device name"
+            }
+          }
+        ],
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=novadigital_switch_1_gang"
+          }
+        ]
+      },
+      {
+        "id": "novadigital_switch_2_gang:device_rejoined",
+        "title": {
+          "en": "Reconnected after power cut"
+        },
+        "hint": {
+          "en": "Fires when this switch rejoins the Zigbee network after a power cut."
+        },
+        "tokens": [
+          {
+            "name": "device_name",
+            "type": "string",
+            "title": {
+              "en": "Device name"
+            }
+          }
+        ],
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=novadigital_switch_2_gang"
+          }
+        ]
+      },
+      {
+        "id": "novadigital_switch_3_gang:device_rejoined",
+        "title": {
+          "en": "Reconnected after power cut"
+        },
+        "hint": {
+          "en": "Fires when this switch rejoins the Zigbee network after a power cut."
+        },
+        "tokens": [
+          {
+            "name": "device_name",
+            "type": "string",
+            "title": {
+              "en": "Device name"
+            }
+          }
+        ],
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=novadigital_switch_3_gang"
+          }
+        ]
+      },
+      {
+        "id": "novadigital_switch_4_gang:device_rejoined",
+        "title": {
+          "en": "Reconnected after power cut"
+        },
+        "hint": {
+          "en": "Fires when this switch rejoins the Zigbee network after a power cut."
+        },
+        "tokens": [
+          {
+            "name": "device_name",
+            "type": "string",
+            "title": {
+              "en": "Device name"
+            }
+          }
+        ],
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=novadigital_switch_4_gang"
+          }
+        ]
+      },
+      {
+        "id": "novadigital_switch_6_gang:device_rejoined",
+        "title": {
+          "en": "Reconnected after power cut"
+        },
+        "hint": {
+          "en": "Fires when this switch rejoins the Zigbee network after a power cut."
+        },
+        "tokens": [
+          {
+            "name": "device_name",
+            "type": "string",
+            "title": {
+              "en": "Device name"
+            }
+          }
+        ],
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=novadigital_switch_6_gang"
+          }
+        ]
+      },
+      {
+        "id": "smartplug:device_rejoined",
+        "title": {
+          "en": "Reconnected after power cut"
+        },
+        "hint": {
+          "en": "Fires when this smart plug rejoins the Zigbee network after a power cut."
+        },
+        "tokens": [
+          {
+            "name": "device_name",
+            "type": "string",
+            "title": {
+              "en": "Device name"
+            }
+          }
+        ],
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=smartplug"
+          }
+        ]
+      },
+      {
+        "id": "socket_power_strip:device_rejoined",
+        "title": {
+          "en": "Reconnected after power cut"
+        },
+        "hint": {
+          "en": "Fires when this power strip rejoins the Zigbee network after a power cut."
+        },
+        "tokens": [
+          {
+            "name": "device_name",
+            "type": "string",
+            "title": {
+              "en": "Device name"
+            }
+          }
+        ],
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=socket_power_strip"
           }
         ]
       }
@@ -2401,7 +2629,6 @@
       "class": "socket",
       "capabilities": [
         "onoff",
-        "main_gang",
         "is_availability"
       ],
       "energy": {
@@ -2700,7 +2927,6 @@
       "class": "socket",
       "capabilities": [
         "onoff",
-        "main_gang",
         "is_availability"
       ],
       "energy": {
@@ -3196,7 +3422,6 @@
       "class": "socket",
       "capabilities": [
         "onoff",
-        "main_gang",
         "is_availability"
       ],
       "energy": {
@@ -5266,25 +5491,6 @@
         "es": "true = dispositivo disponible, false = dispositivo no disponible. Usado para disparadores de flujo de disponibilidad.",
         "it": "true = dispositivo disponibile, false = dispositivo non disponibile. Usato per i trigger di flusso di disponibilità.",
         "de": "true = Gerät verfügbar, false = Gerät nicht verfügbar. Wird für Verfügbarkeits-Flow-Trigger verwendet."
-      },
-      "getable": true,
-      "setable": false,
-      "insights": false,
-      "uiComponent": null
-    },
-    "main_gang": {
-      "type": "boolean",
-      "title": {
-        "en": "Main Gang",
-        "es": "Grupo principal",
-        "it": "Gruppo principale",
-        "de": "Hauptgruppe"
-      },
-      "desc": {
-        "en": "Indicates this is the main gang (Gang 1) of a multi-gang switch. Used to filter flow cards.",
-        "es": "Indica que este es el grupo principal (Grupo 1) de un interruptor multigrupo. Usado para filtrar tarjetas de flujo.",
-        "it": "Indica che questo è il gruppo principale (Gruppo 1) di un interruttore multi-gruppo. Usato per filtrare le card di flusso.",
-        "de": "Gibt an, dass dies die Hauptgruppe (Gruppe 1) eines Mehrfachschalters ist. Wird zum Filtern von Flow-Karten verwendet."
       },
       "getable": true,
       "setable": false,

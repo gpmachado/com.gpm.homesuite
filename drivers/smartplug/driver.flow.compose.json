@@ -1,0 +1,20 @@
+{
+  "triggers": [
+    {
+      "id": "smartplug:device_rejoined",
+      "title": {
+        "en": "Reconnected after power cut"
+      },
+      "hint": {
+        "en": "Fires when this smart plug rejoins the Zigbee network after a power cut."
+      },
+      "tokens": [
+        {
+          "name": "device_name",
+          "type": "string",
+          "title": { "en": "Device name" }
+        }
+      ]
+    }
+  ]
+}

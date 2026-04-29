@@ -7,8 +7,16 @@
     "de": "NovaDigital Schalter 3-fach"
   },
   "class": "socket",
-  "capabilities": ["onoff", "main_gang", "is_availability"],
-  "energy": { "approximation": { "usageOn": 0, "usageOff": 0 } },
+  "capabilities": [
+    "onoff",
+    "is_availability"
+  ],
+  "energy": {
+    "approximation": {
+      "usageOn": 0,
+      "usageOff": 0
+    }
+  },
   "settings": [
     {
       "id": "device_siblings_info",
@@ -61,9 +69,33 @@
       },
       "value": "status",
       "values": [
-        { "id": "off",      "label": { "en": "Always Off",      "es": "Siempre apagado",     "it": "Sempre spento",        "de": "Immer aus"        } },
-        { "id": "status",   "label": { "en": "On when powered", "es": "Encendido con corriente", "it": "Acceso con corrente", "de": "Ein bei Strom"    } },
-        { "id": "position", "label": { "en": "Off when powered","es": "Apagado con corriente","it": "Spento con corrente",  "de": "Aus bei Strom"    } }
+        {
+          "id": "off",
+          "label": {
+            "en": "Always Off",
+            "es": "Siempre apagado",
+            "it": "Sempre spento",
+            "de": "Immer aus"
+          }
+        },
+        {
+          "id": "status",
+          "label": {
+            "en": "On when powered",
+            "es": "Encendido con corriente",
+            "it": "Acceso con corrente",
+            "de": "Ein bei Strom"
+          }
+        },
+        {
+          "id": "position",
+          "label": {
+            "en": "Off when powered",
+            "es": "Apagado con corriente",
+            "it": "Spento con corrente",
+            "de": "Aus bei Strom"
+          }
+        }
       ]
     },
     {
@@ -77,9 +109,33 @@
       },
       "value": "lastState",
       "values": [
-        { "id": "on",        "label": { "en": "Always On",  "es": "Siempre encendido", "it": "Sempre acceso",  "de": "Immer ein" } },
-        { "id": "off",       "label": { "en": "Always Off", "es": "Siempre apagado",   "it": "Sempre spento",  "de": "Immer aus" } },
-        { "id": "lastState", "label": { "en": "Last State", "es": "Último estado",     "it": "Ultimo stato",   "de": "Letzter Zustand" } }
+        {
+          "id": "on",
+          "label": {
+            "en": "Always On",
+            "es": "Siempre encendido",
+            "it": "Sempre acceso",
+            "de": "Immer ein"
+          }
+        },
+        {
+          "id": "off",
+          "label": {
+            "en": "Always Off",
+            "es": "Siempre apagado",
+            "it": "Sempre spento",
+            "de": "Immer aus"
+          }
+        },
+        {
+          "id": "lastState",
+          "label": {
+            "en": "Last State",
+            "es": "Último estado",
+            "it": "Ultimo stato",
+            "de": "Letzter Zustand"
+          }
+        }
       ]
     },
     {
@@ -110,8 +166,24 @@
       },
       "value": "toggle",
       "values": [
-        { "id": "toggle",    "label": { "en": "Toggle (Standard)", "es": "Alternante (estándar)", "it": "Alternante (standard)", "de": "Umschalten (Standard)" } },
-        { "id": "momentary", "label": { "en": "Momentary (Pulse)",  "es": "Momentáneo (pulso)",   "it": "Momentaneo (impulso)",  "de": "Momentan (Impuls)"    } }
+        {
+          "id": "toggle",
+          "label": {
+            "en": "Toggle (Standard)",
+            "es": "Alternante (estándar)",
+            "it": "Alternante (standard)",
+            "de": "Umschalten (Standard)"
+          }
+        },
+        {
+          "id": "momentary",
+          "label": {
+            "en": "Momentary (Pulse)",
+            "es": "Momentáneo (pulso)",
+            "it": "Momentaneo (impulso)",
+            "de": "Momentan (Impuls)"
+          }
+        }
       ]
     },
     {
@@ -142,9 +214,33 @@
       },
       "value": "lastState",
       "values": [
-        { "id": "on",        "label": { "en": "Always On",  "es": "Siempre encendido", "it": "Sempre acceso",  "de": "Immer ein" } },
-        { "id": "off",       "label": { "en": "Always Off", "es": "Siempre apagado",   "it": "Sempre spento",  "de": "Immer aus" } },
-        { "id": "lastState", "label": { "en": "Last State", "es": "Último estado",     "it": "Ultimo stato",   "de": "Letzter Zustand" } }
+        {
+          "id": "on",
+          "label": {
+            "en": "Always On",
+            "es": "Siempre encendido",
+            "it": "Sempre acceso",
+            "de": "Immer ein"
+          }
+        },
+        {
+          "id": "off",
+          "label": {
+            "en": "Always Off",
+            "es": "Siempre apagado",
+            "it": "Sempre spento",
+            "de": "Immer aus"
+          }
+        },
+        {
+          "id": "lastState",
+          "label": {
+            "en": "Last State",
+            "es": "Último estado",
+            "it": "Ultimo stato",
+            "de": "Letzter Zustand"
+          }
+        }
       ]
     },
     {
@@ -169,9 +265,33 @@
       },
       "value": "lastState",
       "values": [
-        { "id": "on",        "label": { "en": "Always On",  "es": "Siempre encendido", "it": "Sempre acceso",  "de": "Immer ein" } },
-        { "id": "off",       "label": { "en": "Always Off", "es": "Siempre apagado",   "it": "Sempre spento",  "de": "Immer aus" } },
-        { "id": "lastState", "label": { "en": "Last State", "es": "Último estado",     "it": "Ultimo stato",   "de": "Letzter Zustand" } }
+        {
+          "id": "on",
+          "label": {
+            "en": "Always On",
+            "es": "Siempre encendido",
+            "it": "Sempre acceso",
+            "de": "Immer ein"
+          }
+        },
+        {
+          "id": "off",
+          "label": {
+            "en": "Always Off",
+            "es": "Siempre apagado",
+            "it": "Sempre spento",
+            "de": "Immer aus"
+          }
+        },
+        {
+          "id": "lastState",
+          "label": {
+            "en": "Last State",
+            "es": "Último estado",
+            "it": "Ultimo stato",
+            "de": "Letzter Zustand"
+          }
+        }
       ]
     },
     {
@@ -196,9 +316,33 @@
       },
       "value": "lastState",
       "values": [
-        { "id": "on",        "label": { "en": "Always On",  "es": "Siempre encendido", "it": "Sempre acceso",  "de": "Immer ein" } },
-        { "id": "off",       "label": { "en": "Always Off", "es": "Siempre apagado",   "it": "Sempre spento",  "de": "Immer aus" } },
-        { "id": "lastState", "label": { "en": "Last State", "es": "Último estado",     "it": "Ultimo stato",   "de": "Letzter Zustand" } }
+        {
+          "id": "on",
+          "label": {
+            "en": "Always On",
+            "es": "Siempre encendido",
+            "it": "Sempre acceso",
+            "de": "Immer ein"
+          }
+        },
+        {
+          "id": "off",
+          "label": {
+            "en": "Always Off",
+            "es": "Siempre apagado",
+            "it": "Sempre spento",
+            "de": "Immer aus"
+          }
+        },
+        {
+          "id": "lastState",
+          "label": {
+            "en": "Last State",
+            "es": "Último estado",
+            "it": "Ultimo stato",
+            "de": "Letzter Zustand"
+          }
+        }
       ]
     },
     {
@@ -215,14 +359,55 @@
   ],
   "zigbee": {
     "manufacturerName": [
-      "_TZ3000_yervjnlj", "_TZ3000_vjhcenzo", "_TZ3000_qxcnwv26",
-      "_TZ3000_eqsair32", "_TZ3000_f09j9qjb", "_TZ3000_fawk5xjv", "_TZ3000_ok0ggpk7"
+      "_TZ3000_yervjnlj",
+      "_TZ3000_vjhcenzo",
+      "_TZ3000_qxcnwv26",
+      "_TZ3000_eqsair32",
+      "_TZ3000_f09j9qjb",
+      "_TZ3000_fawk5xjv",
+      "_TZ3000_ok0ggpk7"
     ],
-    "productId": ["TS0003"],
+    "productId": [
+      "TS0003"
+    ],
     "endpoints": {
-      "1": { "clusters": [0, 3, 4, 5, 6, 10, 57344, 57345], "bindings": [6] },
-      "2": { "clusters": [4, 5, 6, 57345], "bindings": [6] },
-      "3": { "clusters": [4, 5, 6, 57345], "bindings": [6] }
+      "1": {
+        "clusters": [
+          0,
+          3,
+          4,
+          5,
+          6,
+          10,
+          57344,
+          57345
+        ],
+        "bindings": [
+          6
+        ]
+      },
+      "2": {
+        "clusters": [
+          4,
+          5,
+          6,
+          57345
+        ],
+        "bindings": [
+          6
+        ]
+      },
+      "3": {
+        "clusters": [
+          4,
+          5,
+          6,
+          57345
+        ],
+        "bindings": [
+          6
+        ]
+      }
     },
     "learnmode": {
       "image": "{{driverAssetsPath}}/icon.svg",
@@ -236,79 +421,183 @@
     "devices": {
       "secondSwitch": {
         "class": "socket",
-        "capabilities": ["onoff"],
+        "capabilities": [
+          "onoff"
+        ],
         "name": {
           "en": "NovaDigital 3 Gang - Switch 2",
           "es": "NovaDigital 3 canales - Interruptor 2",
           "it": "NovaDigital 3 canali - Interruttore 2",
           "de": "NovaDigital 3-fach - Schalter 2"
         },
-        "energy": { "approximation": { "usageOn": 0, "usageOff": 0 } },
+        "energy": {
+          "approximation": {
+            "usageOn": 0,
+            "usageOff": 0
+          }
+        },
         "settings": [
           {
             "id": "device_siblings_info",
             "type": "label",
-            "label": { "en": "Connected Switches", "es": "Interruptores conectados", "it": "Interruttori collegati", "de": "Verbundene Schalter" },
-            "hint":  { "en": "Other switches sharing this physical board", "es": "Otros interruptores que comparten esta placa física", "it": "Altri interruttori che condividono questa scheda fisica", "de": "Andere Schalter, die diese physische Platine teilen" },
+            "label": {
+              "en": "Connected Switches",
+              "es": "Interruptores conectados",
+              "it": "Interruttori collegati",
+              "de": "Verbundene Schalter"
+            },
+            "hint": {
+              "en": "Other switches sharing this physical board",
+              "es": "Otros interruptores que comparten esta placa física",
+              "it": "Altri interruttori che condividono questa scheda fisica",
+              "de": "Andere Schalter, die diese physische Platine teilen"
+            },
             "value": "-"
           },
           {
             "id": "power_on_gang2",
             "type": "dropdown",
-            "label": { "en": "Power-On Gang 2", "es": "Encendido grupo 2", "it": "Accensione gruppo 2", "de": "Einschalten Gruppe 2" },
+            "label": {
+              "en": "Power-On Gang 2",
+              "es": "Encendido grupo 2",
+              "it": "Accensione gruppo 2",
+              "de": "Einschalten Gruppe 2"
+            },
             "value": "lastState",
             "values": [
-              { "id": "on",        "label": { "en": "Always On",  "es": "Siempre encendido", "it": "Sempre acceso",  "de": "Immer ein" } },
-              { "id": "off",       "label": { "en": "Always Off", "es": "Siempre apagado",   "it": "Sempre spento",  "de": "Immer aus" } },
-              { "id": "lastState", "label": { "en": "Last State", "es": "Último estado",     "it": "Ultimo stato",   "de": "Letzter Zustand" } }
+              {
+                "id": "on",
+                "label": {
+                  "en": "Always On",
+                  "es": "Siempre encendido",
+                  "it": "Sempre acceso",
+                  "de": "Immer ein"
+                }
+              },
+              {
+                "id": "off",
+                "label": {
+                  "en": "Always Off",
+                  "es": "Siempre apagado",
+                  "it": "Sempre spento",
+                  "de": "Immer aus"
+                }
+              },
+              {
+                "id": "lastState",
+                "label": {
+                  "en": "Last State",
+                  "es": "Último estado",
+                  "it": "Ultimo stato",
+                  "de": "Letzter Zustand"
+                }
+              }
             ]
           },
           {
             "id": "power_on_gang2_current",
             "type": "label",
-            "label": { "en": "Power-On Gang 2 (current)", "es": "Encendido grupo 2 (actual)", "it": "Accensione gruppo 2 (attuale)", "de": "Einschalten Gruppe 2 (aktuell)" },
+            "label": {
+              "en": "Power-On Gang 2 (current)",
+              "es": "Encendido grupo 2 (actual)",
+              "it": "Accensione gruppo 2 (attuale)",
+              "de": "Einschalten Gruppe 2 (aktuell)"
+            },
             "value": "-"
           }
         ]
       },
       "thirdSwitch": {
         "class": "socket",
-        "capabilities": ["onoff"],
+        "capabilities": [
+          "onoff"
+        ],
         "name": {
           "en": "NovaDigital 3 Gang - Switch 3",
           "es": "NovaDigital 3 canales - Interruptor 3",
           "it": "NovaDigital 3 canali - Interruttore 3",
           "de": "NovaDigital 3-fach - Schalter 3"
         },
-        "energy": { "approximation": { "usageOn": 0, "usageOff": 0 } },
+        "energy": {
+          "approximation": {
+            "usageOn": 0,
+            "usageOff": 0
+          }
+        },
         "settings": [
           {
             "id": "device_siblings_info",
             "type": "label",
-            "label": { "en": "Connected Switches", "es": "Interruptores conectados", "it": "Interruttori collegati", "de": "Verbundene Schalter" },
-            "hint":  { "en": "Other switches sharing this physical board", "es": "Otros interruptores que comparten esta placa física", "it": "Altri interruttori che condividono questa scheda fisica", "de": "Andere Schalter, die diese physische Platine teilen" },
+            "label": {
+              "en": "Connected Switches",
+              "es": "Interruptores conectados",
+              "it": "Interruttori collegati",
+              "de": "Verbundene Schalter"
+            },
+            "hint": {
+              "en": "Other switches sharing this physical board",
+              "es": "Otros interruptores que comparten esta placa física",
+              "it": "Altri interruttori che condividono questa scheda fisica",
+              "de": "Andere Schalter, die diese physische Platine teilen"
+            },
             "value": "-"
           },
           {
             "id": "power_on_gang3",
             "type": "dropdown",
-            "label": { "en": "Power-On Gang 3", "es": "Encendido grupo 3", "it": "Accensione gruppo 3", "de": "Einschalten Gruppe 3" },
+            "label": {
+              "en": "Power-On Gang 3",
+              "es": "Encendido grupo 3",
+              "it": "Accensione gruppo 3",
+              "de": "Einschalten Gruppe 3"
+            },
             "value": "lastState",
             "values": [
-              { "id": "on",        "label": { "en": "Always On",  "es": "Siempre encendido", "it": "Sempre acceso",  "de": "Immer ein" } },
-              { "id": "off",       "label": { "en": "Always Off", "es": "Siempre apagado",   "it": "Sempre spento",  "de": "Immer aus" } },
-              { "id": "lastState", "label": { "en": "Last State", "es": "Último estado",     "it": "Ultimo stato",   "de": "Letzter Zustand" } }
+              {
+                "id": "on",
+                "label": {
+                  "en": "Always On",
+                  "es": "Siempre encendido",
+                  "it": "Sempre acceso",
+                  "de": "Immer ein"
+                }
+              },
+              {
+                "id": "off",
+                "label": {
+                  "en": "Always Off",
+                  "es": "Siempre apagado",
+                  "it": "Sempre spento",
+                  "de": "Immer aus"
+                }
+              },
+              {
+                "id": "lastState",
+                "label": {
+                  "en": "Last State",
+                  "es": "Último estado",
+                  "it": "Ultimo stato",
+                  "de": "Letzter Zustand"
+                }
+              }
             ]
           },
           {
             "id": "power_on_gang3_current",
             "type": "label",
-            "label": { "en": "Power-On Gang 3 (current)", "es": "Encendido grupo 3 (actual)", "it": "Accensione gruppo 3 (attuale)", "de": "Einschalten Gruppe 3 (aktuell)" },
+            "label": {
+              "en": "Power-On Gang 3 (current)",
+              "es": "Encendido grupo 3 (actual)",
+              "it": "Accensione gruppo 3 (attuale)",
+              "de": "Einschalten Gruppe 3 (aktuell)"
+            },
             "value": "-"
           }
         ]
       }
     }
   },
-  "$extends": ["zigbee-local"]
+  "$extends": [
+    "zigbee-local"
+  ]
 }

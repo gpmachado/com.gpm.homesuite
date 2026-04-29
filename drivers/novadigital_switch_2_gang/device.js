@@ -63,8 +63,6 @@ class novadigital_switch_2gang extends TuyaZclBase {
     // -- Main device only (EP1) ----------------------------------------------
     if (this._isMainDevice) {
 
-      this.setCapabilityValue('main_gang', true).catch(() => {});
-
       const onOffCluster = zclNode.endpoints[1].clusters.onOff;
 
       // Extended onOff listeners (backlight + powerOnStateGlobal)
@@ -79,7 +77,7 @@ class novadigital_switch_2gang extends TuyaZclBase {
         zclNode.endpoints[2].clusters.tuyaPowerOnState, 2, null, 'power_on_current_gang2'
       );
 
-      this._suppressTuyaE000(zclNode);
+      this._attachTuyaBootListener(zclNode);
 
       // -- Availability --------------------------------------------------------
       await this._installAvailability();

@@ -5,7 +5,7 @@
 **/.DS_Store
 .claude/
 .claude-session-notes.md
-debug*.log
+*.log
 Arquivo.zip
 Analise_HomeSuite.md
 todo.md

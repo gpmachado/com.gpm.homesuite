@@ -24,8 +24,6 @@ class novadigital_switch_1gang extends TuyaZclBase {
 
     // -- OnOff capability ----------------------------------------------------
     const onOffCluster = this._setupOnOffEndpoint(zclNode);
-    this.setCapabilityValue('main_gang', true).catch(() => {});
-
     // -- tuyaPowerOnState listeners (EP1) ------------------------------------
     const gangCluster = zclNode.endpoints[1].clusters.tuyaPowerOnState;
 
@@ -46,6 +44,9 @@ class novadigital_switch_1gang extends TuyaZclBase {
     onOffCluster
       .on('attr.indicatorMode', value => this.log('[EP1] indicatorMode:', value))
       .on('attr.childLock',     value => this.log('[EP1] childLock:', value));
+
+    // -- tuyaE000 boot listener (power-restore rejoin signal) ----------------
+    this._attachTuyaBootListener(zclNode);
 
     // -- Availability --------------------------------------------------------
     await this._installAvailability();

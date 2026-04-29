@@ -7,8 +7,16 @@
     "de": "NovaDigital Schalter 2-fach"
   },
   "class": "socket",
-  "capabilities": ["onoff", "main_gang", "is_availability"],
-  "energy": { "approximation": { "usageOn": 0, "usageOff": 0 } },
+  "capabilities": [
+    "onoff",
+    "is_availability"
+  ],
+  "energy": {
+    "approximation": {
+      "usageOn": 0,
+      "usageOff": 0
+    }
+  },
   "settings": [
     {
       "type": "group",
@@ -70,8 +78,24 @@
           },
           "value": "toggle",
           "values": [
-            { "id": "toggle",    "label": { "en": "Toggle (Standard)", "es": "Alternante (estándar)", "it": "Alternante (standard)", "de": "Umschalten (Standard)" } },
-            { "id": "momentary", "label": { "en": "Momentary (Pulse)",  "es": "Momentáneo (pulso)",   "it": "Momentaneo (impulso)",  "de": "Momentan (Impuls)"    } }
+            {
+              "id": "toggle",
+              "label": {
+                "en": "Toggle (Standard)",
+                "es": "Alternante (estándar)",
+                "it": "Alternante (standard)",
+                "de": "Umschalten (Standard)"
+              }
+            },
+            {
+              "id": "momentary",
+              "label": {
+                "en": "Momentary (Pulse)",
+                "es": "Momentáneo (pulso)",
+                "it": "Momentaneo (impulso)",
+                "de": "Momentan (Impuls)"
+              }
+            }
           ]
         },
         {
@@ -119,9 +143,33 @@
           },
           "value": "lastState",
           "values": [
-            { "id": "off",       "label": { "en": "Always Off", "es": "Siempre apagado",   "it": "Sempre spento",  "de": "Immer aus" } },
-            { "id": "on",        "label": { "en": "Always On",  "es": "Siempre encendido", "it": "Sempre acceso",  "de": "Immer ein" } },
-            { "id": "lastState", "label": { "en": "Last State", "es": "Último estado",     "it": "Ultimo stato",   "de": "Letzter Zustand" } }
+            {
+              "id": "off",
+              "label": {
+                "en": "Always Off",
+                "es": "Siempre apagado",
+                "it": "Sempre spento",
+                "de": "Immer aus"
+              }
+            },
+            {
+              "id": "on",
+              "label": {
+                "en": "Always On",
+                "es": "Siempre encendido",
+                "it": "Sempre acceso",
+                "de": "Immer ein"
+              }
+            },
+            {
+              "id": "lastState",
+              "label": {
+                "en": "Last State",
+                "es": "Último estado",
+                "it": "Ultimo stato",
+                "de": "Letzter Zustand"
+              }
+            }
           ]
         },
         {
@@ -169,9 +217,33 @@
           },
           "value": "lastState",
           "values": [
-            { "id": "off",       "label": { "en": "Always Off", "es": "Siempre apagado",   "it": "Sempre spento",  "de": "Immer aus" } },
-            { "id": "on",        "label": { "en": "Always On",  "es": "Siempre encendido", "it": "Sempre acceso",  "de": "Immer ein" } },
-            { "id": "lastState", "label": { "en": "Last State", "es": "Último estado",     "it": "Ultimo stato",   "de": "Letzter Zustand" } }
+            {
+              "id": "off",
+              "label": {
+                "en": "Always Off",
+                "es": "Siempre apagado",
+                "it": "Sempre spento",
+                "de": "Immer aus"
+              }
+            },
+            {
+              "id": "on",
+              "label": {
+                "en": "Always On",
+                "es": "Siempre encendido",
+                "it": "Sempre acceso",
+                "de": "Immer ein"
+              }
+            },
+            {
+              "id": "lastState",
+              "label": {
+                "en": "Last State",
+                "es": "Último estado",
+                "it": "Ultimo stato",
+                "de": "Letzter Zustand"
+              }
+            }
           ]
         },
         {
@@ -223,11 +295,40 @@
     }
   ],
   "zigbee": {
-    "manufacturerName": ["_TZ3000_ywubfuvt", "_TZ3000_kgxej1dv"],
-    "productId": ["TS0002"],
+    "manufacturerName": [
+      "_TZ3000_ywubfuvt",
+      "_TZ3000_kgxej1dv"
+    ],
+    "productId": [
+      "TS0002"
+    ],
     "endpoints": {
-      "1": { "clusters": [0, 3, 4, 5, 6, 10, 57344, 57345], "bindings": [6] },
-      "2": { "clusters": [4, 5, 6, 57345], "bindings": [6] }
+      "1": {
+        "clusters": [
+          0,
+          3,
+          4,
+          5,
+          6,
+          10,
+          57344,
+          57345
+        ],
+        "bindings": [
+          6
+        ]
+      },
+      "2": {
+        "clusters": [
+          4,
+          5,
+          6,
+          57345
+        ],
+        "bindings": [
+          6
+        ]
+      }
     },
     "learnmode": {
       "image": "{{driverAssetsPath}}/icon.svg",
@@ -241,14 +342,21 @@
     "devices": {
       "secondSwitch": {
         "class": "socket",
-        "capabilities": ["onoff"],
+        "capabilities": [
+          "onoff"
+        ],
         "name": {
           "en": "NovaDigital 2 Gang - Switch 2",
           "es": "NovaDigital 2 canales - Interruptor 2",
           "it": "NovaDigital 2 canali - Interruttore 2",
           "de": "NovaDigital 2-fach - Schalter 2"
         },
-        "energy": { "approximation": { "usageOn": 0, "usageOff": 0 } },
+        "energy": {
+          "approximation": {
+            "usageOn": 0,
+            "usageOff": 0
+          }
+        },
         "settings": [
           {
             "id": "device_siblings_info",
@@ -293,9 +401,33 @@
                 },
                 "value": "lastState",
                 "values": [
-                  { "id": "off",       "label": { "en": "Always Off", "es": "Siempre apagado",   "it": "Sempre spento",  "de": "Immer aus" } },
-                  { "id": "on",        "label": { "en": "Always On",  "es": "Siempre encendido", "it": "Sempre acceso",  "de": "Immer ein" } },
-                  { "id": "lastState", "label": { "en": "Last State", "es": "Último estado",     "it": "Ultimo stato",   "de": "Letzter Zustand" } }
+                  {
+                    "id": "off",
+                    "label": {
+                      "en": "Always Off",
+                      "es": "Siempre apagado",
+                      "it": "Sempre spento",
+                      "de": "Immer aus"
+                    }
+                  },
+                  {
+                    "id": "on",
+                    "label": {
+                      "en": "Always On",
+                      "es": "Siempre encendido",
+                      "it": "Sempre acceso",
+                      "de": "Immer ein"
+                    }
+                  },
+                  {
+                    "id": "lastState",
+                    "label": {
+                      "en": "Last State",
+                      "es": "Último estado",
+                      "it": "Ultimo stato",
+                      "de": "Letzter Zustand"
+                    }
+                  }
                 ]
               },
               {
@@ -349,5 +481,7 @@
       }
     }
   },
-  "$extends": ["zigbee-local"]
+  "$extends": [
+    "zigbee-local"
+  ]
 }

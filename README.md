@@ -22,13 +22,46 @@ reports, debugging attribute behaviour, and fixing what didn't work.
 - Battery reporting for sirens and temperature sensors
 - Multi-gang: each outlet reports its own state and connected device info
 
-## Expanding support
+## Flow triggers
 
-The drivers are built around Zigbee cluster characteristics, not just model IDs.
-If you have a device with similar clusters but a different manufacturerName,
-it can likely be added with minimal changes to `driver.compose.json`.
+### `device_rejoined` — fires on power restore
 
-Pull requests and tested additions are welcome.
+Mains-powered switches communicate when they come back, not when they leave.
+A 1-second outage looks identical to a 5-minute one from the network's perspective.
+The `device_rejoined` trigger fires as soon as the device reconnects — independently
+of availability tracking — allowing flows like "breaker came back → turn on the load".
+
+Supported on all mains-powered switches and relays (NovaDigital 1–6 gang,
+MOES 3-gang dimmer, smart plug, socket power strip, Sonoff ZBMINIR2, BASICZBR3).
+
+Detection mechanism per device family:
+
+| Family | Signal |
+|--------|--------|
+| NovaDigital 1/2/3-gang | `tuyaE000` cluster `inchingTime` (0xD001) — sent by Tuya firmware on every reconnect |
+| NovaDigital 4/6-gang | Tuya DP burst — 3+ DPs in < 600 ms |
+| MOES 3-gang dimmer | Tuya `POWER_ON` DP (DP 14) |
+| Smart plug / socket power strip | `tuyaE000` cluster `inchingTime` (0xD001) — sent by Tuya firmware on every reconnect |
+| Sonoff ZBMINIR2 / BASICZBR3 | SonoffCluster `reportAttributes` (node-level frame hook) |
+
+Note: `powerOnStateGlobal` (ZCL onOff attr 0x8001) was previously used as the rejoin signal
+for 1/2/3-gang and smartplug devices but proved unreliable — Tuya TS011F/TS0003 firmware
+sends it periodically (every 48–93 min), causing false `device_rejoined` triggers with no
+actual power event. `inchingTime` is only sent on reconnect.
+
+Guards: 120 s boot delay (ignores the initial attribute dump on app start),
+30 s cooldown between consecutive rejoin signals from the same device.
+
+### `ZBMINIR2:device_rejoined`
+
+Driver-specific variant of the above for the ZBMINIR2.
+Appears directly in the device's flow card list — no capability filter needed.
+Fires simultaneously with the global `device_rejoined` card.
+
+### `ZBMINIR2:click`
+
+Fires when the physical switch connected to the ZBMINIR2 is pressed,
+when the device is in Detach Relay mode.
 
 ## Supported devices
 

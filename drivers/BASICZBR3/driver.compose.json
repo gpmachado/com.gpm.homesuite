@@ -7,14 +7,35 @@
     "de": "Schalter (Basic ZBR3)"
   },
   "class": "socket",
-  "capabilities": ["onoff", "is_availability"],
-  "energy": { "approximation": { "usageOn": 1, "usageOff": 1 } },
+  "capabilities": [
+    "onoff",
+    "is_availability"
+  ],
+  "energy": {
+    "approximation": {
+      "usageOn": 1,
+      "usageOff": 1
+    }
+  },
   "icon": "{{driverAssetsPath}}/icon.svg",
   "zigbee": {
     "manufacturerName": "SONOFF",
-    "productId": ["BASICZBR3"],
+    "productId": [
+      "BASICZBR3"
+    ],
     "endpoints": {
-      "1": { "clusters": [0, 3, 4, 5, 6], "bindings": [6] }
+      "1": {
+        "clusters": [
+          0,
+          3,
+          4,
+          5,
+          6
+        ],
+        "bindings": [
+          6
+        ]
+      }
     },
     "learnmode": {
       "image": "{{driverAssetsPath}}/learn.svg",
@@ -26,5 +47,7 @@
       }
     }
   },
-  "$extends": ["zigbee-local"]
+  "$extends": [
+    "zigbee-local"
+  ]
 }

@@ -42,6 +42,8 @@ class NovaDigitalSwitch4Gang extends NovaDigitalTuyaDpSwitchBase {
         power_on_behavior:         mode,
         power_on_behavior_current: POWER_ON_LABELS[mode],
       }).catch(err => this.error('setSettings powerOn:', err));
+      // DP.POWER_ON only arrives on power restore — reliable rejoin signal.
+      this._notifyRejoin();
       return;
     }
     await this._handleOnOff(dp, value);

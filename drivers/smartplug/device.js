@@ -86,6 +86,10 @@ class SmartPlugDevice extends TuyaZclBase {
       }
     } catch {}
 
+    // tuyaE000 boot listener: inchingTime (0xD001) fires on reconnect/power-restore.
+    // Since countdown is not implemented in Homey, this is a reliable zero-FP rejoin signal.
+    this._attachTuyaBootListener(zclNode);
+
     if (reachable) {
       this._startPolling();
     } else {
@@ -99,15 +103,18 @@ class SmartPlugDevice extends TuyaZclBase {
   // ─── Base overrides ────────────────────────────────────────────────────
 
   async _installAvailability() {
+    this._startedAt = Date.now(); // boot guard for _notifyRejoin (not set by super override)
     this._availability = new AvailabilityManagerCluster0(this, {
       timeout: SMART_PLUG_TIMEOUT_MS,
     });
     await this._availability.install();
   }
 
-  // Suppress backlight re-enforcement from base — smartplug has no backlight setting
+  // Override: smartplug has no backlight, but we still need the ZDO rejoin trigger.
   onEndDeviceAnnounce() {
-    this.log('[Smart Plug] rejoined network');
+    this.log('[Smart Plug] rejoined network (ZDO Device Announce)');
+    // _notifyRejoin() is called by super; backlight block is harmless (no backlight setting).
+    super.onEndDeviceAnnounce();
   }
 
   // ─── Availability callbacks ────────────────────────────────────────────
@@ -145,12 +152,14 @@ class SmartPlugDevice extends TuyaZclBase {
   async onSettings({ oldSettings, newSettings, changedKeys }) {
     await this._loadSettings();
 
-    for (const { key, attribute } of TUYA_CONTROL_SETTINGS) {
+    const onOff = this.zclNode.endpoints[ENDPOINT_ID].clusters.onOff;
+    for (const { key } of TUYA_CONTROL_SETTINGS) {
       if (!changedKeys.includes(key)) continue;
       try {
         const val = newSettings[key];
-        await this.zclNode.endpoints[ENDPOINT_ID].clusters.onOff
-          .writeAttributes({ [attribute]: val });
+        if      (key === 'relay_status')   await onOff.setGlobalPowerOnState(val);
+        else if (key === 'indicator_mode') await onOff.setIndicatorMode(val);
+        else if (key === 'child_lock')     await onOff.setChildLock(val);
         this.log(`Setting written: ${key} = ${val}`);
       } catch (err) {
         this.error(`Failed to write ${key}:`, err.message);
@@ -220,9 +229,12 @@ class SmartPlugDevice extends TuyaZclBase {
 
   _parsePower(raw) {
     if (this._calcPower) {
-      return (this._lastVoltage > 0 && this._lastCurrent > 0)
-        ? Math.round(this._lastVoltage * this._lastCurrent * this._powerFactor * 100) / 100
-        : 0;
+      if (this._lastVoltage > 0 && this._lastCurrent > 0) {
+        return Math.round(this._lastVoltage * this._lastCurrent * this._powerFactor * 100) / 100;
+      }
+      // Cache V/A not yet populated: suppress spurious 0 W report while device is ON.
+      if (raw === 0 && this.getCapabilityValue('onoff') === true) return null;
+      return 0;
     }
     return raw * this._powerFactor;
   }
@@ -325,6 +337,9 @@ class SmartPlugDevice extends TuyaZclBase {
 
     onOff.on('attr.powerOnStateGlobal', value => {
       this.setSettings(powerOnSettingsPatch('relay_status', 'relay_status_current', value)).catch(() => {});
+      // Rejoin is signalled via onEndDeviceAnnounce (ZDO Device Announce), not here.
+      // powerOnStateGlobal is reported periodically by Tuya TS011F firmware and
+      // would cause false-positive flow triggers if used as a rejoin signal.
     });
   }
 

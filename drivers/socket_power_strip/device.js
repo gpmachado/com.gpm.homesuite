@@ -9,7 +9,6 @@
  *   _attachBacklightListener          (TuyaZclBase)
  *   _attachPowerOnGlobalListener      (TuyaZclBase)
  *   _readExtendedOnOffAttrs           (TuyaZclBase)
- *   _bootPersistBacklight             (TuyaZclBase)
  *   _onSettingBacklight               (TuyaZclBase)
  *   onRenamed / onDeleted / onBecameUnavailable  (TuyaZclBase)
  *
@@ -61,6 +60,11 @@ class PowerStripDevice extends TuyaZclBase {
       // updates last_seen_ts and triggers onBecameAvailable if device is reachable.
       await this._installAvailability();
 
+      // tuyaE000 boot listener: inchingTime (0xD001) fires on power-restore/reconnect.
+      // TS011F reports this only on reconnect — zero false positives since countdown
+      // is not implemented in Homey.
+      this._attachTuyaBootListener(zclNode);
+
       // Silence Time cluster requests from TS011F
       const { TimeSilentBoundCluster } = require('../../lib/TimeCluster');
       for (const ep of [1, 2, 3, 4, 5]) {
@@ -109,6 +113,8 @@ class PowerStripDevice extends TuyaZclBase {
           power_on_behavior_global: value,
           power_on_current_global:  POWER_ON_DISPLAY[value] || String(value),
         }).catch(err => this.error('setSettings powerOnStateGlobal:', err));
+        // Rejoin is signalled via onEndDeviceAnnounce (ZDO Device Announce).
+        // powerOnStateGlobal can be reported periodically — not a reliable rejoin signal.
       });
 
       onOffCluster.on('attr.indicatorMode', value => {
@@ -224,6 +230,7 @@ class PowerStripDevice extends TuyaZclBase {
   // ── Overrides ──────────────────────────────────────────────────────────────
 
   async _installAvailability() {
+    this._startedAt = Date.now(); // boot guard for _notifyRejoin (not set by super override)
     this._availability = new AvailabilityManagerCluster0(this, {
       timeout: SOCKET_POWER_STRIP_TIMEOUT_MS,
     });

@@ -8,3 +8,7 @@ todo.md
 **/.DS_Store
 .claude/
 .claude-session-notes.md
+analise
+homesuite_debug*.log
+homesuite_run*.log
+teste_debug*.log

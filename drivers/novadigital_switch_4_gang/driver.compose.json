@@ -7,8 +7,16 @@
     "de": "NovaDigital Schalter 4-fach"
   },
   "class": "socket",
-  "capabilities": ["onoff", "is_availability"],
-  "energy": { "approximation": { "usageOn": 0, "usageOff": 0 } },
+  "capabilities": [
+    "onoff",
+    "is_availability"
+  ],
+  "energy": {
+    "approximation": {
+      "usageOn": 0,
+      "usageOff": 0
+    }
+  },
   "settings": [
     {
       "type": "group",
@@ -53,9 +61,33 @@
           },
           "value": "lastState",
           "values": [
-            { "id": "off",       "label": { "en": "Always Off", "es": "Siempre apagado",   "it": "Sempre spento",  "de": "Immer aus"        } },
-            { "id": "on",        "label": { "en": "Always On",  "es": "Siempre encendido", "it": "Sempre acceso",  "de": "Immer ein"        } },
-            { "id": "lastState", "label": { "en": "Last State", "es": "Último estado",     "it": "Ultimo stato",   "de": "Letzter Zustand"  } }
+            {
+              "id": "off",
+              "label": {
+                "en": "Always Off",
+                "es": "Siempre apagado",
+                "it": "Sempre spento",
+                "de": "Immer aus"
+              }
+            },
+            {
+              "id": "on",
+              "label": {
+                "en": "Always On",
+                "es": "Siempre encendido",
+                "it": "Sempre acceso",
+                "de": "Immer ein"
+              }
+            },
+            {
+              "id": "lastState",
+              "label": {
+                "en": "Last State",
+                "es": "Último estado",
+                "it": "Ultimo stato",
+                "de": "Letzter Zustand"
+              }
+            }
           ]
         },
         {
@@ -79,68 +111,135 @@
     }
   ],
   "zigbee": {
-    "manufacturerName": ["_TZE200_shkxsgis", "_TZE204_aagrxlbd"],
-    "productId": ["TS0601"],
+    "manufacturerName": [
+      "_TZE200_shkxsgis",
+      "_TZE204_aagrxlbd"
+    ],
+    "productId": [
+      "TS0601"
+    ],
     "endpoints": {
-      "1": { "clusters": [0, 4, 5, 10, 61184], "bindings": [61184] }
+      "1": {
+        "clusters": [
+          0,
+          4,
+          5,
+          10,
+          61184
+        ],
+        "bindings": [
+          61184
+        ]
+      }
     },
     "devices": {
       "secondGang": {
         "class": "socket",
-        "capabilities": ["onoff"],
+        "capabilities": [
+          "onoff"
+        ],
         "name": {
           "en": "NovaDigital 4 Gang - Switch 2",
           "es": "NovaDigital 4 canales - Interruptor 2",
           "it": "NovaDigital 4 canali - Interruttore 2",
           "de": "NovaDigital 4-fach - Schalter 2"
         },
-        "energy": { "approximation": { "usageOn": 0, "usageOff": 0 } },
+        "energy": {
+          "approximation": {
+            "usageOn": 0,
+            "usageOff": 0
+          }
+        },
         "settings": [
           {
             "id": "device_siblings_info",
             "type": "label",
-            "label": { "en": "Connected Switches", "es": "Interruptores conectados", "it": "Interruttori collegati", "de": "Verbundene Schalter" },
-            "hint":  { "en": "Other switches sharing this physical board", "es": "Otros interruptores que comparten esta placa física", "it": "Altri interruttori che condividono questa scheda fisica", "de": "Andere Schalter, die diese physische Platine teilen" },
+            "label": {
+              "en": "Connected Switches",
+              "es": "Interruptores conectados",
+              "it": "Interruttori collegati",
+              "de": "Verbundene Schalter"
+            },
+            "hint": {
+              "en": "Other switches sharing this physical board",
+              "es": "Otros interruptores que comparten esta placa física",
+              "it": "Altri interruttori che condividono questa scheda fisica",
+              "de": "Andere Schalter, die diese physische Platine teilen"
+            },
             "value": "-"
           }
         ]
       },
       "thirdGang": {
         "class": "socket",
-        "capabilities": ["onoff"],
+        "capabilities": [
+          "onoff"
+        ],
         "name": {
           "en": "NovaDigital 4 Gang - Switch 3",
           "es": "NovaDigital 4 canales - Interruptor 3",
           "it": "NovaDigital 4 canali - Interruttore 3",
           "de": "NovaDigital 4-fach - Schalter 3"
         },
-        "energy": { "approximation": { "usageOn": 0, "usageOff": 0 } },
+        "energy": {
+          "approximation": {
+            "usageOn": 0,
+            "usageOff": 0
+          }
+        },
         "settings": [
           {
             "id": "device_siblings_info",
             "type": "label",
-            "label": { "en": "Connected Switches", "es": "Interruptores conectados", "it": "Interruttori collegati", "de": "Verbundene Schalter" },
-            "hint":  { "en": "Other switches sharing this physical board", "es": "Otros interruptores que comparten esta placa física", "it": "Altri interruttori che condividono questa scheda fisica", "de": "Andere Schalter, die diese physische Platine teilen" },
+            "label": {
+              "en": "Connected Switches",
+              "es": "Interruptores conectados",
+              "it": "Interruttori collegati",
+              "de": "Verbundene Schalter"
+            },
+            "hint": {
+              "en": "Other switches sharing this physical board",
+              "es": "Otros interruptores que comparten esta placa física",
+              "it": "Altri interruttori che condividono questa scheda fisica",
+              "de": "Andere Schalter, die diese physische Platine teilen"
+            },
             "value": "-"
           }
         ]
       },
       "fourthGang": {
         "class": "socket",
-        "capabilities": ["onoff"],
+        "capabilities": [
+          "onoff"
+        ],
         "name": {
           "en": "NovaDigital 4 Gang - Switch 4",
           "es": "NovaDigital 4 canales - Interruptor 4",
           "it": "NovaDigital 4 canali - Interruttore 4",
           "de": "NovaDigital 4-fach - Schalter 4"
         },
-        "energy": { "approximation": { "usageOn": 0, "usageOff": 0 } },
+        "energy": {
+          "approximation": {
+            "usageOn": 0,
+            "usageOff": 0
+          }
+        },
         "settings": [
           {
             "id": "device_siblings_info",
             "type": "label",
-            "label": { "en": "Connected Switches", "es": "Interruptores conectados", "it": "Interruttori collegati", "de": "Verbundene Schalter" },
-            "hint":  { "en": "Other switches sharing this physical board", "es": "Otros interruptores que comparten esta placa física", "it": "Altri interruttori che condividono questa scheda fisica", "de": "Andere Schalter, die diese physische Platine teilen" },
+            "label": {
+              "en": "Connected Switches",
+              "es": "Interruptores conectados",
+              "it": "Interruttori collegati",
+              "de": "Verbundene Schalter"
+            },
+            "hint": {
+              "en": "Other switches sharing this physical board",
+              "es": "Otros interruptores que comparten esta placa física",
+              "it": "Altri interruttori che condividono questa scheda fisica",
+              "de": "Andere Schalter, die diese physische Platine teilen"
+            },
             "value": "-"
           }
         ]
@@ -156,5 +255,7 @@
       }
     }
   },
-  "$extends": ["zigbee-local"]
+  "$extends": [
+    "zigbee-local"
+  ]
 }
