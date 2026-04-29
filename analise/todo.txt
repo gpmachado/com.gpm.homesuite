@@ -1,6 +1,6 @@
 # TODO - HomeSuite
 
-Atualizado em 2026-04-20 (revisao 4). Itens resolvidos marcados com ✅.
+Atualizado em 2026-04-24 (revisao 5). Itens resolvidos marcados com ✅.
 
 ---
 
@@ -36,29 +36,30 @@ Atualizado em 2026-04-20 (revisao 4). Itens resolvidos marcados com ✅.
   - `_configureOnOffReporting(zclNode, endpointIds)`
 - ✅ Helpers aplicados nos drivers ZCL 1/2/3-gang (-96 linhas; `ONOFF_REPORT_MAX_INTERVAL_S` removido dos drivers)
 - ✅ Bug corrigido: `powerOnSettingsPatch` sem import no 1-gang — substituido por `_readGangPowerOnState` + switchMode separado
+- ✅ **1.0.7 publicado** — `package.json`, `.homeycompose/app.json`, `CHANGELOG.md` atualizados; app correndo limpo com todos os 39+ devices
+- ✅ **AvailabilityManager** — log de idle agora opt-in (`logIdle: false` por padrao). §P1
+- ✅ **smartplug** — `_parsePower` protege contra `activePower=0` espurio quando `calcPower=true` e cache V/A nao preenchido; retorna `null` para preservar valor anterior. §P2
+- ✅ **smartplug** — `onSettings` usa `setGlobalPowerOnState`, `setIndicatorMode`, `setChildLock` do `ExtendedOnOffCluster`. §P3
+- ✅ **socket_power_strip** — referencia `_bootPersistBacklight` removida do cabecalho JSDoc. §P4
+- ✅ **TuyaZclBase** — `_configureOnOffReporting` aplica `applyJitter(ONOFF_REPORT_MAX_INTERVAL_S, 10)` para escalonar schedules. §P6
 
 ---
 
 ## Pendente
 
-### Publicacao
+### Melhorias tecnicas 1.0.8
 
-- [ ] Bump versao para `1.0.7` e publicar no Homey App Store.
-  - `package.json`, `.homeycompose/app.json`, `CHANGELOG.md`
-
-### Melhorias tecnicas (ver detalhes em `recomendacoes_codigo_consolidadas_2026-04-20.txt`)
-
-- [ ] **AvailabilityManager** — tornar log de idle opcional (`logIdle: false` por padrao). §P1
-- [ ] **smartplug** — proteger `measure_power` contra `activePower=0` espurio quando `calcPower=true`. §P2
-- [ ] **smartplug** — `onSettings` usar metodos do `ExtendedOnOffCluster` em vez de `writeAttributes` generico. §P3
-- [ ] **socket_power_strip** — limpar cabecalho desatualizado (`_bootPersistBacklight` nao existe). §P4
-- [ ] **Reporting** — aplicar `applyJitter()` em `_configureOnOffReporting`. §P6
-- [ ] **Setup essencial** — schema version para garantir reporting em re-pair sem remocao (`isFirstInit()` pode ser falso apos reset fisico). §P5
-- [ ] **smartplug** — decidir sobre `firmwareVersion`/`driverVersion` em store. §P7
+- [ ] **Setup schema version** — `zcl_setup_schema_version` em store para garantir que `_configureOnOffReporting` re-executa em re-pair fisico sem remocao do device (`isFirstInit()` pode ser falso apos factory reset). §P5
+- [ ] **smartplug** — decidir sobre `firmwareVersion`/`driverVersion` em store: implementar `_readAndStoreBasicInfo` ou documentar como removido intencionalmente. §P7
+- [ ] **Settings uniformizacao** (1/2-gang → standard):
+  - `_migrateSetting(oldKey, newKey)` helper em `TuyaZclBase`
+  - Boot migration nos drivers 1/2-gang (`power_on_behavior_*` → `power_on_*`)
+  - Compose: manter old keys temporariamente; remover em 1.0.9
+- [ ] **`_syncPowerOnGlobalFromDevice`** em `onBecameAvailable` (main device) — re-sincronizar `power_on_behavior_global` no rejoin sem depender de report espontaneo do device.
 
 ### Testes pendentes
 
-- [ ] Testar re-pair sem remover device (smartplug ou ZBMINIR2).
+- [ ] Testar re-pair sem remover device (smartplug ou ZBMINIR2) — valida §P5 quando implementado.
 - [ ] Teste manual para drivers com `handleFrame` (ZBMINIR2, socket_power_strip, gas_detector).
 - [ ] Confirmar learn mode do `temphumidclock`.
 - [ ] Testar disponibilidade com `socket_power_strip` apos queda de energia.
@@ -72,4 +73,5 @@ Atualizado em 2026-04-20 (revisao 4). Itens resolvidos marcados com ✅.
 ## Observacoes
 
 - Polling de energia do `smartplug` deve continuar local — nao mover para `TuyaZclBase`.
+- Settings naming: 1/2-gang usam `power_on_behavior_*`; 3-gang usa `power_on_*`. Uniformizacao adiada para 1.0.8 — helpers ja abstraem a diferenca e 39 devices funciona corretamente.
 - Referencia tecnica atual: `analise/recomendacoes_codigo_consolidadas_2026-04-20.txt`
