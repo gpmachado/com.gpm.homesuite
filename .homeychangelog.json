@@ -19,5 +19,8 @@
   },
   "1.0.6": {
     "en": "adjust in availibility devices"
+  },
+  "1.0.8": {
+    "en": "Detects reconnection after power outage on NovaDigital and zbmini-r2 switches."
   }
 }
