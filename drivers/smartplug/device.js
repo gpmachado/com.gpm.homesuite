@@ -90,12 +90,15 @@ class SmartPlugDevice extends TuyaZclBase {
     // Since countdown is not implemented in Homey, this is a reliable zero-FP rejoin signal.
     this._attachTuyaBootListener(zclNode);
 
-    if (reachable) {
-      this._startPolling();
-    } else {
-      this.log('[Init] Device offline at boot — skipping poll start');
-      await this._availability.markUnavailable('Device not reachable');
+    // Always start polling regardless of boot reachability.
+    // If the device was unreachable at init (Zigbee mesh still stabilising after app restart),
+    // marking unavailable + stopping polling creates a deadlock: no polls go out, reporting
+    // was never configured, so no frames arrive and the device stays stuck as unavailable.
+    // The watchdog will mark it unavailable after SMART_PLUG_TIMEOUT_MS if truly offline.
+    if (!reachable) {
+      this.log('[Init] Device not reachable at boot — polling will confirm state');
     }
+    this._startPolling();
 
     this.log('Smart Plug initialized');
   }
@@ -205,6 +208,9 @@ class SmartPlugDevice extends TuyaZclBase {
       reportParser: raw => {
         this._lastCurrent = raw / CURRENT_DIVISOR;
         this._updateCalculatedPower();
+        // Signal activity via zclNode path — guards against stale handleFrame hook
+        // (Homey may replace the raw node object on rejoin, making the hook invisible).
+        this._availability?.notifyActivity('measure_current').catch(() => {});
         return this._lastCurrent;
       },
       getOpts: { getOnStart: true },
@@ -214,6 +220,7 @@ class SmartPlugDevice extends TuyaZclBase {
       reportParser: raw => {
         this._lastVoltage = raw;
         this._updateCalculatedPower();
+        this._availability?.notifyActivity('measure_voltage').catch(() => {});
         return raw;
       },
       getOpts: { getOnStart: true },
