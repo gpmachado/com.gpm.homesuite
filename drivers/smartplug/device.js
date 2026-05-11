@@ -205,6 +205,9 @@ class SmartPlugDevice extends TuyaZclBase {
       reportParser: raw => {
         this._lastCurrent = raw / CURRENT_DIVISOR;
         this._updateCalculatedPower();
+        // Signal activity via zclNode path — guards against stale handleFrame hook
+        // (Homey may replace the raw node object on rejoin, making the hook invisible).
+        this._availability?.notifyActivity('measure_current').catch(() => {});
         return this._lastCurrent;
       },
       getOpts: { getOnStart: true },
@@ -214,6 +217,7 @@ class SmartPlugDevice extends TuyaZclBase {
       reportParser: raw => {
         this._lastVoltage = raw;
         this._updateCalculatedPower();
+        this._availability?.notifyActivity('measure_voltage').catch(() => {});
         return raw;
       },
       getOpts: { getOnStart: true },
