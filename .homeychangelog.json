@@ -22,5 +22,8 @@
   },
   "1.0.8": {
     "en": "Detects reconnection after power outage on NovaDigital and zbmini-r2 switches."
+  },
+  "1.0.9": {
+    "en": "### Fixed"
   }
 }
