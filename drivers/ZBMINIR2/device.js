@@ -40,6 +40,15 @@ const SonoffClusterAttributes = [
     'detach_mode'
 ];
 
+const INCHING_PROTOCOL = {
+    CMD:             0x01,
+    SUBCMD_INCHING:  0x17,
+    PAYLOAD_LENGTH:  0x07,
+    SEQ_NUM:         0x80,
+    FLAG_ENABLE:     0x80,
+    FLAG_MODE_ON:    0x01,
+};
+
 class SonoffZBMINIR2 extends SonoffBase {
 
     async onNodeInit({ zclNode }) {
@@ -47,9 +56,25 @@ class SonoffZBMINIR2 extends SonoffBase {
         super.onNodeInit({ zclNode });
 
         if (this.hasCapability('onoff')) {
-            // getOnStart: false — prevents SDK from restoring last state on rejoin,
-            // which would unexpectedly turn ON a device configured as "always off".
-            this.registerCapability('onoff', CLUSTER.ON_OFF, { getOpts: { getOnStart: false } });
+            // The ZBMINI-R2 firmware doesn't send a ZCL Default Response to setOn/setOff.
+            // registerCapability uses the SDK's default which waits 10 s → "Timeout: Expected Response".
+            // Instead, wire the capability manually:
+            //   - SET:    registerCapabilityListener with waitForResponse: false (fire-and-forget)
+            //   - REPORT: cluster attr.onOff event → setCapabilityValue
+            const _onOffCluster = zclNode.endpoints[1].clusters.onOff;
+
+            _onOffCluster.on('attr.onOff', value => {
+                this.log(`handle report (cluster: onOff, capability: onoff), parsed payload: ${value}`);
+                this.setCapabilityValue('onoff', value).catch(this.error);
+            });
+
+            this.registerCapabilityListener('onoff', async value => {
+                this.log(`set onoff → ${value} (cluster: onOff, endpoint: 1)`);
+                if (value) {
+                    return _onOffCluster.setOn({}, { waitForResponse: false });
+                }
+                return _onOffCluster.setOff({}, { waitForResponse: false });
+            });
         }
 
         // Availability tracking — install FIRST so ZCL responses during init reads
@@ -158,38 +183,33 @@ class SonoffZBMINIR2 extends SonoffBase {
      * @param {string} mode - 'on' (turn ON then OFF) or 'off' (turn OFF then ON)
      */
     async setInching(enabled = false, time = 1, mode = 'on') {
+        if (typeof enabled !== 'boolean') throw new TypeError(`enabled must be boolean, got ${typeof enabled}`);
+        if (typeof time !== 'number' || time < 0 || time > 32767.5) throw new RangeError(`time must be 0–32767.5 s, got ${time}`);
+        if (!['on', 'off'].includes(mode)) throw new TypeError(`mode must be "on" or "off", got "${mode}"`);
+
         try {
-            const msTime = Math.round(time * 1000);
-            const rawTimeUnits = Math.round(msTime / 500);
-            const tmpTime = Math.min(Math.max(rawTimeUnits, 1), 0xffff);
+            const tmpTime = Math.min(Math.max(Math.round(time * 2000 / 1000), 1), 0xffff);
 
-            const payloadValue = [];
-            payloadValue[0] = 0x01;  // Cmd
-            payloadValue[1] = 0x17;  // SubCmd - INCHING SUBCOMMAND
-            payloadValue[2] = 0x07;  // Length (7 bytes of data follow)
-            payloadValue[3] = 0x80;  // SeqNum
+            const payloadValue = [
+                INCHING_PROTOCOL.CMD,
+                INCHING_PROTOCOL.SUBCMD_INCHING,
+                INCHING_PROTOCOL.PAYLOAD_LENGTH,
+                INCHING_PROTOCOL.SEQ_NUM,
+                (enabled ? INCHING_PROTOCOL.FLAG_ENABLE : 0) | (mode === 'on' ? INCHING_PROTOCOL.FLAG_MODE_ON : 0),
+                0x00,
+                tmpTime & 0xff,
+                (tmpTime >> 8) & 0xff,
+                0x00,
+                0x00,
+                0x00,
+            ];
+            payloadValue[10] = this._calculateChecksum(payloadValue, INCHING_PROTOCOL.PAYLOAD_LENGTH + 3);
 
-            payloadValue[4] = 0x00;
-            if (enabled) payloadValue[4] |= 0x80;
-            if (mode === 'on') payloadValue[4] |= 0x01;
-
-            payloadValue[5] = 0x00;
-            payloadValue[6] = tmpTime & 0xff;
-            payloadValue[7] = (tmpTime >> 8) & 0xff;
-            payloadValue[8] = 0x00;
-            payloadValue[9] = 0x00;
-
-            payloadValue[10] = 0x00;
-            for (let i = 0; i < payloadValue[2] + 3; i++) {
-                payloadValue[10] ^= payloadValue[i];
-            }
-
-            this.log('Sending inching command:', { enabled, mode, time_ms: time, time_half_seconds: tmpTime });
+            this.log('Sending inching command:', { enabled, mode, time_s: time, time_half_s: tmpTime });
 
             const cluster = this.zclNode.endpoints[1].clusters['SonoffCluster'];
-            const payloadBuffer = Buffer.from(payloadValue);
             await cluster.protocolData(
-                { data: payloadBuffer },
+                { data: Buffer.from(payloadValue) },
                 { disableDefaultResponse: true, waitForResponse: false }
             );
             this.log('Inching command sent successfully');
@@ -197,6 +217,12 @@ class SonoffZBMINIR2 extends SonoffBase {
             this.error('Failed to set inching:', error);
             throw error;
         }
+    }
+
+    _calculateChecksum(payload, length) {
+        let checksum = 0x00;
+        for (let i = 0; i < length; i++) checksum ^= payload[i];
+        return checksum;
     }
 
     /**
@@ -223,17 +249,16 @@ class SonoffZBMINIR2 extends SonoffBase {
         });
 
         this.readAttribute(SonoffCluster, SonoffClusterAttributes, (data) => {
-            const settingsData = {
-                ...data,
-                TurboMode: data.TurboMode === 20,
-                network_led: Boolean(data.network_led),
-                power_on_delay_state: Boolean(data.power_on_delay_state),
-                power_on_delay_time: data.power_on_delay_time / 2,
-                switch_mode: String(data.switch_mode),
-                detach_mode: Boolean(data.detach_mode)
-            };
-            this.setSettings(settingsData).catch(this.error);
-            });
+            if (!data) return;
+            const settingsData = {};
+            if (data.TurboMode !== undefined)          settingsData.TurboMode            = data.TurboMode === 20;
+            if (data.network_led !== undefined)        settingsData.network_led          = Boolean(data.network_led);
+            if (data.power_on_delay_state !== undefined) settingsData.power_on_delay_state = Boolean(data.power_on_delay_state);
+            if (data.power_on_delay_time !== undefined) settingsData.power_on_delay_time  = data.power_on_delay_time / 2;
+            if (data.switch_mode !== undefined)        settingsData.switch_mode          = String(data.switch_mode);
+            if (data.detach_mode !== undefined)        settingsData.detach_mode          = Boolean(data.detach_mode);
+            if (Object.keys(settingsData).length) this.setSettings(settingsData).catch(this.error);
+        });
     }
 
     async onBecameAvailable() {
