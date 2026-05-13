@@ -12,7 +12,20 @@ class SonoffBASICZBR3 extends SonoffBase {
     super.onNodeInit({ zclNode });
 
     if (this.hasCapability('onoff')) {
-      this.registerCapability('onoff', CLUSTER.ON_OFF);
+      // BASICZBR3 firmware does not send ZCL Default Response to setOn/setOff.
+      // Same fix as ZBMINIR2: wire manually with waitForResponse: false.
+      const _onOffCluster = zclNode.endpoints[1].clusters.onOff;
+
+      _onOffCluster.on('attr.onOff', value => {
+        this.log(`handle report (cluster: onOff, capability: onoff), parsed payload: ${value}`);
+        this.setCapabilityValue('onoff', value).catch(this.error);
+      });
+
+      this.registerCapabilityListener('onoff', async value => {
+        this.log(`set onoff → ${value} (cluster: onOff, endpoint: 1)`);
+        if (value) return _onOffCluster.setOn({}, { waitForResponse: false });
+        return _onOffCluster.setOff({}, { waitForResponse: false });
+      });
     }
 
     // Availability tracking
