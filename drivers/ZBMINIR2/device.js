@@ -243,6 +243,14 @@ class SonoffZBMINIR2 extends SonoffBase {
         AvailabilityManager.triggerRejoin(this, 0, 'ZBMINIR2:device_rejoined');
     }
 
+    // ZDO Device Announce — fires when ZBMINIR2 rejoins the network after power cut.
+    // Provides a faster signal than SonoffCluster attribute reports (0x0A),
+    // which may arrive seconds later. Both paths share the same _notifyRejoin guards.
+    onEndDeviceAnnounce() {
+        this.log('Device rejoined (ZDO Device Announce)');
+        this._notifyRejoin();
+    }
+
     async checkAttributes() {
         this.readAttribute(CLUSTER.ON_OFF, ['powerOnBehavior'], (data) => {
             this.setSettings({ power_on_behavior: data.powerOnBehavior }).catch(this.error);
