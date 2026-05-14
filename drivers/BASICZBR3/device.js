@@ -29,6 +29,7 @@ class SonoffBASICZBR3 extends SonoffBase {
     }
 
     // Availability tracking
+    this._startedAt = Date.now();
     this._availability = new AvailabilityManagerCluster0(this, { timeout: SONOFF_HEARTBEAT_TIMEOUT_MS });
     await this._availability.install();
 
@@ -41,7 +42,13 @@ class SonoffBASICZBR3 extends SonoffBase {
   async onBecameAvailable() {
     this.log('Device became available');
     if (super.onBecameAvailable) await super.onBecameAvailable();
-    // AvailabilityManager._markAllAvailable already fires the flow trigger.
+    // 120s boot guard: skip the rejoin trigger if the app just restarted
+    // (AvailabilityManager seeds last_seen_ts on install, so the first
+    //  _markAllAvailable after startup fires too early to count as rejoin).
+    const uptime = Date.now() - (this._startedAt ?? 0);
+    if (uptime > 120_000) {
+      AvailabilityManager.triggerRejoin(this, 0, 'BASICZBR3:device_rejoined');
+    }
     // configureAttributeReporting omitted: BASICZBR3 does not support it (UNSUP_GENERAL_COMMAND).
   }
 
