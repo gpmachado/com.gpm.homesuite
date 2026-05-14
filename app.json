@@ -203,34 +203,6 @@
         ]
       },
       {
-        "id": "BASICZBR3:device_rejoined",
-        "title": {
-          "en": "Reconnected after power cut",
-          "pt": "Reconectou após queda de energia"
-        },
-        "hint": {
-          "en": "Fires when this BASICZBR3 rejoins the Zigbee network after a power cut.",
-          "pt": "Dispara quando este BASICZBR3 reconecta à rede Zigbee após queda de energia."
-        },
-        "tokens": [
-          {
-            "name": "device_name",
-            "type": "string",
-            "title": {
-              "en": "Device name",
-              "pt": "Nome do dispositivo"
-            }
-          }
-        ],
-        "args": [
-          {
-            "type": "device",
-            "name": "device",
-            "filter": "driver_id=BASICZBR3"
-          }
-        ]
-      },
-      {
         "id": "ZBMINIR2:device_rejoined",
         "title": {
           "en": "Reconnected after power cut",
