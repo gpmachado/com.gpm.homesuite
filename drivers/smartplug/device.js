@@ -9,6 +9,7 @@
 const { CLUSTER } = require('zigbee-clusters');
 const { TuyaZclBase } = require('../../lib/TuyaZclBase');
 const ExtendedOnOffCluster = require('../../lib/ExtendedOnOffCluster');
+const { TimeSilentBoundCluster } = require('../../lib/TimeCluster');
 const { AvailabilityManagerCluster0 } = require('../../lib/AvailabilityManager');
 const { safeGetNumberSettings } = require('../../lib/settingsUtils');
 const { isDeviceUnreachable } = require('../../lib/errorUtils');
@@ -80,10 +81,8 @@ class SmartPlugDevice extends TuyaZclBase {
     this._attachOnOffListeners(zclNode);
 
     try {
-      if (zclNode.endpoints[1].clusters.time) {
-        zclNode.endpoints[1].clusters.time.on('attr.time',   () => {});
-        zclNode.endpoints[1].clusters.time.on('unhandled',   () => {});
-      }
+      const ep1 = zclNode.endpoints[1];
+      if (ep1?.clusters?.time) ep1.bind('time', new TimeSilentBoundCluster());
     } catch {}
 
     // tuyaE000 boot listener: inchingTime (0xD001) fires on reconnect/power-restore.
