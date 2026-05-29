@@ -139,9 +139,19 @@ class LCDTempHumidSensor extends ZigBeeDevice {
   // Lifecycle
   // 
 
+  // onUninit fires on re-init/restart (onDeleted only on user removal).
+  async onUninit() {
+    await this._teardown();
+  }
+
   onDeleted() {
-    this._availability?.uninstall().catch(() => {});
+    this._teardown();
     this.log(`${DRIVER_NAME} - removed`);
+  }
+
+  /** Idempotent cleanup — safe to call from both onUninit and onDeleted. */
+  async _teardown() {
+    await this._availability?.uninstall().catch(() => {});
   }
 }
 

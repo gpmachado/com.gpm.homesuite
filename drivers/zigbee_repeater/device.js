@@ -42,9 +42,19 @@ class ZigbeeRepeaterDevice extends ZigBeeDevice {
     this.log('Rejoined — availability will be restored via handleFrame');
   }
 
+  // onUninit fires on re-init/restart (onDeleted only on user removal).
+  async onUninit() {
+    await this._teardown();
+  }
+
   onDeleted() {
-    this._availability?.uninstall().catch(() => {});
+    this._teardown();
     this.log('Repeater removed');
+  }
+
+  /** Idempotent cleanup — safe to call from both onUninit and onDeleted. */
+  async _teardown() {
+    await this._availability?.uninstall().catch(() => {});
   }
 
   // ---------------------------------------------------------------------------

@@ -275,9 +275,16 @@ class EkazaSiren extends TuyaSpecificClusterDevice {
 
   // ─── Lifecycle ────────────────────────────────────────────────────────────
 
-  onDeleted() {
+  // _teardown is invoked by both onUninit (re-init/restart) and onDeleted
+  // (user removal) via TuyaSpecificClusterDevice. Clearing the timer here
+  // prevents a leaked auto-reset timeout on app restart.
+  async _teardown() {
     clearTimeout(this._alarmAutoResetTimer);
-    this._availability?.uninstall().catch(() => {});
+    await super._teardown();
+  }
+
+  onDeleted() {
+    this._teardown();
     this.log('Ekaza Siren removed');
   }
 }

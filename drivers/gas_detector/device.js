@@ -230,13 +230,24 @@ class GasDetector extends ZigBeeDevice {
 
   // ─── Lifecycle ─────────────────────────────────────────────────────────
 
+  // onUninit fires on re-init/restart (onDeleted only on user removal).
+  // Both must restore handleFrame + uninstall to avoid an orphaned frame hook.
+  async onUninit() {
+    await this._teardown();
+  }
+
   onDeleted() {
+    this._teardown();
+    this.log(`${DRIVER_NAME} - removed`);
+  }
+
+  /** Idempotent cleanup — safe to call from both onUninit and onDeleted. */
+  async _teardown() {
     // Restore zclNode.handleFrame to the original before our mfg-specific filter was installed.
     if (this.zclNode && this._origZclHandle !== undefined) {
       this.zclNode.handleFrame = this._origZclHandle;
     }
-    this._availability?.uninstall().catch(() => {});
-    this.log(`${DRIVER_NAME} - removed`);
+    await this._availability?.uninstall().catch(() => {});
   }
 
 }

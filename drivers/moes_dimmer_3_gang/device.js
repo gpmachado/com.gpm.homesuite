@@ -336,9 +336,16 @@ class MoesDimmer3Gang extends TuyaSpecificClusterDevice {
     this._updateSiblingNames({ sortFn: GANG_SORT });
   }
 
-  onDeleted() {
+  // _teardown is invoked by both onUninit (re-init/restart) and onDeleted
+  // (user removal) via TuyaSpecificClusterDevice. Clearing the timer here
+  // prevents a leaked debounce timeout on app restart.
+  async _teardown() {
     clearTimeout(this._dimDebounceTimer);
-    this._availability?.uninstall().catch(() => {});
+    await super._teardown();
+  }
+
+  onDeleted() {
+    this._teardown();
     this.log(`${this._gangName} removed`);
   }
 }

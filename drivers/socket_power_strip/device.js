@@ -245,12 +245,19 @@ class PowerStripDevice extends TuyaZclBase {
     });
   }
 
-  onDeleted() {
+  // _teardown is invoked by both onUninit (re-init/restart) and onDeleted
+  // (user removal) via TuyaZclBase. Restoring the original handleFrame here
+  // prevents an orphaned frame hook on the shared node after app restart.
+  async _teardown() {
     // Restore original handleFrame (set during init) instead of nulling it.
     // Nulling breaks async frame processing on the shared node after device removal.
     if (this.zclNode && this._origHandleFrame !== undefined) {
       this.zclNode.handleFrame = this._origHandleFrame;
     }
+    await super._teardown();
+  }
+
+  onDeleted() {
     super.onDeleted();
     this.log('Power Strip removed');
   }

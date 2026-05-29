@@ -270,8 +270,29 @@ class SmartPlugDevice extends TuyaZclBase {
 
   async _pollCycle() {
     if (this._isPolling) return;
-    if (!this.getAvailable()) return;
 
+    // Recovery probe: when unavailable, attempt a lightweight ping every 5 cycles
+    // (~10 min) to detect when the device comes back without relying solely on the
+    // handleFrame hook (which may be orphaned if Homey replaced the node object).
+    if (!this.getAvailable()) {
+      this._recoveryCount = (this._recoveryCount ?? 0) + 1;
+      if (this._recoveryCount < 5) return;
+      this._recoveryCount = 0;
+      this._isPolling = true;
+      try {
+        await this.zclNode.endpoints[ENDPOINT_ID].clusters.onOff.readAttributes(['onOff']);
+        // Explicitly notify — don't rely on the handleFrame hook, which may be orphaned.
+        this.log('[Polling] Recovery probe: device responded, restoring availability');
+        await this._availability?.notifyActivity('recovery-probe');
+      } catch {
+        this.log('[Polling] Recovery probe: device still unreachable');
+      } finally {
+        this._isPolling = false;
+      }
+      return;
+    }
+
+    this._recoveryCount = 0;
     this._isPolling = true;
     try {
       const timeout = new Promise((_, reject) =>
@@ -416,8 +437,15 @@ class SmartPlugDevice extends TuyaZclBase {
 
   // ─── Lifecycle ─────────────────────────────────────────────────────────
 
-  onDeleted() {
+  // _teardown is invoked by both onUninit (re-init/restart) and onDeleted
+  // (user removal) via TuyaZclBase. Stopping polling here prevents a leaked
+  // interval + orphaned availability hook on app restart.
+  async _teardown() {
     this._stopPolling();
+    await super._teardown();
+  }
+
+  onDeleted() {
     super.onDeleted();
     this.log(`Smart Plug v${APP_VERSION} removed`);
   }
