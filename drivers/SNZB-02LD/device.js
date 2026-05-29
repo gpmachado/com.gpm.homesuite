@@ -32,9 +32,14 @@ class SonoffSNZB02LD extends SonoffBase {
             });
         }
 
-        // measure_temperature only — device has no humidity cluster
-        zclNode.endpoints[1].clusters[CLUSTER.TEMPERATURE_MEASUREMENT.NAME]
-            .on('attr.measuredValue', this.onTemperatureMeasuredAttributeReport.bind(this));
+        // measure_temperature only — device has no humidity cluster.
+        // Keep one stable bound reference so the listener can be removed on
+        // teardown; remove-then-add guards against duplicate accumulation if
+        // onNodeInit runs again on a reused cluster object.
+        this._onTempReport ??= this.onTemperatureMeasuredAttributeReport.bind(this);
+        const tempCluster = zclNode.endpoints[1].clusters[CLUSTER.TEMPERATURE_MEASUREMENT.NAME];
+        tempCluster.removeListener('attr.measuredValue', this._onTempReport);
+        tempCluster.on('attr.measuredValue', this._onTempReport);
 
         this.log('SNZB-02LD initialized');
     }
@@ -48,9 +53,17 @@ class SonoffSNZB02LD extends SonoffBase {
         this.setCapabilityValue('measure_temperature', parsedValue + temperatureOffset).catch(this.error);
     }
 
+    // Remove the temperature listener on both re-init (onUninit, inherited from
+    // SonoffBase) and removal (onDeleted) so it never accumulates.
+    async _teardown() {
+        this.zclNode?.endpoints?.[1]?.clusters?.[CLUSTER.TEMPERATURE_MEASUREMENT.NAME]
+            ?.removeListener('attr.measuredValue', this._onTempReport);
+        await super._teardown();
+    }
+
     async onDeleted() {
+        await this._teardown();
         this.log('SNZB-02LD removed');
-        await this._availability?.uninstall().catch(() => {});
     }
 
 }

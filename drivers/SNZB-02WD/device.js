@@ -29,8 +29,10 @@ class SonoffSNZB02WD extends TempHumiditySensor {
     }
 
     async onDeleted() {
+        // _teardown (TempHumiditySensor) removes the sensor listeners and
+        // chains to availability uninstall.
+        await this._teardown();
         this.log('SNZB-02WD removed');
-        await this._availability?.uninstall().catch(() => {});
     }
 
 }
