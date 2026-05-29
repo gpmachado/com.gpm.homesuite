@@ -39,7 +39,12 @@ class ZigbeeRepeaterDevice extends ZigBeeDevice {
   // ---------------------------------------------------------------------------
 
   onEndDeviceAnnounce() {
-    this.log('Rejoined — availability will be restored via handleFrame');
+    // ZDO Device Announce is a reliable "I'm back" signal. Actively restore
+    // availability instead of waiting for a spontaneous frame — a quiet router
+    // (further silenced by TimeSilentBoundCluster) may not send one, leaving it
+    // stuck as unavailable after it physically returns to the network.
+    this.log('Rejoined (ZDO announce) — restoring availability');
+    this._availability?.notifyActivity('rejoin').catch(() => {});
   }
 
   // onUninit fires on re-init/restart (onDeleted only on user removal).

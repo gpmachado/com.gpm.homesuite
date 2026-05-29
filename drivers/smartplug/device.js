@@ -129,8 +129,13 @@ class SmartPlugDevice extends TuyaZclBase {
   }
 
   async onBecameUnavailable(reason) {
-    this.log(`[Polling] Device offline (${reason}) — stop polling`);
-    this._stopPolling();
+    // Keep the poll timer running so _pollCycle's recovery-probe branch can
+    // detect when the device returns (~every 10 min). Stopping it here would
+    // strand the device as unavailable forever — the recovery probe lives
+    // inside _pollCycle and only runs while the timer keeps firing.
+    this.log(`[Polling] Device offline (${reason}) — switching to recovery probing`);
+    this._recoveryCount = 0;
+    this._startPolling(); // idempotent — ensure the timer is alive
   }
 
   // ─── Settings ──────────────────────────────────────────────────────────
@@ -235,12 +240,15 @@ class SmartPlugDevice extends TuyaZclBase {
 
   _parsePower(raw) {
     if (this._calcPower) {
-      if (this._lastVoltage > 0 && this._lastCurrent > 0) {
+      // Power is computed from V × I (these firmwares report activePower
+      // unreliably — that's why calcPower exists). Zero current = zero power,
+      // so once voltage is known we report a genuine 0 W instead of suppressing it.
+      if (this._lastVoltage > 0) {
         return Math.round(this._lastVoltage * this._lastCurrent * this._powerFactor * 100) / 100;
       }
-      // Cache V/A not yet populated: suppress spurious 0 W report while device is ON.
-      if (raw === 0 && this.getCapabilityValue('onoff') === true) return null;
-      return 0;
+      // No voltage reading yet (early boot): suppress a spurious 0 W while the
+      // device is ON until V/A populate; otherwise report 0.
+      return (raw === 0 && this.getCapabilityValue('onoff') === true) ? null : 0;
     }
     return raw * this._powerFactor;
   }
