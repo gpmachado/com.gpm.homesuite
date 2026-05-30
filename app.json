@@ -332,6 +332,103 @@
         ]
       },
       {
+        "id": "moes_remote_4_gang_button",
+        "title": {
+          "en": "Button action"
+        },
+        "titleFormatted": {
+          "en": "Action [[action]]"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=moes_remote_4_gang"
+          },
+          {
+            "name": "action",
+            "type": "dropdown",
+            "title": {
+              "en": "Button action"
+            },
+            "values": [
+              {
+                "id": "1-single",
+                "label": {
+                  "en": "Button 1 — single press"
+                }
+              },
+              {
+                "id": "1-double",
+                "label": {
+                  "en": "Button 1 — double press"
+                }
+              },
+              {
+                "id": "1-long",
+                "label": {
+                  "en": "Button 1 — long press"
+                }
+              },
+              {
+                "id": "2-single",
+                "label": {
+                  "en": "Button 2 — single press"
+                }
+              },
+              {
+                "id": "2-double",
+                "label": {
+                  "en": "Button 2 — double press"
+                }
+              },
+              {
+                "id": "2-long",
+                "label": {
+                  "en": "Button 2 — long press"
+                }
+              },
+              {
+                "id": "3-single",
+                "label": {
+                  "en": "Button 3 — single press"
+                }
+              },
+              {
+                "id": "3-double",
+                "label": {
+                  "en": "Button 3 — double press"
+                }
+              },
+              {
+                "id": "3-long",
+                "label": {
+                  "en": "Button 3 — long press"
+                }
+              },
+              {
+                "id": "4-single",
+                "label": {
+                  "en": "Button 4 — single press"
+                }
+              },
+              {
+                "id": "4-double",
+                "label": {
+                  "en": "Button 4 — double press"
+                }
+              },
+              {
+                "id": "4-long",
+                "label": {
+                  "en": "Button 4 — long press"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
         "id": "novadigital_switch_1_gang:device_rejoined",
         "title": {
           "en": "Reconnected after power cut"
@@ -2606,6 +2703,85 @@
           }
         }
       }
+    },
+    {
+      "id": "moes_remote_4_gang",
+      "name": {
+        "en": "Moes 4 Gang Wall Remote"
+      },
+      "class": "remote",
+      "platforms": [
+        "local"
+      ],
+      "connectivity": [
+        "zigbee"
+      ],
+      "capabilities": [
+        "measure_battery"
+      ],
+      "images": {
+        "large": "/drivers/moes_remote_4_gang/assets/images/large.png",
+        "small": "/drivers/moes_remote_4_gang/assets/images/small.png"
+      },
+      "energy": {
+        "batteries": [
+          "CR2032"
+        ]
+      },
+      "zigbee": {
+        "manufacturerName": [
+          "_TZ3000_wkai4ga5"
+        ],
+        "productId": [
+          "TS0044"
+        ],
+        "endpoints": {
+          "1": {
+            "clusters": [
+              0,
+              1,
+              6
+            ],
+            "bindings": [
+              6
+            ]
+          },
+          "2": {
+            "clusters": [
+              1,
+              6
+            ],
+            "bindings": [
+              6
+            ]
+          },
+          "3": {
+            "clusters": [
+              1,
+              6
+            ],
+            "bindings": [
+              6
+            ]
+          },
+          "4": {
+            "clusters": [
+              1,
+              6
+            ],
+            "bindings": [
+              6
+            ]
+          }
+        },
+        "learnmode": {
+          "image": "/drivers/moes_remote_4_gang/assets/icon.svg",
+          "instruction": {
+            "en": "Press the lower-left button for ~10 seconds until all LEDs start blinking."
+          }
+        }
+      },
+      "settings": []
     },
     {
       "platforms": [
