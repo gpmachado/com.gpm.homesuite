@@ -4698,6 +4698,12 @@
                   "label": {
                     "en": "Off when powered"
                   }
+                },
+                {
+                  "id": "on",
+                  "label": {
+                    "en": "Always on"
+                  }
                 }
               ]
             },

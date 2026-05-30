@@ -31,7 +31,8 @@
         "values": [
           { "id": "off",      "label": { "en": "Always off"       } },
           { "id": "status",   "label": { "en": "On when powered"  } },
-          { "id": "position", "label": { "en": "Off when powered" } }
+          { "id": "position", "label": { "en": "Off when powered" } },
+          { "id": "on",       "label": { "en": "Always on"        } }
         ]
       },
       {
