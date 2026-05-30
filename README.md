@@ -12,6 +12,18 @@ So I stripped it down — removed everything I didn't have, didn't need, and cou
 and rebuilt the drivers through hands-on investigation: pairing devices, reading cluster
 reports, debugging attribute behaviour, and fixing what didn't work.
 
+The Sonoff drivers derive from additional upstreams: [Johan Bendz's tech.sonoff](https://homey.app/en-br/app/tech.sonoff/SONOFF-Zigbee/)
+(SNZB-03) and [StyraHem](https://github.com/StyraHem/Homey.Sonoff.Zigbee) /
+[s-dimaio](https://github.com/s-dimaio/Homey.Sonoff.Zigbee) Homey.Sonoff.Zigbee
+(Sonoff base, ZBMINIR2, SNZB-02LD/02WD).
+
+## License
+
+Licensed under the **GNU GPL v3.0** (see `LICENSE`). The app incorporates GPL-3.0
+code (StyraHem / s-dimaio) alongside MIT-licensed portions (Johan Bendz), which are
+GPL-compatible; the combined work is distributed under GPL-3.0. Full attributions
+are in the `NOTICE` file.
+
 ## What was built and fixed
 
 - Correct unavailability reporting (device silent vs. device gone from network)

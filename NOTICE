@@ -1,0 +1,36 @@
+HomeSuite (com.gpm.homesuite)
+Copyright (C) 2025 Gabriel Pedrosa Machado
+
+This program is free software: you can redistribute it and/or modify it under
+the terms of the GNU General Public License as published by the Free Software
+Foundation, either version 3 of the License, or (at your option) any later
+version. See the LICENSE file for the full text.
+
+This program is distributed in the hope that it will be useful, but WITHOUT ANY
+WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+PARTICULAR PURPOSE. See the GNU General Public License for more details.
+
+--------------------------------------------------------------------------------
+Incorporated / derived works
+--------------------------------------------------------------------------------
+
+This app was built from, and incorporates portions of, the following upstream
+projects. MIT-licensed portions are compatible with, and redistributed under,
+the GNU GPL v3.0 as part of this combined work.
+
+- JohanBendz/com.tuya.zigbee — MIT License, Copyright (c) 2020-2024 Johan Bendz
+  https://github.com/JohanBendz/com.tuya.zigbee
+  Basis for the Tuya drivers (switches, plugs, sensors) and the
+  Moes 4-gang wall remote (moes_remote_4_gang). Driver assets © Johan Bendz.
+
+- JohanBendz/tech.sonoff (SONOFF Zigbee) — MIT License, Copyright (c) 2020 Johan Bendz
+  Basis for the SNZB-03 driver.
+
+- StyraHem/Homey.Sonoff.Zigbee and s-dimaio/Homey.Sonoff.Zigbee — GNU GPL v3.0
+  https://github.com/StyraHem/Homey.Sonoff.Zigbee
+  https://github.com/s-dimaio/Homey.Sonoff.Zigbee
+  Basis for the Sonoff base class and the ZBMINIR2 / SNZB-02LD / SNZB-02WD drivers.
+
+Device protocols were independently verified via Zigbee sniffer captures and
+cross-checked against zigbee2mqtt (zigbee-herdsman-converters) and
+dlnraja/com.tuya.zigbee.
