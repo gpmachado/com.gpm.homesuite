@@ -602,6 +602,67 @@
             "filter": "driver_id=socket_power_strip"
           }
         ]
+      },
+      {
+        "id": "wireless_switch_remote_2_gang_button",
+        "title": {
+          "en": "Button action"
+        },
+        "titleFormatted": {
+          "en": "Action [[action]]"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=wireless_switch_remote_2_gang"
+          },
+          {
+            "name": "action",
+            "type": "dropdown",
+            "title": {
+              "en": "Button action"
+            },
+            "values": [
+              {
+                "id": "1-single",
+                "label": {
+                  "en": "Button 1 — single press"
+                }
+              },
+              {
+                "id": "1-double",
+                "label": {
+                  "en": "Button 1 — double press"
+                }
+              },
+              {
+                "id": "1-long",
+                "label": {
+                  "en": "Button 1 — long press"
+                }
+              },
+              {
+                "id": "2-single",
+                "label": {
+                  "en": "Button 2 — single press"
+                }
+              },
+              {
+                "id": "2-double",
+                "label": {
+                  "en": "Button 2 — double press"
+                }
+              },
+              {
+                "id": "2-long",
+                "label": {
+                  "en": "Button 2 — long press"
+                }
+              }
+            ]
+          }
+        ]
       }
     ],
     "conditions": [
@@ -5602,6 +5663,67 @@
             "es": "Mantén el botón de reinicio 10 s hasta que el icono inalámbrico parpadee",
             "it": "Tieni premuto il reset per 10 s fino a quando l'icona wireless lampeggia",
             "de": "Reset 10 s gedrückt halten, bis das WLAN-Symbol blinkt"
+          }
+        }
+      },
+      "settings": []
+    },
+    {
+      "id": "wireless_switch_remote_2_gang",
+      "name": {
+        "en": "2 Gang Wireless Remote"
+      },
+      "class": "remote",
+      "platforms": [
+        "local"
+      ],
+      "connectivity": [
+        "zigbee"
+      ],
+      "capabilities": [
+        "measure_battery"
+      ],
+      "images": {
+        "large": "/drivers/wireless_switch_remote_2_gang/assets/images/large.png",
+        "small": "/drivers/wireless_switch_remote_2_gang/assets/images/small.png"
+      },
+      "energy": {
+        "batteries": [
+          "CR2032"
+        ]
+      },
+      "zigbee": {
+        "manufacturerName": [
+          "_TZ3000_tzvbimpq"
+        ],
+        "productId": [
+          "TS0042"
+        ],
+        "endpoints": {
+          "1": {
+            "clusters": [
+              0,
+              1,
+              6
+            ],
+            "bindings": [
+              6
+            ]
+          },
+          "2": {
+            "clusters": [
+              1,
+              6
+            ],
+            "bindings": [
+              6
+            ]
+          }
+        },
+        "learnmode": {
+          "image": "/drivers/wireless_switch_remote_2_gang/assets/icon.svg",
+          "instruction": {
+            "en": "Press either button for ~10 seconds until the LED starts blinking."
           }
         }
       },

@@ -1,0 +1,24 @@
+{
+  "triggers": [
+    {
+      "id": "wireless_switch_remote_2_gang_button",
+      "title": { "en": "Button action" },
+      "titleFormatted": { "en": "Action [[action]]" },
+      "args": [
+        {
+          "name": "action",
+          "type": "dropdown",
+          "title": { "en": "Button action" },
+          "values": [
+            { "id": "1-single", "label": { "en": "Button 1 — single press" } },
+            { "id": "1-double", "label": { "en": "Button 1 — double press" } },
+            { "id": "1-long",   "label": { "en": "Button 1 — long press"   } },
+            { "id": "2-single", "label": { "en": "Button 2 — single press" } },
+            { "id": "2-double", "label": { "en": "Button 2 — double press" } },
+            { "id": "2-long",   "label": { "en": "Button 2 — long press"   } }
+          ]
+        }
+      ]
+    }
+  ]
+}
