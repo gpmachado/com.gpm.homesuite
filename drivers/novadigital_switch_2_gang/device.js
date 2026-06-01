@@ -128,7 +128,11 @@ class novadigital_switch_2gang extends TuyaZclBase {
   // ---------------------------------------------------------------------------
 
   async onSettings({ oldSettings, newSettings, changedKeys }) {
-    for (const key of changedKeys.filter(k => !k.endsWith('_current') && k !== 'switch_mode_readonly')) {
+    // Inching: one write per save regardless of how many inching keys changed (ZBMINIR2 pattern).
+    if (changedKeys.some(k => k === 'inching_enabled' || k === 'inching_time')) {
+      await this._applyInching({ enable: newSettings.inching_enabled, time: newSettings.inching_time });
+    }
+    for (const key of changedKeys.filter(k => !k.endsWith('_current') && k !== 'switch_mode_readonly' && k !== 'inching_enabled' && k !== 'inching_time')) {
       const value = newSettings[key];
 
       switch (key) {
@@ -176,6 +180,7 @@ class novadigital_switch_2gang extends TuyaZclBase {
         case 'power_on_behavior_gang2':
           await this._writeGangPowerOnState(2, value, 'power_on_current_gang2');
           break;
+
 
         default:
           this.log(`Unknown setting key: ${key}`);
