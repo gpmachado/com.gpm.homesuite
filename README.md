@@ -78,6 +78,9 @@ These cut across most drivers:
 - **Power-on behaviour** — global and per-gang.
 - **LED / backlight** — persistent and re-enforced after a power cut (the device
   resets it on restore; the app restores your preference).
+- **No dead settings** — where Tuya firmware advertises a feature the actual hardware
+  doesn't have (a tamper on an outlet-mounted gas detector, an LED on a relay module),
+  it's hidden rather than shown as a non-functional option.
 
 ## Flow triggers
 
@@ -115,6 +118,10 @@ sub-device; the main device's **Advanced Settings** expose:
 - **Inching (auto-off)** with a delay in seconds, per gang.
 - **Energy** — Always On + power usage (W) when off / on.
 
+On the **1CH relay module**, the firmware also advertises an LED Backlight / LED
+Indicator, but they have no effect on that hardware — so they're hidden rather than
+shown as dead options (the backlight report is still observed as a power-restore signal).
+
 **Smart plugs (TS011F, metering)**
 Some weren't recognised by Homey at all; others worked via the Nous/Zemismart apps
 but with no availability — so an unplugged plug went unnoticed. Here they report
@@ -144,8 +151,9 @@ device's **Advanced Settings** expose:
 - **Energy** — *Always On* plus configurable power usage (W) when off / on.
 
 **Gas detector**
-IAS-zone pairing and availability. The firmware advertises a tamper, but the
-hardware doesn't have one — so it's removed from the UI.
+IAS-zone pairing and availability. The firmware advertises a tamper, but the unit
+is outlet-mounted and doesn't open — there's no physical tamper — so the phantom
+setting is hidden.
 
 **MOES wireless remotes (4-gang & 2-gang)**
 Battery, single / double / long press. Long-press is only recognised when you hold
