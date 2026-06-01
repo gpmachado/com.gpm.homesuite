@@ -604,6 +604,31 @@
         ]
       },
       {
+        "id": "switch_1_ch:device_rejoined",
+        "title": {
+          "en": "Reconnected after power cut"
+        },
+        "hint": {
+          "en": "Fires when this switch rejoins the Zigbee network after a power cut."
+        },
+        "tokens": [
+          {
+            "name": "device_name",
+            "type": "string",
+            "title": {
+              "en": "Device name"
+            }
+          }
+        ],
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=switch_1_ch"
+          }
+        ]
+      },
+      {
         "id": "wireless_switch_remote_2_gang_button",
         "title": {
           "en": "Button action"
@@ -5812,6 +5837,405 @@
             "es": "Introduce el dongle en un puerto USB y deja que se encienda.",
             "it": "Inserisci il dongle in una porta USB e lascia che si accenda.",
             "de": "Stecke den Dongle in einen USB-Anschluss und lass ihn hochfahren."
+          }
+        }
+      },
+      "settings": []
+    },
+    {
+      "platforms": [
+        "local"
+      ],
+      "connectivity": [
+        "zigbee"
+      ],
+      "images": {
+        "xlarge": "/drivers/switch_1_ch/assets/images/xlarge.png",
+        "large": "/drivers/switch_1_ch/assets/images/large.png",
+        "small": "/drivers/switch_1_ch/assets/images/small.png"
+      },
+      "id": "switch_1_ch",
+      "name": {
+        "en": "1CH Relay Module",
+        "es": "Módulo relé 1 canal",
+        "it": "Modulo relè 1 canale",
+        "de": "1-Kanal-Relaismodul"
+      },
+      "class": "socket",
+      "capabilities": [
+        "onoff",
+        "is_availability"
+      ],
+      "energy": {
+        "approximation": {
+          "usageOn": 0,
+          "usageOff": 0
+        }
+      },
+      "settings": [
+        {
+          "type": "group",
+          "label": {
+            "en": "Switch Settings",
+            "es": "Configuración del interruptor",
+            "it": "Impostazioni interruttore",
+            "de": "Schaltereinstellungen"
+          },
+          "children": [
+            {
+              "id": "switch_mode_global",
+              "type": "dropdown",
+              "label": {
+                "en": "Switch Mode",
+                "es": "Modo del interruptor",
+                "it": "Modalità interruttore",
+                "de": "Schaltmodus"
+              },
+              "hint": {
+                "en": "Physical button behavior",
+                "es": "Comportamiento del botón físico",
+                "it": "Comportamento del pulsante fisico",
+                "de": "Verhalten der physischen Taste"
+              },
+              "value": "toggle",
+              "values": [
+                {
+                  "id": "toggle",
+                  "label": {
+                    "en": "Toggle (Standard)",
+                    "es": "Alternante (estándar)",
+                    "it": "Alternante (standard)",
+                    "de": "Umschalten (Standard)"
+                  }
+                },
+                {
+                  "id": "momentary",
+                  "label": {
+                    "en": "Momentary (Pulse)",
+                    "es": "Momentáneo (pulso)",
+                    "it": "Momentaneo (impulso)",
+                    "de": "Momentan (Impuls)"
+                  }
+                }
+              ]
+            },
+            {
+              "id": "switch_mode_current",
+              "type": "label",
+              "label": {
+                "en": "Current Mode",
+                "es": "Modo actual",
+                "it": "Modalità attuale",
+                "de": "Aktueller Modus"
+              },
+              "hint": {
+                "en": "Read from device",
+                "es": "Leído del dispositivo",
+                "it": "Letto dal dispositivo",
+                "de": "Vom Gerät gelesen"
+              },
+              "value": "-"
+            }
+          ]
+        },
+        {
+          "type": "group",
+          "label": {
+            "en": "Power-On Global",
+            "es": "Encendido global",
+            "it": "Accensione globale",
+            "de": "Globales Einschalten"
+          },
+          "children": [
+            {
+              "id": "power_on_behavior_global",
+              "type": "dropdown",
+              "label": {
+                "en": "Default behavior",
+                "es": "Comportamiento predeterminado",
+                "it": "Comportamento predefinito",
+                "de": "Standardverhalten"
+              },
+              "hint": {
+                "en": "Applies and propagates to individual setting when changed",
+                "es": "Se aplica y propaga al ajuste individual al cambiar",
+                "it": "Si applica e si propaga all'impostazione individuale quando viene modificato",
+                "de": "Wird bei Änderung auf die individuelle Einstellung angewendet und weitergegeben"
+              },
+              "value": "lastState",
+              "values": [
+                {
+                  "id": "off",
+                  "label": {
+                    "en": "Always Off",
+                    "es": "Siempre apagado",
+                    "it": "Sempre spento",
+                    "de": "Immer aus"
+                  }
+                },
+                {
+                  "id": "on",
+                  "label": {
+                    "en": "Always On",
+                    "es": "Siempre encendido",
+                    "it": "Sempre acceso",
+                    "de": "Immer ein"
+                  }
+                },
+                {
+                  "id": "lastState",
+                  "label": {
+                    "en": "Last State",
+                    "es": "Último estado",
+                    "it": "Ultimo stato",
+                    "de": "Letzter Zustand"
+                  }
+                }
+              ]
+            },
+            {
+              "id": "power_on_current_global",
+              "type": "label",
+              "label": {
+                "en": "Current (Global)",
+                "es": "Actual (global)",
+                "it": "Attuale (globale)",
+                "de": "Aktuell (global)"
+              },
+              "hint": {
+                "en": "Read from device",
+                "es": "Leído del dispositivo",
+                "it": "Letto dal dispositivo",
+                "de": "Vom Gerät gelesen"
+              },
+              "value": "-"
+            }
+          ]
+        },
+        {
+          "type": "group",
+          "label": {
+            "en": "Power-On Individual",
+            "es": "Encendido individual",
+            "it": "Accensione individuale",
+            "de": "Individuelles Einschalten"
+          },
+          "children": [
+            {
+              "id": "power_on_behavior_gang1",
+              "type": "dropdown",
+              "label": {
+                "en": "Override",
+                "es": "Anular",
+                "it": "Ignora",
+                "de": "Überschreiben"
+              },
+              "hint": {
+                "en": "Individual override (cluster 0xE001) -- overrides global",
+                "es": "Anulación individual (cluster 0xE001) -- anula el ajuste global",
+                "it": "Ignoranza individuale (cluster 0xE001) -- ignora il globale",
+                "de": "Individuelle Überschreibung (Cluster 0xE001) -- überschreibt global"
+              },
+              "value": "lastState",
+              "values": [
+                {
+                  "id": "off",
+                  "label": {
+                    "en": "Always Off",
+                    "es": "Siempre apagado",
+                    "it": "Sempre spento",
+                    "de": "Immer aus"
+                  }
+                },
+                {
+                  "id": "on",
+                  "label": {
+                    "en": "Always On",
+                    "es": "Siempre encendido",
+                    "it": "Sempre acceso",
+                    "de": "Immer ein"
+                  }
+                },
+                {
+                  "id": "lastState",
+                  "label": {
+                    "en": "Last State",
+                    "es": "Último estado",
+                    "it": "Ultimo stato",
+                    "de": "Letzter Zustand"
+                  }
+                }
+              ]
+            },
+            {
+              "id": "power_on_current_gang1",
+              "type": "label",
+              "label": {
+                "en": "Current (Individual)",
+                "es": "Actual (individual)",
+                "it": "Attuale (individuale)",
+                "de": "Aktuell (individuell)"
+              },
+              "hint": {
+                "en": "Read from device",
+                "es": "Leído del dispositivo",
+                "it": "Letto dal dispositivo",
+                "de": "Vom Gerät gelesen"
+              },
+              "value": "-"
+            }
+          ]
+        },
+        {
+          "type": "group",
+          "label": {
+            "en": "Inching",
+            "es": "Inching",
+            "it": "Inching",
+            "de": "Inching"
+          },
+          "children": [
+            {
+              "id": "inching_enabled",
+              "type": "checkbox",
+              "value": false,
+              "label": {
+                "en": "Inching (auto-off)",
+                "es": "Inching (apagado auto)",
+                "it": "Inching (spegnimento auto)",
+                "de": "Inching (Auto-Aus)"
+              },
+              "hint": {
+                "en": "Each time the switch turns on, it auto-turns-off after the delay below (pulse/doorbell). Persists across power cuts.",
+                "es": "Cada vez que se enciende, se apaga solo tras el retardo (pulso/timbre). Persiste tras cortes de energía.",
+                "it": "Ogni volta che si accende, si spegne dopo il ritardo (impulso/campanello). Persiste dopo interruzioni.",
+                "de": "Bei jedem Einschalten schaltet sich der Schalter nach der Verzögerung automatisch aus (Impuls/Klingel). Bleibt nach Stromausfall erhalten."
+              }
+            },
+            {
+              "id": "inching_time",
+              "type": "number",
+              "value": 0,
+              "min": 0,
+              "max": 3600,
+              "units": "s",
+              "label": {
+                "en": "Inching delay",
+                "es": "Retardo inching",
+                "it": "Ritardo inching",
+                "de": "Inching-Verzögerung"
+              },
+              "hint": {
+                "en": "0–3600 s (max 60 min). E.g. 90 = 1 min 30 s.",
+                "es": "0–3600 s (máx. 60 min). Ej.: 90 = 1 min 30 s.",
+                "it": "0–3600 s (max 60 min). Es.: 90 = 1 min 30 s.",
+                "de": "0–3600 s (max. 60 Min). Z.B. 90 = 1 Min 30 s."
+              }
+            }
+          ]
+        }
+      ],
+      "zigbee": {
+        "manufacturerName": [
+          "_TZ3000_tqlv4ug4"
+        ],
+        "productId": [
+          "TS0001"
+        ],
+        "endpoints": {
+          "1": {
+            "clusters": [
+              0,
+              3,
+              4,
+              5,
+              6,
+              10,
+              57344,
+              57345
+            ],
+            "bindings": [
+              6
+            ]
+          }
+        },
+        "learnmode": {
+          "image": "/drivers/switch_1_ch/assets/icon.svg",
+          "instruction": {
+            "en": "Press and hold the side reset button for ~10 seconds, OR switch the connected wall switch on/off 5 times, until the LED blinks rapidly.",
+            "es": "Mantén pulsado el botón lateral de reinicio ~10 segundos, O enciende/apaga el interruptor conectado 5 veces, hasta que el LED parpadee rápidamente.",
+            "it": "Tieni premuto il pulsante laterale di reset per ~10 secondi, OPPURE accendi/spegni l'interruttore collegato 5 volte, finché il LED lampeggia rapidamente.",
+            "de": "Halte die seitliche Reset-Taste ~10 Sekunden gedrückt, ODER schalte den angeschlossenen Schalter 5-mal ein/aus, bis die LED schnell blinkt."
+          }
+        }
+      }
+    },
+    {
+      "id": "switch_1_gang",
+      "name": {
+        "en": "1 Gang Switch Module"
+      },
+      "class": "socket",
+      "platforms": [
+        "local"
+      ],
+      "connectivity": [
+        "zigbee"
+      ],
+      "capabilities": [
+        "onoff"
+      ],
+      "images": {
+        "large": "/drivers/switch_1_gang/assets/images/large.png",
+        "small": "/drivers/switch_1_gang/assets/images/small.png"
+      },
+      "energy": {
+        "approximation": {
+          "usageOn": 0,
+          "usageOff": 0
+        }
+      },
+      "zigbee": {
+        "manufacturerName": [
+          "_TYZB01_ncutbjdi",
+          "_TYZB01_aneiicmq",
+          "_TZ3000_zmy1waw6",
+          "_TZ3000_pmvbt5hh",
+          "_TZ3000_sjpl9eg3",
+          "_TZ3000_m9af2l6g",
+          "_TZ3000_ji4araar",
+          "_TZ3000_qmi1cfuq",
+          "_TZ3000_npzfdcof",
+          "_TZ3000_rmjr4ufz",
+          "_TZ3000_mx3vgyea",
+          "_TZ3000_46t1rvdu",
+          "_TZ3000_majwnphg",
+          "_TZ3000_6axxqqi2"
+        ],
+        "productId": [
+          "TS0003",
+          "TS011F",
+          "TS0011",
+          "TS000F",
+          "TS0001"
+        ],
+        "endpoints": {
+          "1": {
+            "clusters": [
+              0,
+              4,
+              5,
+              6
+            ],
+            "bindings": [
+              6
+            ]
+          }
+        },
+        "learnmode": {
+          "image": "/drivers/switch_1_gang/assets/icon.svg",
+          "instruction": {
+            "en": "Press the setup button for 10 seconds or switch the unit on and off five times to enter pairing mode (the LED should blink green)."
           }
         }
       },

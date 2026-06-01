@@ -1,0 +1,20 @@
+{
+  "triggers": [
+    {
+      "id": "switch_1_ch:device_rejoined",
+      "title": {
+        "en": "Reconnected after power cut"
+      },
+      "hint": {
+        "en": "Fires when this switch rejoins the Zigbee network after a power cut."
+      },
+      "tokens": [
+        {
+          "name": "device_name",
+          "type": "string",
+          "title": { "en": "Device name" }
+        }
+      ]
+    }
+  ]
+}
