@@ -222,9 +222,10 @@ limited to what I can physically test.
 
 **Easy to extend to same-cluster devices.** Many Zigbee devices differ only by
 manufacturer ID — if yours shares the same clusters as a supported one, adapting it
-is usually just adding the manufacturer ID to the matching driver (or forking it).
-The GIRIER 1CH relay was added exactly this way: it reuses the switch driver
-(TS0001 + `0xE000`/`0xE001`) with its own manufacturer ID.
+is often just **adding your manufacturer ID to the matching driver's
+`driver.compose.json`** (no code change), or forking to customise further. The
+GIRIER 1CH relay was added this way: it reuses the switch driver (TS0001 +
+`0xE000`/`0xE001`) with its own manufacturer ID.
 
 If you have similar hardware and want it to work better on Homey, help is very
 welcome — to **use it**, improve it, fork it, or expand the device list:
