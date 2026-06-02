@@ -150,10 +150,10 @@ device's **Advanced Settings** expose:
 - **Physical controls** — LED indicator (e.g. *On when powered*) and child lock.
 - **Energy** — *Always On* plus configurable power usage (W) when off / on.
 
-**Gas detector**
-IAS-zone pairing and availability. The firmware advertises a tamper, but the sensor
-is built into a plug that doesn't open — there's no physical tamper — so the phantom
-setting is hidden.
+**Gas detector (HEIMAN combustible gas — natural gas & LPG)**
+A plug-in IAS-zone detector (pairs as `_TYZB01_0w3d5uw3` / TS0204). IAS-zone pairing
+and availability. The firmware advertises a tamper, but the sensor is built into a
+plug that doesn't open — there's no physical tamper — so the phantom setting is hidden.
 
 **MOES wireless remotes (4-gang & 2-gang)**
 Battery, single / double / long press. Long-press is only recognised when you hold
@@ -200,7 +200,7 @@ separable into its own app).
 | Socket power strip (4 + USB) | TS011F | `_TZ3000_cfnprab5` |
 | LCD temperature & humidity sensor | TS0201 | `_TZ3000_ywagc4rj` |
 | Temperature & humidity sensor w/ clock | TS0601 | `_TZE200_cirvgep4` `_TZE204_cirvgep4` |
-| Gas detector | TS0204 | `_TYZB01_0w3d5uw3` |
+| HEIMAN combustible gas detector (natural gas & LPG) | TS0204 | `_TYZB01_0w3d5uw3` |
 | Siren | TS0601 | `_TZE204_q76rtoa9` |
 | Zigbee repeater | TS0207 | `_TZ3000_nkkl7uzv` |
 | Sonoff BASICZBR3 relay | BASICZBR3 | `SONOFF` |
