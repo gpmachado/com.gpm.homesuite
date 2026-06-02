@@ -79,8 +79,8 @@ These cut across most drivers:
 - **LED / backlight** — persistent and re-enforced after a power cut (the device
   resets it on restore; the app restores your preference).
 - **No dead settings** — where Tuya firmware advertises a feature the actual hardware
-  doesn't have (a tamper on an outlet-mounted gas detector, an LED on a relay module),
-  it's hidden rather than shown as a non-functional option.
+  doesn't have (a tamper on a plug-in gas detector, an LED on a relay module), it's
+  hidden rather than shown as a non-functional option.
 
 ## Flow triggers
 
@@ -151,8 +151,8 @@ device's **Advanced Settings** expose:
 - **Energy** — *Always On* plus configurable power usage (W) when off / on.
 
 **Gas detector**
-IAS-zone pairing and availability. The firmware advertises a tamper, but the unit
-is outlet-mounted and doesn't open — there's no physical tamper — so the phantom
+IAS-zone pairing and availability. The firmware advertises a tamper, but the sensor
+is built into a plug that doesn't open — there's no physical tamper — so the phantom
 setting is hidden.
 
 **MOES wireless remotes (4-gang & 2-gang)**
