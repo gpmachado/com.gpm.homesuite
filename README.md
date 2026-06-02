@@ -72,6 +72,9 @@ These cut across most drivers:
   to check them.
 - **Smart-plug polling with exponential backoff** — stops hammering a plug that was
   unplugged and resumes when it returns.
+- **Staggered timing (jitter)** — reporting intervals, startup polling and retry
+  backoff carry a small random offset, so devices don't all report/poll at the same
+  instant (avoids mesh congestion / a "thundering herd" hitting the hub at once).
 - **Switch modes** — toggle / momentary (state) per device (1–3 gang).
 - **Inching** (auto-off after a delay, per gang) — reverse-engineered from sniffer
   captures; persists across power cuts.
