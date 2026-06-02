@@ -218,9 +218,16 @@ separable into its own app).
 ## Contributing
 
 The code is on GitHub, but I only own a limited set of devices, so coverage is
-limited to what I can physically test. If you have similar hardware and want it to
-work better on Homey, help is very welcome — to **use it**, improve it, or expand
-the list of supported devices:
+limited to what I can physically test.
+
+**Easy to extend to same-cluster devices.** Many Zigbee devices differ only by
+manufacturer ID — if yours shares the same clusters as a supported one, adapting it
+is usually just adding the manufacturer ID to the matching driver (or forking it).
+The GIRIER 1CH relay was added exactly this way: it reuses the switch driver
+(TS0001 + `0xE000`/`0xE001`) with its own manufacturer ID.
+
+If you have similar hardware and want it to work better on Homey, help is very
+welcome — to **use it**, improve it, fork it, or expand the device list:
 
 - Share a **device interview** (Homey Developer Tools) and, ideally, a **Zigbee
   sniffer capture (`.pcapng`)** of the feature you want supported.
