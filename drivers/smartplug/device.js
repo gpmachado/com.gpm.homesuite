@@ -80,6 +80,36 @@ class SmartPlugDevice extends TuyaZclBase {
     await this._readBasicAttributes(zclNode);
     this._attachOnOffListeners(zclNode);
 
+    // Rejoin detection: the TS011F sends a spontaneous E001 (tuyaPowerOnState)
+    // reportAttributes (cmd 0x0A) only on the power-restore boot — never on a setting
+    // write (those echo on the onOff cluster) nor in steady state (verified on the
+    // sniffer). The E001 cluster is NOT on this endpoint's cluster list, so the report
+    // only surfaces at the raw-frame level — so we hook handleFrame like the ZBMINI.
+    // _notifyRejoin's guards (120s boot / 30s cooldown) handle the app-restart dump and
+    // burst dedup. This replaces the 3-source boot-burst path, which the plug's sparse
+    // boot dump (childLock alone) can never reach.
+    // Hook the SAME node the AvailabilityManager hooks — inbound frames flow through
+    // homey.zigbee.getNode(this), NOT this.node (which never sees them). getNode is
+    // awaited after _installAvailability, so node.handleFrame here is already the
+    // availability wrapper; we wrap it once more (outermost) and call through.
+    {
+      const node = await this.homey.zigbee.getNode(this);
+      const _hook = node.handleFrame.bind(node);
+      node.handleFrame = (...args) => {
+        const [, clusterId, frame] = args;
+        if (clusterId === 0xE001 && Buffer.isBuffer(frame) && frame.length >= 3) {
+          const mfrSpecific = frame[0] & 0x04;
+          const cmdId = mfrSpecific ? (frame.length >= 5 ? frame[4] : -1) : frame[2];
+          if (cmdId === 0x0A) {
+            this.log('[rejoin] E001 boot report — power restored');
+            this._notifyRejoin();
+          }
+        }
+        return _hook(...args);
+      };
+      this.log('[rejoin] E001 boot-frame hook installed');
+    }
+
     try {
       const ep1 = zclNode.endpoints[1];
       if (ep1?.clusters?.time) ep1.bind('time', new TimeSilentBoundCluster());
@@ -110,13 +140,6 @@ class SmartPlugDevice extends TuyaZclBase {
       timeout: SMART_PLUG_TIMEOUT_MS,
     });
     await this._availability.install();
-  }
-
-  // Override: smartplug has no backlight, but we still need the ZDO rejoin trigger.
-  onEndDeviceAnnounce() {
-    this.log('[Smart Plug] rejoined network (ZDO Device Announce)');
-    // _notifyRejoin() is called by super; backlight block is harmless (no backlight setting).
-    super.onEndDeviceAnnounce();
   }
 
   // ─── Availability callbacks ────────────────────────────────────────────
@@ -363,18 +386,21 @@ class SmartPlugDevice extends TuyaZclBase {
     const onOff = zclNode.endpoints[1].clusters.onOff;
 
     onOff.on('attr.childLock', value => {
+      this._trackBootBurst('childLock');
       this.setSettings({ child_lock: Boolean(value) }).catch(() => {});
     });
 
     onOff.on('attr.indicatorMode', value => {
+      this._trackBootBurst('indicatorMode');
       this.setSettings(indicatorSettingsPatch('indicator_mode', 'indicator_mode_current', value)).catch(() => {});
     });
 
     onOff.on('attr.powerOnStateGlobal', value => {
+      this._trackBootBurst('powerOnGlobal');
       this.setSettings(powerOnSettingsPatch('relay_status', 'relay_status_current', value)).catch(() => {});
-      // Rejoin is signalled via onEndDeviceAnnounce (ZDO Device Announce), not here.
-      // powerOnStateGlobal is reported periodically by Tuya TS011F firmware and
-      // would cause false-positive flow triggers if used as a rejoin signal.
+      // Note: rejoin no longer fires on a single attribute. _trackBootBurst requires
+      // 3+ DISTINCT config attributes within ~2s (a reboot dump), so a lone periodic
+      // powerOnStateGlobal report from TS011F firmware does not trigger device_rejoined.
     });
   }
 

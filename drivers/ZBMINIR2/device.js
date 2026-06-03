@@ -109,6 +109,7 @@ class SonoffZBMINIR2 extends SonoffBase {
             const _hook = this.node.handleFrame.bind(this.node);
             this.node.handleFrame = (...args) => {
                 const [, clusterId, frame] = args;
+                const _now = Date.now();
                 if (Buffer.isBuffer(frame) && frame.length >= 3) {
                     const mfrSpecific = frame[0] & 0x04;
                     const cmdId = mfrSpecific ? (frame.length >= 5 ? frame[4] : -1) : frame[2];
@@ -116,7 +117,7 @@ class SonoffZBMINIR2 extends SonoffBase {
                     if (cmdId === 0x0B && (clusterId === SonoffCluster.ID || clusterId === 6)) return Promise.resolve();
                     // 2. Detect SonoffCluster attribute reports (0x0A, global) as rejoin signal
                     if (cmdId === 0x0A && !mfrSpecific && clusterId === SonoffCluster.ID) {
-                        if (Date.now() - (this._lastSonoffWriteAt ?? 0) >= 30_000) {
+                        if (_now - (this._lastSonoffWriteAt ?? 0) >= 30_000) {
                             this._notifyRejoin();
                         }
                     }
@@ -243,12 +244,14 @@ class SonoffZBMINIR2 extends SonoffBase {
         AvailabilityManager.triggerRejoin(this, 0, 'ZBMINIR2:device_rejoined');
     }
 
-    // ZDO Device Announce — fires when ZBMINIR2 rejoins the network after power cut.
-    // Provides a faster signal than SonoffCluster attribute reports (0x0A),
-    // which may arrive seconds later. Both paths share the same _notifyRejoin guards.
+    // ZDO Device Announce — logged for visibility only, NOT used as a rejoin signal.
+    // A routing/mesh re-attach also sends a bare announce (no reboot), which caused
+    // false device_rejoined triggers (announce ~20 min after init, no power cut).
+    // The real power-restore signal is the SonoffCluster attribute boot dump
+    // (cmdId 0x0A) handled in the handleFrame hook — a routing announce never
+    // produces it. So rejoin fires there, not here.
     onEndDeviceAnnounce() {
-        this.log('Device rejoined (ZDO Device Announce)');
-        this._notifyRejoin();
+        this.log('ZDO Device Announce (rejoin fires on the SonoffCluster boot dump, not here)');
     }
 
     async checkAttributes() {
