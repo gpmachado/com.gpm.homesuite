@@ -1,7 +1,7 @@
 {
   "_comment": "This file is generated. Please edit .homeycompose/app.json instead.",
   "id": "com.gpm.homesuite",
-  "version": "1.0.10",
+  "version": "1.0.11",
   "compatibility": ">=12.4.0",
   "sdk": 3,
   "platforms": [
@@ -5245,6 +5245,28 @@
                 "en": "Disable physical button."
               },
               "value": false
+            }
+          ]
+        },
+        {
+          "type": "group",
+          "label": {
+            "en": "Polling"
+          },
+          "children": [
+            {
+              "id": "pollInterval",
+              "type": "number",
+              "label": {
+                "en": "Polling interval (s)"
+              },
+              "hint": {
+                "en": "How often Homey actively reads the plug (on/off, power, current). Default 120s — fine for a 10A plug. Lower = more responsive but more mesh traffic; raise it if you run many plugs. When the plug is unreachable, polling automatically backs off up to 15 min."
+              },
+              "value": 120,
+              "min": 60,
+              "max": 3600,
+              "step": 1
             }
           ]
         },

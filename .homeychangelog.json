@@ -28,5 +28,8 @@
   },
   "1.0.10": {
     "en": "fix: ZBMINIR2 / BASICZBR3 — \"Timeout: Expected Response\" on on/off commands\nfix: SmartPlug — false unavailability at boot due to Zigbee mesh timing\nfix: Availability — devices offline before app restart now detected within ~5 min\nfix: SonoffBase — operator precedence bug silently breaking single-attribute reads (SNZB-03)\nfeat: ZBMINIR2 — added ZDO Device Announce as second rejoin signal for faster detection"
+  },
+  "1.0.11": {
+    "en": "fixes"
   }
 }
