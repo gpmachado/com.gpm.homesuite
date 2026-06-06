@@ -30,6 +30,6 @@
     "en": "fix: ZBMINIR2 / BASICZBR3 — \"Timeout: Expected Response\" on on/off commands\nfix: SmartPlug — false unavailability at boot due to Zigbee mesh timing\nfix: Availability — devices offline before app restart now detected within ~5 min\nfix: SonoffBase — operator precedence bug silently breaking single-attribute reads (SNZB-03)\nfeat: ZBMINIR2 — added ZDO Device Announce as second rejoin signal for faster detection"
   },
   "1.0.11": {
-    "en": "fixes"
+    "en": "feat: ZBMINIR2 — added Toggle option to Power-on State setting\nfeat: ZBMINIR2 — tighter rejoin detection after power cut (corroboration window)\nfeat: ZBMINIR2 — suppress spurious manufacturer ACK frames\nfeat: SNZB-02LD / SNZB-02WD — battery percentage reporting aligned with Poll Control interval\nfix: SNZB-02WD — temperature and humidity report thresholds corrected (0.5 °C / 3 %RH)"
   }
 }
