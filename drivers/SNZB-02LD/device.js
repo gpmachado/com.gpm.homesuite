@@ -23,8 +23,16 @@ class SonoffSNZB02LD extends SonoffBase {
                     attributeName: 'measuredValue',
                     minInterval: 5,
                     maxInterval: 3600,
-                    minChange: 50
-                }
+                    minChange: 50  // 0.5 °C in ZCL units (×100)
+                },
+                // Battery: aligned with Poll Control Check-In interval (1740 s ≈ 29 min, sniffer-confirmed)
+                {
+                    endpointId: 1,
+                    cluster: CLUSTER.POWER_CONFIGURATION,
+                    attributeName: 'batteryPercentageRemaining',
+                    minInterval: 1620,
+                    maxInterval: 1740
+                },
             ]).then(() => {
                 this.log('registered attr report listener');
             }).catch(err => {

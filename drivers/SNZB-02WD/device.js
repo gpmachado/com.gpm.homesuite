@@ -12,8 +12,12 @@ class SonoffSNZB02WD extends SonoffBase {
 
         if (this.isFirstInit()) {
             await this.configureAttributeReporting([
-                { endpointId: 1, cluster: CLUSTER.TEMPERATURE_MEASUREMENT,    attributeName: 'measuredValue', minInterval: 0, maxInterval: 90, minChange: 1 },
-                { endpointId: 1, cluster: CLUSTER.RELATIVE_HUMIDITY_MEASUREMENT, attributeName: 'measuredValue', minInterval: 0, maxInterval: 90, minChange: 1 },
+                // minChange in ZCL units (×100): 50 = 0.5 °C, 300 = 3 %RH (iHost defaults, sniffer-confirmed)
+                // maxInterval 3600 s: report at most once per hour if nothing changes (battery-friendly)
+                { endpointId: 1, cluster: CLUSTER.TEMPERATURE_MEASUREMENT,    attributeName: 'measuredValue', minInterval: 5, maxInterval: 3600, minChange: 50  },
+                { endpointId: 1, cluster: CLUSTER.RELATIVE_HUMIDITY_MEASUREMENT, attributeName: 'measuredValue', minInterval: 5, maxInterval: 3600, minChange: 300 },
+                // Battery: report aligned with Poll Control Check-In interval (1740 s ≈ 29 min, sniffer-confirmed)
+                { endpointId: 1, cluster: CLUSTER.POWER_CONFIGURATION, attributeName: 'batteryPercentageRemaining', minInterval: 1620, maxInterval: 1740 },
             ])
                 .then(() => this.log('registered attr report listener'))
                 .catch(err => this.error('failed to register attr report listener', err));

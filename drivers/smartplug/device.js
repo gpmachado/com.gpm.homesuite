@@ -8,7 +8,6 @@
 
 const { CLUSTER } = require('zigbee-clusters');
 const { TuyaZclBase } = require('../../lib/TuyaZclBase');
-const ExtendedOnOffCluster = require('../../lib/ExtendedOnOffCluster');
 const { TimeSilentBoundCluster } = require('../../lib/TimeCluster');
 const { AvailabilityManagerCluster0 } = require('../../lib/AvailabilityManager');
 const { safeGetNumberSettings } = require('../../lib/settingsUtils');
@@ -20,6 +19,7 @@ const {
 const {
   SMART_PLUG_TIMEOUT_MS,
   SMART_PLUG_POLL_MIN_MS,
+  SMART_PLUG_POLL_MAX_MS,
   SMART_PLUG_VOLTAGE_POLL_EVERY,
   SMART_PLUG_ENERGY_POLL_EVERY,
   SMART_PLUG_REPORT_POWER_DEFAULT_S,
@@ -34,7 +34,8 @@ const ENDPOINT_ID = 1;
 const METERING_DIVISOR = 100.0;
 const CURRENT_DIVISOR  = 1000;
 const DEBOUNCE_TIME    = 500;
-const POLL_MIN           = SMART_PLUG_POLL_MIN_MS;
+const POLL_MIN           = SMART_PLUG_POLL_MIN_MS;   // default poll period (ms)
+const POLL_MAX           = SMART_PLUG_POLL_MAX_MS;   // offline backoff cap (ms)
 const VOLTAGE_POLL_DIVISOR = SMART_PLUG_VOLTAGE_POLL_EVERY;
 const ENERGY_POLL_DIVISOR  = SMART_PLUG_ENERGY_POLL_EVERY;
 
@@ -56,6 +57,10 @@ class SmartPlugDevice extends TuyaZclBase {
     this._pollTimer       = null;
     this._isPolling       = false;
     this._pollCycleCount  = 0;
+    this._pollerActive    = false;
+    this._pollFailCount   = 0;
+    this._pollInterval    = POLL_MIN;   // base poll period (ms), overridden by settings
+    this._pollBackoff     = POLL_MIN;   // current poll delay (ms), grows when offline
   }
 
   // ─── Init ──────────────────────────────────────────────────────────────
@@ -127,6 +132,7 @@ class SmartPlugDevice extends TuyaZclBase {
     if (!reachable) {
       this.log('[Init] Device not reachable at boot — polling will confirm state');
     }
+    this._pollBackoff = this._pollInterval;
     this._startPolling();
 
     this.log('Smart Plug initialized');
@@ -145,20 +151,17 @@ class SmartPlugDevice extends TuyaZclBase {
   // ─── Availability callbacks ────────────────────────────────────────────
 
   async onBecameAvailable() {
-    this.log('[Polling] Device back online — restart polling');
-    this._stopPolling();
+    this.log('[Polling] Device back online — resume base polling');
     await this._safeSetupAttributeReporting();
-    this._startPolling();
+    this._resumeFastPolling();
   }
 
   async onBecameUnavailable(reason) {
-    // Keep the poll timer running so _pollCycle's recovery-probe branch can
-    // detect when the device returns (~every 10 min). Stopping it here would
-    // strand the device as unavailable forever — the recovery probe lives
-    // inside _pollCycle and only runs while the timer keeps firing.
-    this.log(`[Polling] Device offline (${reason}) — switching to recovery probing`);
-    this._recoveryCount = 0;
-    this._startPolling(); // idempotent — ensure the timer is alive
+    // Keep the poll loop alive so it can probe (with backoff) for the device's
+    // return. The handleFrame hook / E001 boot frame are the primary recovery
+    // signals; the backed-off poll is the fallback.
+    this.log(`[Polling] Device offline (${reason}) — poll backing off`);
+    this._startPolling(); // idempotent — ensure the loop is running
   }
 
   // ─── Settings ──────────────────────────────────────────────────────────
@@ -169,11 +172,13 @@ class SmartPlugDevice extends TuyaZclBase {
     this._calcPower    = this.getSetting('calcPower') === true;
 
     const intervals = await safeGetNumberSettings(this, {
+      pollInterval:          { min: 60, max: 3600, fallback: POLL_MIN / 1000 },
       reportIntervalPower:   { min: SMART_PLUG_REPORT_INTERVAL_MIN_S, max: 3600, fallback: SMART_PLUG_REPORT_POWER_DEFAULT_S },
       reportIntervalCurrent: { min: SMART_PLUG_REPORT_INTERVAL_MIN_S, max: 3600, fallback: SMART_PLUG_REPORT_CURRENT_DEFAULT_S },
       reportIntervalVoltage: { min: SMART_PLUG_REPORT_INTERVAL_MIN_S, max: 3600, fallback: SMART_PLUG_REPORT_VOLTAGE_DEFAULT_S },
     });
 
+    this._pollInterval          = intervals.pollInterval * 1000;   // seconds → ms
     this._reportIntervalPower   = intervals.reportIntervalPower;
     this._reportIntervalCurrent = intervals.reportIntervalCurrent;
     this._reportIntervalVoltage = intervals.reportIntervalVoltage;
@@ -202,6 +207,11 @@ class SmartPlugDevice extends TuyaZclBase {
       this.log('[Settings] Reporting intervals changed — reconfiguring');
       await this._safeSetupAttributeReporting();
     }
+
+    if (changedKeys.includes('pollInterval')) {
+      this.log(`[Settings] Polling interval → ${this._pollInterval / 1000}s`);
+      this._resumeFastPolling(); // apply the new base period immediately
+    }
   }
 
   // ─── Capabilities ──────────────────────────────────────────────────────
@@ -215,10 +225,12 @@ class SmartPlugDevice extends TuyaZclBase {
   }
 
   _registerCapabilities() {
-    this.registerCapability('onoff', ExtendedOnOffCluster, {
-      reportParser: value => this._debouncedParser('onoff', value),
-      getOpts: { getOnStart: true },
-    });
+    // Command path (Homey → device) goes through our availability-aware handler,
+    // NOT the framework's default ZCL setter — so a failed write retries, marks the
+    // plug unavailable, and stays quiet instead of throwing a raw frame stack.
+    // The report path (device → Homey) is the attr.onOff listener in
+    // _attachOnOffListeners, using the same debounce as before.
+    this.registerCapabilityListener('onoff', v => this._onCapabilityOnOff(v));
 
     this.registerCapability('meter_power', CLUSTER.METERING, {
       reportParser: raw => this._parseMeter(raw),
@@ -284,53 +296,111 @@ class SmartPlugDevice extends TuyaZclBase {
     }
   }
 
+  // ─── Capability → device (availability-aware) ──────────────────────────
+
+  /**
+   * Send the on/off command with availability-aware retry.
+   *  - Online:  up to 3 attempts; persistent "unreachable" → mark unavailable.
+   *  - Offline: a single quiet attempt (no retry) — mirrors the poll backoff so
+   *    mashing a greyed-out device doesn't flood the log with frame stacks.
+   * Never rethrows: a thrown capability listener surfaces as a raw [err] stack
+   * from the SDK, which is exactly the noise this replaces.
+   */
+  async _onCapabilityOnOff(value) {
+    const onOff = this.zclNode.endpoints[ENDPOINT_ID].clusters.onOff;
+    const offline = !this.getAvailable();
+    const attempts = offline ? 1 : 3;
+    let lastErr;
+    for (let i = 0; i < attempts; i++) {
+      try {
+        if (value) await onOff.setOn();
+        else       await onOff.setOff();
+        if (i > 0) this.log(`[Smart Plug] command retry succeeded (attempt ${i + 1})`);
+        return;
+      } catch (err) {
+        lastErr = err;
+        if (i < attempts - 1) await new Promise(r => this.homey.setTimeout(r, 350));
+      }
+    }
+    if (isDeviceUnreachable(lastErr)) {
+      this.log(`[Smart Plug] command ${value ? 'ON' : 'OFF'} failed — device unreachable`);
+      if (!offline) this._availability?.markUnavailable('Device unreachable').catch(() => {});
+    } else {
+      this.error('[Smart Plug] command failed:', lastErr.message);
+    }
+  }
+
   // ─── Manual polling engine ─────────────────────────────────────────────
 
   _startPolling() {
-    if (this._pollTimer) return;
-    this.log(`[Polling] Starting @ ${POLL_MIN / 1000}s`);
-    this._pollTimer = this.homey.setInterval(() => this._pollCycle(), POLL_MIN);
+    if (this._pollerActive) return;
+    this._pollerActive = true;
+    this.log(`[Polling] Starting @ ${this._pollBackoff / 1000}s`);
+    this._armPoll(this._pollBackoff);
+  }
+
+  /** (Re)arm a single poll timer after `delay` ms. Clears any pending timer first. */
+  _armPoll(delay) {
+    if (this._pollTimer) this.homey.clearTimeout(this._pollTimer);
+    this._pollTimer = this.homey.setTimeout(() => this._runPoll(), delay);
+  }
+
+  async _runPoll() {
+    this._pollTimer = null;
+    if (!this._pollerActive) return;
+    await this._pollCycle();
+    if (this._pollerActive) this._armPoll(this._pollBackoff);
   }
 
   _stopPolling() {
-    if (!this._pollTimer) return;
-    this.homey.clearInterval(this._pollTimer);
-    this._pollTimer = null;
+    if (!this._pollerActive && !this._pollTimer) return;
+    this._pollerActive = false;
+    if (this._pollTimer) {
+      this.homey.clearTimeout(this._pollTimer);
+      this._pollTimer = null;
+    }
     this.log('[Polling] Stopped');
+  }
+
+  /** Jump back to the base poll cadence now (recovery / settings change). */
+  _resumeFastPolling() {
+    this._pollFailCount = 0;
+    this._pollBackoff = this._pollInterval;
+    if (this._pollerActive) this._armPoll(this._pollBackoff);
+    else this._startPolling();
   }
 
   async _pollCycle() {
     if (this._isPolling) return;
-
-    // Recovery probe: when unavailable, attempt a lightweight ping every 5 cycles
-    // (~10 min) to detect when the device comes back without relying solely on the
-    // handleFrame hook (which may be orphaned if Homey replaced the node object).
-    if (!this.getAvailable()) {
-      this._recoveryCount = (this._recoveryCount ?? 0) + 1;
-      if (this._recoveryCount < 5) return;
-      this._recoveryCount = 0;
-      this._isPolling = true;
-      try {
-        await this.zclNode.endpoints[ENDPOINT_ID].clusters.onOff.readAttributes(['onOff']);
-        // Explicitly notify — don't rely on the handleFrame hook, which may be orphaned.
-        this.log('[Polling] Recovery probe: device responded, restoring availability');
-        await this._availability?.notifyActivity('recovery-probe');
-      } catch {
-        this.log('[Polling] Recovery probe: device still unreachable');
-      } finally {
-        this._isPolling = false;
-      }
-      return;
-    }
-
-    this._recoveryCount = 0;
     this._isPolling = true;
     try {
       const timeout = new Promise((_, reject) =>
         this.homey.setTimeout(() => reject(new Error('Poll timeout')), 20000));
       await Promise.race([this._pollMeasurements(), timeout]);
+
+      // Reachable → reset to base cadence. The read responses also feed the
+      // handleFrame hook, which restores availability if it was offline.
+      this._pollFailCount = 0;
+      this._pollBackoff = this._pollInterval;
+      if (!this.getAvailable()) await this._availability?.notifyActivity('poll-recovery');
     } catch (err) {
-      this.log(`[Polling] Error: ${err.message}`);
+      this._pollFailCount += 1;
+      if (this.getAvailable()) {
+        // Still online: keep base cadence, log quietly. After a couple of consecutive
+        // misses (outside the boot-grace window, so mesh startup timing doesn't
+        // false-trip), mark unavailable and begin backing off.
+        this.log(`[Polling] Error (${this._pollFailCount}×): ${err.message}`);
+        const pastBoot = Date.now() - (this._startedAt ?? 0) > 5 * 60 * 1000;
+        if (this._pollFailCount >= 2 && pastBoot) {
+          await this._availability?.markUnavailable('No response to polls').catch(() => {});
+        }
+      } else {
+        // Already offline: exponential backoff up to the cap — quiet probing that
+        // eases mesh congestion while the plug stays unreachable.
+        const cap = Math.max(POLL_MAX, this._pollInterval);
+        this._pollBackoff = Math.min(this._pollBackoff * 2, cap);
+        this.log(`[Polling] Offline — next probe in ${Math.round(this._pollBackoff / 1000)}s`);
+      }
     } finally {
       this._isPolling = false;
     }
@@ -384,6 +454,13 @@ class SmartPlugDevice extends TuyaZclBase {
 
   _attachOnOffListeners(zclNode) {
     const onOff = zclNode.endpoints[1].clusters.onOff;
+
+    // Report path (device → Homey): same debounce the old reportParser used.
+    onOff.on('attr.onOff', value => {
+      const v = this._debouncedParser('onoff', value);
+      if (v === null) return;
+      this.setCapabilityValue('onoff', v).catch(this.error);
+    });
 
     onOff.on('attr.childLock', value => {
       this._trackBootBurst('childLock');

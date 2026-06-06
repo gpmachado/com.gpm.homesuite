@@ -53,6 +53,22 @@
   },
   {
     "type": "group",
+    "label": { "en": "Polling" },
+    "children": [
+      {
+        "id": "pollInterval",
+        "type": "number",
+        "label": { "en": "Polling interval (s)" },
+        "hint": { "en": "How often Homey actively reads the plug (on/off, power, current). Default 120s — fine for a 10A plug. Lower = more responsive but more mesh traffic; raise it if you run many plugs. When the plug is unreachable, polling automatically backs off up to 15 min." },
+        "value": 120,
+        "min": 60,
+        "max": 3600,
+        "step": 1
+      }
+    ]
+  },
+  {
+    "type": "group",
     "label": { "en": "Reporting intervals" },
     "children": [
       {

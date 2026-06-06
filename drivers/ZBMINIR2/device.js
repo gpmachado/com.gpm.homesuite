@@ -102,9 +102,12 @@ class SonoffZBMINIR2 extends SonoffBase {
         //
         //   1. Filter Sonoff ACK frames (cmdId 0x0B, mfr-specific) that zigbee-clusters can't route
         //      via BoundCluster. Covers: SonoffCluster inching ACK and stray defaultResponse on onOff.
-        //   2. Rejoin detection: SonoffCluster reportAttributes (cmdId 0x0A, global/non-mfr-specific)
-        //      fires on power restore. Guard: skip if settings written < 30s ago.
+        //   2. Track OnOff (0x0006) Report Attributes timestamp — boot-dump corroborator.
+        //   3. Rejoin detection: 0xFC11 Report Attributes + 0x0006 Report Attributes within 200ms.
+        //      On power restore both clusters report together (sniffer confirmed: ~8ms apart).
+        //      Periodic 0xFC11 heartbeats arrive without a 0x0006 companion → no false positive.
         this._startedAt = Date.now();
+        this._onOffReportTs = 0; // timestamp of last 0x0006 Report Attributes (boot-dump corroborator)
         {
             const _hook = this.node.handleFrame.bind(this.node);
             this.node.handleFrame = (...args) => {
@@ -115,10 +118,18 @@ class SonoffZBMINIR2 extends SonoffBase {
                     const cmdId = mfrSpecific ? (frame.length >= 5 ? frame[4] : -1) : frame[2];
                     // 1. Drop Sonoff manufacturer ACK (0x0B) — prevents unknown_command_received errors
                     if (cmdId === 0x0B && (clusterId === SonoffCluster.ID || clusterId === 6)) return Promise.resolve();
-                    // 2. Detect SonoffCluster attribute reports (0x0A, global) as rejoin signal
-                    if (cmdId === 0x0A && !mfrSpecific && clusterId === SonoffCluster.ID) {
-                        if (_now - (this._lastSonoffWriteAt ?? 0) >= 30_000) {
-                            this._notifyRejoin();
+                    if (cmdId === 0x0A && !mfrSpecific) {
+                        // 2. Record OnOff (0x0006) report time — used to corroborate FC11 boot dump
+                        if (clusterId === 6) {
+                            this._onOffReportTs = _now;
+                        }
+                        // 3. Fire rejoin only when 0xFC11 0x0A is paired with a recent 0x0006 0x0A.
+                        //    Sniffer: real boot dump has 0x0006 arriving ~8ms before 0xFC11.
+                        //    Heartbeat: 0xFC11 arrives alone (gap >> 200ms) → suppressed.
+                        else if (clusterId === SonoffCluster.ID) {
+                            if ((_now - this._onOffReportTs) < 200 && _now - (this._lastSonoffWriteAt ?? 0) >= 30_000) {
+                                this._notifyRejoin();
+                            }
                         }
                     }
                 }
@@ -247,9 +258,9 @@ class SonoffZBMINIR2 extends SonoffBase {
     // ZDO Device Announce — logged for visibility only, NOT used as a rejoin signal.
     // A routing/mesh re-attach also sends a bare announce (no reboot), which caused
     // false device_rejoined triggers (announce ~20 min after init, no power cut).
-    // The real power-restore signal is the SonoffCluster attribute boot dump
-    // (cmdId 0x0A) handled in the handleFrame hook — a routing announce never
-    // produces it. So rejoin fires there, not here.
+    // The real power-restore signal is a paired boot dump: 0x0006 Report Attributes +
+    // 0xFC11 Report Attributes arriving within 200ms (handleFrame hook, sniffer-confirmed).
+    // A routing announce never triggers that paired pattern. So rejoin fires there, not here.
     onEndDeviceAnnounce() {
         this.log('ZDO Device Announce (rejoin fires on the SonoffCluster boot dump, not here)');
     }

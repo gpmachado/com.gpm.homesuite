@@ -100,7 +100,8 @@
         "values": [
           { "id": "on",         "label": { "en": "Always On",  "it": "Sempre acceso" } },
           { "id": "off",        "label": { "en": "Always Off", "it": "Sempre spento" } },
-          { "id": "last_state", "label": { "en": "Last State", "it": "Ultimo stato"  } }
+          { "id": "last_state", "label": { "en": "Last State", "it": "Ultimo stato"  } },
+          { "id": "toggle",     "label": { "en": "Toggle",     "it": "Alterna"       } }
         ]
       },
       {

@@ -10,6 +10,7 @@
       "measure_battery"
     ],
     "images": {
+      "xlarge": "{{driverAssetsPath}}/images/xlarge.png",
       "large": "{{driverAssetsPath}}/images/large.png",
       "small": "{{driverAssetsPath}}/images/small.png"
     },
