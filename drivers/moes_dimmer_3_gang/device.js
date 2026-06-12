@@ -83,7 +83,6 @@ class MoesDimmer3Gang extends TuyaSpecificClusterDevice {
 
     // Tuya cluster listeners are shared — attach only once, on the main device
     if (this._isMain) {
-      this._startedAt = Date.now();
       this._availability = new AvailabilityManagerCluster0(this, {
         timeout: require('../../lib/constants').HEARTBEAT_TIMEOUT_MS,
       });
@@ -318,7 +317,6 @@ class MoesDimmer3Gang extends TuyaSpecificClusterDevice {
   /** DP.POWER_ON only fires on power restore — use as rejoin signal. */
   _notifyRejoin() {
     const now = Date.now();
-    if ((now - (this._startedAt ?? 0)) < 120_000) return;  // boot guard
     if ((now - (this._lastRejoinTs ?? 0)) < 30_000) return; // burst cooldown
     this._lastRejoinTs = now;
     this.onDeviceRejoin();

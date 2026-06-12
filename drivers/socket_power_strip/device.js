@@ -230,7 +230,6 @@ class PowerStripDevice extends TuyaZclBase {
   // ── Overrides ──────────────────────────────────────────────────────────────
 
   async _installAvailability() {
-    this._startedAt = Date.now(); // boot guard for _notifyRejoin (not set by super override)
     this._availability = new AvailabilityManagerCluster0(this, {
       timeout: SOCKET_POWER_STRIP_TIMEOUT_MS,
     });

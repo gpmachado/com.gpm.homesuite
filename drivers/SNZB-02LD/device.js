@@ -33,11 +33,9 @@ class SonoffSNZB02LD extends SonoffBase {
                     minInterval: 1620,
                     maxInterval: 1740
                 },
-            ]).then(() => {
-                this.log('registered attr report listener');
-            }).catch(err => {
-                this.error('failed to register attr report listener', err);
-            });
+            ])
+                .then(() => this.log('registered attr report listener'))
+                .catch(err => this.error('failed to register attr report listener', err));
         }
 
         // measure_temperature only — device has no humidity cluster.
@@ -54,15 +52,10 @@ class SonoffSNZB02LD extends SonoffBase {
 
     onTemperatureMeasuredAttributeReport(measuredValue) {
         this._markAliveFromAvailability?.('temperature');
-        const temperatureOffset = this.getSetting('temperature_offset') || 0;
-        const parsedValue = this.getSetting('temperature_decimals') === '2'
-            ? Math.round((measuredValue / 100) * 100) / 100
-            : Math.round((measuredValue / 100) * 10) / 10;
-        this.setCapabilityValue('measure_temperature', parsedValue + temperatureOffset).catch(this.error);
+        this.setCapabilityValue('measure_temperature', Math.round(measuredValue / 10) / 10).catch(this.error);
     }
 
-    // Remove the temperature listener on both re-init (onUninit, inherited from
-    // SonoffBase) and removal (onDeleted) so it never accumulates.
+    // Remove the temperature listener on both re-init and removal so it never accumulates.
     async _teardown() {
         this.zclNode?.endpoints?.[1]?.clusters?.[CLUSTER.TEMPERATURE_MEASUREMENT.NAME]
             ?.removeListener('attr.measuredValue', this._onTempReport);

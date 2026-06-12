@@ -1009,7 +1009,8 @@
             "clusters": [
               0,
               1,
-              1026
+              1026,
+              64529
             ],
             "bindings": [
               0,
@@ -1072,7 +1073,8 @@
               0,
               1,
               1026,
-              1029
+              1029,
+              64529
             ],
             "bindings": [
               0,
@@ -1328,6 +1330,13 @@
                   "label": {
                     "en": "Last State",
                     "it": "Ultimo stato"
+                  }
+                },
+                {
+                  "id": "toggle",
+                  "label": {
+                    "en": "Toggle",
+                    "it": "Alterna"
                   }
                 }
               ]
@@ -2806,6 +2815,7 @@
         "measure_battery"
       ],
       "images": {
+        "xlarge": "/drivers/moes_remote_4_gang/assets/images/xlarge.png",
         "large": "/drivers/moes_remote_4_gang/assets/images/large.png",
         "small": "/drivers/moes_remote_4_gang/assets/images/small.png"
       },
@@ -5861,8 +5871,7 @@
             "de": "Stecke den Dongle in einen USB-Anschluss und lass ihn hochfahren."
           }
         }
-      },
-      "settings": []
+      }
     },
     {
       "platforms": [
@@ -6314,6 +6323,7 @@
         "measure_battery"
       ],
       "images": {
+        "xlarge": "/drivers/wireless_switch_remote_2_gang/assets/images/xlarge.png",
         "large": "/drivers/wireless_switch_remote_2_gang/assets/images/large.png",
         "small": "/drivers/wireless_switch_remote_2_gang/assets/images/small.png"
       },

@@ -4,7 +4,7 @@ const { ZigBeeDevice } = require('homey-zigbeedriver');
 const AvailabilityManager = require('../../lib/AvailabilityManager');
 const { AvailabilityManagerCluster0 } = AvailabilityManager;
 const { readAttrCatch } = require('../../lib/errorUtils');
-const { HEARTBEAT_TIMEOUT_MS } = require('../../lib/constants');
+const { ZIGBEE_REPEATER_HEARTBEAT_MS, ZIGBEE_REPEATER_PING_INTERVAL_MS } = require('../../lib/constants');
 const { TimeSilentBoundCluster } = require('../../lib/TimeCluster');
 
 
@@ -20,7 +20,7 @@ class ZigbeeRepeaterDevice extends ZigBeeDevice {
     // Passive availability watchdog — install FIRST so the ZCL response to
     // readAttributes below updates last_seen_ts and fires onBecameAvailable.
     this._availability = new AvailabilityManagerCluster0(this, {
-      timeout: HEARTBEAT_TIMEOUT_MS,
+      timeout: ZIGBEE_REPEATER_HEARTBEAT_MS,
     });
     await this._availability.install();
 
@@ -32,6 +32,15 @@ class ZigbeeRepeaterDevice extends ZigBeeDevice {
 
     // Silence ZCL time cluster frames (repeater probes coordinator's time cluster)
     try { zclNode.endpoints[1].bind('time', new TimeSilentBoundCluster()); } catch {}
+
+    // TS0207 sends no spontaneous ZCL frames — active ping every 30 min keeps
+    // the availability watchdog alive (same pattern as Hubitat generic repeater).
+    this._pingInterval = this.homey.setInterval(() => {
+      if (!this.zclNode) return;
+      this.zclNode.endpoints[1].clusters.basic
+        .readAttributes(['manufacturerName'])
+        .catch(() => {});
+    }, ZIGBEE_REPEATER_PING_INTERVAL_MS);
   }
 
   // ---------------------------------------------------------------------------
@@ -59,6 +68,10 @@ class ZigbeeRepeaterDevice extends ZigBeeDevice {
 
   /** Idempotent cleanup — safe to call from both onUninit and onDeleted. */
   async _teardown() {
+    if (this._pingInterval) {
+      this.homey.clearInterval(this._pingInterval);
+      this._pingInterval = null;
+    }
     await this._availability?.uninstall().catch(() => {});
   }
 

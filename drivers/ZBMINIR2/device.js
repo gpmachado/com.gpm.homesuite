@@ -106,7 +106,6 @@ class SonoffZBMINIR2 extends SonoffBase {
         //   3. Rejoin detection: 0xFC11 Report Attributes + 0x0006 Report Attributes within 200ms.
         //      On power restore both clusters report together (sniffer confirmed: ~8ms apart).
         //      Periodic 0xFC11 heartbeats arrive without a 0x0006 companion → no false positive.
-        this._startedAt = Date.now();
         this._onOffReportTs = 0; // timestamp of last 0x0006 Report Attributes (boot-dump corroborator)
         {
             const _hook = this.node.handleFrame.bind(this.node);
@@ -239,11 +238,10 @@ class SonoffZBMINIR2 extends SonoffBase {
 
     /**
      * Fires the device_rejoined flow trigger.
-     * Guards: 120s post-startup (ignores boot dump) + 30s cooldown (burst dedup).
+     * Guard: 30s cooldown deduplicates burst reports from the same rejoin event.
      */
     _notifyRejoin() {
         const now = Date.now();
-        if ((now - (this._startedAt ?? 0)) < 120_000) return;   // boot guard
         if ((now - (this._lastRejoinTs ?? 0)) < 30_000) return;  // burst cooldown
         this._lastRejoinTs = now;
         this.onDeviceRejoin();

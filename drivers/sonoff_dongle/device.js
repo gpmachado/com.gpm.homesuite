@@ -59,7 +59,8 @@ class SonoffDongleDevice extends ZigBeeDevice {
   }
 
   onEndDeviceAnnounce() {
-    this.log('Rejoined — availability will be restored via handleFrame');
+    this.log('Rejoined (ZDO announce) — restoring availability');
+    this._availability?.notifyActivity('rejoin').catch(() => {});
   }
 
   // onUninit fires on re-init/restart (onDeleted only on user removal).
