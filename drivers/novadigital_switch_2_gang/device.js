@@ -15,6 +15,7 @@ class novadigital_switch_2gang extends TuyaZclBase {
 
     this.printNode();
     try { if (zclNode.endpoints[1]?.clusters?.basic) zclNode.endpoints[1].bind('basic', new BasicSilentBoundCluster()); } catch {}
+    this._bindSilentTimeCluster(zclNode);
 
     const { subDeviceId } = this.getData();
     if (subDeviceId === 'secondSwitch') {

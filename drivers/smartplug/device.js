@@ -8,7 +8,6 @@
 
 const { CLUSTER } = require('zigbee-clusters');
 const { TuyaZclBase } = require('../../lib/TuyaZclBase');
-const { TimeSilentBoundCluster } = require('../../lib/TimeCluster');
 const { AvailabilityManagerCluster0 } = require('../../lib/AvailabilityManager');
 const { safeGetNumberSettings } = require('../../lib/settingsUtils');
 const { isDeviceUnreachable } = require('../../lib/errorUtils');
@@ -22,10 +21,6 @@ const {
   SMART_PLUG_POLL_MAX_MS,
   SMART_PLUG_VOLTAGE_POLL_EVERY,
   SMART_PLUG_ENERGY_POLL_EVERY,
-  SMART_PLUG_REPORT_POWER_DEFAULT_S,
-  SMART_PLUG_REPORT_CURRENT_DEFAULT_S,
-  SMART_PLUG_REPORT_VOLTAGE_DEFAULT_S,
-  SMART_PLUG_REPORT_INTERVAL_MIN_S,
   ONOFF_REPORT_MAX_INTERVAL_S,
   APP_VERSION,
 } = require('../../lib/constants');
@@ -115,10 +110,7 @@ class SmartPlugDevice extends TuyaZclBase {
       this.log('[rejoin] E001 boot-frame hook installed');
     }
 
-    try {
-      const ep1 = zclNode.endpoints[1];
-      if (ep1?.clusters?.time) ep1.bind('time', new TimeSilentBoundCluster());
-    } catch {}
+    this._bindSilentTimeCluster(zclNode);
 
     // tuyaE000 boot listener: inchingTime (0xD001) fires on reconnect/power-restore.
     // Since countdown is not implemented in Homey, this is a reliable zero-FP rejoin signal.
@@ -173,15 +165,9 @@ class SmartPlugDevice extends TuyaZclBase {
 
     const intervals = await safeGetNumberSettings(this, {
       pollInterval:          { min: 60, max: 3600, fallback: POLL_MIN / 1000 },
-      reportIntervalPower:   { min: SMART_PLUG_REPORT_INTERVAL_MIN_S, max: 3600, fallback: SMART_PLUG_REPORT_POWER_DEFAULT_S },
-      reportIntervalCurrent: { min: SMART_PLUG_REPORT_INTERVAL_MIN_S, max: 3600, fallback: SMART_PLUG_REPORT_CURRENT_DEFAULT_S },
-      reportIntervalVoltage: { min: SMART_PLUG_REPORT_INTERVAL_MIN_S, max: 3600, fallback: SMART_PLUG_REPORT_VOLTAGE_DEFAULT_S },
     });
 
     this._pollInterval          = intervals.pollInterval * 1000;   // seconds → ms
-    this._reportIntervalPower   = intervals.reportIntervalPower;
-    this._reportIntervalCurrent = intervals.reportIntervalCurrent;
-    this._reportIntervalVoltage = intervals.reportIntervalVoltage;
   }
 
   async onSettings({ oldSettings, newSettings, changedKeys }) {
@@ -200,12 +186,6 @@ class SmartPlugDevice extends TuyaZclBase {
         this.error(`Failed to write ${key}:`, err.message);
         throw err;
       }
-    }
-
-    const intervalKeys = ['reportIntervalPower', 'reportIntervalCurrent', 'reportIntervalVoltage'];
-    if (intervalKeys.some(k => changedKeys.includes(k))) {
-      this.log('[Settings] Reporting intervals changed — reconfiguring');
-      await this._safeSetupAttributeReporting();
     }
 
     if (changedKeys.includes('pollInterval')) {
@@ -516,20 +496,7 @@ class SmartPlugDevice extends TuyaZclBase {
       this.log('Could not configure onOff reporting:', err.message);
     }
 
-    try {
-      await this.zclNode.endpoints[ENDPOINT_ID].clusters.electricalMeasurement.configureReporting({
-        activePower: { minInterval: 5,  maxInterval: this._reportIntervalPower,   minChange: 0 },
-        rmsCurrent:  { minInterval: 5,  maxInterval: this._reportIntervalCurrent, minChange: 0 },
-        rmsVoltage:  { minInterval: 10, maxInterval: this._reportIntervalVoltage, minChange: 1 },
-      });
-      this.log(`ElectricalMeasurement reporting configured — power:${this._reportIntervalPower}s current:${this._reportIntervalCurrent}s voltage:${this._reportIntervalVoltage}s`);
-    } catch (err) {
-      if (isDeviceUnreachable(err)) {
-        this.log('ElectricalMeasurement reporting deferred — device offline, will retry on rejoin');
-      } else {
-        this.log(`ElectricalMeasurement reporting not supported (${err.message}) — polling will be used`);
-      }
-    }
+    this.log('ElectricalMeasurement uses polling/backoff; passive reports will still be handled');
   }
 
   // ─── Debounce ──────────────────────────────────────────────────────────

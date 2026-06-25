@@ -15,6 +15,7 @@ class switch_1_ch extends TuyaZclBase {
 
     this.printNode();
     try { if (zclNode.endpoints[1]?.clusters?.basic) zclNode.endpoints[1].bind('basic', new BasicSilentBoundCluster()); } catch {}
+    this._bindSilentTimeCluster(zclNode);
 
     this._endpoint  = 1;
     this._gangLabel = 'Gang 1';

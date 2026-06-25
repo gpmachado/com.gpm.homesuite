@@ -1,7 +1,7 @@
 {
-  "id": "doorwindowsensor",
+  "id": "doorwindowsensor2",
   "name": {
-    "en": "Door & Window Sensor"
+    "en": "Door & Window Sensor 2"
   },
   "class": "sensor",
   "platforms": ["local"],
@@ -14,7 +14,8 @@
   ],
   "energy": {
     "batteries": [
-      "CR2032"
+      "AAA",
+      "AAA"
     ]
   },
   "images": {
@@ -24,8 +25,7 @@
   },
   "zigbee": {
     "manufacturerName": [
-      "_TZ3000_7tbsruql",
-      "_TZ3000_osu834un"
+      "_TZ3000_6zvw8ham"
     ],
     "productId": [
       "TS0203"

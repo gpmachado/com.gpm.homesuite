@@ -31,98 +31,71 @@ class TempHumidClock extends TuyaSpecificClusterDevice {
     if (!this.hasCapability('is_availability'))
       await this.addCapability('is_availability').catch(err => this.error('addCapability is_availability:', err));
 
-    // Availability watchdog — install FIRST so the boot time sync (sendTimeResponse)
-    // and initial queryDatapoints generate frames that mark the device as available.
+    // Availability watchdog — install FIRST so inbound wake/rejoin frames mark
+    // the sleepy device as available without needing active polling.
     this._availability = new AvailabilityManagerCluster0(this, {
       timeout: TEMPHUMID_CLOCK_HEARTBEAT_MS,
     });
     await this._availability.install();
 
-    // Silence ZCL time cluster frames (clock syncs via Tuya ef00, not ZCL time cluster)
-    try { zclNode.endpoints[1].bind('time', new TimeSilentBoundCluster()); } catch {}
+    try {
+      zclNode.endpoints[1].bind('time', new TimeSilentBoundCluster({
+        onReadAttributes: () => this._handleZclTimeRead(),
+      }));
+    } catch {}
 
     const tuyaCluster = zclNode.endpoints[1].clusters.tuya;
 
-    this.lastQueryAt = 0;
-    this.lastTimeSyncAt = 0;
     this._lastReported = {};  // Deduplicate repeated datapoint reports
 
-    // Device woke up and reported data - opportunistic query
+    // Device woke up and reported data.
     tuyaCluster.on('reporting', async value => {
+      this._markAliveFromAvailability?.('tuya-reporting');
       this.processDatapoint(value);
-
-      // Throttle queries to once per 60s (battery saving)
-      const now = Date.now();
-      if (now - this.lastQueryAt > 60000) {
-        this.lastQueryAt = now;
-        await this.sleep(200);
-        await this.queryDatapoints();
-      }
     });
 
     // Response to query/write commands
     tuyaCluster.on('response', value => {
+      this._markAliveFromAvailability?.('tuya-response');
       this.processDatapoint(value);
     });
 
-    // Heartbeat = device is awake - good time for opportunistic query + time sync
+    // Heartbeat = device is awake. Keep this passive: the device asks for time
+    // when it needs it, and extra commands during rejoin can miss the wake window.
     tuyaCluster.on('heartbeat', async heartbeat => {
       const status = heartbeat.status || 0;
       const value = heartbeat.value || 0;
       const marker = heartbeat.marker || 0;
       this.log(`Heartbeat [${status},${value},0x${marker.toString(16)}]`);
-
-      const now = Date.now();
-
-      // Throttle queries to once per 60s
-      if (now - this.lastQueryAt > 60000) {
-        this.lastQueryAt = now;
-        await this.sleep(200);
-        await this.queryDatapoints();
-      }
-
-      // Proactive time sync every 10 minutes (device doesn't request)
-      if (!this.lastTimeSyncAt || now - this.lastTimeSyncAt > 600000) {
-        this.lastTimeSyncAt = now;
-        await this.sleep(300);
-        try {
-          await this.sendTimeResponse();
-          this.log('Proactive time sync sent');
-        } catch (err) {
-          if (isDeviceUnreachable(err)) this.log('Proactive sync skipped — device sleeping');
-          else this.error('Proactive sync failed:', err.message);
-        }
-      }
+      this._markAliveFromAvailability?.('tuya-heartbeat');
     });
 
     // Device requests time sync - respond immediately
     tuyaCluster.on('timeRequest', async (request) => {
       this.log('Time request received');
+      this._markAliveFromAvailability?.('tuya-time-request');
+      this._lastTuyaTimeRequestAt = Date.now();
       try {
-        await this.sendTimeResponse(request);
+        await this.sendTimeResponse(request, { timeout: 3000 });
       } catch (err) {
         if (isDeviceUnreachable(err)) this.log('Time sync skipped — device sleeping');
         else this.error('Time sync failed:', err.message);
+      }
+
+      try {
+        await this._sendClockHandshake('time-request');
+      } catch (err) {
+        if (isDeviceUnreachable(err)) this.log('Clock handshake skipped — device sleeping');
+        else this.error('Clock handshake failed:', err.message);
       }
     });
 
     this.log('Listeners ready');
 
-    // Initial query + time sync after startup
+    // Avoid active init traffic for this sleepy clock. It reports datapoints and
+    // requests time on its own during pairing/rejoin.
     this.homey.setTimeout(async () => {
       this.log(`Init complete [v${VERSION}]`);
-      await this.queryDatapoints();
-
-      // Initial time sync
-      await this.sleep(500);
-      try {
-        await this.sendTimeResponse();
-        this.log('Initial time sync sent');
-      } catch (err) {
-        if (isDeviceUnreachable(err)) this.log('Initial sync skipped — device sleeping');
-        else this.error('Initial sync failed:', err.message);
-      }
-
       const tz = this.homey.clock.getTimezone();
       this.log(`Ready - TZ: ${tz}`);
     }, 2000);
@@ -178,22 +151,6 @@ class TempHumidClock extends TuyaSpecificClusterDevice {
     }
   }
 
-  // Query all datapoints from device (cmd 0x03)
-  async queryDatapoints() {
-    try {
-      await this.zclNode.endpoints[1].clusters.tuya.dataQuery({
-        transid: this.transactionID
-      });
-      this.log('DP query sent');
-    } catch (error) {
-      this.log(`Query error: ${error.message}`);
-    }
-  }
-
-  sleep(ms) {
-    return new Promise(resolve => this.homey.setTimeout(resolve, ms));
-  }
-
   async onBecameAvailable() {
     this.log('Device became available');
     if (super.onBecameAvailable) await super.onBecameAvailable();
@@ -204,6 +161,51 @@ class TempHumidClock extends TuyaSpecificClusterDevice {
     this.log(`Device became unavailable (${reason})`);
     if (super.onBecameUnavailable) await super.onBecameUnavailable(reason);
     // AvailabilityManager._markAllUnavailable already fires the flow trigger.
+  }
+
+  onEndDeviceAnnounce() {
+    this.log('Device rejoined network (End Device Announce)');
+    this._lastEndDeviceAnnounceAt = Date.now();
+    this._markAliveFromAvailability?.('end-device-announce');
+  }
+
+  _handleZclTimeRead() {
+    this._markAliveFromAvailability?.('zcl-time-read');
+
+    const now = Date.now();
+    const lastFallbackAt = this._lastZclTimeFallbackAt || 0;
+    const isNewRejoin = (this._lastEndDeviceAnnounceAt || 0) > lastFallbackAt;
+    if (!isNewRejoin && now - lastFallbackAt < 120000) return;
+    if (now - (this._lastTuyaTimeRequestAt || 0) < 10000) return;
+    this._lastZclTimeFallbackAt = now;
+
+    this.homey.setTimeout(async () => {
+      if (Date.now() - (this._lastTuyaTimeRequestAt || 0) < 10000) return;
+      try {
+        await this.sendTimeResponse(null, { waitForResponse: false });
+        await this._sendClockHandshake('zcl-time-fallback');
+        this.log('ZCL time fallback sync sent');
+      } catch (err) {
+        if (isDeviceUnreachable(err)) this.log('ZCL time fallback skipped — device sleeping');
+        else this.error('ZCL time fallback failed:', err.message);
+      }
+    }, 250);
+  }
+
+  async _sendClockHandshake(reason) {
+    const now = Date.now();
+    const lastHandshakeAt = this._lastClockHandshakeAt || 0;
+    const isNewRejoin = (this._lastEndDeviceAnnounceAt || 0) > lastHandshakeAt;
+    if (!isNewRejoin && now - lastHandshakeAt < 120000) return;
+    this._lastClockHandshakeAt = now;
+
+    const tuyaCluster = this.zclNode?.endpoints?.[1]?.clusters?.tuya;
+    if (!tuyaCluster?.dataQuery || !tuyaCluster?.gatewayStatus) return;
+
+    await tuyaCluster.dataQuery({});
+    await new Promise(resolve => this.homey.setTimeout(resolve, 300));
+    await tuyaCluster.gatewayStatus({ payload: Buffer.from([0x00, 0x36]) });
+    this.log(`Clock handshake sent (${reason})`);
   }
 
   onDeleted() {

@@ -27,7 +27,7 @@
  */
 
 const { ZigBeeDevice } = require('homey-zigbeedriver');
-const { CLUSTER, debug } = require('zigbee-clusters');
+const { CLUSTER } = require('zigbee-clusters');
 const { AvailabilityManagerCluster6 } = require('../../lib/AvailabilityManager');
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -39,10 +39,6 @@ const { APP_VERSION, GAS_DETECTOR_HEARTBEAT_MS } = require('../../lib/constants'
 
 const DRIVER_NAME = 'Smart Gas Detector';
 const ENDPOINT_ID = 1;
-
-// Set true to log every inbound Zigbee frame (useful to check if device sends keepalives).
-// Turn off in production to reduce log noise.
-const DEBUG_FRAMES = false;
 
 // IAS zoneStatus bitmask positions (ZCL spec 8.2.2.2.1.6)
 const IAS_BIT_ALARM1 = 0x0001; // gas detected
@@ -77,33 +73,8 @@ class GasDetector extends ZigBeeDevice {
     this._availability = new AvailabilityManagerCluster6(this, { timeout: GAS_DETECTOR_HEARTBEAT_MS });
     await this._availability.install();
 
-    // Optional: log every inbound Zigbee frame so we can see if the device
-    // sends periodic keepalives (would allow switching to AvailabilityManagerCluster0).
-    if (DEBUG_FRAMES) {
-      debug(true); // enable zigbee-clusters verbose ZCL parsing logs
-      this.log('[Frame] ZCL debug enabled (set DEBUG_FRAMES=false to disable)');
-      await this._installFrameDebug();
-    }
-
     await this.ready();
     this.log(`${DRIVER_NAME} - ready`);
-  }
-
-  // ─── Frame debug ───────────────────────────────────────────────────────
-
-  async _installFrameDebug() {
-    try {
-      const node = await this.homey.zigbee.getNode(this);
-      if (!node) return;
-      const original = node.handleFrame?.bind(node);
-      node.handleFrame = async (endpointId, clusterId, frame, meta) => {
-        this.log(`[Frame] ep=${endpointId} cluster=0x${clusterId.toString(16).padStart(4, '0')} seq=${frame?.seqNum ?? '-'}`);
-        return original ? original(endpointId, clusterId, frame, meta) : undefined;
-      };
-      this.log('[Frame] Debug hook installed');
-    } catch (err) {
-      this.error('[Frame] Could not install debug hook:', err.message);
-    }
   }
 
   // ─── IAS Zone ──────────────────────────────────────────────────────────

@@ -3,24 +3,24 @@
 /**
  * @file device.js
  * @description Tuya TS0203 Door & Window Sensor.
- * Manufacturers: _TZ3000_7tbsruql, _TZ3000_osu834un, _TZ3000_6zvw8ham
+ * Manufacturers: _TZ3000_7tbsruql, _TZ3000_osu834un
  * Protocol: ZCL IAS Zone (cluster 0x0500), battery-powered (CR2032).
  * Zone type: contactSwitch.
  *
- * IAS Zone zoneStatus bitmap (ZCL spec 8.2.2.2.1.6):
+ * IAS Zone zoneStatus bitmap
  *   Bit 0 (0x0001) alarm1   -> alarm_contact (open = true)
  *   Bit 3 (0x0008) battery  -> alarm_battery (low battery = true)
  *
- * Availability: AvailabilityManagerCluster6 (callback-driven, 4 h timeout).
- * _markAliveFromAvailability() is called on:
- *   - every IAS Zone status change notification
- *   - every battery percentage attribute report
- *   - onEndDeviceAnnounce (device rejoin)
+ * Availability: AvailabilityManagerCluster0 (passive handleFrame hook, 4 h timeout).
+ * Any inbound Zigbee frame counts as activity, including:
+ *   - Basic cluster reports (0x0000)
+ *   - Identify cluster frames (0x0003)
+ *   - IAS Zone status change notifications (0x0500)
+ *   - battery percentage reports (Power Configuration 0x0001)
  *
- * Battery reporting is configured with minChange=0 so the device reports
- * periodically (up to maxInterval) regardless of battery level change.
- * This periodic report acts as a heartbeat confirming the device is reachable
- * even when the door has not been opened for an extended period.
+ * Battery reporting is configured with minChange=1, but this TS0203 firmware
+ * may stay silent despite accepting the reporting command. A 30 min poll reads
+ * battery and zoneStatus so stable closed/open doors still produce heartbeats.
  *
  * Enrollment:
  *   zoneEnrollResponse sent on every init.
@@ -31,8 +31,10 @@
 
 const { ZigBeeDevice } = require('homey-zigbeedriver');
 const { CLUSTER } = require('zigbee-clusters');
-const { AvailabilityManagerCluster6 } = require('../../lib/AvailabilityManager');
-const { APP_VERSION, BATTERY_DEVICE_HEARTBEAT_MS } = require('../../lib/constants');
+const { AvailabilityManagerCluster0 } = require('../../lib/AvailabilityManager');
+const IASZoneHelper = require('../../lib/IASZoneHelper');
+const { TimeSilentBoundCluster } = require('../../lib/TimeCluster');
+const { APP_VERSION, DOOR_SENSOR_HEARTBEAT_MS, DOOR_SENSOR_POLL_INTERVAL_MS } = require('../../lib/constants');
 
 // ─────────────────────────────────────────────────────────────────────────────
 
@@ -44,11 +46,11 @@ const IAS_ZONE_ID  = 1;
 const IAS_BIT_ALARM1   = 0x0001; // door/window open
 const IAS_BIT_BATTERY  = 0x0008; // low battery
 
-// Battery reporting: report every hour regardless of level change.
-// minChange=0 forces periodic reports even in stable conditions — this is
-// the only heartbeat available when the door is not opened for days.
-const BATTERY_REPORT_MAX_INTERVAL_S = 3600; // 1 h
-const BATTERY_REPORT_MIN_INTERVAL_S = 3600; // equal to max → periodic, not event-driven
+// Battery reporting: keep a gentle periodic report and report on 1 raw-unit change.
+// TS0203 availability is tracked from any inbound frame, not only battery reports.
+const BATTERY_REPORT_MAX_INTERVAL_S = 14400; // 4 h
+const BATTERY_REPORT_MIN_INTERVAL_S = 3600;  // 1 h
+const BATTERY_REPORT_MIN_CHANGE = 1;
 
 // ─────────────────────────────────────────────────────────────────────────────
 
@@ -63,18 +65,25 @@ class DoorWindowSensorDevice extends ZigBeeDevice {
   async onNodeInit({ zclNode }) {
     this.log(`${DRIVER_NAME} v${APP_VERSION} - init`);
     this.printNode();
+    this._zclNode = zclNode;
+    this._batteryReportingConfigured = false;
+    this._batteryReportingConfiguring = false;
+    this._pollTimer = null;
 
     if (!this.hasCapability('is_availability'))
       await this.addCapability('is_availability')
         .catch(err => this.error('addCapability is_availability:', err));
 
-    this._availability = new AvailabilityManagerCluster6(this, {
-      timeout: BATTERY_DEVICE_HEARTBEAT_MS,
+    this._availability = new AvailabilityManagerCluster0(this, {
+      timeout: DOOR_SENSOR_HEARTBEAT_MS,
+      resetLastSeenOnInstall: true,
     });
     await this._availability.install();
 
+    this._bindSilentTimeCluster(zclNode);
     await this._setupIASZone(zclNode);
-    this._setupBatteryReporting(zclNode);
+    await this._setupBatteryReporting(zclNode);
+    this._startPolling();
 
     await this.ready();
     this.log(`${DRIVER_NAME} - ready`);
@@ -83,98 +92,156 @@ class DoorWindowSensorDevice extends ZigBeeDevice {
   // ─── IAS Zone ──────────────────────────────────────────────────────────
 
   /**
-   * Configure IAS Zone cluster: enroll, listen for status changes.
+   * Configure IAS Zone cluster: enroll, listen for status changes, write CIE Address.
    * @param {import('zigbee-clusters').ZCLNode} zclNode
    */
   async _setupIASZone(zclNode) {
-    const iasZone = zclNode.endpoints[ENDPOINT_ID].clusters[CLUSTER.IAS_ZONE.NAME];
-    if (!iasZone) {
-      this.error('[IAS] Cluster missing on endpoint 1');
-      return;
-    }
+    this._iasHelper = new IASZoneHelper(this, {
+      endpointId: ENDPOINT_ID,
+      zoneId: IAS_ZONE_ID,
+      configureCieAddress: true,
+      onActivity: source => {
+        this._notifyAvailability(source);
+        this._retryBatteryReportingOnWake(source);
+      },
+      onStatus: zoneStatus => this._applyZoneStatus(zoneStatus),
+    });
 
-    iasZone.onZoneStatusChangeNotification = ({ zoneStatus }) => {
-      this._markAliveFromAvailability?.('ias');
-      this.log('[IAS] Status change — raw:', zoneStatus);
-      this._applyZoneStatus(zoneStatus);
-    };
-
-    // Re-enrollment after factory reset
-    iasZone.onZoneEnrollRequest = () => {
-      this.log('[IAS] Enroll request — post-reset');
-      this._sendEnrollResponse(iasZone);
-    };
-
-    // Read initial state on every boot so capabilities reflect reality
-    // even if the door state changed while the app was off.
-    try {
-      const attrs = await iasZone.readAttributes(['zoneState', 'zoneStatus', 'zoneId']);
-      this.log(`[IAS] zoneState=${attrs.zoneState} zoneId=${attrs.zoneId}`);
-      if (attrs.zoneStatus !== undefined) {
-        this._applyZoneStatus(attrs.zoneStatus);
-      }
-    } catch (err) {
-      this.log('[IAS] Could not read initial attributes (non-fatal):', err.message);
-    }
-
-    await this._sendEnrollResponse(iasZone);
-  }
-
-  /**
-   * Send ZCL zoneEnrollResponse to the device.
-   * Must be sent on every init — some TS0203 units stop reporting
-   * if no enroll response is received after a coordinator restart.
-   * @param {object} iasZone
-   */
-  async _sendEnrollResponse(iasZone) {
-    try {
-      await iasZone.zoneEnrollResponse({ enrollResponseCode: 0x00, zoneId: IAS_ZONE_ID });
-      this.log(`[IAS] Enroll response sent (zoneId=${IAS_ZONE_ID})`);
-    } catch (err) {
-      this.error('[IAS] Enroll response failed:', err.message);
-    }
+    this._iasZone = await this._iasHelper.init(zclNode);
   }
 
   // ─── Battery ───────────────────────────────────────────────────────────
 
   /**
    * Listen for battery percentage reports and configure periodic reporting.
-   * minChange=0 + minInterval=maxInterval forces a report every hour even
-   * when battery level is stable — acts as a heartbeat for the watchdog.
+   * minChange=1 keeps the reporting gentle while still giving us a periodic
+   * heartbeat when the device accepts the configuration.
    * @param {import('zigbee-clusters').ZCLNode} zclNode
    */
-  _setupBatteryReporting(zclNode) {
-    zclNode.endpoints[ENDPOINT_ID].clusters.powerConfiguration
-      .on('attr.batteryPercentageRemaining', value => {
-        this._markAliveFromAvailability?.('battery');
-        this.setCapabilityValue('measure_battery', Math.round(value / 2))
-          .catch(this.error);
-      });
+  async _setupBatteryReporting(zclNode) {
+    const powerConfiguration = zclNode.endpoints[ENDPOINT_ID].clusters.powerConfiguration;
+    if (!powerConfiguration) {
+      this.log('[Battery] Power Configuration cluster missing on endpoint 1');
+      return;
+    }
+    this._powerConfiguration = powerConfiguration;
 
-    if (this.isFirstInit()) {
-      this.configureAttributeReporting([{
+    this._onBatteryPercentage ??= value => {
+      this._applyBatteryPercentage(value, 'battery');
+    };
+    powerConfiguration.removeListener('attr.batteryPercentageRemaining', this._onBatteryPercentage);
+    powerConfiguration.on('attr.batteryPercentageRemaining', this._onBatteryPercentage);
+
+    try {
+      const attrs = await powerConfiguration.readAttributes(['batteryPercentageRemaining']);
+      if (attrs.batteryPercentageRemaining !== undefined) {
+        this._applyBatteryPercentage(attrs.batteryPercentageRemaining, 'battery-read');
+      }
+    } catch (err) {
+      this.log('[Battery] Could not read initial battery percentage (non-fatal):', err.message);
+    }
+
+    await this._configureBatteryReporting('init');
+  }
+
+  /**
+   * Configure periodic battery reporting. Sleepy TS0203 devices often reject
+   * this at app boot because they are already asleep, so IAS wakeups retry it.
+   * @param {string} source
+   */
+  async _configureBatteryReporting(source) {
+    if (this._batteryReportingConfigured || this._batteryReportingConfiguring) return;
+
+    this._batteryReportingConfiguring = true;
+    try {
+      await this.configureAttributeReporting([{
         endpointId:    ENDPOINT_ID,
         cluster:       CLUSTER.POWER_CONFIGURATION,
         attributeName: 'batteryPercentageRemaining',
         minInterval:   BATTERY_REPORT_MIN_INTERVAL_S,
         maxInterval:   BATTERY_REPORT_MAX_INTERVAL_S,
-        minChange:     0,
-      }]).catch(err => this.log('Battery reporting config failed (non-fatal):', err.message));
+        minChange:     BATTERY_REPORT_MIN_CHANGE,
+      }]);
+      this._batteryReportingConfigured = true;
+      this.log(`[Battery] Reporting configured (${source})`);
+    } catch (err) {
+      this.log(`Battery reporting config failed (${source}, non-fatal):`, err.message);
+    } finally {
+      this._batteryReportingConfiguring = false;
     }
+  }
+
+  // ─── Polling ───────────────────────────────────────────────────────────
+
+  /**
+   * Poll battery and IAS state periodically. TS0203 accepts battery reporting
+   * configuration but may stay silent for hours, so successful reads are also
+   * used as availability heartbeats.
+   */
+  _startPolling() {
+    this._stopPolling();
+
+    this._pollTimer = this.homey.setInterval(() => {
+      this._pollSensorState('interval').catch(err => {
+        this.log('[Poll] Failed:', err.message);
+      });
+    }, DOOR_SENSOR_POLL_INTERVAL_MS);
+
+    this.log(`[Poll] Started (${Math.round(DOOR_SENSOR_POLL_INTERVAL_MS / 60000)} min)`);
+  }
+
+  _stopPolling() {
+    if (!this._pollTimer) return;
+    this.homey.clearInterval(this._pollTimer);
+    this._pollTimer = null;
+    this.log('[Poll] Stopped');
+  }
+
+  async _pollSensorState(source) {
+    let sawResponse = false;
+
+    if (this._powerConfiguration?.readAttributes) {
+      try {
+        const attrs = await this._powerConfiguration.readAttributes(['batteryPercentageRemaining']);
+        if (attrs.batteryPercentageRemaining !== undefined) {
+          sawResponse = true;
+          this._applyBatteryPercentage(attrs.batteryPercentageRemaining, `poll-${source}`);
+        }
+      } catch (err) {
+        this.log(`[Poll] Battery read failed (${source}, non-fatal):`, err.message);
+      }
+    }
+
+    if (this._iasZone?.readAttributes) {
+      try {
+        const attrs = await this._iasZone.readAttributes(['zoneStatus']);
+        if (attrs.zoneStatus !== undefined) {
+          sawResponse = true;
+          this._applyZoneStatus(attrs.zoneStatus);
+        }
+      } catch (err) {
+        this.log(`[Poll] IAS read failed (${source}, non-fatal):`, err.message);
+      }
+    }
+
+    if (sawResponse) this._notifyAvailability(`poll-${source}`);
   }
 
   // ─── Zone status ───────────────────────────────────────────────────────
 
   /**
    * Parse IAS zoneStatus bitmap and update capabilities.
+   * Evaluates alarm1 and alarm2 (dual-bit check) to ensure compatibility.
    * @param {number|Buffer|object} zoneStatus
    */
   _applyZoneStatus(zoneStatus) {
-    const bitmap = this._toUint16(zoneStatus);
-    const open       = !!(bitmap & IAS_BIT_ALARM1);
+    const bitmap = IASZoneHelper.toUint16(zoneStatus);
+    const alarm1 = !!(bitmap & IAS_BIT_ALARM1);
+    const alarm2 = !!(bitmap & 0x0002); // alarm2 secondary
+    const open = alarm1 || alarm2;
     const batteryLow = !!(bitmap & IAS_BIT_BATTERY);
 
-    this.log(`[IAS] open=${open} batteryLow=${batteryLow} (0x${bitmap.toString(16).padStart(4, '0')})`);
+    this.log(`[IAS] open=${open} (alarm1=${alarm1}, alarm2=${alarm2}) batteryLow=${batteryLow} (0x${bitmap.toString(16).padStart(4, '0')})`);
 
     this._setCapSafe('alarm_contact', open);
     this._setCapSafe('alarm_battery', batteryLow);
@@ -184,7 +251,7 @@ class DoorWindowSensorDevice extends ZigBeeDevice {
 
   onEndDeviceAnnounce() {
     this.log('Device rejoined network (End Device Announce)');
-    this._markAliveFromAvailability?.('rejoin');
+    this._notifyAvailability('rejoin');
   }
 
   async onBecameAvailable() {
@@ -198,27 +265,6 @@ class DoorWindowSensorDevice extends ZigBeeDevice {
   // ─── Helpers ───────────────────────────────────────────────────────────
 
   /**
-   * Normalise zoneStatus to a uint16 number.
-   * Handles: Buffer, Buffer-like {type:'Buffer',data:[]}, number, named-key object.
-   * @param {number|Buffer|object} value
-   * @returns {number}
-   */
-  _toUint16(value) {
-    if (Buffer.isBuffer(value)) return value.readUInt16LE(0);
-    if (value?.type === 'Buffer' && Array.isArray(value.data))
-      return Buffer.from(value.data).readUInt16LE(0);
-    if (typeof value === 'number') return value;
-    const bits = {
-      alarm1: IAS_BIT_ALARM1, alarm2: 0x0002, tamper: 0x0004,
-      battery: IAS_BIT_BATTERY, acMains: 0x0010, test: 0x0020,
-      batteryDefect: 0x0040,
-    };
-    return Object.entries(bits).reduce(
-      (acc, [k, mask]) => value[k] ? acc | mask : acc, 0
-    );
-  }
-
-  /**
    * Set capability only when value changes; silently skip missing capabilities.
    * @param {string} capability
    * @param {*} value
@@ -230,13 +276,62 @@ class DoorWindowSensorDevice extends ZigBeeDevice {
       .catch(err => this.error(`Failed to set ${capability}:`, err.message));
   }
 
+  /**
+   * Convert ZCL batteryPercentageRemaining (0-200) to Homey percent (0-100).
+   * @param {number} value
+   * @param {string} source
+   */
+  _applyBatteryPercentage(value, source) {
+    if (typeof value !== 'number') return;
+    const percentage = Math.max(0, Math.min(100, Math.round(value / 2)));
+    this._notifyAvailability(source);
+    this.log(`[Battery] ${percentage}% (raw=${value})`);
+    this._setCapSafe('measure_battery', percentage);
+  }
+
+  /**
+   * Explicit activity marker for events that may not pass through handleFrame.
+   * @param {string} source
+   */
+  _notifyAvailability(source) {
+    this._availability?.notifyActivity?.(source).catch(() => {});
+  }
+
+  /**
+   * Retry battery reporting when the sensor is known to be awake.
+   * @param {string} source
+   */
+  _retryBatteryReportingOnWake(source) {
+    if (this._batteryReportingConfigured || !this._zclNode) return;
+    this._configureBatteryReporting(`${source}-wake`).catch(err => {
+      this.log(`Battery reporting retry failed (${source}, non-fatal):`, err.message);
+    });
+  }
+
+  _bindSilentTimeCluster(zclNode) {
+    try {
+      const endpoint = zclNode.endpoints[ENDPOINT_ID];
+      if (!endpoint) return;
+      endpoint.bind('time', new TimeSilentBoundCluster());
+      this.log('[Time] Silent bound cluster installed');
+    } catch (err) {
+      this.log('[Time] Silent bind skipped:', err.message);
+    }
+  }
+
   // ─── Lifecycle ─────────────────────────────────────────────────────────
 
   async onUninit() {
+    this._stopPolling();
+    this._iasHelper?.dispose();
+    this._powerConfiguration?.removeListener?.('attr.batteryPercentageRemaining', this._onBatteryPercentage);
     await this._availability?.uninstall().catch(() => {});
   }
 
   onDeleted() {
+    this._stopPolling();
+    this._iasHelper?.dispose();
+    this._powerConfiguration?.removeListener?.('attr.batteryPercentageRemaining', this._onBatteryPercentage);
     this._availability?.uninstall().catch(() => {});
     this.log(`${DRIVER_NAME} - removed`);
   }

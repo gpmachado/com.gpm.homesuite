@@ -69,42 +69,6 @@
   },
   {
     "type": "group",
-    "label": { "en": "Reporting intervals" },
-    "children": [
-      {
-        "id": "reportIntervalPower",
-        "type": "number",
-        "label": { "en": "Power report interval (s)" },
-        "hint": { "en": "How often the device reports active power. Recommended: 60s. Minimum accepted by most devices is 60s." },
-        "value": 60,
-        "min": 60,
-        "max": 3600,
-        "step": 1
-      },
-      {
-        "id": "reportIntervalCurrent",
-        "type": "number",
-        "label": { "en": "Current report interval (s)" },
-        "hint": { "en": "How often the device reports current (A). Recommended: 60s. Use the same value as Power for consistency." },
-        "value": 60,
-        "min": 60,
-        "max": 3600,
-        "step": 1
-      },
-      {
-        "id": "reportIntervalVoltage",
-        "type": "number",
-        "label": { "en": "Voltage report interval (s)" },
-        "hint": { "en": "How often the device reports voltage (V). Recommended: 300s. Voltage is stable and rarely changes significantly." },
-        "value": 300,
-        "min": 60,
-        "max": 3600,
-        "step": 1
-      }
-    ]
-  },
-  {
-    "type": "group",
     "label": { "en": "Energy measurement" },
     "children": [
       {

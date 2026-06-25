@@ -2,6 +2,7 @@
 
 const Homey = require('homey');
 const { debug } = require('zigbee-clusters');
+const { ZCL_DEBUG } = require('./lib/constants');
 
 const { registerCustomClusters } = require('./lib/clusterRegistry');
 registerCustomClusters();
@@ -9,8 +10,7 @@ registerCustomClusters();
 // ─── ZCL debug verbosity ──────────────────────────────────────────────────────
 // true  → verbose ZCL frame logging (useful during development / sniffing)
 // false → silent (production)
-// Flip this ONE constant instead of hunting across every device.js.
-const ZCL_DEBUG = false;
+// Flip ZCL_DEBUG in lib/constants.js instead of hunting across every device.js.
 debug(ZCL_DEBUG);
 // ─────────────────────────────────────────────────────────────────────────────
 
