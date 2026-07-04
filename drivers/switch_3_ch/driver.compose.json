@@ -1,0 +1,433 @@
+{
+  "id": "switch_3_ch",
+  "name": {
+    "en": "3CH Relay Module"
+  },
+  "class": "socket",
+  "capabilities": [
+    "onoff",
+    "is_availability"
+  ],
+  "energy": {
+    "approximation": {
+      "usageOn": 0,
+      "usageOff": 0
+    }
+  },
+  "settings": [
+    {
+      "id": "device_siblings_info",
+      "type": "label",
+      "label": {
+        "en": "Connected relays"
+      },
+      "hint": {
+        "en": "Other relay channels sharing this physical module."
+      },
+      "value": "-"
+    },
+    {
+      "type": "group",
+      "label": {
+        "en": "Power-On Global"
+      },
+      "children": [
+        {
+          "id": "power_on_behavior_global",
+          "type": "dropdown",
+          "label": {
+            "en": "Default behavior"
+          },
+          "hint": {
+            "en": "Applies to all three relay channels."
+          },
+          "value": "lastState",
+          "values": [
+            {
+              "id": "off",
+              "label": {
+                "en": "Always Off"
+              }
+            },
+            {
+              "id": "on",
+              "label": {
+                "en": "Always On"
+              }
+            },
+            {
+              "id": "lastState",
+              "label": {
+                "en": "Last State"
+              }
+            }
+          ]
+        },
+        {
+          "id": "power_on_current_global",
+          "type": "label",
+          "label": {
+            "en": "Current (Global)"
+          },
+          "value": "-"
+        }
+      ]
+    },
+    {
+      "type": "group",
+      "label": {
+        "en": "Power-On Relay 1"
+      },
+      "children": [
+        {
+          "id": "power_on_behavior_gang1",
+          "type": "dropdown",
+          "label": {
+            "en": "Relay 1 override"
+          },
+          "value": "lastState",
+          "values": [
+            {
+              "id": "off",
+              "label": {
+                "en": "Always Off"
+              }
+            },
+            {
+              "id": "on",
+              "label": {
+                "en": "Always On"
+              }
+            },
+            {
+              "id": "lastState",
+              "label": {
+                "en": "Last State"
+              }
+            }
+          ]
+        },
+        {
+          "id": "power_on_current_gang1",
+          "type": "label",
+          "label": {
+            "en": "Current (Relay 1)"
+          },
+          "value": "-"
+        }
+      ]
+    },
+    {
+      "id": "power_on_current_gang2",
+      "type": "label",
+      "label": {
+        "en": "Current (Relay 2)"
+      },
+      "hint": {
+        "en": "Change from the Relay 2 tile settings."
+      },
+      "value": "-"
+    },
+    {
+      "id": "power_on_current_gang3",
+      "type": "label",
+      "label": {
+        "en": "Current (Relay 3)"
+      },
+      "hint": {
+        "en": "Change from the Relay 3 tile settings."
+      },
+      "value": "-"
+    },
+    {
+      "type": "group",
+      "label": {
+        "en": "Inching"
+      },
+      "children": [
+        {
+          "id": "inching_enabled",
+          "type": "checkbox",
+          "value": false,
+          "label": {
+            "en": "Inching (auto-off)"
+          },
+          "hint": {
+            "en": "Use only with a momentary push button that returns to its resting position."
+          }
+        },
+        {
+          "id": "inching_time",
+          "type": "number",
+          "value": 0,
+          "min": 0,
+          "max": 3600,
+          "units": "s",
+          "label": {
+            "en": "Inching delay"
+          },
+          "hint": {
+            "en": "0–3600 seconds."
+          }
+        }
+      ]
+    }
+  ],
+  "zigbee": {
+    "manufacturerName": [
+      "_TZ3000_odzoiovu",
+      "_TZ3000_lvhy15ix",
+      "_TZ3000_4o16jdca"
+    ],
+    "productId": [
+      "TS0003"
+    ],
+    "endpoints": {
+      "1": {
+        "clusters": [
+          0,
+          3,
+          4,
+          5,
+          6,
+          57344,
+          57345
+        ],
+        "bindings": [
+          6
+        ]
+      },
+      "2": {
+        "clusters": [
+          4,
+          5,
+          6,
+          57345
+        ],
+        "bindings": [
+          6
+        ]
+      },
+      "3": {
+        "clusters": [
+          4,
+          5,
+          6,
+          57345
+        ],
+        "bindings": [
+          6
+        ]
+      }
+    },
+    "learnmode": {
+      "image": "{{driverAssetsPath}}/icon.svg",
+      "instruction": {
+        "en": "Hold the setup button for 10 seconds, or power-cycle the module five times, until its indicator blinks. Three tiles will be created."
+      }
+    },
+    "devices": {
+      "secondSwitch": {
+        "class": "socket",
+        "capabilities": [
+          "onoff"
+        ],
+        "name": {
+          "en": "3CH Relay Module - Relay 2"
+        },
+        "energy": {
+          "approximation": {
+            "usageOn": 0,
+            "usageOff": 0
+          }
+        },
+        "settings": [
+          {
+            "id": "device_siblings_info",
+            "type": "label",
+            "label": {
+              "en": "Connected relays"
+            },
+            "value": "-"
+          },
+          {
+            "type": "group",
+            "label": {
+              "en": "Power-On Relay 2"
+            },
+            "children": [
+              {
+                "id": "power_on_behavior_gang2",
+                "type": "dropdown",
+                "label": {
+                  "en": "Relay 2 override"
+                },
+                "value": "lastState",
+                "values": [
+                  {
+                    "id": "off",
+                    "label": {
+                      "en": "Always Off"
+                    }
+                  },
+                  {
+                    "id": "on",
+                    "label": {
+                      "en": "Always On"
+                    }
+                  },
+                  {
+                    "id": "lastState",
+                    "label": {
+                      "en": "Last State"
+                    }
+                  }
+                ]
+              },
+              {
+                "id": "power_on_current_gang2",
+                "type": "label",
+                "label": {
+                  "en": "Current (Relay 2)"
+                },
+                "value": "-"
+              }
+            ]
+          },
+          {
+            "type": "group",
+            "label": {
+              "en": "Inching"
+            },
+            "children": [
+              {
+                "id": "inching_enabled",
+                "type": "checkbox",
+                "value": false,
+                "label": {
+                  "en": "Inching (auto-off)"
+                },
+                "hint": {
+                  "en": "Use only with a momentary push button that returns to its resting position."
+                }
+              },
+              {
+                "id": "inching_time",
+                "type": "number",
+                "value": 0,
+                "min": 0,
+                "max": 3600,
+                "units": "s",
+                "label": {
+                  "en": "Inching delay"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "thirdSwitch": {
+        "class": "socket",
+        "capabilities": [
+          "onoff"
+        ],
+        "name": {
+          "en": "3CH Relay Module - Relay 3"
+        },
+        "energy": {
+          "approximation": {
+            "usageOn": 0,
+            "usageOff": 0
+          }
+        },
+        "settings": [
+          {
+            "id": "device_siblings_info",
+            "type": "label",
+            "label": {
+              "en": "Connected relays"
+            },
+            "value": "-"
+          },
+          {
+            "type": "group",
+            "label": {
+              "en": "Power-On Relay 3"
+            },
+            "children": [
+              {
+                "id": "power_on_behavior_gang3",
+                "type": "dropdown",
+                "label": {
+                  "en": "Relay 3 override"
+                },
+                "value": "lastState",
+                "values": [
+                  {
+                    "id": "off",
+                    "label": {
+                      "en": "Always Off"
+                    }
+                  },
+                  {
+                    "id": "on",
+                    "label": {
+                      "en": "Always On"
+                    }
+                  },
+                  {
+                    "id": "lastState",
+                    "label": {
+                      "en": "Last State"
+                    }
+                  }
+                ]
+              },
+              {
+                "id": "power_on_current_gang3",
+                "type": "label",
+                "label": {
+                  "en": "Current (Relay 3)"
+                },
+                "value": "-"
+              }
+            ]
+          },
+          {
+            "type": "group",
+            "label": {
+              "en": "Inching"
+            },
+            "children": [
+              {
+                "id": "inching_enabled",
+                "type": "checkbox",
+                "value": false,
+                "label": {
+                  "en": "Inching (auto-off)"
+                },
+                "hint": {
+                  "en": "Use only with a momentary push button that returns to its resting position."
+                }
+              },
+              {
+                "id": "inching_time",
+                "type": "number",
+                "value": 0,
+                "min": 0,
+                "max": 3600,
+                "units": "s",
+                "label": {
+                  "en": "Inching delay"
+                }
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "$extends": [
+    "zigbee-local"
+  ]
+}

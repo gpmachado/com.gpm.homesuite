@@ -1,0 +1,49 @@
+[
+  {
+    "type": "group",
+    "label": { "en": "Detection" },
+    "children": [
+      {
+        "id": "motion_sensitivity",
+        "type": "dropdown",
+        "label": { "en": "Motion sensitivity" },
+        "hint": { "en": "Detection sensitivity (low/medium/high)." },
+        "value": "medium",
+        "values": [
+          { "id": "low", "label": { "en": "Low" } },
+          { "id": "medium", "label": { "en": "Medium" } },
+          { "id": "high", "label": { "en": "High" } }
+        ]
+      },
+      {
+        "id": "approach_distance",
+        "type": "dropdown",
+        "label": { "en": "Approach distance" },
+        "hint": { "en": "Distance at which presence is triggered." },
+        "value": "medium",
+        "values": [
+          { "id": "far", "label": { "en": "Far" } },
+          { "id": "medium", "label": { "en": "Medium" } },
+          { "id": "near", "label": { "en": "Near" } }
+        ]
+      }
+    ]
+  },
+  {
+    "type": "group",
+    "label": { "en": "Monitoring" },
+    "children": [
+      {
+        "id": "monitoring_mode",
+        "type": "dropdown",
+        "label": { "en": "Monitoring mode" },
+        "hint": { "en": "Undirected = full area. Left/Right = directional detection." },
+        "value": "undirected",
+        "values": [
+          { "id": "undirected", "label": { "en": "Undirected" } },
+          { "id": "left_right", "label": { "en": "Left / Right" } }
+        ]
+      }
+    ]
+  }
+]

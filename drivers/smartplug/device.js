@@ -3,7 +3,7 @@
 /**
  * @file device.js
  * @description Smart Plug with Energy Metering (TS011F / TS0121)
- * Manufacturers: _TZ3000_88iqnhvd, _TZ3000_okaz9tjs, _TZ3210_cehuw1lw, _TZ3210_fgwhjm9j
+ * Manufacturers: _TZ3000_88iqnhvd, _TZ3000_okaz9tjs, _TZ3210_cehuw1lw
  */
 
 const { CLUSTER } = require('zigbee-clusters');

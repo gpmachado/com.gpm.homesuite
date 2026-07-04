@@ -34,5 +34,8 @@
   },
   "1.0.12": {
     "en": "feat: ZBMINIR2 — added Toggle option to Power-on State setting\nfeat: ZBMINIR2 — tighter rejoin detection after power cut (corroboration window)\nfeat: ZBMINIR2 — suppress spurious manufacturer ACK frames\nfeat: SNZB-02LD / SNZB-02WD — battery percentage reporting aligned with Poll Control interval\nfix: SNZB-02WD — temperature and humidity report thresholds corrected (0.5 °C / 3 %RH)"
+  },
+  "1.0.13": {
+    "en": "### Added\n- Support for a second Tuya Door & Window Sensor model.\n\n### Improved\n- Faster time synchronization and network rejoin for the Tuya temperature, humidity and clock sensor.\n- IAS enrollment and status handling for Door & Window Sensors and the Sonoff SNZB-03 motion sensor.\n- Battery handling for sleeping sensors, avoiding unnecessary communication while devices are asleep.\n- Smart plug power monitoring, availability detection and recovery after temporary disconnection.\n- Restoration of configured indicator and backlight settings after a power outage.\n\n### Fixed\n- Intermittent pairing, delayed initial readings and false offline states on supported Zigbee sensors."
   }
 }

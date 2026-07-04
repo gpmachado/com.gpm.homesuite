@@ -1,20 +1,16 @@
 {
   "triggers": [
     {
-      "id": "novadigital_switch_2_gang:device_rejoined",
-      "title": {
-        "en": "Reconnected after power cut"
-      },
-      "hint": {
-        "en": "Fires when this switch rejoins the Zigbee network after a power cut."
-      },
-      "tokens": [
-        {
-          "name": "device_name",
-          "type": "string",
-          "title": { "en": "Device name" }
-        }
-      ]
+      "$extends": "availability_turned_on",
+      "$id": "novadigital_switch_2_gang_availability_turned_on"
+    },
+    {
+      "$extends": "availability_turned_off",
+      "$id": "novadigital_switch_2_gang_availability_turned_off"
+    },
+    {
+      "$extends": "device_rejoined",
+      "$id": "novadigital_switch_2_gang_device_rejoined"
     }
   ]
 }

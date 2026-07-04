@@ -282,6 +282,14 @@
   ],
   "zigbee": {
     "manufacturerName": [
+      "_TZ3000_npzfdcof",
+      "_TZ3000_hktqahrq",
+      "_TZ3000_mx3vgyea",
+      "_TZ3000_5ng23zjs",
+      "_TZ3000_rmjr4ufz",
+      "_TZ3000_v7gnj3ad",
+      "_TZ3000_qsp2pwtf",
+      "_TZ3000_oex7egmt",
       "_TZ3000_tqlv4ug4"
     ],
     "productId": [
@@ -295,7 +303,6 @@
           4,
           5,
           6,
-          10,
           57344,
           57345
         ],

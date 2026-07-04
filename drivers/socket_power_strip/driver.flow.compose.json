@@ -1,20 +1,16 @@
 {
   "triggers": [
     {
-      "id": "socket_power_strip:device_rejoined",
-      "title": {
-        "en": "Reconnected after power cut"
-      },
-      "hint": {
-        "en": "Fires when this power strip rejoins the Zigbee network after a power cut."
-      },
-      "tokens": [
-        {
-          "name": "device_name",
-          "type": "string",
-          "title": { "en": "Device name" }
-        }
-      ]
+      "$extends": "availability_turned_on",
+      "$id": "socket_power_strip_availability_turned_on"
+    },
+    {
+      "$extends": "availability_turned_off",
+      "$id": "socket_power_strip_availability_turned_off"
+    },
+    {
+      "$extends": "device_rejoined",
+      "$id": "socket_power_strip_device_rejoined"
     }
   ]
 }

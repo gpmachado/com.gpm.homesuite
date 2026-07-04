@@ -325,8 +325,7 @@ class MoesDimmer3Gang extends TuyaSpecificClusterDevice {
   onDeviceRejoin() {
     this.log(`${this._gangName} Device rejoined`);
     const AvailabilityManager = require('../../lib/AvailabilityManager');
-    const cardId = this.driver?.id ? `${this.driver.id}:device_rejoined` : null;
-    AvailabilityManager.triggerRejoin(this, 0, cardId);
+    AvailabilityManager.triggerRejoin(this);
   }
 
   onRenamed(name) {

@@ -1,20 +1,16 @@
 {
   "triggers": [
     {
-      "id": "moes_dimmer_3_gang:device_rejoined",
-      "title": {
-        "en": "Reconnected after power cut"
-      },
-      "hint": {
-        "en": "Fires when this dimmer rejoins the Zigbee network after a power cut."
-      },
-      "tokens": [
-        {
-          "name": "device_name",
-          "type": "string",
-          "title": { "en": "Device name" }
-        }
-      ]
+      "$extends": "availability_turned_on",
+      "$id": "moes_dimmer_3_gang_availability_turned_on"
+    },
+    {
+      "$extends": "availability_turned_off",
+      "$id": "moes_dimmer_3_gang_availability_turned_off"
+    },
+    {
+      "$extends": "device_rejoined",
+      "$id": "moes_dimmer_3_gang_device_rejoined"
     }
   ]
 }

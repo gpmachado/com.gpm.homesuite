@@ -1,0 +1,143 @@
+[
+    {
+      "type": "group",
+      "label": {
+        "en": "Detection"
+      },
+      "children": [
+        {
+          "id": "motion_sensitivity",
+          "type": "number",
+          "label": {
+            "en": "Motion sensitivity"
+          },
+          "hint": {
+            "en": "Sensitivity for moving objects (0=lowest, 5=highest)."
+          },
+          "value": 3,
+          "min": 0,
+          "max": 5,
+          "step": 1
+        },
+        {
+          "id": "static_sensitivity",
+          "type": "number",
+          "label": {
+            "en": "Static sensitivity"
+          },
+          "hint": {
+            "en": "Sensitivity for stationary presence — micro-movements like breathing (0=lowest, 5=highest)."
+          },
+          "value": 3,
+          "min": 0,
+          "max": 5,
+          "step": 1
+        },
+        {
+          "id": "motion_detection_distance",
+          "type": "dropdown",
+          "label": {
+            "en": "Detection distance"
+          },
+          "hint": {
+            "en": "Maximum motion detection distance."
+          },
+          "value": "600",
+          "values": [
+            { "id": "0", "label": { "en": "0 cm" } },
+            { "id": "75", "label": { "en": "75 cm" } },
+            { "id": "150", "label": { "en": "150 cm" } },
+            { "id": "225", "label": { "en": "225 cm" } },
+            { "id": "300", "label": { "en": "300 cm" } },
+            { "id": "375", "label": { "en": "375 cm" } },
+            { "id": "450", "label": { "en": "450 cm" } },
+            { "id": "525", "label": { "en": "525 cm" } },
+            { "id": "600", "label": { "en": "600 cm" } }
+          ]
+        },
+        {
+          "id": "fading_time",
+          "type": "number",
+          "label": {
+            "en": "Fading time"
+          },
+          "hint": {
+            "en": "Time before clearing presence after no movement."
+          },
+          "value": 10,
+          "min": 0,
+          "max": 10000,
+          "step": 1,
+          "units": {
+            "en": "seconds"
+          }
+        }
+      ]
+    },
+    {
+      "type": "group",
+      "label": {
+        "en": "LED & Reporting"
+      },
+      "children": [
+        {
+          "id": "led_indicator",
+          "type": "checkbox",
+          "label": {
+            "en": "LED presence indicator"
+          },
+          "hint": {
+            "en": "Enable/disable the LED that flashes on presence detection."
+          },
+          "value": true
+        }
+      ]
+    },
+    {
+      "type": "group",
+      "label": {
+        "en": "Diagnostics & Statistics"
+      },
+      "children": [
+        {
+          "id": "device_stats_display",
+          "type": "text",
+          "label": {
+            "en": "Device stats"
+          },
+          "hint": {
+            "en": "Msg: messages last 24h / avg per hour | Dist: last target distance | Err: error count | Last: minutes since last message | Up: uptime"
+          },
+          "value": "Waiting for data..."
+        },
+        {
+          "id": "luminance_change_threshold",
+          "type": "number",
+          "label": {
+            "en": "Min luminance change"
+          },
+          "hint": {
+            "en": "Only update Homey when luminance changes by at least this many lux. 0 = every report."
+          },
+          "value": 5,
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "units": {
+            "en": "lux"
+          }
+        },
+        {
+          "id": "debug_logging",
+          "type": "checkbox",
+          "label": {
+            "en": "Debug logging"
+          },
+          "hint": {
+            "en": "Log every event received from the device."
+          },
+          "value": false
+        }
+      ]
+    }
+]

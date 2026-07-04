@@ -96,132 +96,231 @@
     "name": "Gabriel Pedrosa Machado",
     "email": "g.machado@me.com"
   },
+  "api": {
+    "getMessageStats": {
+      "method": "GET",
+      "path": "/message-stats"
+    },
+    "resetMessageStats": {
+      "method": "POST",
+      "path": "/message-stats/reset"
+    }
+  },
   "dependencies": {
     "homey-zigbeedriver": "^2.2.17",
     "zigbee-clusters": "^3.0.2"
   },
   "flow": {
+    "conditions": [
+      {
+        "id": "availability_is_on",
+        "title": {
+          "en": "Availability is on",
+          "es": "Disponibilidad activada",
+          "it": "Disponibilità attiva",
+          "de": "Verfügbarkeit ist aktiv"
+        },
+        "titleFormatted": {
+          "en": "[[device]] is available",
+          "es": "[[device]] está disponible",
+          "it": "[[device]] è disponibile",
+          "de": "[[device]] ist verfügbar"
+        },
+        "hint": {
+          "en": "True when the device is currently online",
+          "es": "Verdadero cuando el dispositivo está actualmente en línea",
+          "it": "Vero quando il dispositivo è attualmente online",
+          "de": "Wahr, wenn das Gerät aktuell online ist"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "capabilities=is_availability"
+          }
+        ]
+      },
+      {
+        "id": "is_bright",
+        "title": {
+          "en": "Illuminance is !{{bright|dim}}",
+          "sv": "Ljusnivån är !{{ljus|mörk}}",
+          "nl": "De verlichting is !{{fel|dim}}",
+          "da": "Belysningen er !{{lys|dæmpet}}",
+          "de": "Die Beleuchtung ist !{{hell|dunkel}}",
+          "es": "La iluminación es !{{brillante|tenue}}",
+          "fr": "L'éclairage est !{{lumineux|faible}}",
+          "it": "L'illuminazione è !{{luminosa|scarsa}}",
+          "no": "Belysningen er !{{lys|dempet}}",
+          "pl": "Oświetlenie jest !{{jasne|przyciemnione}}",
+          "ru": "Освещенность !{{яркая|тусклая}}",
+          "ko": "조명이 !{{밝음|어두움}} 입니다."
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=SNZB-06P"
+          }
+        ]
+      },
+      {
+        "id": "is_playing",
+        "title": {
+          "en": "Siren is !{{playing|not playing}}"
+        },
+        "titleFormatted": {
+          "en": "[[device]] siren is !{{playing|not playing}}"
+        },
+        "hint": {
+          "en": "Check if the siren is currently active."
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=ekaza_siren"
+          }
+        ]
+      }
+    ],
     "triggers": [
       {
-        "id": "availability_turned_off",
+        "id": "BASICZBR3_availability_turned_on",
         "title": {
-          "en": "Availability turned off",
-          "es": "Disponibilidad desactivada",
-          "it": "Disponibilità disattivata",
-          "de": "Verfügbarkeit ausgeschaltet"
-        },
-        "titleFormatted": {
-          "en": "Availability of [[device]] turned off",
-          "es": "Disponibilidad de [[device]] desactivada",
-          "it": "Disponibilità di [[device]] disattivata",
-          "de": "Verfügbarkeit von [[device]] ausgeschaltet"
+          "en": "Became available"
         },
         "hint": {
-          "en": "Fires when the device becomes unavailable.",
-          "es": "Se activa cuando el dispositivo deja de estar disponible.",
-          "it": "Si attiva quando il dispositivo non è più disponibile.",
-          "de": "Wird ausgelöst, wenn das Gerät nicht mehr verfügbar ist."
+          "en": "Fires when this device becomes available."
         },
         "tokens": [
           {
             "name": "device_name",
             "type": "string",
             "title": {
-              "en": "Device name",
-              "es": "Nombre del dispositivo",
-              "it": "Nome del dispositivo",
-              "de": "Gerätename"
+              "en": "Device name"
             }
           },
           {
             "name": "timestamp",
             "type": "string",
             "title": {
-              "en": "Timestamp",
-              "es": "Marca de tiempo",
-              "it": "Data e ora",
-              "de": "Zeitstempel"
+              "en": "Timestamp"
             }
           }
         ],
         "args": [
           {
-            "name": "device",
             "type": "device",
-            "filter": "capabilities=is_availability"
+            "name": "device",
+            "filter": "driver_id=BASICZBR3"
           }
         ]
       },
       {
-        "id": "availability_turned_on",
+        "id": "BASICZBR3_availability_turned_off",
         "title": {
-          "en": "Availability turned on",
-          "es": "Disponibilidad activada",
-          "it": "Disponibilità attivata",
-          "de": "Verfügbarkeit eingeschaltet"
-        },
-        "titleFormatted": {
-          "en": "Availability of [[device]] turned on",
-          "es": "Disponibilidad de [[device]] activada",
-          "it": "Disponibilità di [[device]] attivata",
-          "de": "Verfügbarkeit von [[device]] eingeschaltet"
+          "en": "Became unavailable"
         },
         "hint": {
-          "en": "Fires when the device becomes available.",
-          "es": "Se activa cuando el dispositivo está disponible.",
-          "it": "Si attiva quando il dispositivo diventa disponibile.",
-          "de": "Wird ausgelöst, wenn das Gerät verfügbar wird."
+          "en": "Fires when this device becomes unavailable."
         },
         "tokens": [
           {
             "name": "device_name",
             "type": "string",
             "title": {
-              "en": "Device name",
-              "es": "Nombre del dispositivo",
-              "it": "Nome del dispositivo",
-              "de": "Gerätename"
+              "en": "Device name"
             }
           },
           {
             "name": "timestamp",
             "type": "string",
             "title": {
-              "en": "Timestamp",
-              "es": "Marca de tiempo",
-              "it": "Data e ora",
-              "de": "Zeitstempel"
+              "en": "Timestamp"
             }
           }
         ],
         "args": [
           {
-            "name": "device",
             "type": "device",
-            "filter": "capabilities=is_availability"
+            "name": "device",
+            "filter": "driver_id=BASICZBR3"
           }
         ]
       },
       {
-        "id": "ZBMINIR2:device_rejoined",
+        "id": "ZBMINIR2_availability_turned_on",
         "title": {
-          "en": "Reconnected after power cut",
-          "pt": "Reconectou após queda de energia"
+          "en": "Became available"
         },
         "hint": {
-          "en": "Fires when this ZBMINIR2 rejoins the Zigbee network after a power cut.",
-          "pt": "Dispara quando este ZBMINIR2 reconecta à rede Zigbee após queda de energia."
+          "en": "Fires when this device becomes available."
         },
         "tokens": [
           {
             "name": "device_name",
             "type": "string",
             "title": {
-              "en": "Device name",
-              "pt": "Nome do dispositivo"
+              "en": "Device name"
+            }
+          },
+          {
+            "name": "timestamp",
+            "type": "string",
+            "title": {
+              "en": "Timestamp"
             }
           }
         ],
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=ZBMINIR2"
+          }
+        ]
+      },
+      {
+        "id": "ZBMINIR2_availability_turned_off",
+        "title": {
+          "en": "Became unavailable"
+        },
+        "hint": {
+          "en": "Fires when this device becomes unavailable."
+        },
+        "tokens": [
+          {
+            "name": "device_name",
+            "type": "string",
+            "title": {
+              "en": "Device name"
+            }
+          },
+          {
+            "name": "timestamp",
+            "type": "string",
+            "title": {
+              "en": "Timestamp"
+            }
+          }
+        ],
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=ZBMINIR2"
+          }
+        ]
+      },
+      {
+        "id": "ZBMINIR2_device_rejoined",
+        "title": {
+          "en": "Reconnected after power cut"
+        },
+        "hint": {
+          "en": "Fires when this device reconnects to the Zigbee network after a power cut."
+        },
         "args": [
           {
             "type": "device",
@@ -245,6 +344,198 @@
             "type": "device",
             "name": "device",
             "filter": "driver_id=ZBMINIR2"
+          }
+        ]
+      },
+      {
+        "id": "doorwindowsensor_availability_turned_on",
+        "title": {
+          "en": "Became available"
+        },
+        "hint": {
+          "en": "Fires when this device becomes available."
+        },
+        "tokens": [
+          {
+            "name": "device_name",
+            "type": "string",
+            "title": {
+              "en": "Device name"
+            }
+          },
+          {
+            "name": "timestamp",
+            "type": "string",
+            "title": {
+              "en": "Timestamp"
+            }
+          }
+        ],
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=doorwindowsensor"
+          }
+        ]
+      },
+      {
+        "id": "doorwindowsensor_availability_turned_off",
+        "title": {
+          "en": "Became unavailable"
+        },
+        "hint": {
+          "en": "Fires when this device becomes unavailable."
+        },
+        "tokens": [
+          {
+            "name": "device_name",
+            "type": "string",
+            "title": {
+              "en": "Device name"
+            }
+          },
+          {
+            "name": "timestamp",
+            "type": "string",
+            "title": {
+              "en": "Timestamp"
+            }
+          }
+        ],
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=doorwindowsensor"
+          }
+        ]
+      },
+      {
+        "id": "doorwindowsensor_2_availability_turned_on",
+        "title": {
+          "en": "Became available"
+        },
+        "hint": {
+          "en": "Fires when this device becomes available."
+        },
+        "tokens": [
+          {
+            "name": "device_name",
+            "type": "string",
+            "title": {
+              "en": "Device name"
+            }
+          },
+          {
+            "name": "timestamp",
+            "type": "string",
+            "title": {
+              "en": "Timestamp"
+            }
+          }
+        ],
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=doorwindowsensor_2"
+          }
+        ]
+      },
+      {
+        "id": "doorwindowsensor_2_availability_turned_off",
+        "title": {
+          "en": "Became unavailable"
+        },
+        "hint": {
+          "en": "Fires when this device becomes unavailable."
+        },
+        "tokens": [
+          {
+            "name": "device_name",
+            "type": "string",
+            "title": {
+              "en": "Device name"
+            }
+          },
+          {
+            "name": "timestamp",
+            "type": "string",
+            "title": {
+              "en": "Timestamp"
+            }
+          }
+        ],
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=doorwindowsensor_2"
+          }
+        ]
+      },
+      {
+        "id": "ekaza_siren_availability_turned_on",
+        "title": {
+          "en": "Became available"
+        },
+        "hint": {
+          "en": "Fires when this device becomes available."
+        },
+        "tokens": [
+          {
+            "name": "device_name",
+            "type": "string",
+            "title": {
+              "en": "Device name"
+            }
+          },
+          {
+            "name": "timestamp",
+            "type": "string",
+            "title": {
+              "en": "Timestamp"
+            }
+          }
+        ],
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=ekaza_siren"
+          }
+        ]
+      },
+      {
+        "id": "ekaza_siren_availability_turned_off",
+        "title": {
+          "en": "Became unavailable"
+        },
+        "hint": {
+          "en": "Fires when this device becomes unavailable."
+        },
+        "tokens": [
+          {
+            "name": "device_name",
+            "type": "string",
+            "title": {
+              "en": "Device name"
+            }
+          },
+          {
+            "name": "timestamp",
+            "type": "string",
+            "title": {
+              "en": "Timestamp"
+            }
+          }
+        ],
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=ekaza_siren"
           }
         ]
       },
@@ -307,12 +598,12 @@
         ]
       },
       {
-        "id": "moes_dimmer_3_gang:device_rejoined",
+        "id": "gas_detector_availability_turned_on",
         "title": {
-          "en": "Reconnected after power cut"
+          "en": "Became available"
         },
         "hint": {
-          "en": "Fires when this dimmer rejoins the Zigbee network after a power cut."
+          "en": "Fires when this device becomes available."
         },
         "tokens": [
           {
@@ -321,8 +612,191 @@
             "title": {
               "en": "Device name"
             }
+          },
+          {
+            "name": "timestamp",
+            "type": "string",
+            "title": {
+              "en": "Timestamp"
+            }
           }
         ],
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=gas_detector"
+          }
+        ]
+      },
+      {
+        "id": "gas_detector_availability_turned_off",
+        "title": {
+          "en": "Became unavailable"
+        },
+        "hint": {
+          "en": "Fires when this device becomes unavailable."
+        },
+        "tokens": [
+          {
+            "name": "device_name",
+            "type": "string",
+            "title": {
+              "en": "Device name"
+            }
+          },
+          {
+            "name": "timestamp",
+            "type": "string",
+            "title": {
+              "en": "Timestamp"
+            }
+          }
+        ],
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=gas_detector"
+          }
+        ]
+      },
+      {
+        "id": "lcdtemphumidsensor_availability_turned_on",
+        "title": {
+          "en": "Became available"
+        },
+        "hint": {
+          "en": "Fires when this device becomes available."
+        },
+        "tokens": [
+          {
+            "name": "device_name",
+            "type": "string",
+            "title": {
+              "en": "Device name"
+            }
+          },
+          {
+            "name": "timestamp",
+            "type": "string",
+            "title": {
+              "en": "Timestamp"
+            }
+          }
+        ],
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=lcdtemphumidsensor"
+          }
+        ]
+      },
+      {
+        "id": "lcdtemphumidsensor_availability_turned_off",
+        "title": {
+          "en": "Became unavailable"
+        },
+        "hint": {
+          "en": "Fires when this device becomes unavailable."
+        },
+        "tokens": [
+          {
+            "name": "device_name",
+            "type": "string",
+            "title": {
+              "en": "Device name"
+            }
+          },
+          {
+            "name": "timestamp",
+            "type": "string",
+            "title": {
+              "en": "Timestamp"
+            }
+          }
+        ],
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=lcdtemphumidsensor"
+          }
+        ]
+      },
+      {
+        "id": "moes_dimmer_3_gang_availability_turned_on",
+        "title": {
+          "en": "Became available"
+        },
+        "hint": {
+          "en": "Fires when this device becomes available."
+        },
+        "tokens": [
+          {
+            "name": "device_name",
+            "type": "string",
+            "title": {
+              "en": "Device name"
+            }
+          },
+          {
+            "name": "timestamp",
+            "type": "string",
+            "title": {
+              "en": "Timestamp"
+            }
+          }
+        ],
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=moes_dimmer_3_gang"
+          }
+        ]
+      },
+      {
+        "id": "moes_dimmer_3_gang_availability_turned_off",
+        "title": {
+          "en": "Became unavailable"
+        },
+        "hint": {
+          "en": "Fires when this device becomes unavailable."
+        },
+        "tokens": [
+          {
+            "name": "device_name",
+            "type": "string",
+            "title": {
+              "en": "Device name"
+            }
+          },
+          {
+            "name": "timestamp",
+            "type": "string",
+            "title": {
+              "en": "Timestamp"
+            }
+          }
+        ],
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=moes_dimmer_3_gang"
+          }
+        ]
+      },
+      {
+        "id": "moes_dimmer_3_gang_device_rejoined",
+        "title": {
+          "en": "Reconnected after power cut"
+        },
+        "hint": {
+          "en": "Fires when this device reconnects to the Zigbee network after a power cut."
+        },
         "args": [
           {
             "type": "device",
@@ -429,12 +903,12 @@
         ]
       },
       {
-        "id": "novadigital_switch_1_gang:device_rejoined",
+        "id": "novadigital_switch_1_gang_availability_turned_on",
         "title": {
-          "en": "Reconnected after power cut"
+          "en": "Became available"
         },
         "hint": {
-          "en": "Fires when this switch rejoins the Zigbee network after a power cut."
+          "en": "Fires when this device becomes available."
         },
         "tokens": [
           {
@@ -442,6 +916,13 @@
             "type": "string",
             "title": {
               "en": "Device name"
+            }
+          },
+          {
+            "name": "timestamp",
+            "type": "string",
+            "title": {
+              "en": "Timestamp"
             }
           }
         ],
@@ -454,12 +935,12 @@
         ]
       },
       {
-        "id": "novadigital_switch_2_gang:device_rejoined",
+        "id": "novadigital_switch_1_gang_availability_turned_off",
         "title": {
-          "en": "Reconnected after power cut"
+          "en": "Became unavailable"
         },
         "hint": {
-          "en": "Fires when this switch rejoins the Zigbee network after a power cut."
+          "en": "Fires when this device becomes unavailable."
         },
         "tokens": [
           {
@@ -467,6 +948,61 @@
             "type": "string",
             "title": {
               "en": "Device name"
+            }
+          },
+          {
+            "name": "timestamp",
+            "type": "string",
+            "title": {
+              "en": "Timestamp"
+            }
+          }
+        ],
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=novadigital_switch_1_gang"
+          }
+        ]
+      },
+      {
+        "id": "novadigital_switch_1_gang_device_rejoined",
+        "title": {
+          "en": "Reconnected after power cut"
+        },
+        "hint": {
+          "en": "Fires when this device reconnects to the Zigbee network after a power cut."
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=novadigital_switch_1_gang"
+          }
+        ]
+      },
+      {
+        "id": "novadigital_switch_2_gang_availability_turned_on",
+        "title": {
+          "en": "Became available"
+        },
+        "hint": {
+          "en": "Fires when this device becomes available."
+        },
+        "tokens": [
+          {
+            "name": "device_name",
+            "type": "string",
+            "title": {
+              "en": "Device name"
+            }
+          },
+          {
+            "name": "timestamp",
+            "type": "string",
+            "title": {
+              "en": "Timestamp"
             }
           }
         ],
@@ -479,12 +1015,12 @@
         ]
       },
       {
-        "id": "novadigital_switch_3_gang:device_rejoined",
+        "id": "novadigital_switch_2_gang_availability_turned_off",
         "title": {
-          "en": "Reconnected after power cut"
+          "en": "Became unavailable"
         },
         "hint": {
-          "en": "Fires when this switch rejoins the Zigbee network after a power cut."
+          "en": "Fires when this device becomes unavailable."
         },
         "tokens": [
           {
@@ -492,6 +1028,61 @@
             "type": "string",
             "title": {
               "en": "Device name"
+            }
+          },
+          {
+            "name": "timestamp",
+            "type": "string",
+            "title": {
+              "en": "Timestamp"
+            }
+          }
+        ],
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=novadigital_switch_2_gang"
+          }
+        ]
+      },
+      {
+        "id": "novadigital_switch_2_gang_device_rejoined",
+        "title": {
+          "en": "Reconnected after power cut"
+        },
+        "hint": {
+          "en": "Fires when this device reconnects to the Zigbee network after a power cut."
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=novadigital_switch_2_gang"
+          }
+        ]
+      },
+      {
+        "id": "novadigital_switch_3_gang_availability_turned_on",
+        "title": {
+          "en": "Became available"
+        },
+        "hint": {
+          "en": "Fires when this device becomes available."
+        },
+        "tokens": [
+          {
+            "name": "device_name",
+            "type": "string",
+            "title": {
+              "en": "Device name"
+            }
+          },
+          {
+            "name": "timestamp",
+            "type": "string",
+            "title": {
+              "en": "Timestamp"
             }
           }
         ],
@@ -504,12 +1095,12 @@
         ]
       },
       {
-        "id": "novadigital_switch_4_gang:device_rejoined",
+        "id": "novadigital_switch_3_gang_availability_turned_off",
         "title": {
-          "en": "Reconnected after power cut"
+          "en": "Became unavailable"
         },
         "hint": {
-          "en": "Fires when this switch rejoins the Zigbee network after a power cut."
+          "en": "Fires when this device becomes unavailable."
         },
         "tokens": [
           {
@@ -517,6 +1108,61 @@
             "type": "string",
             "title": {
               "en": "Device name"
+            }
+          },
+          {
+            "name": "timestamp",
+            "type": "string",
+            "title": {
+              "en": "Timestamp"
+            }
+          }
+        ],
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=novadigital_switch_3_gang"
+          }
+        ]
+      },
+      {
+        "id": "novadigital_switch_3_gang_device_rejoined",
+        "title": {
+          "en": "Reconnected after power cut"
+        },
+        "hint": {
+          "en": "Fires when this device reconnects to the Zigbee network after a power cut."
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=novadigital_switch_3_gang"
+          }
+        ]
+      },
+      {
+        "id": "novadigital_switch_4_gang_availability_turned_on",
+        "title": {
+          "en": "Became available"
+        },
+        "hint": {
+          "en": "Fires when this device becomes available."
+        },
+        "tokens": [
+          {
+            "name": "device_name",
+            "type": "string",
+            "title": {
+              "en": "Device name"
+            }
+          },
+          {
+            "name": "timestamp",
+            "type": "string",
+            "title": {
+              "en": "Timestamp"
             }
           }
         ],
@@ -529,12 +1175,12 @@
         ]
       },
       {
-        "id": "novadigital_switch_6_gang:device_rejoined",
+        "id": "novadigital_switch_4_gang_availability_turned_off",
         "title": {
-          "en": "Reconnected after power cut"
+          "en": "Became unavailable"
         },
         "hint": {
-          "en": "Fires when this switch rejoins the Zigbee network after a power cut."
+          "en": "Fires when this device becomes unavailable."
         },
         "tokens": [
           {
@@ -542,6 +1188,61 @@
             "type": "string",
             "title": {
               "en": "Device name"
+            }
+          },
+          {
+            "name": "timestamp",
+            "type": "string",
+            "title": {
+              "en": "Timestamp"
+            }
+          }
+        ],
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=novadigital_switch_4_gang"
+          }
+        ]
+      },
+      {
+        "id": "novadigital_switch_4_gang_device_rejoined",
+        "title": {
+          "en": "Reconnected after power cut"
+        },
+        "hint": {
+          "en": "Fires when this device reconnects to the Zigbee network after a power cut."
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=novadigital_switch_4_gang"
+          }
+        ]
+      },
+      {
+        "id": "novadigital_switch_6_gang_availability_turned_on",
+        "title": {
+          "en": "Became available"
+        },
+        "hint": {
+          "en": "Fires when this device becomes available."
+        },
+        "tokens": [
+          {
+            "name": "device_name",
+            "type": "string",
+            "title": {
+              "en": "Device name"
+            }
+          },
+          {
+            "name": "timestamp",
+            "type": "string",
+            "title": {
+              "en": "Timestamp"
             }
           }
         ],
@@ -554,12 +1255,12 @@
         ]
       },
       {
-        "id": "smartplug:device_rejoined",
+        "id": "novadigital_switch_6_gang_availability_turned_off",
         "title": {
-          "en": "Reconnected after power cut"
+          "en": "Became unavailable"
         },
         "hint": {
-          "en": "Fires when this smart plug rejoins the Zigbee network after a power cut."
+          "en": "Fires when this device becomes unavailable."
         },
         "tokens": [
           {
@@ -567,6 +1268,61 @@
             "type": "string",
             "title": {
               "en": "Device name"
+            }
+          },
+          {
+            "name": "timestamp",
+            "type": "string",
+            "title": {
+              "en": "Timestamp"
+            }
+          }
+        ],
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=novadigital_switch_6_gang"
+          }
+        ]
+      },
+      {
+        "id": "novadigital_switch_6_gang_device_rejoined",
+        "title": {
+          "en": "Reconnected after power cut"
+        },
+        "hint": {
+          "en": "Fires when this device reconnects to the Zigbee network after a power cut."
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=novadigital_switch_6_gang"
+          }
+        ]
+      },
+      {
+        "id": "smartplug_availability_turned_on",
+        "title": {
+          "en": "Became available"
+        },
+        "hint": {
+          "en": "Fires when this device becomes available."
+        },
+        "tokens": [
+          {
+            "name": "device_name",
+            "type": "string",
+            "title": {
+              "en": "Device name"
+            }
+          },
+          {
+            "name": "timestamp",
+            "type": "string",
+            "title": {
+              "en": "Timestamp"
             }
           }
         ],
@@ -579,12 +1335,12 @@
         ]
       },
       {
-        "id": "socket_power_strip:device_rejoined",
+        "id": "smartplug_availability_turned_off",
         "title": {
-          "en": "Reconnected after power cut"
+          "en": "Became unavailable"
         },
         "hint": {
-          "en": "Fires when this power strip rejoins the Zigbee network after a power cut."
+          "en": "Fires when this device becomes unavailable."
         },
         "tokens": [
           {
@@ -592,6 +1348,221 @@
             "type": "string",
             "title": {
               "en": "Device name"
+            }
+          },
+          {
+            "name": "timestamp",
+            "type": "string",
+            "title": {
+              "en": "Timestamp"
+            }
+          }
+        ],
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=smartplug"
+          }
+        ]
+      },
+      {
+        "id": "smartplug_device_rejoined",
+        "title": {
+          "en": "Reconnected after power cut"
+        },
+        "hint": {
+          "en": "Fires when this device reconnects to the Zigbee network after a power cut."
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=smartplug"
+          }
+        ]
+      },
+      {
+        "id": "smartplug_2_availability_turned_on",
+        "title": {
+          "en": "Became available"
+        },
+        "hint": {
+          "en": "Fires when this device becomes available."
+        },
+        "tokens": [
+          {
+            "name": "device_name",
+            "type": "string",
+            "title": {
+              "en": "Device name"
+            }
+          },
+          {
+            "name": "timestamp",
+            "type": "string",
+            "title": {
+              "en": "Timestamp"
+            }
+          }
+        ],
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=smartplug_2"
+          }
+        ]
+      },
+      {
+        "id": "smartplug_2_availability_turned_off",
+        "title": {
+          "en": "Became unavailable"
+        },
+        "hint": {
+          "en": "Fires when this device becomes unavailable."
+        },
+        "tokens": [
+          {
+            "name": "device_name",
+            "type": "string",
+            "title": {
+              "en": "Device name"
+            }
+          },
+          {
+            "name": "timestamp",
+            "type": "string",
+            "title": {
+              "en": "Timestamp"
+            }
+          }
+        ],
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=smartplug_2"
+          }
+        ]
+      },
+      {
+        "id": "smartplug_2_device_rejoined",
+        "title": {
+          "en": "Reconnected after power cut"
+        },
+        "hint": {
+          "en": "Fires when this device reconnects to the Zigbee network after a power cut."
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=smartplug_2"
+          }
+        ]
+      },
+      {
+        "id": "smartplug_3_availability_turned_on",
+        "title": {
+          "en": "Became available"
+        },
+        "hint": {
+          "en": "Fires when this device becomes available."
+        },
+        "tokens": [
+          {
+            "name": "device_name",
+            "type": "string",
+            "title": {
+              "en": "Device name"
+            }
+          },
+          {
+            "name": "timestamp",
+            "type": "string",
+            "title": {
+              "en": "Timestamp"
+            }
+          }
+        ],
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=smartplug_3"
+          }
+        ]
+      },
+      {
+        "id": "smartplug_3_availability_turned_off",
+        "title": {
+          "en": "Became unavailable"
+        },
+        "hint": {
+          "en": "Fires when this device becomes unavailable."
+        },
+        "tokens": [
+          {
+            "name": "device_name",
+            "type": "string",
+            "title": {
+              "en": "Device name"
+            }
+          },
+          {
+            "name": "timestamp",
+            "type": "string",
+            "title": {
+              "en": "Timestamp"
+            }
+          }
+        ],
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=smartplug_3"
+          }
+        ]
+      },
+      {
+        "id": "smartplug_3_device_rejoined",
+        "title": {
+          "en": "Reconnected after power cut"
+        },
+        "hint": {
+          "en": "Fires when this device reconnects to the Zigbee network after a power cut."
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=smartplug_3"
+          }
+        ]
+      },
+      {
+        "id": "socket_power_strip_availability_turned_on",
+        "title": {
+          "en": "Became available"
+        },
+        "hint": {
+          "en": "Fires when this device becomes available."
+        },
+        "tokens": [
+          {
+            "name": "device_name",
+            "type": "string",
+            "title": {
+              "en": "Device name"
+            }
+          },
+          {
+            "name": "timestamp",
+            "type": "string",
+            "title": {
+              "en": "Timestamp"
             }
           }
         ],
@@ -604,12 +1575,12 @@
         ]
       },
       {
-        "id": "switch_1_ch:device_rejoined",
+        "id": "socket_power_strip_availability_turned_off",
         "title": {
-          "en": "Reconnected after power cut"
+          "en": "Became unavailable"
         },
         "hint": {
-          "en": "Fires when this switch rejoins the Zigbee network after a power cut."
+          "en": "Fires when this device becomes unavailable."
         },
         "tokens": [
           {
@@ -618,6 +1589,125 @@
             "title": {
               "en": "Device name"
             }
+          },
+          {
+            "name": "timestamp",
+            "type": "string",
+            "title": {
+              "en": "Timestamp"
+            }
+          }
+        ],
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=socket_power_strip"
+          }
+        ]
+      },
+      {
+        "id": "socket_power_strip_device_rejoined",
+        "title": {
+          "en": "Reconnected after power cut"
+        },
+        "hint": {
+          "en": "Fires when this device reconnects to the Zigbee network after a power cut."
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=socket_power_strip"
+          }
+        ]
+      },
+      {
+        "id": "sonoff_dongle_availability_turned_on",
+        "title": {
+          "en": "Became available"
+        },
+        "hint": {
+          "en": "Fires when this device becomes available."
+        },
+        "tokens": [
+          {
+            "name": "device_name",
+            "type": "string",
+            "title": {
+              "en": "Device name"
+            }
+          },
+          {
+            "name": "timestamp",
+            "type": "string",
+            "title": {
+              "en": "Timestamp"
+            }
+          }
+        ],
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=sonoff_dongle"
+          }
+        ]
+      },
+      {
+        "id": "sonoff_dongle_availability_turned_off",
+        "title": {
+          "en": "Became unavailable"
+        },
+        "hint": {
+          "en": "Fires when this device becomes unavailable."
+        },
+        "tokens": [
+          {
+            "name": "device_name",
+            "type": "string",
+            "title": {
+              "en": "Device name"
+            }
+          },
+          {
+            "name": "timestamp",
+            "type": "string",
+            "title": {
+              "en": "Timestamp"
+            }
+          }
+        ],
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=sonoff_dongle"
+          }
+        ]
+      },
+      {
+        "id": "switch_1_ch_availability_turned_on",
+        "title": {
+          "en": "Became available"
+        },
+        "hint": {
+          "en": "Fires when this device becomes available."
+        },
+        "tokens": [
+          {
+            "name": "device_name",
+            "type": "string",
+            "title": {
+              "en": "Device name"
+            }
+          },
+          {
+            "name": "timestamp",
+            "type": "string",
+            "title": {
+              "en": "Timestamp"
+            }
           }
         ],
         "args": [
@@ -625,6 +1715,278 @@
             "type": "device",
             "name": "device",
             "filter": "driver_id=switch_1_ch"
+          }
+        ]
+      },
+      {
+        "id": "switch_1_ch_availability_turned_off",
+        "title": {
+          "en": "Became unavailable"
+        },
+        "hint": {
+          "en": "Fires when this device becomes unavailable."
+        },
+        "tokens": [
+          {
+            "name": "device_name",
+            "type": "string",
+            "title": {
+              "en": "Device name"
+            }
+          },
+          {
+            "name": "timestamp",
+            "type": "string",
+            "title": {
+              "en": "Timestamp"
+            }
+          }
+        ],
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=switch_1_ch"
+          }
+        ]
+      },
+      {
+        "id": "switch_1_ch_device_rejoined",
+        "title": {
+          "en": "Reconnected after power cut"
+        },
+        "hint": {
+          "en": "Fires when this device reconnects to the Zigbee network after a power cut."
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=switch_1_ch"
+          }
+        ]
+      },
+      {
+        "id": "switch_2_ch_availability_turned_on",
+        "title": {
+          "en": "Became available"
+        },
+        "hint": {
+          "en": "Fires when this device becomes available."
+        },
+        "tokens": [
+          {
+            "name": "device_name",
+            "type": "string",
+            "title": {
+              "en": "Device name"
+            }
+          },
+          {
+            "name": "timestamp",
+            "type": "string",
+            "title": {
+              "en": "Timestamp"
+            }
+          }
+        ],
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=switch_2_ch"
+          }
+        ]
+      },
+      {
+        "id": "switch_2_ch_availability_turned_off",
+        "title": {
+          "en": "Became unavailable"
+        },
+        "hint": {
+          "en": "Fires when this device becomes unavailable."
+        },
+        "tokens": [
+          {
+            "name": "device_name",
+            "type": "string",
+            "title": {
+              "en": "Device name"
+            }
+          },
+          {
+            "name": "timestamp",
+            "type": "string",
+            "title": {
+              "en": "Timestamp"
+            }
+          }
+        ],
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=switch_2_ch"
+          }
+        ]
+      },
+      {
+        "id": "switch_2_ch_device_rejoined",
+        "title": {
+          "en": "Reconnected after power cut"
+        },
+        "hint": {
+          "en": "Fires when this device reconnects to the Zigbee network after a power cut."
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=switch_2_ch"
+          }
+        ]
+      },
+      {
+        "id": "switch_3_ch_availability_turned_on",
+        "title": {
+          "en": "Became available"
+        },
+        "hint": {
+          "en": "Fires when this device becomes available."
+        },
+        "tokens": [
+          {
+            "name": "device_name",
+            "type": "string",
+            "title": {
+              "en": "Device name"
+            }
+          },
+          {
+            "name": "timestamp",
+            "type": "string",
+            "title": {
+              "en": "Timestamp"
+            }
+          }
+        ],
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=switch_3_ch"
+          }
+        ]
+      },
+      {
+        "id": "switch_3_ch_availability_turned_off",
+        "title": {
+          "en": "Became unavailable"
+        },
+        "hint": {
+          "en": "Fires when this device becomes unavailable."
+        },
+        "tokens": [
+          {
+            "name": "device_name",
+            "type": "string",
+            "title": {
+              "en": "Device name"
+            }
+          },
+          {
+            "name": "timestamp",
+            "type": "string",
+            "title": {
+              "en": "Timestamp"
+            }
+          }
+        ],
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=switch_3_ch"
+          }
+        ]
+      },
+      {
+        "id": "switch_3_ch_device_rejoined",
+        "title": {
+          "en": "Reconnected after power cut"
+        },
+        "hint": {
+          "en": "Fires when this device reconnects to the Zigbee network after a power cut."
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=switch_3_ch"
+          }
+        ]
+      },
+      {
+        "id": "temphumidclock_availability_turned_on",
+        "title": {
+          "en": "Became available"
+        },
+        "hint": {
+          "en": "Fires when this device becomes available."
+        },
+        "tokens": [
+          {
+            "name": "device_name",
+            "type": "string",
+            "title": {
+              "en": "Device name"
+            }
+          },
+          {
+            "name": "timestamp",
+            "type": "string",
+            "title": {
+              "en": "Timestamp"
+            }
+          }
+        ],
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=temphumidclock"
+          }
+        ]
+      },
+      {
+        "id": "temphumidclock_availability_turned_off",
+        "title": {
+          "en": "Became unavailable"
+        },
+        "hint": {
+          "en": "Fires when this device becomes unavailable."
+        },
+        "tokens": [
+          {
+            "name": "device_name",
+            "type": "string",
+            "title": {
+              "en": "Device name"
+            }
+          },
+          {
+            "name": "timestamp",
+            "type": "string",
+            "title": {
+              "en": "Timestamp"
+            }
+          }
+        ],
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=temphumidclock"
           }
         ]
       },
@@ -688,53 +2050,68 @@
             ]
           }
         ]
-      }
-    ],
-    "conditions": [
+      },
       {
-        "id": "availability_is_on",
+        "id": "zigbee_repeater_availability_turned_on",
         "title": {
-          "en": "Availability is on",
-          "es": "Disponibilidad activada",
-          "it": "Disponibilità attiva",
-          "de": "Verfügbarkeit ist aktiv"
-        },
-        "titleFormatted": {
-          "en": "[[device]] is available",
-          "es": "[[device]] está disponible",
-          "it": "[[device]] è disponibile",
-          "de": "[[device]] ist verfügbar"
+          "en": "Became available"
         },
         "hint": {
-          "en": "True when the device is currently online",
-          "es": "Verdadero cuando el dispositivo está actualmente en línea",
-          "it": "Vero quando il dispositivo è attualmente online",
-          "de": "Wahr, wenn das Gerät aktuell online ist"
+          "en": "Fires when this device becomes available."
         },
+        "tokens": [
+          {
+            "name": "device_name",
+            "type": "string",
+            "title": {
+              "en": "Device name"
+            }
+          },
+          {
+            "name": "timestamp",
+            "type": "string",
+            "title": {
+              "en": "Timestamp"
+            }
+          }
+        ],
         "args": [
           {
-            "name": "device",
             "type": "device",
-            "filter": "capabilities=is_availability"
+            "name": "device",
+            "filter": "driver_id=zigbee_repeater"
           }
         ]
       },
       {
-        "id": "is_playing",
+        "id": "zigbee_repeater_availability_turned_off",
         "title": {
-          "en": "Siren is !{{playing|not playing}}"
-        },
-        "titleFormatted": {
-          "en": "[[device]] siren is !{{playing|not playing}}"
+          "en": "Became unavailable"
         },
         "hint": {
-          "en": "Check if the siren is currently active."
+          "en": "Fires when this device becomes unavailable."
         },
+        "tokens": [
+          {
+            "name": "device_name",
+            "type": "string",
+            "title": {
+              "en": "Device name"
+            }
+          },
+          {
+            "name": "timestamp",
+            "type": "string",
+            "title": {
+              "en": "Timestamp"
+            }
+          }
+        ],
         "args": [
           {
             "type": "device",
             "name": "device",
-            "filter": "driver_id=ekaza_siren"
+            "filter": "driver_id=zigbee_repeater"
           }
         ]
       }
@@ -1156,6 +2533,185 @@
       }
     },
     {
+      "id": "SNZB-06P",
+      "name": {
+        "en": "Presence Sensor SNZB-06P",
+        "sv": "Närvarosensor SNZB-06P",
+        "nl": "Aanwezigheidssensor SNZB-06P",
+        "da": "Tilstedeværelsessensor SNZB-06P",
+        "de": "Präsenzsensor SNZB-06P",
+        "es": "Sensor de Presencia SNZB-06P",
+        "fr": "Capteur de Présence SNZB-06P",
+        "it": "Sensore di Presenza SNZB-06P",
+        "no": "Nærværsensor SNZB-06P",
+        "pl": "Czujnik Obecności SNZB-06P",
+        "ru": "Датчик присутствия SNZB-06P",
+        "ko": "존재 센서 SNZB-06P"
+      },
+      "class": "sensor",
+      "capabilities": [
+        "alarm_motion",
+        "sonoff_illuminance"
+      ],
+      "images": {
+        "small": "/drivers/SNZB-06P/assets/images/small.png",
+        "large": "/drivers/SNZB-06P/assets/images/large.png"
+      },
+      "zigbee": {
+        "manufacturerName": [
+          "SONOFF"
+        ],
+        "productId": [
+          "SNZB-06P"
+        ],
+        "endpoints": {
+          "1": {
+            "clusters": [
+              0,
+              3,
+              1030,
+              1280,
+              64529
+            ],
+            "bindings": []
+          }
+        },
+        "learnmode": {
+          "image": "/drivers/SNZB-06P/assets/learn.svg",
+          "instruction": {
+            "en": "Press reset on top for aprox 10 seconds until the red LED blinks.",
+            "nl": "Houd de resetknop bovenop ongeveer 10 seconden ingedrukt totdat de rode LED knippert.",
+            "da": "Tryk på reset øverst i ca. 10 sekunder, indtil den røde LED blinker.",
+            "de": "Drücken Sie oben auf die Reset-Taste und halten Sie sie etwa 10 Sekunden lang gedrückt, bis die rote LED blinkt.",
+            "es": "Presiona el botón de reinicio en la parte superior durante aproximadamente 10 segundos hasta que parpadee el LED rojo.",
+            "fr": "Appuyez sur le bouton de réinitialisation en haut pendant environ 10 secondes jusqu'à ce que le voyant rouge clignote.",
+            "it": "Premi il pulsante di reset in alto per circa 10 secondi fino a quando il LED rosso lampeggia.",
+            "no": "Trykk på reset-knappen øverst i ca. 10 sekunder til den røde LED-en blinker.",
+            "sv": "Tryck på återställningsknappen ovanpå i cirka 10 sekunder tills den röda LED-lampan blinkar.",
+            "pl": "Naciśnij przycisk reset na górze, przytrzymaj przez około 10 sekund, aż czerwona dioda LED zacznie migać.",
+            "ru": "Нажмите и удерживайте кнопку сброса сверху примерно 10 секунд, пока не начнет мигать красный светодиод.",
+            "ko": "빨간색 LED가 깜박일 때까지 상단의 리셋 버튼을 약 10초 동안 누르십시오."
+          }
+        }
+      },
+      "settings": [
+        {
+          "type": "group",
+          "label": {
+            "en": "Occupied",
+            "nl": "Bezette",
+            "da": "Optaget",
+            "de": "Besetzt",
+            "es": "Ocupado",
+            "fr": "Occupé",
+            "it": "Occupato",
+            "no": "Opptatt",
+            "sv": "Upptagen",
+            "pl": "Zajęty",
+            "ru": "Занятый",
+            "ko": "점유"
+          },
+          "children": [
+            {
+              "id": "occupied_to_unoccupied_delay",
+              "type": "number",
+              "label": {
+                "en": "Delay",
+                "nl": "Vertraging",
+                "da": "Forsinkelse",
+                "de": "Verzögerung",
+                "es": "Retraso",
+                "fr": "Délai",
+                "it": "Ritardo",
+                "no": "Forsinkelse",
+                "sv": "Fördröjning",
+                "pl": "Opóźnienie",
+                "ru": "Задержка",
+                "ko": "지연"
+              },
+              "value": 60,
+              "attr": {
+                "min": 15,
+                "max": 65535,
+                "step": 1
+              }
+            },
+            {
+              "id": "occupied_threshold",
+              "type": "dropdown",
+              "label": {
+                "en": "Sensitivity",
+                "nl": "Gevoeligheid",
+                "da": "Følsomhed",
+                "de": "Empfindlichkeit",
+                "es": "Sensibilidad",
+                "fr": "Sensibilité",
+                "it": "Sensibilità",
+                "no": "Følsomhet",
+                "sv": "Känslighet",
+                "pl": "Czułość",
+                "ru": "Чувствительность",
+                "ko": "민감도"
+              },
+              "values": [
+                {
+                  "id": "1",
+                  "label": {
+                    "en": "Low",
+                    "nl": "Laag",
+                    "da": "Lav",
+                    "de": "Niedrig",
+                    "es": "Bajo",
+                    "fr": "Bas",
+                    "it": "Basso",
+                    "no": "Lav",
+                    "sv": "Låg",
+                    "pl": "Niski",
+                    "ru": "Низкий",
+                    "ko": "낮은"
+                  }
+                },
+                {
+                  "id": "2",
+                  "label": {
+                    "en": "Medium",
+                    "nl": "Middel",
+                    "da": "Mellem",
+                    "de": "Mittel",
+                    "es": "Medio",
+                    "fr": "Moyen",
+                    "it": "Medio",
+                    "no": "Medium",
+                    "sv": "Medium",
+                    "pl": "Średni",
+                    "ru": "Средний",
+                    "ko": "중간"
+                  }
+                },
+                {
+                  "id": "3",
+                  "label": {
+                    "en": "High",
+                    "nl": "Hoog",
+                    "da": "Høj",
+                    "de": "Hoch",
+                    "es": "Alto",
+                    "fr": "Haut",
+                    "it": "Alto",
+                    "no": "Høy",
+                    "sv": "Hög",
+                    "pl": "Wysoki",
+                    "ru": "Высокий",
+                    "ko": "높은"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
       "platforms": [
         "local"
       ],
@@ -1427,6 +2983,164 @@
                   "label": {
                     "en": "Auto-Off",
                     "it": "Auto-spento"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "aqara_fp1",
+      "name": {
+        "en": "Aqara FP1 Presence Sensor"
+      },
+      "class": "sensor",
+      "platforms": [
+        "local"
+      ],
+      "connectivity": [
+        "zigbee"
+      ],
+      "capabilities": [
+        "alarm_occupancy"
+      ],
+      "images": {
+        "xlarge": "/drivers/aqara_fp1/assets/images/xlarge.png",
+        "large": "/drivers/aqara_fp1/assets/images/large.png",
+        "small": "/drivers/aqara_fp1/assets/images/small.png"
+      },
+      "energy": {
+        "approximation": {
+          "usageOn": 0.5,
+          "usageOff": 0
+        }
+      },
+      "zigbee": {
+        "manufacturerName": [
+          "aqara"
+        ],
+        "productId": [
+          "lumi.motion.ac01"
+        ],
+        "endpoints": {
+          "1": {
+            "clusters": [
+              0,
+              3,
+              64704
+            ],
+            "bindings": [
+              64704
+            ]
+          }
+        },
+        "learnmode": {
+          "image": "/drivers/aqara_fp1/assets/icon.svg",
+          "instruction": {
+            "en": "Press and hold the reset button on the FP1 for 5 seconds until the LED flashes blue."
+          }
+        }
+      },
+      "settings": [
+        {
+          "type": "group",
+          "label": {
+            "en": "Detection"
+          },
+          "children": [
+            {
+              "id": "motion_sensitivity",
+              "type": "dropdown",
+              "label": {
+                "en": "Motion sensitivity"
+              },
+              "hint": {
+                "en": "Detection sensitivity (low/medium/high)."
+              },
+              "value": "medium",
+              "values": [
+                {
+                  "id": "low",
+                  "label": {
+                    "en": "Low"
+                  }
+                },
+                {
+                  "id": "medium",
+                  "label": {
+                    "en": "Medium"
+                  }
+                },
+                {
+                  "id": "high",
+                  "label": {
+                    "en": "High"
+                  }
+                }
+              ]
+            },
+            {
+              "id": "approach_distance",
+              "type": "dropdown",
+              "label": {
+                "en": "Approach distance"
+              },
+              "hint": {
+                "en": "Distance at which presence is triggered."
+              },
+              "value": "medium",
+              "values": [
+                {
+                  "id": "far",
+                  "label": {
+                    "en": "Far"
+                  }
+                },
+                {
+                  "id": "medium",
+                  "label": {
+                    "en": "Medium"
+                  }
+                },
+                {
+                  "id": "near",
+                  "label": {
+                    "en": "Near"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "group",
+          "label": {
+            "en": "Monitoring"
+          },
+          "children": [
+            {
+              "id": "monitoring_mode",
+              "type": "dropdown",
+              "label": {
+                "en": "Monitoring mode"
+              },
+              "hint": {
+                "en": "Undirected = full area. Left/Right = directional detection."
+              },
+              "value": "undirected",
+              "values": [
+                {
+                  "id": "undirected",
+                  "label": {
+                    "en": "Undirected"
+                  }
+                },
+                {
+                  "id": "left_right",
+                  "label": {
+                    "en": "Left / Right"
                   }
                 }
               ]
@@ -5196,6 +6910,260 @@
       }
     },
     {
+      "id": "radar_sensor_mmwave",
+      "name": {
+        "en": "Radar Sensor Moes (Linptech)"
+      },
+      "class": "sensor",
+      "platforms": [
+        "local"
+      ],
+      "connectivity": [
+        "zigbee"
+      ],
+      "capabilities": [
+        "alarm_occupancy",
+        "measure_luminance",
+        "measure_distance",
+        "presence_keep_time"
+      ],
+      "images": {
+        "xlarge": "/drivers/radar_sensor_mmwave/assets/images/xlarge.png",
+        "large": "/drivers/radar_sensor_mmwave/assets/images/large.png",
+        "small": "/drivers/radar_sensor_mmwave/assets/images/small.png"
+      },
+      "energy": {
+        "approximation": {
+          "usageOn": 0,
+          "usageOff": 0
+        }
+      },
+      "zigbee": {
+        "manufacturerName": [
+          "_TZ3218_t9ynfz4x"
+        ],
+        "productId": [
+          "TS0225"
+        ],
+        "endpoints": {
+          "1": {
+            "clusters": [
+              0,
+              3,
+              4,
+              5,
+              1024,
+              57346,
+              16384,
+              61184,
+              1280
+            ],
+            "bindings": [
+              3,
+              1024,
+              57346,
+              61184,
+              1280
+            ]
+          }
+        },
+        "learnmode": {
+          "image": "/drivers/radar_sensor_mmwave/assets/icon.svg",
+          "instruction": {
+            "en": "Press and hold the reset button for 5 seconds. When the indicator light flashes it is in pairing mode."
+          }
+        }
+      },
+      "settings": [
+        {
+          "type": "group",
+          "label": {
+            "en": "Detection"
+          },
+          "children": [
+            {
+              "id": "motion_sensitivity",
+              "type": "number",
+              "label": {
+                "en": "Motion sensitivity"
+              },
+              "hint": {
+                "en": "Sensitivity for moving objects (0=lowest, 5=highest)."
+              },
+              "value": 3,
+              "min": 0,
+              "max": 5,
+              "step": 1
+            },
+            {
+              "id": "static_sensitivity",
+              "type": "number",
+              "label": {
+                "en": "Static sensitivity"
+              },
+              "hint": {
+                "en": "Sensitivity for stationary presence — micro-movements like breathing (0=lowest, 5=highest)."
+              },
+              "value": 3,
+              "min": 0,
+              "max": 5,
+              "step": 1
+            },
+            {
+              "id": "motion_detection_distance",
+              "type": "dropdown",
+              "label": {
+                "en": "Detection distance"
+              },
+              "hint": {
+                "en": "Maximum motion detection distance."
+              },
+              "value": "600",
+              "values": [
+                {
+                  "id": "0",
+                  "label": {
+                    "en": "0 cm"
+                  }
+                },
+                {
+                  "id": "75",
+                  "label": {
+                    "en": "75 cm"
+                  }
+                },
+                {
+                  "id": "150",
+                  "label": {
+                    "en": "150 cm"
+                  }
+                },
+                {
+                  "id": "225",
+                  "label": {
+                    "en": "225 cm"
+                  }
+                },
+                {
+                  "id": "300",
+                  "label": {
+                    "en": "300 cm"
+                  }
+                },
+                {
+                  "id": "375",
+                  "label": {
+                    "en": "375 cm"
+                  }
+                },
+                {
+                  "id": "450",
+                  "label": {
+                    "en": "450 cm"
+                  }
+                },
+                {
+                  "id": "525",
+                  "label": {
+                    "en": "525 cm"
+                  }
+                },
+                {
+                  "id": "600",
+                  "label": {
+                    "en": "600 cm"
+                  }
+                }
+              ]
+            },
+            {
+              "id": "fading_time",
+              "type": "number",
+              "label": {
+                "en": "Fading time"
+              },
+              "hint": {
+                "en": "Time before clearing presence after no movement."
+              },
+              "value": 10,
+              "min": 0,
+              "max": 10000,
+              "step": 1,
+              "units": {
+                "en": "seconds"
+              }
+            }
+          ]
+        },
+        {
+          "type": "group",
+          "label": {
+            "en": "LED & Reporting"
+          },
+          "children": [
+            {
+              "id": "led_indicator",
+              "type": "checkbox",
+              "label": {
+                "en": "LED presence indicator"
+              },
+              "hint": {
+                "en": "Enable/disable the LED that flashes on presence detection."
+              },
+              "value": true
+            }
+          ]
+        },
+        {
+          "type": "group",
+          "label": {
+            "en": "Diagnostics & Statistics"
+          },
+          "children": [
+            {
+              "id": "device_stats_display",
+              "type": "text",
+              "label": {
+                "en": "Device stats"
+              },
+              "hint": {
+                "en": "Msg: messages last 24h / avg per hour | Dist: last target distance | Err: error count | Last: minutes since last message | Up: uptime"
+              },
+              "value": "Waiting for data..."
+            },
+            {
+              "id": "luminance_change_threshold",
+              "type": "number",
+              "label": {
+                "en": "Min luminance change"
+              },
+              "hint": {
+                "en": "Only update Homey when luminance changes by at least this many lux. 0 = every report."
+              },
+              "value": 5,
+              "min": 0,
+              "max": 100,
+              "step": 1,
+              "units": {
+                "en": "lux"
+              }
+            },
+            {
+              "id": "debug_logging",
+              "type": "checkbox",
+              "label": {
+                "en": "Debug logging"
+              },
+              "hint": {
+                "en": "Log every event received from the device."
+              },
+              "value": false
+            }
+          ]
+        }
+      ]
+    },
+    {
       "platforms": [
         "local"
       ],
@@ -5230,9 +7198,7 @@
         "manufacturerName": [
           "_TZ3000_88iqnhvd",
           "_TZ3000_okaz9tjs",
-          "_TZ3210_cehuw1lw",
-          "_TZ3210_fgwhjm9j",
-          "_TZ3000_cehuw1lw"
+          "_TZ3210_cehuw1lw"
         ],
         "productId": [
           "TS011F"
@@ -5442,6 +7408,513 @@
                 "en": "Compute power as Voltage × Current instead of using reported active power. Enabled by default because TS011F firmware variants typically report activePower = 0."
               },
               "value": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "platforms": [
+        "local"
+      ],
+      "connectivity": [
+        "zigbee"
+      ],
+      "images": {
+        "xlarge": "/drivers/smartplug_2/assets/images/xlarge.png",
+        "large": "/drivers/smartplug_2/assets/images/large.png",
+        "small": "/drivers/smartplug_2/assets/images/small.png"
+      },
+      "id": "smartplug_2",
+      "name": {
+        "en": "Smart Plug (_TZ3210)"
+      },
+      "class": "socket",
+      "capabilities": [
+        "onoff",
+        "measure_power",
+        "meter_power",
+        "measure_current",
+        "measure_voltage",
+        "is_availability"
+      ],
+      "energy": {
+        "meterPowerImportedCapability": "meter_power"
+      },
+      "zigbee": {
+        "manufacturerName": [
+          "_TZ3210_fgwhjm9j"
+        ],
+        "productId": [
+          "TS011F"
+        ],
+        "endpoints": {
+          "1": {
+            "clusters": [
+              0,
+              3,
+              4,
+              5,
+              6,
+              1794,
+              2820,
+              57344,
+              57345
+            ],
+            "bindings": [
+              6,
+              1794,
+              2820
+            ]
+          }
+        },
+        "learnmode": {
+          "instruction": {
+            "en": "Press and hold the on/off button for approximately 5 seconds until the LED blinks rapidly."
+          }
+        }
+      },
+      "settings": [
+        {
+          "type": "group",
+          "label": {
+            "en": "Diagnostics"
+          },
+          "children": [
+            {
+              "id": "debug_frames",
+              "type": "checkbox",
+              "label": {
+                "en": "Log Zigbee frames"
+              },
+              "hint": {
+                "en": "Logs cluster, command, interval and whether the frame arrived during active polling."
+              },
+              "value": true
+            },
+            {
+              "id": "debug_raw_payload",
+              "type": "checkbox",
+              "label": {
+                "en": "Include raw frame payload"
+              },
+              "hint": {
+                "en": "Include the hexadecimal ZCL frame for detailed analysis."
+              },
+              "value": true
+            }
+          ]
+        },
+        {
+          "type": "group",
+          "label": {
+            "en": "Device control"
+          },
+          "children": [
+            {
+              "id": "relay_status",
+              "type": "dropdown",
+              "label": {
+                "en": "Power-on behavior"
+              },
+              "hint": {
+                "en": "State after power is restored."
+              },
+              "value": "lastState",
+              "values": [
+                {
+                  "id": "off",
+                  "label": {
+                    "en": "Always Off"
+                  }
+                },
+                {
+                  "id": "on",
+                  "label": {
+                    "en": "Always On"
+                  }
+                },
+                {
+                  "id": "lastState",
+                  "label": {
+                    "en": "Last State"
+                  }
+                }
+              ]
+            },
+            {
+              "id": "relay_status_current",
+              "type": "label",
+              "label": {
+                "en": "Current (read from device)"
+              },
+              "value": "—"
+            },
+            {
+              "id": "indicator_mode",
+              "type": "dropdown",
+              "label": {
+                "en": "LED indicator"
+              },
+              "value": "status",
+              "values": [
+                {
+                  "id": "off",
+                  "label": {
+                    "en": "Always off"
+                  }
+                },
+                {
+                  "id": "status",
+                  "label": {
+                    "en": "On when powered"
+                  }
+                },
+                {
+                  "id": "position",
+                  "label": {
+                    "en": "Off when powered"
+                  }
+                },
+                {
+                  "id": "on",
+                  "label": {
+                    "en": "Always on"
+                  }
+                }
+              ]
+            },
+            {
+              "id": "indicator_mode_current",
+              "type": "label",
+              "label": {
+                "en": "Current (read from device)"
+              },
+              "value": "—"
+            },
+            {
+              "id": "child_lock",
+              "type": "checkbox",
+              "label": {
+                "en": "Child lock"
+              },
+              "value": false
+            }
+          ]
+        },
+        {
+          "type": "group",
+          "label": {
+            "en": "Polling"
+          },
+          "children": [
+            {
+              "id": "pollInterval",
+              "type": "number",
+              "label": {
+                "en": "Polling interval (s)"
+              },
+              "hint": {
+                "en": "Active Homey polling interval. Keep this distinct from passive Zigbee reporting during diagnostics."
+              },
+              "value": 180,
+              "min": 60,
+              "max": 3600,
+              "step": 1
+            }
+          ]
+        },
+        {
+          "type": "group",
+          "label": {
+            "en": "Energy measurement"
+          },
+          "children": [
+            {
+              "id": "powerFactor",
+              "type": "number",
+              "label": {
+                "en": "Power correction factor"
+              },
+              "value": 1,
+              "min": 0.1,
+              "max": 2,
+              "step": 0.01
+            },
+            {
+              "id": "energyFactor",
+              "type": "number",
+              "label": {
+                "en": "Energy correction factor"
+              },
+              "value": 1,
+              "min": 0.1,
+              "max": 2,
+              "step": 0.01
+            },
+            {
+              "id": "calcPower",
+              "type": "checkbox",
+              "label": {
+                "en": "Calculate power from V × A"
+              },
+              "value": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "platforms": [
+        "local"
+      ],
+      "connectivity": [
+        "zigbee"
+      ],
+      "images": {
+        "xlarge": "/drivers/smartplug_3/assets/images/xlarge.png",
+        "large": "/drivers/smartplug_3/assets/images/large.png",
+        "small": "/drivers/smartplug_3/assets/images/small.png"
+      },
+      "id": "smartplug_3",
+      "name": {
+        "en": "Smart Plug (_TZ3000)"
+      },
+      "class": "socket",
+      "capabilities": [
+        "onoff",
+        "measure_power",
+        "meter_power",
+        "measure_current",
+        "measure_voltage",
+        "is_availability"
+      ],
+      "energy": {
+        "meterPowerImportedCapability": "meter_power"
+      },
+      "zigbee": {
+        "manufacturerName": [
+          "_TZ3000_cehuw1lw"
+        ],
+        "productId": [
+          "TS011F"
+        ],
+        "endpoints": {
+          "1": {
+            "clusters": [
+              0,
+              3,
+              4,
+              5,
+              6,
+              10,
+              1794,
+              2820,
+              4096,
+              6280,
+              57344
+            ],
+            "bindings": [
+              6,
+              1794,
+              2820
+            ]
+          }
+        },
+        "learnmode": {
+          "instruction": {
+            "en": "Press and hold the on/off button for approximately 5 seconds until the LED blinks rapidly."
+          }
+        }
+      },
+      "settings": [
+        {
+          "type": "group",
+          "label": {
+            "en": "Diagnostics"
+          },
+          "children": [
+            {
+              "id": "debug_frames",
+              "type": "checkbox",
+              "label": {
+                "en": "Log Zigbee frames"
+              },
+              "hint": {
+                "en": "Logs cluster, command, interval and whether the frame arrived during active polling."
+              },
+              "value": true
+            },
+            {
+              "id": "debug_raw_payload",
+              "type": "checkbox",
+              "label": {
+                "en": "Include raw frame payload"
+              },
+              "hint": {
+                "en": "Include the hexadecimal ZCL frame for detailed analysis."
+              },
+              "value": true
+            }
+          ]
+        },
+        {
+          "type": "group",
+          "label": {
+            "en": "Device control"
+          },
+          "children": [
+            {
+              "id": "relay_status",
+              "type": "dropdown",
+              "label": {
+                "en": "Power-on behavior"
+              },
+              "hint": {
+                "en": "State after power is restored."
+              },
+              "value": "lastState",
+              "values": [
+                {
+                  "id": "off",
+                  "label": {
+                    "en": "Always Off"
+                  }
+                },
+                {
+                  "id": "on",
+                  "label": {
+                    "en": "Always On"
+                  }
+                },
+                {
+                  "id": "lastState",
+                  "label": {
+                    "en": "Last State"
+                  }
+                }
+              ]
+            },
+            {
+              "id": "relay_status_current",
+              "type": "label",
+              "label": {
+                "en": "Current (read from device)"
+              },
+              "value": "—"
+            },
+            {
+              "id": "indicator_mode",
+              "type": "dropdown",
+              "label": {
+                "en": "LED indicator"
+              },
+              "value": "status",
+              "values": [
+                {
+                  "id": "off",
+                  "label": {
+                    "en": "Always off"
+                  }
+                },
+                {
+                  "id": "status",
+                  "label": {
+                    "en": "On when powered"
+                  }
+                },
+                {
+                  "id": "position",
+                  "label": {
+                    "en": "Off when powered"
+                  }
+                },
+                {
+                  "id": "on",
+                  "label": {
+                    "en": "Always on"
+                  }
+                }
+              ]
+            },
+            {
+              "id": "indicator_mode_current",
+              "type": "label",
+              "label": {
+                "en": "Current (read from device)"
+              },
+              "value": "—"
+            },
+            {
+              "id": "child_lock",
+              "type": "checkbox",
+              "label": {
+                "en": "Child lock"
+              },
+              "value": false
+            }
+          ]
+        },
+        {
+          "type": "group",
+          "label": {
+            "en": "Polling"
+          },
+          "children": [
+            {
+              "id": "pollInterval",
+              "type": "number",
+              "label": {
+                "en": "Polling interval (s)"
+              },
+              "hint": {
+                "en": "Active Homey polling interval. Keep this distinct from passive Zigbee reporting during diagnostics."
+              },
+              "value": 600,
+              "min": 600,
+              "max": 3600,
+              "step": 1
+            }
+          ]
+        },
+        {
+          "type": "group",
+          "label": {
+            "en": "Energy measurement"
+          },
+          "children": [
+            {
+              "id": "powerFactor",
+              "type": "number",
+              "label": {
+                "en": "Power correction factor"
+              },
+              "value": 1,
+              "min": 0.1,
+              "max": 2,
+              "step": 0.01
+            },
+            {
+              "id": "energyFactor",
+              "type": "number",
+              "label": {
+                "en": "Energy correction factor"
+              },
+              "value": 1,
+              "min": 0.1,
+              "max": 2,
+              "step": 0.01
+            },
+            {
+              "id": "calcPower",
+              "type": "checkbox",
+              "label": {
+                "en": "Calculate power from V × A"
+              },
+              "hint": {
+                "en": "Disabled for this model because it reports active power directly while current may remain zero."
+              },
+              "value": false
             }
           ]
         }
@@ -6236,6 +8709,14 @@
       ],
       "zigbee": {
         "manufacturerName": [
+          "_TZ3000_npzfdcof",
+          "_TZ3000_hktqahrq",
+          "_TZ3000_mx3vgyea",
+          "_TZ3000_5ng23zjs",
+          "_TZ3000_rmjr4ufz",
+          "_TZ3000_v7gnj3ad",
+          "_TZ3000_qsp2pwtf",
+          "_TZ3000_oex7egmt",
           "_TZ3000_tqlv4ug4"
         ],
         "productId": [
@@ -6249,7 +8730,6 @@
               4,
               5,
               6,
-              10,
               57344,
               57345
             ],
@@ -6265,6 +8745,774 @@
             "es": "Mantén pulsado el botón lateral de reinicio ~10 segundos, O enciende/apaga el interruptor conectado 5 veces, hasta que el LED parpadee rápidamente.",
             "it": "Tieni premuto il pulsante laterale di reset per ~10 secondi, OPPURE accendi/spegni l'interruttore collegato 5 volte, finché il LED lampeggia rapidamente.",
             "de": "Halte die seitliche Reset-Taste ~10 Sekunden gedrückt, ODER schalte den angeschlossenen Schalter 5-mal ein/aus, bis die LED schnell blinkt."
+          }
+        }
+      }
+    },
+    {
+      "platforms": [
+        "local"
+      ],
+      "connectivity": [
+        "zigbee"
+      ],
+      "images": {
+        "xlarge": "/drivers/switch_2_ch/assets/images/xlarge.png",
+        "large": "/drivers/switch_2_ch/assets/images/large.png",
+        "small": "/drivers/switch_2_ch/assets/images/small.png"
+      },
+      "id": "switch_2_ch",
+      "name": {
+        "en": "2CH Relay Module"
+      },
+      "class": "socket",
+      "capabilities": [
+        "onoff",
+        "is_availability"
+      ],
+      "energy": {
+        "approximation": {
+          "usageOn": 0,
+          "usageOff": 0
+        }
+      },
+      "settings": [
+        {
+          "id": "device_siblings_info",
+          "type": "label",
+          "label": {
+            "en": "Connected relays"
+          },
+          "hint": {
+            "en": "Other relay channels sharing this physical module."
+          },
+          "value": "-"
+        },
+        {
+          "type": "group",
+          "label": {
+            "en": "Power-On Global"
+          },
+          "children": [
+            {
+              "id": "power_on_behavior_global",
+              "type": "dropdown",
+              "label": {
+                "en": "Default behavior"
+              },
+              "hint": {
+                "en": "Applies to both relay channels."
+              },
+              "value": "lastState",
+              "values": [
+                {
+                  "id": "off",
+                  "label": {
+                    "en": "Always Off"
+                  }
+                },
+                {
+                  "id": "on",
+                  "label": {
+                    "en": "Always On"
+                  }
+                },
+                {
+                  "id": "lastState",
+                  "label": {
+                    "en": "Last State"
+                  }
+                }
+              ]
+            },
+            {
+              "id": "power_on_current_global",
+              "type": "label",
+              "label": {
+                "en": "Current (Global)"
+              },
+              "value": "-"
+            }
+          ]
+        },
+        {
+          "type": "group",
+          "label": {
+            "en": "Power-On Relay 1"
+          },
+          "children": [
+            {
+              "id": "power_on_behavior_gang1",
+              "type": "dropdown",
+              "label": {
+                "en": "Relay 1 override"
+              },
+              "value": "lastState",
+              "values": [
+                {
+                  "id": "off",
+                  "label": {
+                    "en": "Always Off"
+                  }
+                },
+                {
+                  "id": "on",
+                  "label": {
+                    "en": "Always On"
+                  }
+                },
+                {
+                  "id": "lastState",
+                  "label": {
+                    "en": "Last State"
+                  }
+                }
+              ]
+            },
+            {
+              "id": "power_on_current_gang1",
+              "type": "label",
+              "label": {
+                "en": "Current (Relay 1)"
+              },
+              "value": "-"
+            }
+          ]
+        },
+        {
+          "id": "power_on_current_gang2",
+          "type": "label",
+          "label": {
+            "en": "Current (Relay 2)"
+          },
+          "hint": {
+            "en": "Change from the Relay 2 tile settings."
+          },
+          "value": "-"
+        },
+        {
+          "type": "group",
+          "label": {
+            "en": "Inching"
+          },
+          "children": [
+            {
+              "id": "inching_enabled",
+              "type": "checkbox",
+              "value": false,
+              "label": {
+                "en": "Inching (auto-off)"
+              },
+              "hint": {
+                "en": "Use only with a momentary push button that returns to its resting position."
+              }
+            },
+            {
+              "id": "inching_time",
+              "type": "number",
+              "value": 0,
+              "min": 0,
+              "max": 3600,
+              "units": "s",
+              "label": {
+                "en": "Inching delay"
+              },
+              "hint": {
+                "en": "0–3600 seconds."
+              }
+            }
+          ]
+        }
+      ],
+      "zigbee": {
+        "manufacturerName": [
+          "_TZ3000_fisb3ajo",
+          "_TZ3000_bvrlqyj7",
+          "_TZ3000_7ed9cqgi",
+          "_TZ3000_lmlsduws",
+          "_TZ3000_qaa59zqd",
+          "_TZ3000_ruxexjfz",
+          "_TZ3000_zmy4lslw",
+          "_TZ3000_hznzbl0x",
+          "_TZ3000_mtnpt6ws",
+          "_TZ3000_pxfjrzyj"
+        ],
+        "productId": [
+          "TS0002"
+        ],
+        "endpoints": {
+          "1": {
+            "clusters": [
+              0,
+              3,
+              4,
+              5,
+              6,
+              57344,
+              57345
+            ],
+            "bindings": [
+              6
+            ]
+          },
+          "2": {
+            "clusters": [
+              4,
+              5,
+              6,
+              57345
+            ],
+            "bindings": [
+              6
+            ]
+          }
+        },
+        "learnmode": {
+          "image": "/drivers/switch_2_ch/assets/icon.svg",
+          "instruction": {
+            "en": "Hold the setup button for 10 seconds, or power-cycle the module five times, until its indicator blinks. Two tiles will be created."
+          }
+        },
+        "devices": {
+          "secondSwitch": {
+            "class": "socket",
+            "capabilities": [
+              "onoff"
+            ],
+            "name": {
+              "en": "2CH Relay Module - Relay 2"
+            },
+            "energy": {
+              "approximation": {
+                "usageOn": 0,
+                "usageOff": 0
+              }
+            },
+            "settings": [
+              {
+                "id": "device_siblings_info",
+                "type": "label",
+                "label": {
+                  "en": "Connected relays"
+                },
+                "value": "-"
+              },
+              {
+                "type": "group",
+                "label": {
+                  "en": "Power-On Relay 2"
+                },
+                "children": [
+                  {
+                    "id": "power_on_behavior_gang2",
+                    "type": "dropdown",
+                    "label": {
+                      "en": "Relay 2 override"
+                    },
+                    "value": "lastState",
+                    "values": [
+                      {
+                        "id": "off",
+                        "label": {
+                          "en": "Always Off"
+                        }
+                      },
+                      {
+                        "id": "on",
+                        "label": {
+                          "en": "Always On"
+                        }
+                      },
+                      {
+                        "id": "lastState",
+                        "label": {
+                          "en": "Last State"
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "id": "power_on_current_gang2",
+                    "type": "label",
+                    "label": {
+                      "en": "Current (Relay 2)"
+                    },
+                    "value": "-"
+                  }
+                ]
+              },
+              {
+                "type": "group",
+                "label": {
+                  "en": "Inching"
+                },
+                "children": [
+                  {
+                    "id": "inching_enabled",
+                    "type": "checkbox",
+                    "value": false,
+                    "label": {
+                      "en": "Inching (auto-off)"
+                    },
+                    "hint": {
+                      "en": "Use only with a momentary push button that returns to its resting position."
+                    }
+                  },
+                  {
+                    "id": "inching_time",
+                    "type": "number",
+                    "value": 0,
+                    "min": 0,
+                    "max": 3600,
+                    "units": "s",
+                    "label": {
+                      "en": "Inching delay"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "platforms": [
+        "local"
+      ],
+      "connectivity": [
+        "zigbee"
+      ],
+      "images": {
+        "xlarge": "/drivers/switch_3_ch/assets/images/xlarge.png",
+        "large": "/drivers/switch_3_ch/assets/images/large.png",
+        "small": "/drivers/switch_3_ch/assets/images/small.png"
+      },
+      "id": "switch_3_ch",
+      "name": {
+        "en": "3CH Relay Module"
+      },
+      "class": "socket",
+      "capabilities": [
+        "onoff",
+        "is_availability"
+      ],
+      "energy": {
+        "approximation": {
+          "usageOn": 0,
+          "usageOff": 0
+        }
+      },
+      "settings": [
+        {
+          "id": "device_siblings_info",
+          "type": "label",
+          "label": {
+            "en": "Connected relays"
+          },
+          "hint": {
+            "en": "Other relay channels sharing this physical module."
+          },
+          "value": "-"
+        },
+        {
+          "type": "group",
+          "label": {
+            "en": "Power-On Global"
+          },
+          "children": [
+            {
+              "id": "power_on_behavior_global",
+              "type": "dropdown",
+              "label": {
+                "en": "Default behavior"
+              },
+              "hint": {
+                "en": "Applies to all three relay channels."
+              },
+              "value": "lastState",
+              "values": [
+                {
+                  "id": "off",
+                  "label": {
+                    "en": "Always Off"
+                  }
+                },
+                {
+                  "id": "on",
+                  "label": {
+                    "en": "Always On"
+                  }
+                },
+                {
+                  "id": "lastState",
+                  "label": {
+                    "en": "Last State"
+                  }
+                }
+              ]
+            },
+            {
+              "id": "power_on_current_global",
+              "type": "label",
+              "label": {
+                "en": "Current (Global)"
+              },
+              "value": "-"
+            }
+          ]
+        },
+        {
+          "type": "group",
+          "label": {
+            "en": "Power-On Relay 1"
+          },
+          "children": [
+            {
+              "id": "power_on_behavior_gang1",
+              "type": "dropdown",
+              "label": {
+                "en": "Relay 1 override"
+              },
+              "value": "lastState",
+              "values": [
+                {
+                  "id": "off",
+                  "label": {
+                    "en": "Always Off"
+                  }
+                },
+                {
+                  "id": "on",
+                  "label": {
+                    "en": "Always On"
+                  }
+                },
+                {
+                  "id": "lastState",
+                  "label": {
+                    "en": "Last State"
+                  }
+                }
+              ]
+            },
+            {
+              "id": "power_on_current_gang1",
+              "type": "label",
+              "label": {
+                "en": "Current (Relay 1)"
+              },
+              "value": "-"
+            }
+          ]
+        },
+        {
+          "id": "power_on_current_gang2",
+          "type": "label",
+          "label": {
+            "en": "Current (Relay 2)"
+          },
+          "hint": {
+            "en": "Change from the Relay 2 tile settings."
+          },
+          "value": "-"
+        },
+        {
+          "id": "power_on_current_gang3",
+          "type": "label",
+          "label": {
+            "en": "Current (Relay 3)"
+          },
+          "hint": {
+            "en": "Change from the Relay 3 tile settings."
+          },
+          "value": "-"
+        },
+        {
+          "type": "group",
+          "label": {
+            "en": "Inching"
+          },
+          "children": [
+            {
+              "id": "inching_enabled",
+              "type": "checkbox",
+              "value": false,
+              "label": {
+                "en": "Inching (auto-off)"
+              },
+              "hint": {
+                "en": "Use only with a momentary push button that returns to its resting position."
+              }
+            },
+            {
+              "id": "inching_time",
+              "type": "number",
+              "value": 0,
+              "min": 0,
+              "max": 3600,
+              "units": "s",
+              "label": {
+                "en": "Inching delay"
+              },
+              "hint": {
+                "en": "0–3600 seconds."
+              }
+            }
+          ]
+        }
+      ],
+      "zigbee": {
+        "manufacturerName": [
+          "_TZ3000_odzoiovu",
+          "_TZ3000_lvhy15ix",
+          "_TZ3000_4o16jdca"
+        ],
+        "productId": [
+          "TS0003"
+        ],
+        "endpoints": {
+          "1": {
+            "clusters": [
+              0,
+              3,
+              4,
+              5,
+              6,
+              57344,
+              57345
+            ],
+            "bindings": [
+              6
+            ]
+          },
+          "2": {
+            "clusters": [
+              4,
+              5,
+              6,
+              57345
+            ],
+            "bindings": [
+              6
+            ]
+          },
+          "3": {
+            "clusters": [
+              4,
+              5,
+              6,
+              57345
+            ],
+            "bindings": [
+              6
+            ]
+          }
+        },
+        "learnmode": {
+          "image": "/drivers/switch_3_ch/assets/icon.svg",
+          "instruction": {
+            "en": "Hold the setup button for 10 seconds, or power-cycle the module five times, until its indicator blinks. Three tiles will be created."
+          }
+        },
+        "devices": {
+          "secondSwitch": {
+            "class": "socket",
+            "capabilities": [
+              "onoff"
+            ],
+            "name": {
+              "en": "3CH Relay Module - Relay 2"
+            },
+            "energy": {
+              "approximation": {
+                "usageOn": 0,
+                "usageOff": 0
+              }
+            },
+            "settings": [
+              {
+                "id": "device_siblings_info",
+                "type": "label",
+                "label": {
+                  "en": "Connected relays"
+                },
+                "value": "-"
+              },
+              {
+                "type": "group",
+                "label": {
+                  "en": "Power-On Relay 2"
+                },
+                "children": [
+                  {
+                    "id": "power_on_behavior_gang2",
+                    "type": "dropdown",
+                    "label": {
+                      "en": "Relay 2 override"
+                    },
+                    "value": "lastState",
+                    "values": [
+                      {
+                        "id": "off",
+                        "label": {
+                          "en": "Always Off"
+                        }
+                      },
+                      {
+                        "id": "on",
+                        "label": {
+                          "en": "Always On"
+                        }
+                      },
+                      {
+                        "id": "lastState",
+                        "label": {
+                          "en": "Last State"
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "id": "power_on_current_gang2",
+                    "type": "label",
+                    "label": {
+                      "en": "Current (Relay 2)"
+                    },
+                    "value": "-"
+                  }
+                ]
+              },
+              {
+                "type": "group",
+                "label": {
+                  "en": "Inching"
+                },
+                "children": [
+                  {
+                    "id": "inching_enabled",
+                    "type": "checkbox",
+                    "value": false,
+                    "label": {
+                      "en": "Inching (auto-off)"
+                    },
+                    "hint": {
+                      "en": "Use only with a momentary push button that returns to its resting position."
+                    }
+                  },
+                  {
+                    "id": "inching_time",
+                    "type": "number",
+                    "value": 0,
+                    "min": 0,
+                    "max": 3600,
+                    "units": "s",
+                    "label": {
+                      "en": "Inching delay"
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          "thirdSwitch": {
+            "class": "socket",
+            "capabilities": [
+              "onoff"
+            ],
+            "name": {
+              "en": "3CH Relay Module - Relay 3"
+            },
+            "energy": {
+              "approximation": {
+                "usageOn": 0,
+                "usageOff": 0
+              }
+            },
+            "settings": [
+              {
+                "id": "device_siblings_info",
+                "type": "label",
+                "label": {
+                  "en": "Connected relays"
+                },
+                "value": "-"
+              },
+              {
+                "type": "group",
+                "label": {
+                  "en": "Power-On Relay 3"
+                },
+                "children": [
+                  {
+                    "id": "power_on_behavior_gang3",
+                    "type": "dropdown",
+                    "label": {
+                      "en": "Relay 3 override"
+                    },
+                    "value": "lastState",
+                    "values": [
+                      {
+                        "id": "off",
+                        "label": {
+                          "en": "Always Off"
+                        }
+                      },
+                      {
+                        "id": "on",
+                        "label": {
+                          "en": "Always On"
+                        }
+                      },
+                      {
+                        "id": "lastState",
+                        "label": {
+                          "en": "Last State"
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "id": "power_on_current_gang3",
+                    "type": "label",
+                    "label": {
+                      "en": "Current (Relay 3)"
+                    },
+                    "value": "-"
+                  }
+                ]
+              },
+              {
+                "type": "group",
+                "label": {
+                  "en": "Inching"
+                },
+                "children": [
+                  {
+                    "id": "inching_enabled",
+                    "type": "checkbox",
+                    "value": false,
+                    "label": {
+                      "en": "Inching (auto-off)"
+                    },
+                    "hint": {
+                      "en": "Use only with a momentary push button that returns to its resting position."
+                    }
+                  },
+                  {
+                    "id": "inching_time",
+                    "type": "number",
+                    "value": 0,
+                    "min": 0,
+                    "max": 3600,
+                    "units": "s",
+                    "label": {
+                      "en": "Inching delay"
+                    }
+                  }
+                ]
+              }
+            ]
           }
         }
       }
@@ -6374,6 +9622,188 @@
         }
       },
       "settings": []
+    },
+    {
+      "name": {
+        "en": "Ultrasonic Liquid Level Sensor"
+      },
+      "class": "sensor",
+      "platforms": [
+        "local"
+      ],
+      "connectivity": [
+        "zigbee"
+      ],
+      "capabilities": [
+        "measure_water_percentage",
+        "measure_water_level",
+        "alarm_water_low",
+        "alarm_water_high"
+      ],
+      "images": {
+        "small": "/drivers/water_tank_monitor/assets/images/small.png",
+        "large": "/drivers/water_tank_monitor/assets/images/large.png"
+      },
+      "zigbee": {
+        "manufacturerName": [
+          "_TZE200_lvkk0hdg"
+        ],
+        "productId": [
+          "TS0601"
+        ],
+        "endpoints": {
+          "1": {
+            "clusters": [
+              0,
+              4,
+              5,
+              61184
+            ]
+          }
+        },
+        "learnmode": {
+          "image": "/drivers/water_tank_monitor/assets/icon.svg",
+          "instruction": {
+            "en": "Press and hold the pairing button until the indicator starts blinking."
+          }
+        }
+      },
+      "settings": [
+        {
+          "type": "group",
+          "label": {
+            "en": "Tank configuration"
+          },
+          "children": [
+            {
+              "id": "upper_limit",
+              "type": "number",
+              "label": {
+                "en": "High level alert"
+              },
+              "hint": {
+                "en": "The device reports a high-level state above this percentage (DP7)."
+              },
+              "value": 75,
+              "min": 0,
+              "max": 100,
+              "step": 1,
+              "units": "%"
+            },
+            {
+              "id": "lower_limit",
+              "type": "number",
+              "label": {
+                "en": "Low level alert"
+              },
+              "hint": {
+                "en": "The device reports a low-level state below this percentage (DP8)."
+              },
+              "value": 25,
+              "min": 0,
+              "max": 100,
+              "step": 1,
+              "units": "%"
+            },
+            {
+              "id": "installation_height",
+              "type": "number",
+              "label": {
+                "en": "Sensor to tank bottom"
+              },
+              "hint": {
+                "en": "Vertical distance from the sensor face to the tank bottom (DP19)."
+              },
+              "value": 2000,
+              "min": 10,
+              "max": 4000,
+              "step": 5,
+              "units": "mm"
+            },
+            {
+              "id": "full_level_distance",
+              "type": "number",
+              "label": {
+                "en": "Sensor to full level"
+              },
+              "hint": {
+                "en": "Distance from the sensor face to the liquid surface when the tank is considered full (DP21)."
+              },
+              "value": 100,
+              "min": 10,
+              "max": 4000,
+              "step": 5,
+              "units": "mm"
+            }
+          ]
+        },
+        {
+          "type": "group",
+          "label": {
+            "en": "Event filtering"
+          },
+          "children": [
+            {
+              "id": "level_change_threshold",
+              "type": "number",
+              "label": {
+                "en": "Minimum level change"
+              },
+              "hint": {
+                "en": "Only update Homey when the fill level changes by at least this many percentage points. This does not change Zigbee reporting."
+              },
+              "value": 0,
+              "min": 0,
+              "max": 20,
+              "step": 1,
+              "units": "%"
+            },
+            {
+              "id": "depth_change_threshold",
+              "type": "number",
+              "label": {
+                "en": "Minimum depth change"
+              },
+              "hint": {
+                "en": "Only update Homey when the measured liquid depth changes by at least this value."
+              },
+              "value": 0,
+              "min": 0,
+              "max": 50,
+              "step": 0.1,
+              "decimals": 1,
+              "units": "cm"
+            },
+            {
+              "id": "minimum_update_interval",
+              "type": "number",
+              "label": {
+                "en": "Minimum update interval"
+              },
+              "hint": {
+                "en": "Minimum time between Homey updates for level and depth."
+              },
+              "value": 0,
+              "min": 0,
+              "max": 3600,
+              "step": 1,
+              "units": "s"
+            },
+            {
+              "id": "debug_logging",
+              "type": "checkbox",
+              "label": {
+                "en": "Log every Tuya report"
+              },
+              "hint": {
+                "en": "Diagnostic option. Leave disabled to avoid filling the app log with duplicate reports."
+              },
+              "value": false
+            }
+          ]
+        }
+      ],
+      "id": "water_tank_monitor"
     },
     {
       "id": "wireless_switch_remote_2_gang",
@@ -6490,6 +9920,26 @@
     }
   ],
   "capabilities": {
+    "alarm_water_high": {
+      "type": "boolean",
+      "title": {
+        "en": "High Liquid Level"
+      },
+      "getable": true,
+      "setable": false,
+      "uiComponent": "sensor",
+      "icon": "/assets/capabilities/water-level-up.svg"
+    },
+    "alarm_water_low": {
+      "type": "boolean",
+      "title": {
+        "en": "Low Liquid Level"
+      },
+      "getable": true,
+      "setable": false,
+      "uiComponent": "sensor",
+      "icon": "/assets/capabilities/water-level-down.svg"
+    },
     "is_availability": {
       "type": "boolean",
       "title": {
@@ -6508,6 +9958,115 @@
       "setable": false,
       "insights": false,
       "uiComponent": null
+    },
+    "measure_water_level": {
+      "type": "number",
+      "title": {
+        "en": "Liquid Depth"
+      },
+      "units": {
+        "en": "cm"
+      },
+      "getable": true,
+      "setable": false,
+      "uiComponent": "sensor",
+      "icon": "/assets/capabilities/water-depth.svg",
+      "insights": true,
+      "decimals": 1,
+      "min": 0,
+      "max": 400
+    },
+    "measure_water_percentage": {
+      "type": "number",
+      "title": {
+        "en": "Fill Level"
+      },
+      "units": {
+        "en": "%"
+      },
+      "getable": true,
+      "setable": false,
+      "uiComponent": "sensor",
+      "icon": "/assets/capabilities/percentual-agua.svg",
+      "insights": true,
+      "decimals": 0,
+      "min": 0,
+      "max": 100
+    },
+    "presence_keep_time": {
+      "type": "number",
+      "title": {
+        "en": "Presence time"
+      },
+      "units": {
+        "en": "min"
+      },
+      "getable": true,
+      "setable": false,
+      "uiComponent": "sensor",
+      "icon": "/drivers/radar_sensor_mmwave/assets/presence_keep_time.svg",
+      "insights": true,
+      "decimals": 0,
+      "min": 0,
+      "max": 1440
+    },
+    "sonoff_illuminance": {
+      "type": "enum",
+      "values": [
+        {
+          "id": "dim",
+          "title": {
+            "en": "Dim",
+            "sv": "Mörkt",
+            "nl": "Gedimd",
+            "da": "Dæmpet",
+            "de": "Gedimmt",
+            "es": "Tenuemente",
+            "fr": "Atténué",
+            "it": "Fioco",
+            "no": "Dempe",
+            "pl": "Przyciemniony",
+            "ru": "Тусклый",
+            "ko": "어둑한"
+          }
+        },
+        {
+          "id": "bright",
+          "title": {
+            "en": "Bright",
+            "sv": "Ljust",
+            "nl": "Helder",
+            "da": "Lys",
+            "de": "Hell",
+            "es": "Brillante",
+            "fr": "Brillant",
+            "it": "Luminoso",
+            "no": "Lys",
+            "pl": "Jasny",
+            "ru": "Яркий",
+            "ko": "밝은"
+          }
+        }
+      ],
+      "title": {
+        "en": "Illuminance",
+        "sv": "Ljusstyrka",
+        "nl": "Verlichting",
+        "da": "Belysning",
+        "de": "Beleuchtung",
+        "es": "Iluminancia",
+        "fr": "Éclairement",
+        "it": "Illuminazione",
+        "no": "Belysning",
+        "pl": "Jasność",
+        "ru": "Освещенность",
+        "ko": "조도"
+      },
+      "getable": true,
+      "setable": false,
+      "uiComponent": "sensor",
+      "uiQuickAction": false,
+      "icon": "/assets/capabilities/illuminance.svg"
     }
   }
 }

@@ -1,0 +1,17 @@
+{
+  "type": "number",
+  "title": {
+    "en": "Liquid Depth"
+  },
+  "units": {
+    "en": "cm"
+  },
+  "getable": true,
+  "setable": false,
+  "uiComponent": "sensor",
+  "icon": "/assets/capabilities/water-depth.svg",
+  "insights": true,
+  "decimals": 1,
+  "min": 0,
+  "max": 400
+}

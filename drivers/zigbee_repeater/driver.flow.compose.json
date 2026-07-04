@@ -1,0 +1,12 @@
+{
+  "triggers": [
+    {
+      "$extends": "availability_turned_on",
+      "$id": "zigbee_repeater_availability_turned_on"
+    },
+    {
+      "$extends": "availability_turned_off",
+      "$id": "zigbee_repeater_availability_turned_off"
+    }
+  ]
+}

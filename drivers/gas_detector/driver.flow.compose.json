@@ -1,0 +1,12 @@
+{
+  "triggers": [
+    {
+      "$extends": "availability_turned_on",
+      "$id": "gas_detector_availability_turned_on"
+    },
+    {
+      "$extends": "availability_turned_off",
+      "$id": "gas_detector_availability_turned_off"
+    }
+  ]
+}

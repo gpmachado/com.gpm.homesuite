@@ -1,0 +1,16 @@
+{
+  "triggers": [
+    {
+      "$extends": "availability_turned_on",
+      "$id": "smartplug_3_availability_turned_on"
+    },
+    {
+      "$extends": "availability_turned_off",
+      "$id": "smartplug_3_availability_turned_off"
+    },
+    {
+      "$extends": "device_rejoined",
+      "$id": "smartplug_3_device_rejoined"
+    }
+  ]
+}

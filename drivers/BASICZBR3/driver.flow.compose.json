@@ -1,0 +1,12 @@
+{
+  "triggers": [
+    {
+      "$extends": "availability_turned_on",
+      "$id": "BASICZBR3_availability_turned_on"
+    },
+    {
+      "$extends": "availability_turned_off",
+      "$id": "BASICZBR3_availability_turned_off"
+    }
+  ]
+}

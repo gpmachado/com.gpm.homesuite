@@ -1,0 +1,542 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Zigbee Traffic</title>
+  <script src="/homey.js" data-origin="settings"></script>
+  <style>
+    :root {
+      --ink: #102a43;
+      --muted: #627d98;
+      --paper: #f4f8fb;
+      --panel: #fff;
+      --line: #d9e5ef;
+      --blue: #5078c4;
+      --blue-dark: #315aab;
+      --pulse: #6e91d5;
+      --good: #16856a;
+      --bad: #c45151;
+      --shadow: 0 12px 32px rgba(16, 42, 67, 0.08);
+    }
+
+    * { box-sizing: border-box; }
+    html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+    body {
+      margin: 0;
+      padding: 24px;
+      color: var(--ink);
+      background:
+        linear-gradient(90deg, rgba(80, 120, 196, 0.035) 1px, transparent 1px),
+        var(--paper);
+      background-size: 24px 24px;
+      font-family: "Avenir Next", "Segoe UI", sans-serif;
+      line-height: 1.45;
+    }
+
+    button, select { font: inherit; }
+    .shell { width: min(1080px, 100%); margin: 0 auto; }
+    .masthead {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 24px;
+      align-items: end;
+      margin-bottom: 20px;
+    }
+    .eyebrow {
+      margin: 0 0 6px;
+      color: var(--blue-dark);
+      font-family: ui-monospace, "SFMono-Regular", Menlo, monospace;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+    h1 {
+      margin: 0;
+      font-size: clamp(28px, 5vw, 46px);
+      font-weight: 650;
+      letter-spacing: -0.045em;
+      line-height: 1;
+    }
+    .intro { max-width: 650px; margin: 10px 0 0; color: var(--muted); font-size: 14px; }
+    .refresh {
+      min-height: 42px;
+      padding: 0 16px;
+      border: 1px solid var(--blue);
+      border-radius: 8px;
+      color: #fff;
+      background: var(--blue);
+      font-weight: 650;
+      cursor: pointer;
+    }
+    .header-actions { display: flex; gap: 8px; }
+    .reset {
+      min-height: 42px;
+      padding: 0 16px;
+      border: 1px solid var(--bad);
+      border-radius: 8px;
+      color: var(--bad);
+      background: transparent;
+      font-weight: 650;
+      cursor: pointer;
+    }
+    .reset:hover { color: #fff; background: var(--bad); }
+    .refresh:hover { background: var(--blue-dark); }
+    .refresh[disabled], .reset[disabled] { cursor: wait; opacity: 0.65; }
+    .refresh:focus-visible, .reset:focus-visible, select:focus-visible, th button:focus-visible {
+      outline: 3px solid rgba(80, 120, 196, 0.28);
+      outline-offset: 2px;
+    }
+
+    .summary {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      overflow: hidden;
+      margin-bottom: 16px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: var(--panel);
+      box-shadow: var(--shadow);
+    }
+    .summary-item { min-width: 0; padding: 16px 18px; border-right: 1px solid var(--line); }
+    .summary-item:last-child { border-right: 0; }
+    .summary-label {
+      display: block;
+      margin-bottom: 5px;
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+    .summary-value {
+      display: block;
+      overflow: hidden;
+      font-family: ui-monospace, "SFMono-Regular", Menlo, monospace;
+      font-size: 22px;
+      font-weight: 700;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .toolbar {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+    .toolbar-note, .sort-wrap { color: var(--muted); font-size: 12px; }
+    .sort-wrap { display: flex; gap: 8px; align-items: center; }
+    select {
+      min-height: 36px;
+      padding: 0 34px 0 10px;
+      border: 1px solid var(--line);
+      border-radius: 7px;
+      color: var(--ink);
+      background: var(--panel);
+    }
+
+    .table-shell {
+      overflow-x: auto;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: var(--panel);
+      box-shadow: var(--shadow);
+    }
+    table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    th {
+      padding: 0;
+      border-bottom: 1px solid var(--line);
+      color: var(--muted);
+      background: #f9fbfd;
+      text-align: right;
+      white-space: nowrap;
+    }
+    th:first-child { text-align: left; }
+    th button {
+      width: 100%;
+      padding: 12px 14px;
+      border: 0;
+      color: inherit;
+      background: transparent;
+      font-size: 10px;
+      font-weight: 750;
+      letter-spacing: 0.065em;
+      text-align: inherit;
+      text-transform: uppercase;
+      cursor: pointer;
+    }
+    td {
+      padding: 14px;
+      border-bottom: 1px solid #edf3f7;
+      text-align: right;
+      vertical-align: middle;
+      white-space: nowrap;
+    }
+    tr:last-child td { border-bottom: 0; }
+    td:first-child { width: 42%; min-width: 250px; text-align: left; white-space: normal; }
+    .device-name { display: flex; gap: 8px; align-items: center; margin-bottom: 3px; font-weight: 700; }
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      flex: 0 0 auto;
+      border-radius: 50%;
+      background: var(--good);
+      box-shadow: 0 0 0 3px rgba(22, 133, 106, 0.12);
+    }
+    .status-dot.offline { background: var(--bad); box-shadow: 0 0 0 3px rgba(196, 81, 81, 0.12); }
+    .device-meta {
+      color: var(--muted);
+      font-family: ui-monospace, "SFMono-Regular", Menlo, monospace;
+      font-size: 10px;
+    }
+    .number {
+      font-family: ui-monospace, "SFMono-Regular", Menlo, monospace;
+      font-variant-numeric: tabular-nums;
+      font-weight: 650;
+    }
+    .pulse-track {
+      width: 100%;
+      height: 3px;
+      overflow: hidden;
+      margin-top: 8px;
+      border-radius: 3px;
+      background: #e6f0f4;
+    }
+    .pulse-bar { height: 100%; border-radius: inherit; background: var(--pulse); }
+    .mode {
+      display: inline-block;
+      margin-left: 6px;
+      padding: 1px 5px;
+      border: 1px solid var(--line);
+      border-radius: 4px;
+      color: var(--muted);
+      font-size: 9px;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+    .state { padding: 40px 18px; color: var(--muted); text-align: center; }
+    .footnote { margin: 12px 2px 0; color: var(--muted); font-size: 11px; }
+
+    @media (max-width: 720px) {
+      body { padding: 14px 10px; font-size: 13px; line-height: 1.4; }
+      .masthead { grid-template-columns: 1fr; gap: 12px; margin-bottom: 14px; }
+      .eyebrow { margin-bottom: 4px; font-size: 9px; }
+      h1 { font-size: 24px; letter-spacing: -0.035em; }
+      .intro { margin-top: 8px; font-size: 12px; }
+      .header-actions {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+      .refresh, .reset { min-height: 36px; padding: 0 10px; font-size: 13px; }
+      .summary { grid-template-columns: 1fr; margin-bottom: 12px; }
+      .summary-item { padding: 11px 14px; border-right: 0; border-bottom: 1px solid var(--line); }
+      .summary-item:last-child { border-bottom: 0; }
+      .summary-label { margin-bottom: 3px; font-size: 9px; }
+      .summary-value { font-size: 18px; }
+      .summary-item:last-child .summary-value {
+        font-size: 15px;
+        line-height: 1.3;
+        text-overflow: clip;
+        white-space: normal;
+      }
+      .toolbar { gap: 8px; align-items: stretch; flex-direction: column; margin-bottom: 8px; }
+      .toolbar-note, .sort-wrap { font-size: 10px; }
+      .sort-wrap { justify-content: space-between; }
+      select { flex: 1; min-height: 32px; font-size: 11px; }
+      table { font-size: 11px; }
+      th button { padding: 9px 10px; font-size: 8px; }
+      td { padding: 10px; }
+      td:first-child { min-width: 205px; }
+      .device-name { gap: 7px; font-size: 11px; line-height: 1.3; }
+      .device-meta, .mode { font-size: 8px; }
+      .footnote { margin-top: 10px; font-size: 9px; }
+    }
+  </style>
+</head>
+<body>
+  <main class="shell">
+    <header class="masthead">
+      <div>
+        <p class="eyebrow">HomeSuite · monitored EP1</p>
+        <h1>Zigbee Traffic</h1>
+        <p class="intro">
+          One row per physical device. Multi-gang devices are counted once through their main device.
+        </p>
+      </div>
+      <div class="header-actions">
+        <button id="refresh" class="refresh" type="button">Refresh now</button>
+        <button id="reset" class="reset" type="button">Reset statistics</button>
+      </div>
+    </header>
+
+    <section class="summary" aria-label="Summary">
+      <div class="summary-item">
+        <span class="summary-label">Physical devices</span>
+        <strong id="device-count" class="summary-value">—</strong>
+      </div>
+      <div class="summary-item">
+        <span class="summary-label">Messages · 24 h</span>
+        <strong id="message-total" class="summary-value">—</strong>
+      </div>
+      <div class="summary-item">
+        <span class="summary-label">Messages · current hour</span>
+        <strong id="current-hour-total" class="summary-value">—</strong>
+      </div>
+      <div class="summary-item">
+        <span class="summary-label">Most active · current hour</span>
+        <strong id="top-talker" class="summary-value">—</strong>
+      </div>
+    </section>
+
+    <div class="toolbar">
+      <span id="updated-at" class="toolbar-note">Waiting for data…</span>
+      <label class="sort-wrap" for="sort">
+        Sort by
+        <select id="sort">
+          <option value="name-asc">Name A–Z</option>
+          <option value="last24h-desc">Most messages · 24 h</option>
+          <option value="currentHour-desc">Most messages · current hour</option>
+          <option value="previousHour-desc">Most messages · previous hour</option>
+          <option value="lastMessageAt-desc">Most recent activity</option>
+        </select>
+      </label>
+    </div>
+
+    <section class="table-shell" aria-live="polite">
+      <table>
+        <thead>
+          <tr>
+            <th><button type="button" data-sort="name-asc">Device</button></th>
+            <th><button type="button" data-sort="currentHour-desc">Current hour</button></th>
+            <th><button type="button" data-sort="previousHour-desc">Previous hour</button></th>
+            <th><button type="button" data-sort="last24h-desc">24 h</button></th>
+            <th><button type="button" data-sort="lastMessageAt-desc">Last message</button></th>
+          </tr>
+        </thead>
+        <tbody id="rows">
+          <tr><td colspan="5" class="state">Loading statistics…</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <p class="footnote">
+      “Frames” are raw Zigbee messages. “Activity” represents explicit callbacks from sleepy sensors.
+      Data is persisted at most once every five minutes.
+    </p>
+  </main>
+
+  <script>
+    var homeyApi = null;
+    var devices = [];
+    var currentSort = 'name-asc';
+    var latestRequest = 0;
+    var resetInFlight = false;
+
+    function escapeHtml(value) {
+      return String(value == null ? '' : value)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+    }
+
+    function formatNumber(value) {
+      return new Intl.NumberFormat('en-US').format(Number(value) || 0);
+    }
+
+    function formatTime(timestamp) {
+      if (!timestamp) return '—';
+      return new Intl.DateTimeFormat('en-US', {
+        day: '2-digit',
+        month: '2-digit',
+        hour: '2-digit',
+        minute: '2-digit',
+        hour12: false
+      }).format(new Date(timestamp));
+    }
+
+    function compareDevices(a, b) {
+      var parts = currentSort.split('-');
+      var direction = parts.pop();
+      var field = parts.join('-');
+      var multiplier = direction === 'asc' ? 1 : -1;
+
+      if (field === 'name') {
+        return a.name.localeCompare(b.name, 'en-US', { sensitivity: 'base' }) * multiplier;
+      }
+      var aValue = field === 'lastMessageAt' ? (a.stats.lastMessageAt || 0) : (a.stats[field] || 0);
+      var bValue = field === 'lastMessageAt' ? (b.stats.lastMessageAt || 0) : (b.stats[field] || 0);
+      if (aValue === bValue) return a.name.localeCompare(b.name, 'en-US', { sensitivity: 'base' });
+      return (aValue - bValue) * multiplier;
+    }
+
+    function render() {
+      var rows = document.getElementById('rows');
+      var sorted = devices.slice().sort(compareDevices);
+      var max24h = sorted.reduce(function(maximum, device) {
+        return Math.max(maximum, device.stats.last24h || 0);
+      }, 0);
+
+      if (sorted.length === 0) {
+        rows.innerHTML = '<tr><td colspan="5" class="state">No monitored devices are active.</td></tr>';
+      } else {
+        rows.innerHTML = sorted.map(function(device) {
+          var width = max24h > 0
+            ? Math.max(2, Math.round((device.stats.last24h / max24h) * 100))
+            : 0;
+          var meta = [
+            device.zone,
+            device.driverId,
+            'EP' + device.endpoint,
+            device.manufacturerName,
+            device.modelId
+          ].filter(Boolean).join(' · ');
+          var mode = device.stats.mode === 'frames' ? 'frames' : 'activity';
+
+          return '<tr>' +
+            '<td>' +
+              '<div class="device-name">' +
+                '<span class="status-dot' + (device.available ? '' : ' offline') + '"></span>' +
+                '<span>' + escapeHtml(device.name) + '</span>' +
+                '<span class="mode">' + mode + '</span>' +
+              '</div>' +
+              '<div class="device-meta">' + escapeHtml(meta) + '</div>' +
+              '<div class="pulse-track" aria-hidden="true">' +
+                '<div class="pulse-bar" style="width:' + width + '%"></div>' +
+              '</div>' +
+            '</td>' +
+            '<td class="number">' + formatNumber(device.stats.currentHour) + '</td>' +
+            '<td class="number">' + formatNumber(device.stats.previousHour) + '</td>' +
+            '<td class="number">' + formatNumber(device.stats.last24h) + '</td>' +
+            '<td class="number">' + escapeHtml(formatTime(device.stats.lastMessageAt)) + '</td>' +
+          '</tr>';
+        }).join('');
+      }
+
+      var total = devices.reduce(function(sum, device) {
+        return sum + (device.stats.last24h || 0);
+      }, 0);
+      var currentHourTotal = devices.reduce(function(sum, device) {
+        return sum + (device.stats.currentHour || 0);
+      }, 0);
+      var top = devices.slice().sort(function(a, b) {
+        return (b.stats.currentHour || 0) - (a.stats.currentHour || 0);
+      })[0];
+      document.getElementById('device-count').textContent = formatNumber(devices.length);
+      document.getElementById('message-total').textContent = formatNumber(total);
+      document.getElementById('current-hour-total').textContent = formatNumber(currentHourTotal);
+      document.getElementById('top-talker').textContent = top ? top.name : '—';
+    }
+
+    function loadStats() {
+      if (!homeyApi || resetInFlight) return;
+      var requestId = ++latestRequest;
+      var refreshButton = document.getElementById('refresh');
+      var resetButton = document.getElementById('reset');
+      refreshButton.disabled = true;
+      resetButton.disabled = true;
+      refreshButton.textContent = 'Refreshing…';
+
+      homeyApi.api('GET', '/message-stats?t=' + Date.now(), {}, function(error, result) {
+        if (requestId !== latestRequest) return;
+        refreshButton.disabled = false;
+        resetButton.disabled = false;
+        refreshButton.textContent = 'Refresh now';
+        if (error) {
+          document.getElementById('rows').innerHTML =
+            '<tr><td colspan="5" class="state">Failed to load: ' +
+            escapeHtml(error.message || error) + '</td></tr>';
+          return;
+        }
+        devices = Array.isArray(result) ? result : [];
+        document.getElementById('updated-at').textContent =
+          'Updated at ' + new Intl.DateTimeFormat('en-US', {
+            hour: '2-digit',
+            minute: '2-digit',
+            second: '2-digit',
+            hour12: false
+          }).format(new Date());
+        render();
+      });
+    }
+
+    function performReset() {
+      latestRequest += 1;
+      var refreshButton = document.getElementById('refresh');
+      var resetButton = document.getElementById('reset');
+      refreshButton.disabled = true;
+      resetButton.disabled = true;
+      resetButton.textContent = 'Resetting…';
+
+      homeyApi.api('POST', '/message-stats/reset', {}, function(error) {
+        resetInFlight = false;
+        refreshButton.disabled = false;
+        resetButton.disabled = false;
+        resetButton.textContent = 'Reset statistics';
+
+        if (error) {
+          document.getElementById('updated-at').textContent =
+            'Reset failed: ' + (error.message || error);
+          return;
+        }
+
+        loadStats();
+      });
+    }
+
+    function resetStats() {
+      if (!homeyApi || resetInFlight) return;
+
+      var message = 'Reset all Zigbee traffic statistics? This cannot be undone.';
+      var resetButton = document.getElementById('reset');
+      resetInFlight = true;
+      resetButton.disabled = true;
+
+      function handleConfirmation(error, confirmed) {
+        if (error || !confirmed) {
+          resetInFlight = false;
+          resetButton.disabled = false;
+          if (error) {
+            document.getElementById('updated-at').textContent =
+              'Confirmation failed: ' + (error.message || error);
+          }
+          return;
+        }
+
+        performReset();
+      }
+
+      if (typeof homeyApi.confirm === 'function') {
+        homeyApi.confirm(message, 'warning', handleConfirmation);
+      } else {
+        handleConfirmation(null, window.confirm(message));
+      }
+    }
+
+    document.getElementById('refresh').addEventListener('click', loadStats);
+    document.getElementById('reset').addEventListener('click', resetStats);
+    document.getElementById('sort').addEventListener('change', function(event) {
+      currentSort = event.target.value;
+      render();
+    });
+    document.querySelectorAll('th button[data-sort]').forEach(function(button) {
+      button.addEventListener('click', function() {
+        currentSort = button.getAttribute('data-sort');
+        document.getElementById('sort').value = currentSort;
+        render();
+      });
+    });
+
+    function onHomeyReady(Homey) {
+      homeyApi = Homey;
+      Homey.ready();
+      loadStats();
+      setInterval(loadStats, 60 * 1000);
+    }
+  </script>
+</body>
+</html>

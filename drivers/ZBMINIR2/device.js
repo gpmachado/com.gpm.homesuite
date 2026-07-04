@@ -250,7 +250,7 @@ class SonoffZBMINIR2 extends SonoffBase {
     onDeviceRejoin() {
         this.log('Device rejoined');
         const AvailabilityManager = require('../../lib/AvailabilityManager');
-        AvailabilityManager.triggerRejoin(this, 0, 'ZBMINIR2:device_rejoined');
+        AvailabilityManager.triggerRejoin(this);
     }
 
     // ZDO Device Announce — logged for visibility only, NOT used as a rejoin signal.

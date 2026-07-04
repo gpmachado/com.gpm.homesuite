@@ -1,0 +1,12 @@
+{
+  "triggers": [
+    {
+      "$extends": "availability_turned_on",
+      "$id": "temphumidclock_availability_turned_on"
+    },
+    {
+      "$extends": "availability_turned_off",
+      "$id": "temphumidclock_availability_turned_off"
+    }
+  ]
+}

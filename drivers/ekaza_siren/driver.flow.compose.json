@@ -1,6 +1,14 @@
 {
   "triggers": [
     {
+      "$extends": "availability_turned_on",
+      "$id": "ekaza_siren_availability_turned_on"
+    },
+    {
+      "$extends": "availability_turned_off",
+      "$id": "ekaza_siren_availability_turned_off"
+    },
+    {
       "id": "siren_activated",
       "title": {
         "en": "Siren activated"

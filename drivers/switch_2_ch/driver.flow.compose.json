@@ -1,0 +1,16 @@
+{
+  "triggers": [
+    {
+      "$extends": "availability_turned_on",
+      "$id": "switch_2_ch_availability_turned_on"
+    },
+    {
+      "$extends": "availability_turned_off",
+      "$id": "switch_2_ch_availability_turned_off"
+    },
+    {
+      "$extends": "device_rejoined",
+      "$id": "switch_2_ch_device_rejoined"
+    }
+  ]
+}

@@ -1,0 +1,181 @@
+{
+  "name": {
+    "en": "Ultrasonic Liquid Level Sensor"
+  },
+  "class": "sensor",
+  "platforms": [
+    "local"
+  ],
+  "connectivity": [
+    "zigbee"
+  ],
+  "capabilities": [
+    "measure_water_percentage",
+    "measure_water_level",
+    "alarm_water_low",
+    "alarm_water_high"
+  ],
+  "images": {
+    "small": "{{driverAssetsPath}}/images/small.png",
+    "large": "{{driverAssetsPath}}/images/large.png"
+  },
+  "zigbee": {
+    "manufacturerName": [
+      "_TZE200_lvkk0hdg"
+    ],
+    "productId": [
+      "TS0601"
+    ],
+    "endpoints": {
+      "1": {
+        "clusters": [
+          0,
+          4,
+          5,
+          61184
+        ]
+      }
+    },
+    "learnmode": {
+      "image": "{{driverAssetsPath}}/icon.svg",
+      "instruction": {
+        "en": "Press and hold the pairing button until the indicator starts blinking."
+      }
+    }
+  },
+  "settings": [
+    {
+      "type": "group",
+      "label": {
+        "en": "Tank configuration"
+      },
+      "children": [
+        {
+          "id": "upper_limit",
+          "type": "number",
+          "label": {
+            "en": "High level alert"
+          },
+          "hint": {
+            "en": "The device reports a high-level state above this percentage (DP7)."
+          },
+          "value": 75,
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "units": "%"
+        },
+        {
+          "id": "lower_limit",
+          "type": "number",
+          "label": {
+            "en": "Low level alert"
+          },
+          "hint": {
+            "en": "The device reports a low-level state below this percentage (DP8)."
+          },
+          "value": 25,
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "units": "%"
+        },
+        {
+          "id": "installation_height",
+          "type": "number",
+          "label": {
+            "en": "Sensor to tank bottom"
+          },
+          "hint": {
+            "en": "Vertical distance from the sensor face to the tank bottom (DP19)."
+          },
+          "value": 2000,
+          "min": 10,
+          "max": 4000,
+          "step": 5,
+          "units": "mm"
+        },
+        {
+          "id": "full_level_distance",
+          "type": "number",
+          "label": {
+            "en": "Sensor to full level"
+          },
+          "hint": {
+            "en": "Distance from the sensor face to the liquid surface when the tank is considered full (DP21)."
+          },
+          "value": 100,
+          "min": 10,
+          "max": 4000,
+          "step": 5,
+          "units": "mm"
+        }
+      ]
+    },
+    {
+      "type": "group",
+      "label": {
+        "en": "Event filtering"
+      },
+      "children": [
+        {
+          "id": "level_change_threshold",
+          "type": "number",
+          "label": {
+            "en": "Minimum level change"
+          },
+          "hint": {
+            "en": "Only update Homey when the fill level changes by at least this many percentage points. This does not change Zigbee reporting."
+          },
+          "value": 0,
+          "min": 0,
+          "max": 20,
+          "step": 1,
+          "units": "%"
+        },
+        {
+          "id": "depth_change_threshold",
+          "type": "number",
+          "label": {
+            "en": "Minimum depth change"
+          },
+          "hint": {
+            "en": "Only update Homey when the measured liquid depth changes by at least this value."
+          },
+          "value": 0,
+          "min": 0,
+          "max": 50,
+          "step": 0.1,
+          "decimals": 1,
+          "units": "cm"
+        },
+        {
+          "id": "minimum_update_interval",
+          "type": "number",
+          "label": {
+            "en": "Minimum update interval"
+          },
+          "hint": {
+            "en": "Minimum time between Homey updates for level and depth."
+          },
+          "value": 0,
+          "min": 0,
+          "max": 3600,
+          "step": 1,
+          "units": "s"
+        },
+        {
+          "id": "debug_logging",
+          "type": "checkbox",
+          "label": {
+            "en": "Log every Tuya report"
+          },
+          "hint": {
+            "en": "Diagnostic option. Leave disabled to avoid filling the app log with duplicate reports."
+          },
+          "value": false
+        }
+      ]
+    }
+  ]
+}

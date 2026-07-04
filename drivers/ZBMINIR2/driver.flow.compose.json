@@ -1,22 +1,16 @@
 {
   "triggers": [
     {
-      "id": "ZBMINIR2:device_rejoined",
-      "title": {
-        "en": "Reconnected after power cut",
-        "pt": "Reconectou após queda de energia"
-      },
-      "hint": {
-        "en": "Fires when this ZBMINIR2 rejoins the Zigbee network after a power cut.",
-        "pt": "Dispara quando este ZBMINIR2 reconecta à rede Zigbee após queda de energia."
-      },
-      "tokens": [
-        {
-          "name": "device_name",
-          "type": "string",
-          "title": { "en": "Device name", "pt": "Nome do dispositivo" }
-        }
-      ]
+      "$extends": "availability_turned_on",
+      "$id": "ZBMINIR2_availability_turned_on"
+    },
+    {
+      "$extends": "availability_turned_off",
+      "$id": "ZBMINIR2_availability_turned_off"
+    },
+    {
+      "$extends": "device_rejoined",
+      "$id": "ZBMINIR2_device_rejoined"
     },
     {
       "id": "ZBMINIR2:click",

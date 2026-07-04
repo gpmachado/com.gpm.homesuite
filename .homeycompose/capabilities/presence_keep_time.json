@@ -1,0 +1,17 @@
+{
+  "type": "number",
+  "title": {
+    "en": "Presence time"
+  },
+  "units": {
+    "en": "min"
+  },
+  "getable": true,
+  "setable": false,
+  "uiComponent": "sensor",
+  "icon": "/drivers/radar_sensor_mmwave/assets/presence_keep_time.svg",
+  "insights": true,
+  "decimals": 0,
+  "min": 0,
+  "max": 1440
+}

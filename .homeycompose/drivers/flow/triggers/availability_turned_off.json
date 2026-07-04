@@ -1,0 +1,24 @@
+{
+  "title": {
+    "en": "Became unavailable"
+  },
+  "hint": {
+    "en": "Fires when this device becomes unavailable."
+  },
+  "tokens": [
+    {
+      "name": "device_name",
+      "type": "string",
+      "title": {
+        "en": "Device name"
+      }
+    },
+    {
+      "name": "timestamp",
+      "type": "string",
+      "title": {
+        "en": "Timestamp"
+      }
+    }
+  ]
+}

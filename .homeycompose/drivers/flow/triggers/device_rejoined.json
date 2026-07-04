@@ -1,0 +1,8 @@
+{
+  "title": {
+    "en": "Reconnected after power cut"
+  },
+  "hint": {
+    "en": "Fires when this device reconnects to the Zigbee network after a power cut."
+  }
+}

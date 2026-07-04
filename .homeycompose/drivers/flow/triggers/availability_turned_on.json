@@ -1,0 +1,24 @@
+{
+  "title": {
+    "en": "Became available"
+  },
+  "hint": {
+    "en": "Fires when this device becomes available."
+  },
+  "tokens": [
+    {
+      "name": "device_name",
+      "type": "string",
+      "title": {
+        "en": "Device name"
+      }
+    },
+    {
+      "name": "timestamp",
+      "type": "string",
+      "title": {
+        "en": "Timestamp"
+      }
+    }
+  ]
+}

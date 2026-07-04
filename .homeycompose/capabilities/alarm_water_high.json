@@ -1,0 +1,10 @@
+{
+  "type": "boolean",
+  "title": {
+    "en": "High Liquid Level"
+  },
+  "getable": true,
+  "setable": false,
+  "uiComponent": "sensor",
+  "icon": "/assets/capabilities/water-level-up.svg"
+}
