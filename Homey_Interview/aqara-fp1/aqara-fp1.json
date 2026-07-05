@@ -1,0 +1,181 @@
+
+  "ids": {
+    "modelId": "lumi.motion.ac01",
+    "manufacturerName": "aqara"
+  },
+  "endpoints": {
+    "ieeeAddress": "54:ef:44:10:01:32:0e:f5",
+    "networkAddress": 56097,
+    "modelId": "lumi.motion.ac01",
+    "manufacturerName": "aqara",
+    "endpointDescriptors": [
+      {
+        "status": "SUCCESS",
+        "nwkAddrOfInterest": 56097,
+        "_reserved": 18,
+        "endpointId": 1,
+        "applicationProfileId": 260,
+        "applicationDeviceId": 65520,
+        "applicationDeviceVersion": 0,
+        "_reserved1": 0,
+        "inputClusters": [
+          0,
+          3,
+          64704
+        ],
+        "outputClusters": [
+          3,
+          25
+        ]
+      }
+    ],
+    "deviceType": "enddevice",
+    "receiveWhenIdle": true,
+    "swBuildId": "",
+    "capabilities": {
+      "alternatePANCoordinator": false,
+      "deviceType": false,
+      "powerSourceMains": true,
+      "receiveWhenIdle": true,
+      "security": false,
+      "allocateAddress": true
+    },
+    "extendedEndpointDescriptors": {
+      "1": {
+        "clusters": {
+          "basic": {
+            "attributes": [
+              {
+                "acl": [
+                  "readable"
+                ],
+                "id": 0,
+                "dataTypeId": 32,
+                "name": "zclVersion",
+                "value": 3
+              },
+              {
+                "acl": [
+                  "readable"
+                ],
+                "id": 1,
+                "dataTypeId": 32,
+                "name": "appVersion",
+                "value": 72
+              },
+              {
+                "acl": [
+                  "readable"
+                ],
+                "id": 2,
+                "dataTypeId": 32,
+                "name": "stackVersion",
+                "value": 2
+              },
+              {
+                "acl": [
+                  "readable"
+                ],
+                "id": 3,
+                "dataTypeId": 32,
+                "name": "hwVersion",
+                "value": 1
+              },
+              {
+                "acl": [
+                  "readable"
+                ],
+                "id": 4,
+                "dataTypeId": 66,
+                "name": "manufacturerName",
+                "value": "aqara"
+              },
+              {
+                "acl": [
+                  "readable"
+                ],
+                "id": 5,
+                "dataTypeId": 66,
+                "name": "modelId",
+                "value": "lumi.motion.ac01"
+              },
+              {
+                "acl": [
+                  "readable"
+                ],
+                "id": 6,
+                "dataTypeId": 66,
+                "name": "dateCode",
+                "value": "20250610"
+              },
+              {
+                "acl": [
+                  "readable"
+                ],
+                "id": 7,
+                "dataTypeId": 48,
+                "name": "powerSource",
+                "value": "dc"
+              },
+              {
+                "acl": [
+                  "readable"
+                ],
+                "id": 13,
+                "dataTypeId": 66
+              }
+            ],
+            "commandsGenerated": [],
+            "commandsReceived": [
+              "factoryReset"
+            ]
+          },
+          "identify": {
+            "attributes": [
+              {
+                "acl": [
+                  "readable"
+                ],
+                "id": 0,
+                "dataTypeId": 33,
+                "name": "identifyTime",
+                "value": 0
+              }
+            ],
+            "commandsGenerated": [
+              "identifyQuery.response"
+            ],
+            "commandsReceived": [
+              "identify",
+              "identifyQuery",
+              "triggerEffect"
+            ]
+          }
+        },
+        "bindings": {
+          "identify": {
+            "attributes": [
+              {
+                "acl": [
+                  "readable"
+                ],
+                "id": 0,
+                "dataTypeId": 33,
+                "name": "identifyTime",
+                "value": 0
+              }
+            ],
+            "commandsGenerated": [
+              "identifyQuery.response"
+            ],
+            "commandsReceived": [
+              "identify",
+              "identifyQuery",
+              "triggerEffect"
+            ]
+          },
+          "ota": {}
+        }
+      }
+    }
+  }
