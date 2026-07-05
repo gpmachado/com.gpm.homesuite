@@ -1,7 +1,10 @@
 {
   "id": "doorwindowsensor2",
   "name": {
-    "en": "Door & Window Sensor 2"
+    "en": "Door & Window Sensor 2",
+    "de": "Tür- und Fenstersensor 2",
+    "es": "Sensor de puerta y ventana 2",
+    "it": "Sensore porta e finestra 2"
   },
   "class": "sensor",
   "platforms": ["local"],
@@ -47,7 +50,10 @@
     "learnmode": {
       "image": "{{driverAssetsPath}}/icon.svg",
       "instruction": {
-        "en": "Open the device and press the reset button gently for aprox 10 seconds until the LED blinks rapidly."
+        "en": "Open the device and press the reset button gently for aprox 10 seconds until the LED blinks rapidly.",
+        "de": "Öffne das Gerät und drücke die Reset-Taste vorsichtig etwa 10 Sekunden lang, bis die LED schnell blinkt.",
+        "es": "Abre el dispositivo y pulsa suavemente el botón de reinicio durante aprox. 10 segundos hasta que el LED parpadee rápidamente.",
+        "it": "Apri il dispositivo e premi delicatamente il pulsante di reset per circa 10 secondi finché il LED non lampeggia rapidamente."
       }
     }
   }

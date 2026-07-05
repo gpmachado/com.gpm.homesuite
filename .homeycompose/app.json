@@ -7,7 +7,10 @@
     "local"
   ],
   "name": {
-    "en": "HomeSuite"
+    "en": "HomeSuite",
+    "es": "HomeSuite",
+    "it": "HomeSuite",
+    "de": "HomeSuite"
   },
   "description": {
     "en": "Personal suite for Zigbee devices like Zemismart & NovaDigital switches, sirens, sensors and more",

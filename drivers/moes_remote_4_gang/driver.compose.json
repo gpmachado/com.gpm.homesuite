@@ -1,7 +1,10 @@
 {
     "id": "moes_remote_4_gang",
     "name": {
-      "en": "Moes 4 Gang Wall Remote"
+      "en": "Moes 4 Gang Wall Remote",
+      "de": "Moes 4-fach-Wandfernbedienung",
+      "es": "Mando de pared Moes de 4 botones",
+      "it": "Telecomando da parete Moes a 4 tasti"
     },
     "class": "remote",
     "platforms": ["local"],
@@ -47,7 +50,10 @@
       "learnmode": {
         "image": "{{driverAssetsPath}}/icon.svg",
         "instruction": {
-          "en": "Press the lower-left button for ~10 seconds until all LEDs start blinking."
+          "en": "Press the lower-left button for ~10 seconds until all LEDs start blinking.",
+          "de": "Drücke die untere linke Taste etwa 10 Sekunden lang, bis alle LEDs zu blinken beginnen.",
+          "es": "Pulsa el botón inferior izquierdo durante unos 10 segundos hasta que todos los LED empiecen a parpadear.",
+          "it": "Premi il pulsante in basso a sinistra per circa 10 secondi finché tutti i LED non iniziano a lampeggiare."
         }
       }
     }

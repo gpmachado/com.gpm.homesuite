@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Zigbee Traffic</title>
+  <title data-i18n="settings.title">Zigbee Traffic</title>
   <script src="/homey.js" data-origin="settings"></script>
   <style>
     :root {
@@ -260,47 +260,45 @@
   <main class="shell">
     <header class="masthead">
       <div>
-        <p class="eyebrow">HomeSuite · monitored EP1</p>
-        <h1>Zigbee Traffic</h1>
-        <p class="intro">
-          One row per physical device. Multi-gang devices are counted once through their main device.
-        </p>
+        <p class="eyebrow" data-i18n="settings.eyebrow">HomeSuite · monitored EP1</p>
+        <h1 data-i18n="settings.title">Zigbee Traffic</h1>
+        <p class="intro" data-i18n="settings.intro">One row per physical device. Multi-gang devices are counted once through their main device.</p>
       </div>
       <div class="header-actions">
-        <button id="refresh" class="refresh" type="button">Refresh now</button>
-        <button id="reset" class="reset" type="button">Reset statistics</button>
+        <button id="refresh" class="refresh" type="button" data-i18n="settings.refresh">Refresh now</button>
+        <button id="reset" class="reset" type="button" data-i18n="settings.reset">Reset statistics</button>
       </div>
     </header>
 
     <section class="summary" aria-label="Summary">
       <div class="summary-item">
-        <span class="summary-label">Physical devices</span>
+        <span class="summary-label" data-i18n="settings.physical_devices">Physical devices</span>
         <strong id="device-count" class="summary-value">—</strong>
       </div>
       <div class="summary-item">
-        <span class="summary-label">Messages · 24 h</span>
+        <span class="summary-label" data-i18n="settings.messages_24h">Messages · 24 h</span>
         <strong id="message-total" class="summary-value">—</strong>
       </div>
       <div class="summary-item">
-        <span class="summary-label">Messages · current hour</span>
+        <span class="summary-label" data-i18n="settings.messages_current_hour">Messages · current hour</span>
         <strong id="current-hour-total" class="summary-value">—</strong>
       </div>
       <div class="summary-item">
-        <span class="summary-label">Most active · current hour</span>
+        <span class="summary-label" data-i18n="settings.most_active_current_hour">Most active · current hour</span>
         <strong id="top-talker" class="summary-value">—</strong>
       </div>
     </section>
 
     <div class="toolbar">
-      <span id="updated-at" class="toolbar-note">Waiting for data…</span>
+      <span id="updated-at" class="toolbar-note" data-i18n="settings.waiting_for_data">Waiting for data…</span>
       <label class="sort-wrap" for="sort">
-        Sort by
+        <span data-i18n="settings.sort_by">Sort by</span>
         <select id="sort">
-          <option value="name-asc">Name A–Z</option>
-          <option value="last24h-desc">Most messages · 24 h</option>
-          <option value="currentHour-desc">Most messages · current hour</option>
-          <option value="previousHour-desc">Most messages · previous hour</option>
-          <option value="lastMessageAt-desc">Most recent activity</option>
+          <option value="name-asc" data-i18n="settings.sort_name">Name A–Z</option>
+          <option value="last24h-desc" data-i18n="settings.sort_24h">Most messages · 24 h</option>
+          <option value="currentHour-desc" data-i18n="settings.sort_current_hour">Most messages · current hour</option>
+          <option value="previousHour-desc" data-i18n="settings.sort_previous_hour">Most messages · previous hour</option>
+          <option value="lastMessageAt-desc" data-i18n="settings.sort_recent">Most recent activity</option>
         </select>
       </label>
     </div>
@@ -309,23 +307,20 @@
       <table>
         <thead>
           <tr>
-            <th><button type="button" data-sort="name-asc">Device</button></th>
-            <th><button type="button" data-sort="currentHour-desc">Current hour</button></th>
-            <th><button type="button" data-sort="previousHour-desc">Previous hour</button></th>
+            <th><button type="button" data-sort="name-asc" data-i18n="settings.device">Device</button></th>
+            <th><button type="button" data-sort="currentHour-desc" data-i18n="settings.current_hour">Current hour</button></th>
+            <th><button type="button" data-sort="previousHour-desc" data-i18n="settings.previous_hour">Previous hour</button></th>
             <th><button type="button" data-sort="last24h-desc">24 h</button></th>
-            <th><button type="button" data-sort="lastMessageAt-desc">Last message</button></th>
+            <th><button type="button" data-sort="lastMessageAt-desc" data-i18n="settings.last_message">Last message</button></th>
           </tr>
         </thead>
         <tbody id="rows">
-          <tr><td colspan="5" class="state">Loading statistics…</td></tr>
+          <tr><td colspan="5" class="state" data-i18n="settings.loading">Loading statistics…</td></tr>
         </tbody>
       </table>
     </section>
 
-    <p class="footnote">
-      “Frames” are raw Zigbee messages. “Activity” represents explicit callbacks from sleepy sensors.
-      Data is persisted at most once every five minutes.
-    </p>
+    <p class="footnote" data-i18n="settings.footnote">“Frames” are raw Zigbee messages. “Activity” represents explicit callbacks from sleepy sensors. Data is persisted at most once every five minutes.</p>
   </main>
 
   <script>
@@ -334,6 +329,15 @@
     var currentSort = 'name-asc';
     var latestRequest = 0;
     var resetInFlight = false;
+
+    function translate(key) {
+      if (homeyApi && typeof homeyApi.__ === 'function') return homeyApi.__(key);
+      return key;
+    }
+
+    function userLocale() {
+      return navigator.language || 'en';
+    }
 
     function escapeHtml(value) {
       return String(value == null ? '' : value)
@@ -345,12 +349,12 @@
     }
 
     function formatNumber(value) {
-      return new Intl.NumberFormat('en-US').format(Number(value) || 0);
+      return new Intl.NumberFormat(userLocale()).format(Number(value) || 0);
     }
 
     function formatTime(timestamp) {
       if (!timestamp) return '—';
-      return new Intl.DateTimeFormat('en-US', {
+      return new Intl.DateTimeFormat(userLocale(), {
         day: '2-digit',
         month: '2-digit',
         hour: '2-digit',
@@ -366,11 +370,11 @@
       var multiplier = direction === 'asc' ? 1 : -1;
 
       if (field === 'name') {
-        return a.name.localeCompare(b.name, 'en-US', { sensitivity: 'base' }) * multiplier;
+        return a.name.localeCompare(b.name, userLocale(), { sensitivity: 'base' }) * multiplier;
       }
       var aValue = field === 'lastMessageAt' ? (a.stats.lastMessageAt || 0) : (a.stats[field] || 0);
       var bValue = field === 'lastMessageAt' ? (b.stats.lastMessageAt || 0) : (b.stats[field] || 0);
-      if (aValue === bValue) return a.name.localeCompare(b.name, 'en-US', { sensitivity: 'base' });
+      if (aValue === bValue) return a.name.localeCompare(b.name, userLocale(), { sensitivity: 'base' });
       return (aValue - bValue) * multiplier;
     }
 
@@ -382,7 +386,7 @@
       }, 0);
 
       if (sorted.length === 0) {
-        rows.innerHTML = '<tr><td colspan="5" class="state">No monitored devices are active.</td></tr>';
+        rows.innerHTML = '<tr><td colspan="5" class="state">' + escapeHtml(translate('settings.no_devices')) + '</td></tr>';
       } else {
         rows.innerHTML = sorted.map(function(device) {
           var width = max24h > 0
@@ -395,7 +399,7 @@
             device.manufacturerName,
             device.modelId
           ].filter(Boolean).join(' · ');
-          var mode = device.stats.mode === 'frames' ? 'frames' : 'activity';
+          var mode = device.stats.mode === 'frames' ? translate('settings.frames') : translate('settings.activity');
 
           return '<tr>' +
             '<td>' +
@@ -439,22 +443,22 @@
       var resetButton = document.getElementById('reset');
       refreshButton.disabled = true;
       resetButton.disabled = true;
-      refreshButton.textContent = 'Refreshing…';
+      refreshButton.textContent = translate('settings.refreshing');
 
       homeyApi.api('GET', '/message-stats?t=' + Date.now(), {}, function(error, result) {
         if (requestId !== latestRequest) return;
         refreshButton.disabled = false;
         resetButton.disabled = false;
-        refreshButton.textContent = 'Refresh now';
+        refreshButton.textContent = translate('settings.refresh');
         if (error) {
           document.getElementById('rows').innerHTML =
-            '<tr><td colspan="5" class="state">Failed to load: ' +
+            '<tr><td colspan="5" class="state">' + escapeHtml(translate('settings.failed_load')) + ' ' +
             escapeHtml(error.message || error) + '</td></tr>';
           return;
         }
         devices = Array.isArray(result) ? result : [];
         document.getElementById('updated-at').textContent =
-          'Updated at ' + new Intl.DateTimeFormat('en-US', {
+          translate('settings.updated_at') + ' ' + new Intl.DateTimeFormat(userLocale(), {
             hour: '2-digit',
             minute: '2-digit',
             second: '2-digit',
@@ -470,17 +474,17 @@
       var resetButton = document.getElementById('reset');
       refreshButton.disabled = true;
       resetButton.disabled = true;
-      resetButton.textContent = 'Resetting…';
+      resetButton.textContent = translate('settings.resetting');
 
       homeyApi.api('POST', '/message-stats/reset', {}, function(error) {
         resetInFlight = false;
         refreshButton.disabled = false;
         resetButton.disabled = false;
-        resetButton.textContent = 'Reset statistics';
+        resetButton.textContent = translate('settings.reset');
 
         if (error) {
           document.getElementById('updated-at').textContent =
-            'Reset failed: ' + (error.message || error);
+            translate('settings.reset_failed') + ' ' + (error.message || error);
           return;
         }
 
@@ -491,7 +495,7 @@
     function resetStats() {
       if (!homeyApi || resetInFlight) return;
 
-      var message = 'Reset all Zigbee traffic statistics? This cannot be undone.';
+      var message = translate('settings.reset_confirmation');
       var resetButton = document.getElementById('reset');
       resetInFlight = true;
       resetButton.disabled = true;
@@ -502,7 +506,7 @@
           resetButton.disabled = false;
           if (error) {
             document.getElementById('updated-at').textContent =
-              'Confirmation failed: ' + (error.message || error);
+              translate('settings.confirmation_failed') + ' ' + (error.message || error);
           }
           return;
         }

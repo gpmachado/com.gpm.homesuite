@@ -1,7 +1,10 @@
 {
   "type": "boolean",
   "title": {
-    "en": "Low Liquid Level"
+    "en": "Low Liquid Level",
+    "de": "Niedriger Flüssigkeitsstand",
+    "es": "Nivel bajo de líquido",
+    "it": "Livello basso del liquido"
   },
   "getable": true,
   "setable": false,

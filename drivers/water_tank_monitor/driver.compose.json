@@ -1,6 +1,9 @@
 {
   "name": {
-    "en": "Ultrasonic Liquid Level Sensor"
+    "en": "Ultrasonic Liquid Level Sensor",
+    "de": "Ultraschall-Flüssigkeitsfüllstandssensor",
+    "es": "Sensor ultrasónico de nivel de líquido",
+    "it": "Sensore a ultrasuoni del livello del liquido"
   },
   "class": "sensor",
   "platforms": [
@@ -39,7 +42,10 @@
     "learnmode": {
       "image": "{{driverAssetsPath}}/icon.svg",
       "instruction": {
-        "en": "Press and hold the pairing button until the indicator starts blinking."
+        "en": "Press and hold the pairing button until the indicator starts blinking.",
+        "de": "Halte die Pairing-Taste gedrückt, bis die Anzeige zu blinken beginnt.",
+        "es": "Mantén pulsado el botón de emparejamiento hasta que el indicador empiece a parpadear.",
+        "it": "Tieni premuto il pulsante di associazione finché l'indicatore non inizia a lampeggiare."
       }
     }
   },
@@ -47,17 +53,26 @@
     {
       "type": "group",
       "label": {
-        "en": "Tank configuration"
+        "en": "Tank configuration",
+        "de": "Tankkonfiguration",
+        "es": "Configuración del depósito",
+        "it": "Configurazione del serbatoio"
       },
       "children": [
         {
           "id": "upper_limit",
           "type": "number",
           "label": {
-            "en": "High level alert"
+            "en": "High level alert",
+            "de": "Warnung bei hohem Füllstand",
+            "es": "Alerta de nivel alto",
+            "it": "Avviso livello alto"
           },
           "hint": {
-            "en": "The device reports a high-level state above this percentage (DP7)."
+            "en": "The device reports a high-level state above this percentage (DP7).",
+            "de": "Das Gerät meldet einen Hochfüllstand oberhalb dieses Prozentsatzes (DP7).",
+            "es": "El dispositivo informa de un estado de nivel alto por encima de este porcentaje (DP7).",
+            "it": "Il dispositivo segnala uno stato di livello alto oltre questa percentuale (DP7)."
           },
           "value": 75,
           "min": 0,
@@ -69,10 +84,16 @@
           "id": "lower_limit",
           "type": "number",
           "label": {
-            "en": "Low level alert"
+            "en": "Low level alert",
+            "de": "Warnung bei niedrigem Füllstand",
+            "es": "Alerta de nivel bajo",
+            "it": "Avviso livello basso"
           },
           "hint": {
-            "en": "The device reports a low-level state below this percentage (DP8)."
+            "en": "The device reports a low-level state below this percentage (DP8).",
+            "de": "Das Gerät meldet einen Niedrigfüllstand unterhalb dieses Prozentsatzes (DP8).",
+            "es": "El dispositivo informa de un estado de nivel bajo por debajo de este porcentaje (DP8).",
+            "it": "Il dispositivo segnala uno stato di livello basso al di sotto di questa percentuale (DP8)."
           },
           "value": 25,
           "min": 0,
@@ -84,10 +105,16 @@
           "id": "installation_height",
           "type": "number",
           "label": {
-            "en": "Sensor to tank bottom"
+            "en": "Sensor to tank bottom",
+            "de": "Sensor bis Tankboden",
+            "es": "Sensor al fondo del depósito",
+            "it": "Sensore al fondo del serbatoio"
           },
           "hint": {
-            "en": "Vertical distance from the sensor face to the tank bottom (DP19)."
+            "en": "Vertical distance from the sensor face to the tank bottom (DP19).",
+            "de": "Vertikaler Abstand von der Sensorfläche bis zum Tankboden (DP19).",
+            "es": "Distancia vertical desde la cara del sensor hasta el fondo del depósito (DP19).",
+            "it": "Distanza verticale dalla faccia del sensore al fondo del serbatoio (DP19)."
           },
           "value": 2000,
           "min": 10,
@@ -99,10 +126,16 @@
           "id": "full_level_distance",
           "type": "number",
           "label": {
-            "en": "Sensor to full level"
+            "en": "Sensor to full level",
+            "de": "Sensor bis Vollfüllstand",
+            "es": "Sensor al nivel lleno",
+            "it": "Sensore al livello pieno"
           },
           "hint": {
-            "en": "Distance from the sensor face to the liquid surface when the tank is considered full (DP21)."
+            "en": "Distance from the sensor face to the liquid surface when the tank is considered full (DP21).",
+            "de": "Abstand von der Sensorfläche bis zur Flüssigkeitsoberfläche, wenn der Tank als voll gilt (DP21).",
+            "es": "Distancia desde la cara del sensor hasta la superficie del líquido cuando el depósito se considera lleno (DP21).",
+            "it": "Distanza dalla faccia del sensore alla superficie del liquido quando il serbatoio è considerato pieno (DP21)."
           },
           "value": 100,
           "min": 10,
@@ -115,17 +148,26 @@
     {
       "type": "group",
       "label": {
-        "en": "Event filtering"
+        "en": "Event filtering",
+        "de": "Ereignisfilterung",
+        "es": "Filtrado de eventos",
+        "it": "Filtro eventi"
       },
       "children": [
         {
           "id": "level_change_threshold",
           "type": "number",
           "label": {
-            "en": "Minimum level change"
+            "en": "Minimum level change",
+            "de": "Minimale Füllstandsänderung",
+            "es": "Cambio mínimo de nivel",
+            "it": "Variazione minima di livello"
           },
           "hint": {
-            "en": "Only update Homey when the fill level changes by at least this many percentage points. This does not change Zigbee reporting."
+            "en": "Only update Homey when the fill level changes by at least this many percentage points. This does not change Zigbee reporting.",
+            "de": "Homey nur aktualisieren, wenn sich der Füllstand um mindestens so viele Prozentpunkte ändert. Das ändert die Zigbee-Berichte nicht.",
+            "es": "Solo actualiza Homey cuando el nivel de llenado cambie al menos esta cantidad de puntos porcentuales. Esto no cambia el informe Zigbee.",
+            "it": "Aggiorna Homey solo quando il livello di riempimento cambia di almeno tanti punti percentuali. Questo non modifica il reporting Zigbee."
           },
           "value": 0,
           "min": 0,
@@ -137,10 +179,16 @@
           "id": "depth_change_threshold",
           "type": "number",
           "label": {
-            "en": "Minimum depth change"
+            "en": "Minimum depth change",
+            "de": "Minimale Tiefenänderung",
+            "es": "Cambio mínimo de profundidad",
+            "it": "Variazione minima di profondità"
           },
           "hint": {
-            "en": "Only update Homey when the measured liquid depth changes by at least this value."
+            "en": "Only update Homey when the measured liquid depth changes by at least this value.",
+            "de": "Homey nur aktualisieren, wenn sich die gemessene Flüssigkeitstiefe um mindestens diesen Wert ändert.",
+            "es": "Solo actualiza Homey cuando la profundidad medida del líquido cambie al menos este valor.",
+            "it": "Aggiorna Homey solo quando la profondità del liquido misurata cambia almeno di questo valore."
           },
           "value": 0,
           "min": 0,
@@ -153,10 +201,16 @@
           "id": "minimum_update_interval",
           "type": "number",
           "label": {
-            "en": "Minimum update interval"
+            "en": "Minimum update interval",
+            "de": "Mindestaktualisierungsintervall",
+            "es": "Intervalo mínimo de actualización",
+            "it": "Intervallo minimo di aggiornamento"
           },
           "hint": {
-            "en": "Minimum time between Homey updates for level and depth."
+            "en": "Minimum time between Homey updates for level and depth.",
+            "de": "Mindestzeit zwischen Homey-Aktualisierungen für Füllstand und Tiefe.",
+            "es": "Tiempo mínimo entre actualizaciones de Homey para nivel y profundidad.",
+            "it": "Tempo minimo tra gli aggiornamenti Homey per livello e profondità."
           },
           "value": 0,
           "min": 0,
@@ -168,10 +222,16 @@
           "id": "debug_logging",
           "type": "checkbox",
           "label": {
-            "en": "Log every Tuya report"
+            "en": "Log every Tuya report",
+            "de": "Jeden Tuya-Bericht protokollieren",
+            "es": "Registrar cada informe de Tuya",
+            "it": "Registra ogni report Tuya"
           },
           "hint": {
-            "en": "Diagnostic option. Leave disabled to avoid filling the app log with duplicate reports."
+            "en": "Diagnostic option. Leave disabled to avoid filling the app log with duplicate reports.",
+            "de": "Diagnoseoption. Deaktiviert lassen, um das App-Protokoll nicht mit doppelten Berichten zu füllen.",
+            "es": "Opción de diagnóstico. Déjalo desactivado para evitar llenar el registro de la app con informes duplicados.",
+            "it": "Opzione diagnostica. Lascia disabilitato per evitare di riempire il registro dell'app con report duplicati."
           },
           "value": false
         }

@@ -1,23 +1,35 @@
 {
   "title": {
-    "en": "Became available"
+    "en": "Became available",
+    "de": "Wurde verfügbar",
+    "es": "Pasó a estar disponible",
+    "it": "Disponibile"
   },
   "hint": {
-    "en": "Fires when this device becomes available."
+    "en": "Fires when this device becomes available.",
+    "de": "Wird ausgelöst, wenn dieses Gerät verfügbar wird.",
+    "es": "Se activa cuando este dispositivo pasa a estar disponible.",
+    "it": "Si attiva quando questo dispositivo diventa disponibile."
   },
   "tokens": [
     {
       "name": "device_name",
       "type": "string",
       "title": {
-        "en": "Device name"
+        "en": "Device name",
+        "de": "Gerätename",
+        "es": "Nombre del dispositivo",
+        "it": "Nome del dispositivo"
       }
     },
     {
       "name": "timestamp",
       "type": "string",
       "title": {
-        "en": "Timestamp"
+        "en": "Timestamp",
+        "de": "Zeitstempel",
+        "es": "Marca de tiempo",
+        "it": "Data e ora"
       }
     }
   ]

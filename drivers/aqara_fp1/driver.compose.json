@@ -1,6 +1,11 @@
 {
   "id": "aqara_fp1",
-  "name": { "en": "Aqara FP1 Presence Sensor" },
+  "name": {
+    "en": "Aqara FP1 Presence Sensor",
+    "de": "Aqara FP1 Präsenzsensor",
+    "es": "Sensor de presencia Aqara FP1",
+    "it": "Sensore di presenza Aqara FP1"
+  },
   "class": "sensor",
   "platforms": ["local"],
   "connectivity": ["zigbee"],
@@ -27,7 +32,10 @@
     "learnmode": {
       "image": "{{driverAssetsPath}}/icon.svg",
       "instruction": {
-        "en": "Press and hold the reset button on the FP1 for 5 seconds until the LED flashes blue."
+        "en": "Press and hold the reset button on the FP1 for 5 seconds until the LED flashes blue.",
+        "de": "Halte die Reset-Taste am FP1 5 Sekunden lang gedrückt, bis die LED blau blinkt.",
+        "es": "Mantén pulsado el botón de reinicio del FP1 durante 5 segundos hasta que el LED parpadee en azul.",
+        "it": "Tieni premuto il pulsante di reset dell'FP1 per 5 secondi finché il LED non lampeggia in blu."
       }
     }
   }

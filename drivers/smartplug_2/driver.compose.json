@@ -1,7 +1,10 @@
 {
   "id": "smartplug_2",
   "name": {
-    "en": "Smart Plug (_TZ3210)"
+    "en": "Smart Plug (_TZ3210)",
+    "de": "Smart Plug (_TZ3210)",
+    "es": "Enchufe inteligente (_TZ3210)",
+    "it": "Presa intelligente (_TZ3210)"
   },
   "class": "socket",
   "capabilities": [
@@ -44,7 +47,10 @@
     },
     "learnmode": {
       "instruction": {
-        "en": "Press and hold the on/off button for approximately 5 seconds until the LED blinks rapidly."
+        "en": "Press and hold the on/off button for approximately 5 seconds until the LED blinks rapidly.",
+        "de": "Halte die Ein/Aus-Taste etwa 5 Sekunden lang gedrückt, bis die LED schnell blinkt.",
+        "es": "Mantén pulsado el botón de encendido/apagado durante aproximadamente 5 segundos hasta que el LED parpadee rápidamente.",
+        "it": "Tieni premuto il pulsante on/off per circa 5 secondi finché il LED non lampeggia rapidamente."
       }
     }
   },

@@ -1,10 +1,16 @@
 {
   "type": "number",
   "title": {
-    "en": "Liquid Depth"
+    "en": "Liquid Depth",
+    "de": "Flüssigkeitstiefe",
+    "es": "Profundidad del líquido",
+    "it": "Profondità del liquido"
   },
   "units": {
-    "en": "cm"
+    "en": "cm",
+    "de": "cm",
+    "es": "cm",
+    "it": "cm"
   },
   "getable": true,
   "setable": false,

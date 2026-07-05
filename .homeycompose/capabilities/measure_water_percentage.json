@@ -1,10 +1,16 @@
 {
   "type": "number",
   "title": {
-    "en": "Fill Level"
+    "en": "Fill Level",
+    "de": "Füllstand",
+    "es": "Nivel de llenado",
+    "it": "Livello di riempimento"
   },
   "units": {
-    "en": "%"
+    "en": "%",
+    "de": "%",
+    "es": "%",
+    "it": "%"
   },
   "getable": true,
   "setable": false,

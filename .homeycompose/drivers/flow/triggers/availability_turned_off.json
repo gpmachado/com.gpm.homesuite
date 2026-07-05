@@ -1,23 +1,35 @@
 {
   "title": {
-    "en": "Became unavailable"
+    "en": "Became unavailable",
+    "de": "Wurde nicht verfügbar",
+    "es": "Pasó a no estar disponible",
+    "it": "Non più disponibile"
   },
   "hint": {
-    "en": "Fires when this device becomes unavailable."
+    "en": "Fires when this device becomes unavailable.",
+    "de": "Wird ausgelöst, wenn dieses Gerät nicht mehr verfügbar ist.",
+    "es": "Se activa cuando este dispositivo deja de estar disponible.",
+    "it": "Si attiva quando questo dispositivo non è più disponibile."
   },
   "tokens": [
     {
       "name": "device_name",
       "type": "string",
       "title": {
-        "en": "Device name"
+        "en": "Device name",
+        "de": "Gerätename",
+        "es": "Nombre del dispositivo",
+        "it": "Nome del dispositivo"
       }
     },
     {
       "name": "timestamp",
       "type": "string",
       "title": {
-        "en": "Timestamp"
+        "en": "Timestamp",
+        "de": "Zeitstempel",
+        "es": "Marca de tiempo",
+        "it": "Data e ora"
       }
     }
   ]

@@ -1,7 +1,10 @@
 {
   "id": "switch_2_ch",
   "name": {
-    "en": "2CH Relay Module"
+    "en": "2CH Relay Module",
+    "de": "2-fach-Relaismodul",
+    "es": "Módulo de relé de 2 canales",
+    "it": "Modulo relè a 2 canali"
   },
   "class": "socket",
   "capabilities": [
@@ -19,46 +22,70 @@
       "id": "device_siblings_info",
       "type": "label",
       "label": {
-        "en": "Connected relays"
+        "en": "Connected relays",
+        "de": "Verbundene Relais",
+        "es": "Relés conectados",
+        "it": "Relè collegati"
       },
       "hint": {
-        "en": "Other relay channels sharing this physical module."
+        "en": "Other relay channels sharing this physical module.",
+        "de": "Andere Relaiskanäle, die dieses physische Modul teilen.",
+        "es": "Otros canales de relé que comparten este módulo físico.",
+        "it": "Altri canali relè che condividono questo modulo fisico."
       },
       "value": "-"
     },
     {
       "type": "group",
       "label": {
-        "en": "Power-On Global"
+        "en": "Power-On Global",
+        "de": "Globales Einschalten",
+        "es": "Encendido global",
+        "it": "Accensione globale"
       },
       "children": [
         {
           "id": "power_on_behavior_global",
           "type": "dropdown",
           "label": {
-            "en": "Default behavior"
+            "en": "Default behavior",
+            "de": "Standardverhalten",
+            "es": "Comportamiento predeterminado",
+            "it": "Comportamento predefinito"
           },
           "hint": {
-            "en": "Applies to both relay channels."
+            "en": "Applies to both relay channels.",
+            "de": "Gilt für beide Relaiskanäle.",
+            "es": "Se aplica a ambos los canales de relé.",
+            "it": "Si applica a entrambi i canali relè."
           },
           "value": "lastState",
           "values": [
             {
               "id": "off",
               "label": {
-                "en": "Always Off"
+                "en": "Always Off",
+                "de": "Immer aus",
+                "es": "Siempre apagado",
+                "it": "Sempre spento"
               }
             },
             {
               "id": "on",
               "label": {
-                "en": "Always On"
+                "en": "Always On",
+                "de": "Immer ein",
+                "es": "Siempre encendido",
+                "it": "Sempre acceso"
               }
             },
             {
               "id": "lastState",
               "label": {
-                "en": "Last State"
+                "en": "Last State",
+                "de": "Letzter Zustand",
+                "es": "Último estado",
+                "it": "Ultimo stato"
               }
             }
           ]
@@ -67,7 +94,10 @@
           "id": "power_on_current_global",
           "type": "label",
           "label": {
-            "en": "Current (Global)"
+            "en": "Current (Global)",
+            "de": "Aktuell (global)",
+            "es": "Actual (global)",
+            "it": "Attuale (globale)"
           },
           "value": "-"
         }
@@ -76,33 +106,48 @@
     {
       "type": "group",
       "label": {
-        "en": "Power-On Relay 1"
+        "en": "Power-On Relay 1",
+        "de": "Einschalten Relais 1",
+        "es": "Encendido relé 1",
+        "it": "Accensione relè 1"
       },
       "children": [
         {
           "id": "power_on_behavior_gang1",
           "type": "dropdown",
-          "label": {
-            "en": "Relay 1 override"
-          },
+                "label": {
+                  "en": "Relay 1 override",
+                  "de": "Relais 1 überschreiben",
+                  "es": "Sobrescribir relé 1",
+                  "it": "Sovrascrivi relè 1"
+                },
           "value": "lastState",
           "values": [
             {
               "id": "off",
               "label": {
-                "en": "Always Off"
+                "en": "Always Off",
+                "de": "Immer aus",
+                "es": "Siempre apagado",
+                "it": "Sempre spento"
               }
             },
             {
               "id": "on",
               "label": {
-                "en": "Always On"
+                "en": "Always On",
+                "de": "Immer ein",
+                "es": "Siempre encendido",
+                "it": "Sempre acceso"
               }
             },
             {
               "id": "lastState",
               "label": {
-                "en": "Last State"
+                "en": "Last State",
+                "de": "Letzter Zustand",
+                "es": "Último estado",
+                "it": "Ultimo stato"
               }
             }
           ]
@@ -110,9 +155,12 @@
         {
           "id": "power_on_current_gang1",
           "type": "label",
-          "label": {
-            "en": "Current (Relay 1)"
-          },
+                "label": {
+                  "en": "Current (Relay 1)",
+                  "de": "Aktuell (Relais 1)",
+                  "es": "Actual (relé 1)",
+                  "it": "Attuale (relè 1)"
+                },
           "value": "-"
         }
       ]
@@ -121,17 +169,26 @@
       "id": "power_on_current_gang2",
       "type": "label",
       "label": {
-        "en": "Current (Relay 2)"
+        "en": "Current (Relay 2)",
+        "de": "Aktuell (Relais 2)",
+        "es": "Actual (relé 2)",
+        "it": "Attuale (relè 2)"
       },
       "hint": {
-        "en": "Change from the Relay 2 tile settings."
+        "en": "Change from the Relay 2 tile settings.",
+        "de": "Änderung über die Kachel-Einstellungen von Relais 2.",
+        "es": "Cámbialo desde los ajustes de la baldosa de relé 2.",
+        "it": "Modifica dalle impostazioni del riquadro del relè 2."
       },
       "value": "-"
     },
     {
       "type": "group",
       "label": {
-        "en": "Inching"
+        "en": "Inching",
+        "de": "Inching",
+        "es": "Inching",
+        "it": "Inching"
       },
       "children": [
         {
@@ -139,10 +196,16 @@
           "type": "checkbox",
           "value": false,
           "label": {
-            "en": "Inching (auto-off)"
+            "en": "Inching (auto-off)",
+            "de": "Inching (Auto-Aus)",
+            "es": "Inching (apagado automático)",
+            "it": "Inching (spegnimento automatico)"
           },
           "hint": {
-            "en": "Use only with a momentary push button that returns to its resting position."
+            "en": "Use only with a momentary push button that returns to its resting position.",
+            "de": "Nur mit einem Taster verwenden, der in die Ruheposition zurückkehrt.",
+            "es": "Usar solo con un pulsador momentáneo que vuelva a su posición de reposo.",
+            "it": "Usa solo con un pulsante momentaneo che ritorna alla posizione di riposo."
           }
         },
         {
@@ -153,10 +216,16 @@
           "max": 3600,
           "units": "s",
           "label": {
-            "en": "Inching delay"
+            "en": "Inching delay",
+            "de": "Inching-Verzögerung",
+            "es": "Retardo de inching",
+            "it": "Ritardo inching"
           },
           "hint": {
-            "en": "0–3600 seconds."
+            "en": "0–3600 seconds.",
+            "de": "0-3600 Sekunden.",
+            "es": "0-3600 segundos.",
+            "it": "0-3600 secondi."
           }
         }
       ]
@@ -208,7 +277,10 @@
     "learnmode": {
       "image": "{{driverAssetsPath}}/icon.svg",
       "instruction": {
-        "en": "Hold the setup button for 10 seconds, or power-cycle the module five times, until its indicator blinks. Two tiles will be created."
+        "en": "Hold the setup button for 10 seconds, or power-cycle the module five times, until its indicator blinks. Two tiles will be created.",
+        "de": "Halte die Setup-Taste 10 Sekunden lang gedrückt oder schalte das Modul fünfmal aus und ein, bis die Anzeige blinkt. Es werden zwei Kacheln erstellt.",
+        "es": "Mantén pulsado el botón de configuración durante 10 segundos, o reinicia el módulo cinco veces, hasta que el indicador parpadee. Se crearán dos tarjetas.",
+        "it": "Tieni premuto il pulsante di configurazione per 10 secondi, oppure spegni e riaccendi il modulo cinque volte, finché l'indicatore non lampeggia. Verranno create due tile."
       }
     },
     "devices": {
@@ -218,7 +290,10 @@
           "onoff"
         ],
         "name": {
-          "en": "2CH Relay Module - Relay 2"
+          "en": "2CH Relay Module - Relay 2",
+          "de": "2-fach-Relaismodul - Relais 2",
+          "es": "Módulo de relé de 2 canales - Relé 2",
+          "it": "Modulo relè a 2 canali - Relè 2"
         },
         "energy": {
           "approximation": {
@@ -231,40 +306,58 @@
             "id": "device_siblings_info",
             "type": "label",
             "label": {
-              "en": "Connected relays"
+              "en": "Connected relays",
+              "de": "Verbundene Relais",
+              "es": "Relés conectados",
+              "it": "Relè collegati"
             },
             "value": "-"
           },
           {
             "type": "group",
             "label": {
-              "en": "Power-On Relay 2"
+              "en": "Power-On Relay 2",
+              "de": "Einschalten Relais 2",
+              "es": "Encendido relé 2",
+              "it": "Accensione relè 2"
             },
             "children": [
               {
                 "id": "power_on_behavior_gang2",
                 "type": "dropdown",
                 "label": {
-                  "en": "Relay 2 override"
+                  "en": "Relay 2 override",
+                  "de": "Relais 2 überschreiben",
+                  "es": "Sobrescribir relé 2",
+                  "it": "Sovrascrivi relè 2"
                 },
                 "value": "lastState",
                 "values": [
                   {
                     "id": "off",
                     "label": {
-                      "en": "Always Off"
+                      "en": "Always Off",
+                      "de": "Immer aus",
+                      "es": "Siempre apagado",
+                      "it": "Sempre spento"
                     }
                   },
                   {
                     "id": "on",
                     "label": {
-                      "en": "Always On"
+                      "en": "Always On",
+                      "de": "Immer ein",
+                      "es": "Siempre encendido",
+                      "it": "Sempre acceso"
                     }
                   },
                   {
                     "id": "lastState",
                     "label": {
-                      "en": "Last State"
+                      "en": "Last State",
+                      "de": "Letzter Zustand",
+                      "es": "Último estado",
+                      "it": "Ultimo stato"
                     }
                   }
                 ]
@@ -273,7 +366,10 @@
                 "id": "power_on_current_gang2",
                 "type": "label",
                 "label": {
-                  "en": "Current (Relay 2)"
+                  "en": "Current (Relay 2)",
+                  "de": "Aktuell (Relais 2)",
+                  "es": "Actual (relé 2)",
+                  "it": "Attuale (relè 2)"
                 },
                 "value": "-"
               }
@@ -282,7 +378,10 @@
           {
             "type": "group",
             "label": {
-              "en": "Inching"
+              "en": "Inching",
+              "de": "Inching",
+              "es": "Inching",
+              "it": "Inching"
             },
             "children": [
               {
@@ -290,10 +389,16 @@
                 "type": "checkbox",
                 "value": false,
                 "label": {
-                  "en": "Inching (auto-off)"
+                  "en": "Inching (auto-off)",
+                  "de": "Inching (Auto-Aus)",
+                  "es": "Inching (apagado auto)",
+                  "it": "Inching (spegnimento auto)"
                 },
                 "hint": {
-                  "en": "Use only with a momentary push button that returns to its resting position."
+                  "en": "Use only with a momentary push button that returns to its resting position.",
+                  "de": "Nur mit einem Taster verwenden, der in die Ruheposition zurückkehrt.",
+                  "es": "Usar solo con un pulsador momentáneo que vuelva a su posición de reposo.",
+                  "it": "Usa solo con un pulsante momentaneo che ritorna alla posizione di riposo."
                 }
               },
               {
@@ -304,7 +409,10 @@
                 "max": 3600,
                 "units": "s",
                 "label": {
-                  "en": "Inching delay"
+                  "en": "Inching delay",
+                  "de": "Inching-Verzögerung",
+                  "es": "Retardo de inching",
+                  "it": "Ritardo inching"
                 }
               }
             ]

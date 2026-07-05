@@ -16,10 +16,16 @@
       "id": "ZBMINIR2:click",
       "title": {
         "en": "Single click",
+        "de": "Einzelklick",
+        "es": "Pulsación única",
+        "it": "Pressione singola",
         "pt": "Clique único"
       },
       "hint": {
         "en": "This trigger fires when the physical switch is pressed and the 'Detach Relay' setting is enabled.",
+        "de": "Dieser Auslöser wird aktiviert, wenn der physische Schalter gedrückt wird und die Einstellung 'Relais trennen' aktiviert ist.",
+        "es": "Este disparador se activa cuando se pulsa el interruptor físico y la opción 'Separar relé' está activada.",
+        "it": "Questo trigger si attiva quando l'interruttore fisico viene premuto e l'impostazione 'Scollega relè' è abilitata.",
         "pt": "Este gatilho é acionado quando o interruptor físico é pressionado e a configuração 'Desconectar Relé' está ativada."
       }
     }

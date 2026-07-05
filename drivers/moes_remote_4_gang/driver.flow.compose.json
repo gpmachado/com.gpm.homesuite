@@ -2,26 +2,26 @@
   "triggers": [
     {
       "id": "moes_remote_4_gang_button",
-      "title": { "en": "Button action" },
-      "titleFormatted": { "en": "Action [[action]]" },
+      "title": { "en": "Button action", "de": "Tastenaktion", "es": "Acción del botón", "it": "Azione del pulsante" },
+      "titleFormatted": { "en": "Action [[action]]", "de": "Aktion [[action]]", "es": "Acción [[action]]", "it": "Azione [[action]]" },
       "args": [
         {
           "name": "action",
           "type": "dropdown",
-          "title": { "en": "Button action" },
+          "title": { "en": "Button action", "de": "Tastenaktion", "es": "Acción del botón", "it": "Azione del pulsante" },
           "values": [
-            { "id": "1-single", "label": { "en": "Button 1 — single press" } },
-            { "id": "1-double", "label": { "en": "Button 1 — double press" } },
-            { "id": "1-long",   "label": { "en": "Button 1 — long press"   } },
-            { "id": "2-single", "label": { "en": "Button 2 — single press" } },
-            { "id": "2-double", "label": { "en": "Button 2 — double press" } },
-            { "id": "2-long",   "label": { "en": "Button 2 — long press"   } },
-            { "id": "3-single", "label": { "en": "Button 3 — single press" } },
-            { "id": "3-double", "label": { "en": "Button 3 — double press" } },
-            { "id": "3-long",   "label": { "en": "Button 3 — long press"   } },
-            { "id": "4-single", "label": { "en": "Button 4 — single press" } },
-            { "id": "4-double", "label": { "en": "Button 4 — double press" } },
-            { "id": "4-long",   "label": { "en": "Button 4 — long press"   } }
+            { "id": "1-single", "label": { "en": "Button 1 — single press", "de": "Taste 1 - Einzelklick", "es": "Botón 1 - pulsación única", "it": "Pulsante 1 - pressione singola" } },
+            { "id": "1-double", "label": { "en": "Button 1 — double press", "de": "Taste 1 - Doppelklick", "es": "Botón 1 - doble pulsación", "it": "Pulsante 1 - doppia pressione" } },
+            { "id": "1-long",   "label": { "en": "Button 1 — long press", "de": "Taste 1 - Langdruck", "es": "Botón 1 - pulsación larga", "it": "Pulsante 1 - pressione lunga" } },
+            { "id": "2-single", "label": { "en": "Button 2 — single press", "de": "Taste 2 - Einzelklick", "es": "Botón 2 - pulsación única", "it": "Pulsante 2 - pressione singola" } },
+            { "id": "2-double", "label": { "en": "Button 2 — double press", "de": "Taste 2 - Doppelklick", "es": "Botón 2 - doble pulsación", "it": "Pulsante 2 - doppia pressione" } },
+            { "id": "2-long",   "label": { "en": "Button 2 — long press", "de": "Taste 2 - Langdruck", "es": "Botón 2 - pulsación larga", "it": "Pulsante 2 - pressione lunga" } },
+            { "id": "3-single", "label": { "en": "Button 3 — single press", "de": "Taste 3 - Einzelklick", "es": "Botón 3 - pulsación única", "it": "Pulsante 3 - pressione singola" } },
+            { "id": "3-double", "label": { "en": "Button 3 — double press", "de": "Taste 3 - Doppelklick", "es": "Botón 3 - doble pulsación", "it": "Pulsante 3 - doppia pressione" } },
+            { "id": "3-long",   "label": { "en": "Button 3 — long press", "de": "Taste 3 - Langdruck", "es": "Botón 3 - pulsación larga", "it": "Pulsante 3 - pressione lunga" } },
+            { "id": "4-single", "label": { "en": "Button 4 — single press", "de": "Taste 4 - Einzelklick", "es": "Botón 4 - pulsación única", "it": "Pulsante 4 - pressione singola" } },
+            { "id": "4-double", "label": { "en": "Button 4 — double press", "de": "Taste 4 - Doppelklick", "es": "Botón 4 - doble pulsación", "it": "Pulsante 4 - doppia pressione" } },
+            { "id": "4-long",   "label": { "en": "Button 4 — long press", "de": "Taste 4 - Langdruck", "es": "Botón 4 - pulsación larga", "it": "Pulsante 4 - pressione lunga" } }
           ]
         }
       ]

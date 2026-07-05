@@ -1,7 +1,10 @@
 {
   "type": "boolean",
   "title": {
-    "en": "High Liquid Level"
+    "en": "High Liquid Level",
+    "de": "Hoher Flüssigkeitsstand",
+    "es": "Nivel alto de líquido",
+    "it": "Livello alto del liquido"
   },
   "getable": true,
   "setable": false,

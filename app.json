@@ -198,14 +198,20 @@
             "name": "device_name",
             "type": "string",
             "title": {
-              "en": "Device name"
+              "en": "Device name",
+              "de": "Gerätename",
+              "es": "Nombre del dispositivo",
+              "it": "Nome del dispositivo"
             }
           },
           {
             "name": "timestamp",
             "type": "string",
             "title": {
-              "en": "Timestamp"
+              "en": "Timestamp",
+              "de": "Zeitstempel",
+              "es": "Marca de tiempo",
+              "it": "Data e ora"
             }
           }
         ],
@@ -230,14 +236,20 @@
             "name": "device_name",
             "type": "string",
             "title": {
-              "en": "Device name"
+              "en": "Device name",
+              "de": "Gerätename",
+              "es": "Nombre del dispositivo",
+              "it": "Nome del dispositivo"
             }
           },
           {
             "name": "timestamp",
             "type": "string",
             "title": {
-              "en": "Timestamp"
+              "en": "Timestamp",
+              "de": "Zeitstempel",
+              "es": "Marca de tiempo",
+              "it": "Data e ora"
             }
           }
         ],
@@ -262,14 +274,20 @@
             "name": "device_name",
             "type": "string",
             "title": {
-              "en": "Device name"
+              "en": "Device name",
+              "de": "Gerätename",
+              "es": "Nombre del dispositivo",
+              "it": "Nome del dispositivo"
             }
           },
           {
             "name": "timestamp",
             "type": "string",
             "title": {
-              "en": "Timestamp"
+              "en": "Timestamp",
+              "de": "Zeitstempel",
+              "es": "Marca de tiempo",
+              "it": "Data e ora"
             }
           }
         ],
@@ -294,14 +312,20 @@
             "name": "device_name",
             "type": "string",
             "title": {
-              "en": "Device name"
+              "en": "Device name",
+              "de": "Gerätename",
+              "es": "Nombre del dispositivo",
+              "it": "Nome del dispositivo"
             }
           },
           {
             "name": "timestamp",
             "type": "string",
             "title": {
-              "en": "Timestamp"
+              "en": "Timestamp",
+              "de": "Zeitstempel",
+              "es": "Marca de tiempo",
+              "it": "Data e ora"
             }
           }
         ],
@@ -360,14 +384,20 @@
             "name": "device_name",
             "type": "string",
             "title": {
-              "en": "Device name"
+              "en": "Device name",
+              "de": "Gerätename",
+              "es": "Nombre del dispositivo",
+              "it": "Nome del dispositivo"
             }
           },
           {
             "name": "timestamp",
             "type": "string",
             "title": {
-              "en": "Timestamp"
+              "en": "Timestamp",
+              "de": "Zeitstempel",
+              "es": "Marca de tiempo",
+              "it": "Data e ora"
             }
           }
         ],
@@ -392,14 +422,20 @@
             "name": "device_name",
             "type": "string",
             "title": {
-              "en": "Device name"
+              "en": "Device name",
+              "de": "Gerätename",
+              "es": "Nombre del dispositivo",
+              "it": "Nome del dispositivo"
             }
           },
           {
             "name": "timestamp",
             "type": "string",
             "title": {
-              "en": "Timestamp"
+              "en": "Timestamp",
+              "de": "Zeitstempel",
+              "es": "Marca de tiempo",
+              "it": "Data e ora"
             }
           }
         ],
@@ -424,14 +460,20 @@
             "name": "device_name",
             "type": "string",
             "title": {
-              "en": "Device name"
+              "en": "Device name",
+              "de": "Gerätename",
+              "es": "Nombre del dispositivo",
+              "it": "Nome del dispositivo"
             }
           },
           {
             "name": "timestamp",
             "type": "string",
             "title": {
-              "en": "Timestamp"
+              "en": "Timestamp",
+              "de": "Zeitstempel",
+              "es": "Marca de tiempo",
+              "it": "Data e ora"
             }
           }
         ],
@@ -456,14 +498,20 @@
             "name": "device_name",
             "type": "string",
             "title": {
-              "en": "Device name"
+              "en": "Device name",
+              "de": "Gerätename",
+              "es": "Nombre del dispositivo",
+              "it": "Nome del dispositivo"
             }
           },
           {
             "name": "timestamp",
             "type": "string",
             "title": {
-              "en": "Timestamp"
+              "en": "Timestamp",
+              "de": "Zeitstempel",
+              "es": "Marca de tiempo",
+              "it": "Data e ora"
             }
           }
         ],
@@ -488,14 +536,20 @@
             "name": "device_name",
             "type": "string",
             "title": {
-              "en": "Device name"
+              "en": "Device name",
+              "de": "Gerätename",
+              "es": "Nombre del dispositivo",
+              "it": "Nome del dispositivo"
             }
           },
           {
             "name": "timestamp",
             "type": "string",
             "title": {
-              "en": "Timestamp"
+              "en": "Timestamp",
+              "de": "Zeitstempel",
+              "es": "Marca de tiempo",
+              "it": "Data e ora"
             }
           }
         ],
@@ -520,14 +574,20 @@
             "name": "device_name",
             "type": "string",
             "title": {
-              "en": "Device name"
+              "en": "Device name",
+              "de": "Gerätename",
+              "es": "Nombre del dispositivo",
+              "it": "Nome del dispositivo"
             }
           },
           {
             "name": "timestamp",
             "type": "string",
             "title": {
-              "en": "Timestamp"
+              "en": "Timestamp",
+              "de": "Zeitstempel",
+              "es": "Marca de tiempo",
+              "it": "Data e ora"
             }
           }
         ],
@@ -555,7 +615,8 @@
             "name": "duration",
             "type": "number",
             "title": {
-              "en": "Duration (seconds)"
+              "en": "Duration (seconds)",
+              "it": "Durata (secondi)"
             },
             "example": 10
           }
@@ -610,14 +671,20 @@
             "name": "device_name",
             "type": "string",
             "title": {
-              "en": "Device name"
+              "en": "Device name",
+              "de": "Gerätename",
+              "es": "Nombre del dispositivo",
+              "it": "Nome del dispositivo"
             }
           },
           {
             "name": "timestamp",
             "type": "string",
             "title": {
-              "en": "Timestamp"
+              "en": "Timestamp",
+              "de": "Zeitstempel",
+              "es": "Marca de tiempo",
+              "it": "Data e ora"
             }
           }
         ],
@@ -642,14 +709,20 @@
             "name": "device_name",
             "type": "string",
             "title": {
-              "en": "Device name"
+              "en": "Device name",
+              "de": "Gerätename",
+              "es": "Nombre del dispositivo",
+              "it": "Nome del dispositivo"
             }
           },
           {
             "name": "timestamp",
             "type": "string",
             "title": {
-              "en": "Timestamp"
+              "en": "Timestamp",
+              "de": "Zeitstempel",
+              "es": "Marca de tiempo",
+              "it": "Data e ora"
             }
           }
         ],
@@ -674,14 +747,20 @@
             "name": "device_name",
             "type": "string",
             "title": {
-              "en": "Device name"
+              "en": "Device name",
+              "de": "Gerätename",
+              "es": "Nombre del dispositivo",
+              "it": "Nome del dispositivo"
             }
           },
           {
             "name": "timestamp",
             "type": "string",
             "title": {
-              "en": "Timestamp"
+              "en": "Timestamp",
+              "de": "Zeitstempel",
+              "es": "Marca de tiempo",
+              "it": "Data e ora"
             }
           }
         ],
@@ -706,14 +785,20 @@
             "name": "device_name",
             "type": "string",
             "title": {
-              "en": "Device name"
+              "en": "Device name",
+              "de": "Gerätename",
+              "es": "Nombre del dispositivo",
+              "it": "Nome del dispositivo"
             }
           },
           {
             "name": "timestamp",
             "type": "string",
             "title": {
-              "en": "Timestamp"
+              "en": "Timestamp",
+              "de": "Zeitstempel",
+              "es": "Marca de tiempo",
+              "it": "Data e ora"
             }
           }
         ],
@@ -738,14 +823,20 @@
             "name": "device_name",
             "type": "string",
             "title": {
-              "en": "Device name"
+              "en": "Device name",
+              "de": "Gerätename",
+              "es": "Nombre del dispositivo",
+              "it": "Nome del dispositivo"
             }
           },
           {
             "name": "timestamp",
             "type": "string",
             "title": {
-              "en": "Timestamp"
+              "en": "Timestamp",
+              "de": "Zeitstempel",
+              "es": "Marca de tiempo",
+              "it": "Data e ora"
             }
           }
         ],
@@ -770,14 +861,20 @@
             "name": "device_name",
             "type": "string",
             "title": {
-              "en": "Device name"
+              "en": "Device name",
+              "de": "Gerätename",
+              "es": "Nombre del dispositivo",
+              "it": "Nome del dispositivo"
             }
           },
           {
             "name": "timestamp",
             "type": "string",
             "title": {
-              "en": "Timestamp"
+              "en": "Timestamp",
+              "de": "Zeitstempel",
+              "es": "Marca de tiempo",
+              "it": "Data e ora"
             }
           }
         ],
@@ -915,14 +1012,20 @@
             "name": "device_name",
             "type": "string",
             "title": {
-              "en": "Device name"
+              "en": "Device name",
+              "de": "Gerätename",
+              "es": "Nombre del dispositivo",
+              "it": "Nome del dispositivo"
             }
           },
           {
             "name": "timestamp",
             "type": "string",
             "title": {
-              "en": "Timestamp"
+              "en": "Timestamp",
+              "de": "Zeitstempel",
+              "es": "Marca de tiempo",
+              "it": "Data e ora"
             }
           }
         ],
@@ -947,14 +1050,20 @@
             "name": "device_name",
             "type": "string",
             "title": {
-              "en": "Device name"
+              "en": "Device name",
+              "de": "Gerätename",
+              "es": "Nombre del dispositivo",
+              "it": "Nome del dispositivo"
             }
           },
           {
             "name": "timestamp",
             "type": "string",
             "title": {
-              "en": "Timestamp"
+              "en": "Timestamp",
+              "de": "Zeitstempel",
+              "es": "Marca de tiempo",
+              "it": "Data e ora"
             }
           }
         ],
@@ -995,14 +1104,20 @@
             "name": "device_name",
             "type": "string",
             "title": {
-              "en": "Device name"
+              "en": "Device name",
+              "de": "Gerätename",
+              "es": "Nombre del dispositivo",
+              "it": "Nome del dispositivo"
             }
           },
           {
             "name": "timestamp",
             "type": "string",
             "title": {
-              "en": "Timestamp"
+              "en": "Timestamp",
+              "de": "Zeitstempel",
+              "es": "Marca de tiempo",
+              "it": "Data e ora"
             }
           }
         ],
@@ -1027,14 +1142,20 @@
             "name": "device_name",
             "type": "string",
             "title": {
-              "en": "Device name"
+              "en": "Device name",
+              "de": "Gerätename",
+              "es": "Nombre del dispositivo",
+              "it": "Nome del dispositivo"
             }
           },
           {
             "name": "timestamp",
             "type": "string",
             "title": {
-              "en": "Timestamp"
+              "en": "Timestamp",
+              "de": "Zeitstempel",
+              "es": "Marca de tiempo",
+              "it": "Data e ora"
             }
           }
         ],
@@ -1075,14 +1196,20 @@
             "name": "device_name",
             "type": "string",
             "title": {
-              "en": "Device name"
+              "en": "Device name",
+              "de": "Gerätename",
+              "es": "Nombre del dispositivo",
+              "it": "Nome del dispositivo"
             }
           },
           {
             "name": "timestamp",
             "type": "string",
             "title": {
-              "en": "Timestamp"
+              "en": "Timestamp",
+              "de": "Zeitstempel",
+              "es": "Marca de tiempo",
+              "it": "Data e ora"
             }
           }
         ],
@@ -1107,14 +1234,20 @@
             "name": "device_name",
             "type": "string",
             "title": {
-              "en": "Device name"
+              "en": "Device name",
+              "de": "Gerätename",
+              "es": "Nombre del dispositivo",
+              "it": "Nome del dispositivo"
             }
           },
           {
             "name": "timestamp",
             "type": "string",
             "title": {
-              "en": "Timestamp"
+              "en": "Timestamp",
+              "de": "Zeitstempel",
+              "es": "Marca de tiempo",
+              "it": "Data e ora"
             }
           }
         ],
@@ -1155,14 +1288,20 @@
             "name": "device_name",
             "type": "string",
             "title": {
-              "en": "Device name"
+              "en": "Device name",
+              "de": "Gerätename",
+              "es": "Nombre del dispositivo",
+              "it": "Nome del dispositivo"
             }
           },
           {
             "name": "timestamp",
             "type": "string",
             "title": {
-              "en": "Timestamp"
+              "en": "Timestamp",
+              "de": "Zeitstempel",
+              "es": "Marca de tiempo",
+              "it": "Data e ora"
             }
           }
         ],
@@ -1187,14 +1326,20 @@
             "name": "device_name",
             "type": "string",
             "title": {
-              "en": "Device name"
+              "en": "Device name",
+              "de": "Gerätename",
+              "es": "Nombre del dispositivo",
+              "it": "Nome del dispositivo"
             }
           },
           {
             "name": "timestamp",
             "type": "string",
             "title": {
-              "en": "Timestamp"
+              "en": "Timestamp",
+              "de": "Zeitstempel",
+              "es": "Marca de tiempo",
+              "it": "Data e ora"
             }
           }
         ],
@@ -1235,14 +1380,20 @@
             "name": "device_name",
             "type": "string",
             "title": {
-              "en": "Device name"
+              "en": "Device name",
+              "de": "Gerätename",
+              "es": "Nombre del dispositivo",
+              "it": "Nome del dispositivo"
             }
           },
           {
             "name": "timestamp",
             "type": "string",
             "title": {
-              "en": "Timestamp"
+              "en": "Timestamp",
+              "de": "Zeitstempel",
+              "es": "Marca de tiempo",
+              "it": "Data e ora"
             }
           }
         ],
@@ -1267,14 +1418,20 @@
             "name": "device_name",
             "type": "string",
             "title": {
-              "en": "Device name"
+              "en": "Device name",
+              "de": "Gerätename",
+              "es": "Nombre del dispositivo",
+              "it": "Nome del dispositivo"
             }
           },
           {
             "name": "timestamp",
             "type": "string",
             "title": {
-              "en": "Timestamp"
+              "en": "Timestamp",
+              "de": "Zeitstempel",
+              "es": "Marca de tiempo",
+              "it": "Data e ora"
             }
           }
         ],
@@ -1315,14 +1472,20 @@
             "name": "device_name",
             "type": "string",
             "title": {
-              "en": "Device name"
+              "en": "Device name",
+              "de": "Gerätename",
+              "es": "Nombre del dispositivo",
+              "it": "Nome del dispositivo"
             }
           },
           {
             "name": "timestamp",
             "type": "string",
             "title": {
-              "en": "Timestamp"
+              "en": "Timestamp",
+              "de": "Zeitstempel",
+              "es": "Marca de tiempo",
+              "it": "Data e ora"
             }
           }
         ],
@@ -1347,14 +1510,20 @@
             "name": "device_name",
             "type": "string",
             "title": {
-              "en": "Device name"
+              "en": "Device name",
+              "de": "Gerätename",
+              "es": "Nombre del dispositivo",
+              "it": "Nome del dispositivo"
             }
           },
           {
             "name": "timestamp",
             "type": "string",
             "title": {
-              "en": "Timestamp"
+              "en": "Timestamp",
+              "de": "Zeitstempel",
+              "es": "Marca de tiempo",
+              "it": "Data e ora"
             }
           }
         ],
@@ -1395,14 +1564,20 @@
             "name": "device_name",
             "type": "string",
             "title": {
-              "en": "Device name"
+              "en": "Device name",
+              "de": "Gerätename",
+              "es": "Nombre del dispositivo",
+              "it": "Nome del dispositivo"
             }
           },
           {
             "name": "timestamp",
             "type": "string",
             "title": {
-              "en": "Timestamp"
+              "en": "Timestamp",
+              "de": "Zeitstempel",
+              "es": "Marca de tiempo",
+              "it": "Data e ora"
             }
           }
         ],
@@ -1427,14 +1602,20 @@
             "name": "device_name",
             "type": "string",
             "title": {
-              "en": "Device name"
+              "en": "Device name",
+              "de": "Gerätename",
+              "es": "Nombre del dispositivo",
+              "it": "Nome del dispositivo"
             }
           },
           {
             "name": "timestamp",
             "type": "string",
             "title": {
-              "en": "Timestamp"
+              "en": "Timestamp",
+              "de": "Zeitstempel",
+              "es": "Marca de tiempo",
+              "it": "Data e ora"
             }
           }
         ],
@@ -1475,14 +1656,20 @@
             "name": "device_name",
             "type": "string",
             "title": {
-              "en": "Device name"
+              "en": "Device name",
+              "de": "Gerätename",
+              "es": "Nombre del dispositivo",
+              "it": "Nome del dispositivo"
             }
           },
           {
             "name": "timestamp",
             "type": "string",
             "title": {
-              "en": "Timestamp"
+              "en": "Timestamp",
+              "de": "Zeitstempel",
+              "es": "Marca de tiempo",
+              "it": "Data e ora"
             }
           }
         ],
@@ -1507,14 +1694,20 @@
             "name": "device_name",
             "type": "string",
             "title": {
-              "en": "Device name"
+              "en": "Device name",
+              "de": "Gerätename",
+              "es": "Nombre del dispositivo",
+              "it": "Nome del dispositivo"
             }
           },
           {
             "name": "timestamp",
             "type": "string",
             "title": {
-              "en": "Timestamp"
+              "en": "Timestamp",
+              "de": "Zeitstempel",
+              "es": "Marca de tiempo",
+              "it": "Data e ora"
             }
           }
         ],
@@ -1555,14 +1748,20 @@
             "name": "device_name",
             "type": "string",
             "title": {
-              "en": "Device name"
+              "en": "Device name",
+              "de": "Gerätename",
+              "es": "Nombre del dispositivo",
+              "it": "Nome del dispositivo"
             }
           },
           {
             "name": "timestamp",
             "type": "string",
             "title": {
-              "en": "Timestamp"
+              "en": "Timestamp",
+              "de": "Zeitstempel",
+              "es": "Marca de tiempo",
+              "it": "Data e ora"
             }
           }
         ],
@@ -1587,14 +1786,20 @@
             "name": "device_name",
             "type": "string",
             "title": {
-              "en": "Device name"
+              "en": "Device name",
+              "de": "Gerätename",
+              "es": "Nombre del dispositivo",
+              "it": "Nome del dispositivo"
             }
           },
           {
             "name": "timestamp",
             "type": "string",
             "title": {
-              "en": "Timestamp"
+              "en": "Timestamp",
+              "de": "Zeitstempel",
+              "es": "Marca de tiempo",
+              "it": "Data e ora"
             }
           }
         ],
@@ -1635,14 +1840,20 @@
             "name": "device_name",
             "type": "string",
             "title": {
-              "en": "Device name"
+              "en": "Device name",
+              "de": "Gerätename",
+              "es": "Nombre del dispositivo",
+              "it": "Nome del dispositivo"
             }
           },
           {
             "name": "timestamp",
             "type": "string",
             "title": {
-              "en": "Timestamp"
+              "en": "Timestamp",
+              "de": "Zeitstempel",
+              "es": "Marca de tiempo",
+              "it": "Data e ora"
             }
           }
         ],
@@ -1667,14 +1878,20 @@
             "name": "device_name",
             "type": "string",
             "title": {
-              "en": "Device name"
+              "en": "Device name",
+              "de": "Gerätename",
+              "es": "Nombre del dispositivo",
+              "it": "Nome del dispositivo"
             }
           },
           {
             "name": "timestamp",
             "type": "string",
             "title": {
-              "en": "Timestamp"
+              "en": "Timestamp",
+              "de": "Zeitstempel",
+              "es": "Marca de tiempo",
+              "it": "Data e ora"
             }
           }
         ],
@@ -1699,14 +1916,20 @@
             "name": "device_name",
             "type": "string",
             "title": {
-              "en": "Device name"
+              "en": "Device name",
+              "de": "Gerätename",
+              "es": "Nombre del dispositivo",
+              "it": "Nome del dispositivo"
             }
           },
           {
             "name": "timestamp",
             "type": "string",
             "title": {
-              "en": "Timestamp"
+              "en": "Timestamp",
+              "de": "Zeitstempel",
+              "es": "Marca de tiempo",
+              "it": "Data e ora"
             }
           }
         ],
@@ -1731,14 +1954,20 @@
             "name": "device_name",
             "type": "string",
             "title": {
-              "en": "Device name"
+              "en": "Device name",
+              "de": "Gerätename",
+              "es": "Nombre del dispositivo",
+              "it": "Nome del dispositivo"
             }
           },
           {
             "name": "timestamp",
             "type": "string",
             "title": {
-              "en": "Timestamp"
+              "en": "Timestamp",
+              "de": "Zeitstempel",
+              "es": "Marca de tiempo",
+              "it": "Data e ora"
             }
           }
         ],
@@ -1779,14 +2008,20 @@
             "name": "device_name",
             "type": "string",
             "title": {
-              "en": "Device name"
+              "en": "Device name",
+              "de": "Gerätename",
+              "es": "Nombre del dispositivo",
+              "it": "Nome del dispositivo"
             }
           },
           {
             "name": "timestamp",
             "type": "string",
             "title": {
-              "en": "Timestamp"
+              "en": "Timestamp",
+              "de": "Zeitstempel",
+              "es": "Marca de tiempo",
+              "it": "Data e ora"
             }
           }
         ],
@@ -1811,14 +2046,20 @@
             "name": "device_name",
             "type": "string",
             "title": {
-              "en": "Device name"
+              "en": "Device name",
+              "de": "Gerätename",
+              "es": "Nombre del dispositivo",
+              "it": "Nome del dispositivo"
             }
           },
           {
             "name": "timestamp",
             "type": "string",
             "title": {
-              "en": "Timestamp"
+              "en": "Timestamp",
+              "de": "Zeitstempel",
+              "es": "Marca de tiempo",
+              "it": "Data e ora"
             }
           }
         ],
@@ -1859,14 +2100,20 @@
             "name": "device_name",
             "type": "string",
             "title": {
-              "en": "Device name"
+              "en": "Device name",
+              "de": "Gerätename",
+              "es": "Nombre del dispositivo",
+              "it": "Nome del dispositivo"
             }
           },
           {
             "name": "timestamp",
             "type": "string",
             "title": {
-              "en": "Timestamp"
+              "en": "Timestamp",
+              "de": "Zeitstempel",
+              "es": "Marca de tiempo",
+              "it": "Data e ora"
             }
           }
         ],
@@ -1891,14 +2138,20 @@
             "name": "device_name",
             "type": "string",
             "title": {
-              "en": "Device name"
+              "en": "Device name",
+              "de": "Gerätename",
+              "es": "Nombre del dispositivo",
+              "it": "Nome del dispositivo"
             }
           },
           {
             "name": "timestamp",
             "type": "string",
             "title": {
-              "en": "Timestamp"
+              "en": "Timestamp",
+              "de": "Zeitstempel",
+              "es": "Marca de tiempo",
+              "it": "Data e ora"
             }
           }
         ],
@@ -1939,14 +2192,20 @@
             "name": "device_name",
             "type": "string",
             "title": {
-              "en": "Device name"
+              "en": "Device name",
+              "de": "Gerätename",
+              "es": "Nombre del dispositivo",
+              "it": "Nome del dispositivo"
             }
           },
           {
             "name": "timestamp",
             "type": "string",
             "title": {
-              "en": "Timestamp"
+              "en": "Timestamp",
+              "de": "Zeitstempel",
+              "es": "Marca de tiempo",
+              "it": "Data e ora"
             }
           }
         ],
@@ -1971,14 +2230,20 @@
             "name": "device_name",
             "type": "string",
             "title": {
-              "en": "Device name"
+              "en": "Device name",
+              "de": "Gerätename",
+              "es": "Nombre del dispositivo",
+              "it": "Nome del dispositivo"
             }
           },
           {
             "name": "timestamp",
             "type": "string",
             "title": {
-              "en": "Timestamp"
+              "en": "Timestamp",
+              "de": "Zeitstempel",
+              "es": "Marca de tiempo",
+              "it": "Data e ora"
             }
           }
         ],
@@ -2064,14 +2329,20 @@
             "name": "device_name",
             "type": "string",
             "title": {
-              "en": "Device name"
+              "en": "Device name",
+              "de": "Gerätename",
+              "es": "Nombre del dispositivo",
+              "it": "Nome del dispositivo"
             }
           },
           {
             "name": "timestamp",
             "type": "string",
             "title": {
-              "en": "Timestamp"
+              "en": "Timestamp",
+              "de": "Zeitstempel",
+              "es": "Marca de tiempo",
+              "it": "Data e ora"
             }
           }
         ],
@@ -2096,14 +2367,20 @@
             "name": "device_name",
             "type": "string",
             "title": {
-              "en": "Device name"
+              "en": "Device name",
+              "de": "Gerätename",
+              "es": "Nombre del dispositivo",
+              "it": "Nome del dispositivo"
             }
           },
           {
             "name": "timestamp",
             "type": "string",
             "title": {
-              "en": "Timestamp"
+              "en": "Timestamp",
+              "de": "Zeitstempel",
+              "es": "Marca de tiempo",
+              "it": "Data e ora"
             }
           }
         ],
@@ -2141,31 +2418,46 @@
               {
                 "id": "0",
                 "label": {
-                  "en": "Doorbell Chime"
+                  "en": "Doorbell Chime",
+                  "de": "Türklingel",
+                  "es": "Timbre de puerta",
+                  "it": "Campanello porta"
                 }
               },
               {
                 "id": "1",
                 "label": {
-                  "en": "Für Elise"
+                  "en": "Für Elise",
+                  "de": "Für Elise",
+                  "es": "Para Elisa",
+                  "it": "Per Elisa"
                 }
               },
               {
                 "id": "2",
                 "label": {
-                  "en": "Westminster Chimes"
+                  "en": "Westminster Chimes",
+                  "de": "Westminster-Glocken",
+                  "es": "Carillón Westminster",
+                  "it": "Rintocchi Westminster"
                 }
               },
               {
                 "id": "3",
                 "label": {
-                  "en": "Fast Double Doorbell"
+                  "en": "Fast Double Doorbell",
+                  "de": "Schnelle Doppelklingel",
+                  "es": "Timbre doble rápido",
+                  "it": "Doppio campanello veloce"
                 }
               },
               {
                 "id": "4",
                 "label": {
-                  "en": "William Tell Overture"
+                  "en": "William Tell Overture",
+                  "de": "Wilhelm Tell Ouvertüre",
+                  "es": "Obertura Guillermo Tell",
+                  "it": "Ouverture Guglielmo Tell"
                 }
               },
               {
@@ -2177,73 +2469,109 @@
               {
                 "id": "6",
                 "label": {
-                  "en": "Safe / Security Alarm"
+                  "en": "Safe / Security Alarm",
+                  "de": "Sicherheitsalarm",
+                  "es": "Alarma de seguridad",
+                  "it": "Allarme sicurezza"
                 }
               },
               {
                 "id": "7",
                 "label": {
-                  "en": "Chemical Spill Alert"
+                  "en": "Chemical Spill Alert",
+                  "de": "Chemikalienalarm",
+                  "es": "Alerta de derrame químico",
+                  "it": "Allarme sostanze chimiche"
                 }
               },
               {
                 "id": "8",
                 "label": {
-                  "en": "Piercing Alarm Clock"
+                  "en": "Piercing Alarm Clock",
+                  "de": "Schriller Wecker",
+                  "es": "Despertador estridente",
+                  "it": "Sveglia acuta"
                 }
               },
               {
                 "id": "9",
                 "label": {
-                  "en": "Smoke Alarm"
+                  "en": "Smoke Alarm",
+                  "de": "Rauchmelder",
+                  "es": "Alarma de humo",
+                  "it": "Allarme fumo"
                 }
               },
               {
                 "id": "10",
                 "label": {
-                  "en": "Dog Barking"
+                  "en": "Dog Barking",
+                  "de": "Hundegebell",
+                  "es": "Ladrido de perro",
+                  "it": "Abbaiare di cane"
                 }
               },
               {
                 "id": "11",
                 "label": {
-                  "en": "Police Siren"
+                  "en": "Police Siren",
+                  "de": "Polizeisirene",
+                  "es": "Sirena policial",
+                  "it": "Sirena polizia"
                 }
               },
               {
                 "id": "12",
                 "label": {
-                  "en": "Doorbell Chime (reverb)"
+                  "en": "Doorbell Chime (reverb)",
+                  "de": "Türklingel (Hall)",
+                  "es": "Timbre con reverb",
+                  "it": "Campanello con riverbero"
                 }
               },
               {
                 "id": "13",
                 "label": {
-                  "en": "Mechanical Telephone"
+                  "en": "Mechanical Telephone",
+                  "de": "Mechanisches Telefon",
+                  "es": "Teléfono mecánico",
+                  "it": "Telefono meccanico"
                 }
               },
               {
                 "id": "14",
                 "label": {
-                  "en": "Fire / Ambulance"
+                  "en": "Fire / Ambulance",
+                  "de": "Feuerwehr / Krankenwagen",
+                  "es": "Bomberos / Ambulancia",
+                  "it": "Pompieri / Ambulanza"
                 }
               },
               {
                 "id": "15",
                 "label": {
-                  "en": "3/1 Elevator"
+                  "en": "3/1 Elevator",
+                  "de": "Aufzug 3/1",
+                  "es": "Ascensor 3/1",
+                  "it": "Ascensore 3/1"
                 }
               },
               {
                 "id": "16",
                 "label": {
-                  "en": "Buzzing Alarm Clock"
+                  "en": "Buzzing Alarm Clock",
+                  "de": "Summender Wecker",
+                  "es": "Despertador zumbador",
+                  "it": "Sveglia ronzante"
                 }
               },
               {
                 "id": "17",
                 "label": {
-                  "en": "School Bell"
+                  "en": "School Bell",
+                  "de": "Schulklingel",
+                  "es": "Timbre escolar",
+                  "it": "Campanella scolastica"
                 }
               }
             ]
@@ -2796,7 +3124,9 @@
           "type": "group",
           "label": {
             "en": "Switch Mode",
-            "it": "Cambia Modalità"
+            "it": "Cambia Modalità",
+            "de": "Schaltmodus",
+            "es": "Modo del interruptor"
           },
           "children": [
             {
@@ -2804,7 +3134,9 @@
               "type": "dropdown",
               "label": {
                 "en": "Mode",
-                "it": "Modalità"
+                "it": "Modalità",
+                "de": "Modus",
+                "es": "Modo"
               },
               "value": "0",
               "values": [
@@ -2873,21 +3205,27 @@
                   "id": "on",
                   "label": {
                     "en": "Always On",
-                    "it": "Sempre acceso"
+                    "it": "Sempre acceso",
+                    "de": "Immer ein",
+                    "es": "Siempre encendido"
                   }
                 },
                 {
                   "id": "off",
                   "label": {
                     "en": "Always Off",
-                    "it": "Sempre spento"
+                    "it": "Sempre spento",
+                    "de": "Immer aus",
+                    "es": "Siempre apagado"
                   }
                 },
                 {
                   "id": "last_state",
                   "label": {
                     "en": "Last State",
-                    "it": "Ultimo stato"
+                    "it": "Ultimo stato",
+                    "de": "Letzter Zustand",
+                    "es": "Último estado"
                   }
                 },
                 {
@@ -2909,7 +3247,9 @@
               },
               "label": {
                 "en": "Delay",
-                "it": "Ritardo"
+                "it": "Ritardo",
+                "de": "Verzögerung",
+                "es": "Retraso"
               }
             },
             {
@@ -3064,19 +3404,28 @@
                 {
                   "id": "low",
                   "label": {
-                    "en": "Low"
+                    "en": "Low",
+                    "de": "Niedrig",
+                    "es": "Bajo",
+                    "it": "Basso"
                   }
                 },
                 {
                   "id": "medium",
                   "label": {
-                    "en": "Medium"
+                    "en": "Medium",
+                    "de": "Mittel",
+                    "es": "Medio",
+                    "it": "Medio"
                   }
                 },
                 {
                   "id": "high",
                   "label": {
-                    "en": "High"
+                    "en": "High",
+                    "de": "Hoch",
+                    "es": "Alto",
+                    "it": "Alto"
                   }
                 }
               ]
@@ -3101,7 +3450,10 @@
                 {
                   "id": "medium",
                   "label": {
-                    "en": "Medium"
+                    "en": "Medium",
+                    "de": "Mittel",
+                    "es": "Medio",
+                    "it": "Medio"
                   }
                 },
                 {
@@ -7253,19 +7605,28 @@
                 {
                   "id": "off",
                   "label": {
-                    "en": "Always Off"
+                    "en": "Always Off",
+                    "de": "Immer aus",
+                    "es": "Siempre apagado",
+                    "it": "Sempre spento"
                   }
                 },
                 {
                   "id": "on",
                   "label": {
-                    "en": "Always On"
+                    "en": "Always On",
+                    "de": "Immer ein",
+                    "es": "Siempre encendido",
+                    "it": "Sempre acceso"
                   }
                 },
                 {
                   "id": "lastState",
                   "label": {
-                    "en": "Last State"
+                    "en": "Last State",
+                    "de": "Letzter Zustand",
+                    "es": "Último estado",
+                    "it": "Ultimo stato"
                   }
                 }
               ]
@@ -7274,7 +7635,10 @@
               "id": "relay_status_current",
               "type": "label",
               "label": {
-                "en": "Current (read from device)"
+                "en": "Current (read from device)",
+                "de": "Aktuell (vom Gerät gelesen)",
+                "es": "Actual (leído del dispositivo)",
+                "it": "Attuale (letto dal dispositivo)"
               },
               "hint": {
                 "en": "Last power-on behavior reported by the device. Updated at startup."
@@ -7301,13 +7665,19 @@
                 {
                   "id": "status",
                   "label": {
-                    "en": "On when powered"
+                    "en": "On when powered",
+                    "de": "Ein bei Strom",
+                    "es": "Encendido con corriente",
+                    "it": "Acceso con corrente"
                   }
                 },
                 {
                   "id": "position",
                   "label": {
-                    "en": "Off when powered"
+                    "en": "Off when powered",
+                    "de": "Aus bei Strom",
+                    "es": "Apagado con corriente",
+                    "it": "Spento con corrente"
                   }
                 },
                 {
@@ -7322,7 +7692,10 @@
               "id": "indicator_mode_current",
               "type": "label",
               "label": {
-                "en": "Current (read from device)"
+                "en": "Current (read from device)",
+                "de": "Aktuell (vom Gerät gelesen)",
+                "es": "Actual (leído del dispositivo)",
+                "it": "Attuale (letto dal dispositivo)"
               },
               "hint": {
                 "en": "Last LED indicator mode reported by the device. Updated at startup."
@@ -7525,19 +7898,28 @@
                 {
                   "id": "off",
                   "label": {
-                    "en": "Always Off"
+                    "en": "Always Off",
+                    "de": "Immer aus",
+                    "es": "Siempre apagado",
+                    "it": "Sempre spento"
                   }
                 },
                 {
                   "id": "on",
                   "label": {
-                    "en": "Always On"
+                    "en": "Always On",
+                    "de": "Immer ein",
+                    "es": "Siempre encendido",
+                    "it": "Sempre acceso"
                   }
                 },
                 {
                   "id": "lastState",
                   "label": {
-                    "en": "Last State"
+                    "en": "Last State",
+                    "de": "Letzter Zustand",
+                    "es": "Último estado",
+                    "it": "Ultimo stato"
                   }
                 }
               ]
@@ -7546,7 +7928,10 @@
               "id": "relay_status_current",
               "type": "label",
               "label": {
-                "en": "Current (read from device)"
+                "en": "Current (read from device)",
+                "de": "Aktuell (vom Gerät gelesen)",
+                "es": "Actual (leído del dispositivo)",
+                "it": "Attuale (letto dal dispositivo)"
               },
               "value": "—"
             },
@@ -7567,13 +7952,19 @@
                 {
                   "id": "status",
                   "label": {
-                    "en": "On when powered"
+                    "en": "On when powered",
+                    "de": "Ein bei Strom",
+                    "es": "Encendido con corriente",
+                    "it": "Acceso con corrente"
                   }
                 },
                 {
                   "id": "position",
                   "label": {
-                    "en": "Off when powered"
+                    "en": "Off when powered",
+                    "de": "Aus bei Strom",
+                    "es": "Apagado con corriente",
+                    "it": "Spento con corrente"
                   }
                 },
                 {
@@ -7588,7 +7979,10 @@
               "id": "indicator_mode_current",
               "type": "label",
               "label": {
-                "en": "Current (read from device)"
+                "en": "Current (read from device)",
+                "de": "Aktuell (vom Gerät gelesen)",
+                "es": "Actual (leído del dispositivo)",
+                "it": "Attuale (letto dal dispositivo)"
               },
               "value": "—"
             },
@@ -7778,19 +8172,28 @@
                 {
                   "id": "off",
                   "label": {
-                    "en": "Always Off"
+                    "en": "Always Off",
+                    "de": "Immer aus",
+                    "es": "Siempre apagado",
+                    "it": "Sempre spento"
                   }
                 },
                 {
                   "id": "on",
                   "label": {
-                    "en": "Always On"
+                    "en": "Always On",
+                    "de": "Immer ein",
+                    "es": "Siempre encendido",
+                    "it": "Sempre acceso"
                   }
                 },
                 {
                   "id": "lastState",
                   "label": {
-                    "en": "Last State"
+                    "en": "Last State",
+                    "de": "Letzter Zustand",
+                    "es": "Último estado",
+                    "it": "Ultimo stato"
                   }
                 }
               ]
@@ -7799,7 +8202,10 @@
               "id": "relay_status_current",
               "type": "label",
               "label": {
-                "en": "Current (read from device)"
+                "en": "Current (read from device)",
+                "de": "Aktuell (vom Gerät gelesen)",
+                "es": "Actual (leído del dispositivo)",
+                "it": "Attuale (letto dal dispositivo)"
               },
               "value": "—"
             },
@@ -7820,13 +8226,19 @@
                 {
                   "id": "status",
                   "label": {
-                    "en": "On when powered"
+                    "en": "On when powered",
+                    "de": "Ein bei Strom",
+                    "es": "Encendido con corriente",
+                    "it": "Acceso con corrente"
                   }
                 },
                 {
                   "id": "position",
                   "label": {
-                    "en": "Off when powered"
+                    "en": "Off when powered",
+                    "de": "Aus bei Strom",
+                    "es": "Apagado con corriente",
+                    "it": "Spento con corrente"
                   }
                 },
                 {
@@ -7841,7 +8253,10 @@
               "id": "indicator_mode_current",
               "type": "label",
               "label": {
-                "en": "Current (read from device)"
+                "en": "Current (read from device)",
+                "de": "Aktuell (vom Gerät gelesen)",
+                "es": "Actual (leído del dispositivo)",
+                "it": "Attuale (letto dal dispositivo)"
               },
               "value": "—"
             },
@@ -8791,14 +9206,20 @@
         {
           "type": "group",
           "label": {
-            "en": "Power-On Global"
+            "en": "Power-On Global",
+            "de": "Globales Einschalten",
+            "es": "Encendido global",
+            "it": "Accensione globale"
           },
           "children": [
             {
               "id": "power_on_behavior_global",
               "type": "dropdown",
               "label": {
-                "en": "Default behavior"
+                "en": "Default behavior",
+                "de": "Standardverhalten",
+                "es": "Comportamiento predeterminado",
+                "it": "Comportamento predefinito"
               },
               "hint": {
                 "en": "Applies to both relay channels."
@@ -8808,19 +9229,28 @@
                 {
                   "id": "off",
                   "label": {
-                    "en": "Always Off"
+                    "en": "Always Off",
+                    "de": "Immer aus",
+                    "es": "Siempre apagado",
+                    "it": "Sempre spento"
                   }
                 },
                 {
                   "id": "on",
                   "label": {
-                    "en": "Always On"
+                    "en": "Always On",
+                    "de": "Immer ein",
+                    "es": "Siempre encendido",
+                    "it": "Sempre acceso"
                   }
                 },
                 {
                   "id": "lastState",
                   "label": {
-                    "en": "Last State"
+                    "en": "Last State",
+                    "de": "Letzter Zustand",
+                    "es": "Último estado",
+                    "it": "Ultimo stato"
                   }
                 }
               ]
@@ -8829,7 +9259,10 @@
               "id": "power_on_current_global",
               "type": "label",
               "label": {
-                "en": "Current (Global)"
+                "en": "Current (Global)",
+                "de": "Aktuell (global)",
+                "es": "Actual (global)",
+                "it": "Attuale (globale)"
               },
               "value": "-"
             }
@@ -8852,19 +9285,28 @@
                 {
                   "id": "off",
                   "label": {
-                    "en": "Always Off"
+                    "en": "Always Off",
+                    "de": "Immer aus",
+                    "es": "Siempre apagado",
+                    "it": "Sempre spento"
                   }
                 },
                 {
                   "id": "on",
                   "label": {
-                    "en": "Always On"
+                    "en": "Always On",
+                    "de": "Immer ein",
+                    "es": "Siempre encendido",
+                    "it": "Sempre acceso"
                   }
                 },
                 {
                   "id": "lastState",
                   "label": {
-                    "en": "Last State"
+                    "en": "Last State",
+                    "de": "Letzter Zustand",
+                    "es": "Último estado",
+                    "it": "Ultimo stato"
                   }
                 }
               ]
@@ -8893,7 +9335,10 @@
         {
           "type": "group",
           "label": {
-            "en": "Inching"
+            "en": "Inching",
+            "de": "Inching",
+            "es": "Inching",
+            "it": "Inching"
           },
           "children": [
             {
@@ -8901,7 +9346,10 @@
               "type": "checkbox",
               "value": false,
               "label": {
-                "en": "Inching (auto-off)"
+                "en": "Inching (auto-off)",
+                "de": "Inching (Auto-Aus)",
+                "es": "Inching (apagado auto)",
+                "it": "Inching (spegnimento auto)"
               },
               "hint": {
                 "en": "Use only with a momentary push button that returns to its resting position."
@@ -8915,7 +9363,10 @@
               "max": 3600,
               "units": "s",
               "label": {
-                "en": "Inching delay"
+                "en": "Inching delay",
+                "de": "Inching-Verzögerung",
+                "es": "Retardo inching",
+                "it": "Ritardo inching"
               },
               "hint": {
                 "en": "0–3600 seconds."
@@ -9014,19 +9465,28 @@
                       {
                         "id": "off",
                         "label": {
-                          "en": "Always Off"
+                          "en": "Always Off",
+                          "de": "Immer aus",
+                          "es": "Siempre apagado",
+                          "it": "Sempre spento"
                         }
                       },
                       {
                         "id": "on",
                         "label": {
-                          "en": "Always On"
+                          "en": "Always On",
+                          "de": "Immer ein",
+                          "es": "Siempre encendido",
+                          "it": "Sempre acceso"
                         }
                       },
                       {
                         "id": "lastState",
                         "label": {
-                          "en": "Last State"
+                          "en": "Last State",
+                          "de": "Letzter Zustand",
+                          "es": "Último estado",
+                          "it": "Ultimo stato"
                         }
                       }
                     ]
@@ -9044,7 +9504,10 @@
               {
                 "type": "group",
                 "label": {
-                  "en": "Inching"
+                  "en": "Inching",
+                  "de": "Inching",
+                  "es": "Inching",
+                  "it": "Inching"
                 },
                 "children": [
                   {
@@ -9052,7 +9515,10 @@
                     "type": "checkbox",
                     "value": false,
                     "label": {
-                      "en": "Inching (auto-off)"
+                      "en": "Inching (auto-off)",
+                      "de": "Inching (Auto-Aus)",
+                      "es": "Inching (apagado auto)",
+                      "it": "Inching (spegnimento auto)"
                     },
                     "hint": {
                       "en": "Use only with a momentary push button that returns to its resting position."
@@ -9066,7 +9532,10 @@
                     "max": 3600,
                     "units": "s",
                     "label": {
-                      "en": "Inching delay"
+                      "en": "Inching delay",
+                      "de": "Inching-Verzögerung",
+                      "es": "Retardo inching",
+                      "it": "Ritardo inching"
                     }
                   }
                 ]
@@ -9118,14 +9587,20 @@
         {
           "type": "group",
           "label": {
-            "en": "Power-On Global"
+            "en": "Power-On Global",
+            "de": "Globales Einschalten",
+            "es": "Encendido global",
+            "it": "Accensione globale"
           },
           "children": [
             {
               "id": "power_on_behavior_global",
               "type": "dropdown",
               "label": {
-                "en": "Default behavior"
+                "en": "Default behavior",
+                "de": "Standardverhalten",
+                "es": "Comportamiento predeterminado",
+                "it": "Comportamento predefinito"
               },
               "hint": {
                 "en": "Applies to all three relay channels."
@@ -9135,19 +9610,28 @@
                 {
                   "id": "off",
                   "label": {
-                    "en": "Always Off"
+                    "en": "Always Off",
+                    "de": "Immer aus",
+                    "es": "Siempre apagado",
+                    "it": "Sempre spento"
                   }
                 },
                 {
                   "id": "on",
                   "label": {
-                    "en": "Always On"
+                    "en": "Always On",
+                    "de": "Immer ein",
+                    "es": "Siempre encendido",
+                    "it": "Sempre acceso"
                   }
                 },
                 {
                   "id": "lastState",
                   "label": {
-                    "en": "Last State"
+                    "en": "Last State",
+                    "de": "Letzter Zustand",
+                    "es": "Último estado",
+                    "it": "Ultimo stato"
                   }
                 }
               ]
@@ -9156,7 +9640,10 @@
               "id": "power_on_current_global",
               "type": "label",
               "label": {
-                "en": "Current (Global)"
+                "en": "Current (Global)",
+                "de": "Aktuell (global)",
+                "es": "Actual (global)",
+                "it": "Attuale (globale)"
               },
               "value": "-"
             }
@@ -9179,19 +9666,28 @@
                 {
                   "id": "off",
                   "label": {
-                    "en": "Always Off"
+                    "en": "Always Off",
+                    "de": "Immer aus",
+                    "es": "Siempre apagado",
+                    "it": "Sempre spento"
                   }
                 },
                 {
                   "id": "on",
                   "label": {
-                    "en": "Always On"
+                    "en": "Always On",
+                    "de": "Immer ein",
+                    "es": "Siempre encendido",
+                    "it": "Sempre acceso"
                   }
                 },
                 {
                   "id": "lastState",
                   "label": {
-                    "en": "Last State"
+                    "en": "Last State",
+                    "de": "Letzter Zustand",
+                    "es": "Último estado",
+                    "it": "Ultimo stato"
                   }
                 }
               ]
@@ -9231,7 +9727,10 @@
         {
           "type": "group",
           "label": {
-            "en": "Inching"
+            "en": "Inching",
+            "de": "Inching",
+            "es": "Inching",
+            "it": "Inching"
           },
           "children": [
             {
@@ -9239,7 +9738,10 @@
               "type": "checkbox",
               "value": false,
               "label": {
-                "en": "Inching (auto-off)"
+                "en": "Inching (auto-off)",
+                "de": "Inching (Auto-Aus)",
+                "es": "Inching (apagado auto)",
+                "it": "Inching (spegnimento auto)"
               },
               "hint": {
                 "en": "Use only with a momentary push button that returns to its resting position."
@@ -9253,7 +9755,10 @@
               "max": 3600,
               "units": "s",
               "label": {
-                "en": "Inching delay"
+                "en": "Inching delay",
+                "de": "Inching-Verzögerung",
+                "es": "Retardo inching",
+                "it": "Ritardo inching"
               },
               "hint": {
                 "en": "0–3600 seconds."
@@ -9356,19 +9861,28 @@
                       {
                         "id": "off",
                         "label": {
-                          "en": "Always Off"
+                          "en": "Always Off",
+                          "de": "Immer aus",
+                          "es": "Siempre apagado",
+                          "it": "Sempre spento"
                         }
                       },
                       {
                         "id": "on",
                         "label": {
-                          "en": "Always On"
+                          "en": "Always On",
+                          "de": "Immer ein",
+                          "es": "Siempre encendido",
+                          "it": "Sempre acceso"
                         }
                       },
                       {
                         "id": "lastState",
                         "label": {
-                          "en": "Last State"
+                          "en": "Last State",
+                          "de": "Letzter Zustand",
+                          "es": "Último estado",
+                          "it": "Ultimo stato"
                         }
                       }
                     ]
@@ -9386,7 +9900,10 @@
               {
                 "type": "group",
                 "label": {
-                  "en": "Inching"
+                  "en": "Inching",
+                  "de": "Inching",
+                  "es": "Inching",
+                  "it": "Inching"
                 },
                 "children": [
                   {
@@ -9394,7 +9911,10 @@
                     "type": "checkbox",
                     "value": false,
                     "label": {
-                      "en": "Inching (auto-off)"
+                      "en": "Inching (auto-off)",
+                      "de": "Inching (Auto-Aus)",
+                      "es": "Inching (apagado auto)",
+                      "it": "Inching (spegnimento auto)"
                     },
                     "hint": {
                       "en": "Use only with a momentary push button that returns to its resting position."
@@ -9408,7 +9928,10 @@
                     "max": 3600,
                     "units": "s",
                     "label": {
-                      "en": "Inching delay"
+                      "en": "Inching delay",
+                      "de": "Inching-Verzögerung",
+                      "es": "Retardo inching",
+                      "it": "Ritardo inching"
                     }
                   }
                 ]
@@ -9455,19 +9978,28 @@
                       {
                         "id": "off",
                         "label": {
-                          "en": "Always Off"
+                          "en": "Always Off",
+                          "de": "Immer aus",
+                          "es": "Siempre apagado",
+                          "it": "Sempre spento"
                         }
                       },
                       {
                         "id": "on",
                         "label": {
-                          "en": "Always On"
+                          "en": "Always On",
+                          "de": "Immer ein",
+                          "es": "Siempre encendido",
+                          "it": "Sempre acceso"
                         }
                       },
                       {
                         "id": "lastState",
                         "label": {
-                          "en": "Last State"
+                          "en": "Last State",
+                          "de": "Letzter Zustand",
+                          "es": "Último estado",
+                          "it": "Ultimo stato"
                         }
                       }
                     ]
@@ -9485,7 +10017,10 @@
               {
                 "type": "group",
                 "label": {
-                  "en": "Inching"
+                  "en": "Inching",
+                  "de": "Inching",
+                  "es": "Inching",
+                  "it": "Inching"
                 },
                 "children": [
                   {
@@ -9493,7 +10028,10 @@
                     "type": "checkbox",
                     "value": false,
                     "label": {
-                      "en": "Inching (auto-off)"
+                      "en": "Inching (auto-off)",
+                      "de": "Inching (Auto-Aus)",
+                      "es": "Inching (apagado auto)",
+                      "it": "Inching (spegnimento auto)"
                     },
                     "hint": {
                       "en": "Use only with a momentary push button that returns to its resting position."
@@ -9507,7 +10045,10 @@
                     "max": 3600,
                     "units": "s",
                     "label": {
-                      "en": "Inching delay"
+                      "en": "Inching delay",
+                      "de": "Inching-Verzögerung",
+                      "es": "Retardo inching",
+                      "it": "Ritardo inching"
                     }
                   }
                 ]
@@ -9982,7 +10523,10 @@
         "en": "Fill Level"
       },
       "units": {
-        "en": "%"
+        "en": "%",
+        "de": "%",
+        "es": "%",
+        "it": "%"
       },
       "getable": true,
       "setable": false,

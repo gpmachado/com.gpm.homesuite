@@ -1,7 +1,10 @@
 {
   "id": "radar_sensor_mmwave",
   "name": {
-    "en": "Radar Sensor Moes (Linptech)"
+    "en": "Radar Sensor Moes (Linptech)",
+    "de": "Radar-Sensor Moes (Linptech)",
+    "es": "Sensor radar Moes (Linptech)",
+    "it": "Sensore radar Moes (Linptech)"
   },
   "class": "sensor",
   "platforms": ["local"],
@@ -39,7 +42,10 @@
     "learnmode": {
       "image": "{{driverAssetsPath}}/icon.svg",
       "instruction": {
-        "en": "Press and hold the reset button for 5 seconds. When the indicator light flashes it is in pairing mode."
+        "en": "Press and hold the reset button for 5 seconds. When the indicator light flashes it is in pairing mode.",
+        "de": "Halte die Reset-Taste 5 Sekunden lang gedrückt. Wenn die Kontrollleuchte blinkt, befindet sich das Gerät im Kopplungsmodus.",
+        "es": "Mantén pulsado el botón de reinicio durante 5 segundos. Cuando la luz indicadora parpadea, está en modo de emparejamiento.",
+        "it": "Tieni premuto il pulsante di reset per 5 secondi. Quando la spia lampeggia, il dispositivo è in modalità associazione."
       }
     }
   }

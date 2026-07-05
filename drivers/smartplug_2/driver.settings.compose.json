@@ -1,81 +1,212 @@
 [
   {
     "type": "group",
-    "label": { "en": "Diagnostics" },
+      "label": {
+        "en": "Diagnostics",
+        "de": "Diagnose",
+        "es": "Diagnósticos",
+        "it": "Diagnostica"
+      },
     "children": [
       {
         "id": "debug_frames",
         "type": "checkbox",
-        "label": { "en": "Log Zigbee frames" },
-        "hint": { "en": "Logs cluster, command, interval and whether the frame arrived during active polling." },
+        "label": {
+          "en": "Log Zigbee frames",
+          "de": "Zigbee-Frames protokollieren",
+          "es": "Registrar tramas Zigbee",
+          "it": "Registra frame Zigbee"
+        },
+        "hint": {
+          "en": "Logs cluster, command, interval and whether the frame arrived during active polling.",
+          "de": "Protokolliert Cluster, Befehl, Intervall und ob das Frame während der aktiven Abfrage angekommen ist.",
+          "es": "Registra clúster, comando, intervalo y si la trama llegó durante la consulta activa.",
+          "it": "Registra cluster, comando, intervallo e se il frame è arrivato durante il polling attivo."
+        },
         "value": true
       },
       {
         "id": "debug_raw_payload",
         "type": "checkbox",
-        "label": { "en": "Include raw frame payload" },
-        "hint": { "en": "Include the hexadecimal ZCL frame for detailed analysis." },
+        "label": {
+          "en": "Include raw frame payload",
+          "de": "Rohes Frame-Payload einschließen",
+          "es": "Incluir carga útil sin procesar",
+          "it": "Includi payload grezzo del frame"
+        },
+        "hint": {
+          "en": "Include the hexadecimal ZCL frame for detailed analysis.",
+          "de": "Fügt das hexadezimale ZCL-Frame für eine detaillierte Analyse hinzu.",
+          "es": "Incluye la trama ZCL hexadecimal para un análisis detallado.",
+          "it": "Includi il frame ZCL esadecimale per un'analisi dettagliata."
+        },
         "value": true
       }
     ]
   },
   {
     "type": "group",
-    "label": { "en": "Device control" },
+      "label": {
+        "en": "Device control",
+        "de": "Gerätesteuerung",
+        "es": "Control del dispositivo",
+        "it": "Controllo del dispositivo"
+      },
     "children": [
       {
         "id": "relay_status",
         "type": "dropdown",
-        "label": { "en": "Power-on behavior" },
-        "hint": { "en": "State after power is restored." },
+        "label": {
+          "en": "Power-on behavior",
+          "de": "Verhalten beim Einschalten",
+          "es": "Comportamiento al encender",
+          "it": "Comportamento all'accensione"
+        },
+        "hint": {
+          "en": "State after power is restored.",
+          "de": "Zustand nach Wiederherstellung der Stromversorgung.",
+          "es": "Estado después de que se restablece la alimentación.",
+          "it": "Stato dopo il ripristino dell'alimentazione."
+        },
         "value": "lastState",
         "values": [
-          { "id": "off",       "label": { "en": "Always Off" } },
-          { "id": "on",        "label": { "en": "Always On"  } },
-          { "id": "lastState", "label": { "en": "Last State" } }
+          {
+            "id": "off",
+            "label": {
+              "en": "Always Off",
+              "de": "Immer aus",
+              "es": "Siempre apagado",
+              "it": "Sempre spento"
+            }
+          },
+          {
+            "id": "on",
+            "label": {
+              "en": "Always On",
+              "de": "Immer ein",
+              "es": "Siempre encendido",
+              "it": "Sempre acceso"
+            }
+          },
+          {
+            "id": "lastState",
+            "label": {
+              "en": "Last State",
+              "de": "Letzter Zustand",
+              "es": "Último estado",
+              "it": "Ultimo stato"
+            }
+          }
         ]
       },
       {
         "id": "relay_status_current",
         "type": "label",
-        "label": { "en": "Current (read from device)" },
+        "label": {
+          "en": "Current (read from device)",
+          "de": "Aktuell (vom Gerät gelesen)",
+          "es": "Actual (leído del dispositivo)",
+          "it": "Attuale (letto dal dispositivo)"
+        },
         "value": "—"
       },
       {
         "id": "indicator_mode",
         "type": "dropdown",
-        "label": { "en": "LED indicator" },
+        "label": {
+          "en": "LED indicator",
+          "de": "LED-Anzeige",
+          "es": "Indicador LED",
+          "it": "Indicatore LED"
+        },
         "value": "status",
         "values": [
-          { "id": "off",      "label": { "en": "Always off"       } },
-          { "id": "status",   "label": { "en": "On when powered"  } },
-          { "id": "position", "label": { "en": "Off when powered" } },
-          { "id": "on",       "label": { "en": "Always on"        } }
+          {
+            "id": "off",
+              "label": {
+                "en": "Always off",
+                "de": "Immer aus",
+                "es": "Siempre apagado",
+                "it": "Sempre spento"
+              }
+          },
+          {
+            "id": "status",
+            "label": {
+              "en": "On when powered",
+              "de": "Ein bei Strom",
+              "es": "Encendido con corriente",
+              "it": "Acceso con corrente"
+            }
+          },
+          {
+            "id": "position",
+            "label": {
+              "en": "Off when powered",
+              "de": "Aus bei Strom",
+              "es": "Apagado con corriente",
+              "it": "Spento con corrente"
+            }
+          },
+          {
+            "id": "on",
+              "label": {
+                "en": "Always on",
+                "de": "Immer ein",
+                "es": "Siempre encendido",
+                "it": "Sempre acceso"
+              }
+          }
         ]
       },
       {
         "id": "indicator_mode_current",
         "type": "label",
-        "label": { "en": "Current (read from device)" },
+        "label": {
+          "en": "Current (read from device)",
+          "de": "Aktuell (vom Gerät gelesen)",
+          "es": "Actual (leído del dispositivo)",
+          "it": "Attuale (letto dal dispositivo)"
+        },
         "value": "—"
       },
       {
         "id": "child_lock",
         "type": "checkbox",
-        "label": { "en": "Child lock" },
+        "label": {
+          "en": "Child lock",
+          "de": "Kindersicherung",
+          "es": "Bloqueo infantil",
+          "it": "Blocco bambini"
+        },
         "value": false
       }
     ]
   },
   {
     "type": "group",
-    "label": { "en": "Polling" },
+      "label": {
+        "en": "Polling",
+        "de": "Abfrage",
+        "es": "Consulta",
+        "it": "Polling"
+      },
     "children": [
       {
         "id": "pollInterval",
         "type": "number",
-        "label": { "en": "Polling interval (s)" },
-        "hint": { "en": "Active Homey polling interval. Keep this distinct from passive Zigbee reporting during diagnostics." },
+        "label": {
+          "en": "Polling interval (s)",
+          "de": "Abfrageintervall (s)",
+          "es": "Intervalo de consulta (s)",
+          "it": "Intervallo di polling (s)"
+        },
+        "hint": {
+          "en": "Active Homey polling interval. Keep this distinct from passive Zigbee reporting during diagnostics.",
+          "de": "Aktives Homey-Abfrageintervall. Trenne dies während der Diagnose von passiven Zigbee-Meldungen.",
+          "es": "Intervalo de consulta activa de Homey. Mantenlo distinto del informe pasivo de Zigbee durante el diagnóstico.",
+          "it": "Intervallo di polling attivo di Homey. Tienilo distinto dal reporting Zigbee passivo durante la diagnostica."
+        },
         "value": 180,
         "min": 60,
         "max": 3600,
@@ -85,12 +216,22 @@
   },
   {
     "type": "group",
-    "label": { "en": "Energy measurement" },
+      "label": {
+        "en": "Energy measurement",
+        "de": "Energiemessung",
+        "es": "Medición de energía",
+        "it": "Misurazione dell'energia"
+      },
     "children": [
       {
         "id": "powerFactor",
         "type": "number",
-        "label": { "en": "Power correction factor" },
+        "label": {
+          "en": "Power correction factor",
+          "de": "Leistungskorrekturfaktor",
+          "es": "Factor de corrección de potencia",
+          "it": "Fattore di correzione della potenza"
+        },
         "value": 1,
         "min": 0.1,
         "max": 2,
@@ -99,7 +240,12 @@
       {
         "id": "energyFactor",
         "type": "number",
-        "label": { "en": "Energy correction factor" },
+        "label": {
+          "en": "Energy correction factor",
+          "de": "Energiekorrekturfaktor",
+          "es": "Factor de corrección de energía",
+          "it": "Fattore di correzione dell'energia"
+        },
         "value": 1,
         "min": 0.1,
         "max": 2,
@@ -108,7 +254,12 @@
       {
         "id": "calcPower",
         "type": "checkbox",
-        "label": { "en": "Calculate power from V × A" },
+        "label": {
+          "en": "Calculate power from V × A",
+          "de": "Leistung aus V × A berechnen",
+          "es": "Calcular potencia a partir de V × A",
+          "it": "Calcola la potenza da V × A"
+        },
         "value": true
       }
     ]

@@ -1,1 +1,36 @@
-{}
+{
+  "settings": {
+    "title": "Zigbee Traffic",
+    "eyebrow": "HomeSuite · monitored EP1",
+    "intro": "One row per physical device. Multi-gang devices are counted once through their main device.",
+    "refresh": "Refresh now",
+    "reset": "Reset statistics",
+    "physical_devices": "Physical devices",
+    "messages_24h": "Messages · 24 h",
+    "messages_current_hour": "Messages · current hour",
+    "most_active_current_hour": "Most active · current hour",
+    "waiting_for_data": "Waiting for data…",
+    "sort_by": "Sort by",
+    "sort_name": "Name A–Z",
+    "sort_24h": "Most messages · 24 h",
+    "sort_current_hour": "Most messages · current hour",
+    "sort_previous_hour": "Most messages · previous hour",
+    "sort_recent": "Most recent activity",
+    "device": "Device",
+    "current_hour": "Current hour",
+    "previous_hour": "Previous hour",
+    "last_message": "Last message",
+    "loading": "Loading statistics…",
+    "footnote": "“Frames” are raw Zigbee messages. “Activity” represents explicit callbacks from sleepy sensors. Data is persisted at most once every five minutes.",
+    "no_devices": "No monitored devices are active.",
+    "frames": "frames",
+    "activity": "activity",
+    "refreshing": "Refreshing…",
+    "failed_load": "Failed to load:",
+    "updated_at": "Updated at",
+    "resetting": "Resetting…",
+    "reset_failed": "Reset failed:",
+    "reset_confirmation": "Reset all Zigbee traffic statistics? This cannot be undone.",
+    "confirmation_failed": "Confirmation failed:"
+  }
+}

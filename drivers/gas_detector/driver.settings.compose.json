@@ -1,18 +1,27 @@
 [
   {
     "type": "group",
-    "label": {
-      "en": "Alerts"
-    },
+      "label": {
+        "en": "Alerts",
+        "de": "Warnungen",
+        "es": "Alertas",
+        "it": "Avvisi"
+      },
     "children": [
       {
         "id": "alarm_problem_enabled",
         "type": "checkbox",
         "label": {
-          "en": "Enable device fault alert"
+          "en": "Enable device fault alert",
+          "de": "Gerätefehlerwarnung aktivieren",
+          "es": "Activar alerta de fallo del dispositivo",
+          "it": "Abilita avviso di guasto del dispositivo"
         },
         "hint": {
-          "en": "Show alert when the sensor reports a hardware fault."
+          "en": "Show alert when the sensor reports a hardware fault.",
+          "de": "Zeigt eine Warnung an, wenn der Sensor einen Hardwarefehler meldet.",
+          "es": "Muestra una alerta cuando el sensor informa de un fallo de hardware.",
+          "it": "Mostra un avviso quando il sensore segnala un guasto hardware."
         },
         "value": true
       }

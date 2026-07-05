@@ -11,20 +11,32 @@
     {
       "id": "siren_activated",
       "title": {
-        "en": "Siren activated"
+        "en": "Siren activated",
+        "de": "Sirene aktiviert",
+        "es": "Sirena activada",
+        "it": "Sirena attivata"
       },
       "titleFormatted": {
-        "en": "[[device]] siren was activated"
+        "en": "[[device]] siren was activated",
+        "de": "Die Sirene von [[device]] wurde aktiviert",
+        "es": "La sirena de [[device]] se activó",
+        "it": "La sirena di [[device]] è stata attivata"
       },
       "hint": {
-        "en": "Triggered when the siren starts playing."
+        "en": "Triggered when the siren starts playing.",
+        "de": "Wird ausgelöst, wenn die Sirene zu spielen beginnt.",
+        "es": "Se activa cuando la sirena empieza a sonar.",
+        "it": "Si attiva quando la sirena inizia a suonare."
       },
       "tokens": [
         {
           "name": "duration",
           "type": "number",
           "title": {
-            "en": "Duration (seconds)"
+            "en": "Duration (seconds)",
+            "de": "Dauer (Sekunden)",
+            "es": "Duración (segundos)",
+            "it": "Durata (secondi)"
           },
           "example": 10
         }
@@ -33,20 +45,32 @@
     {
       "id": "siren_deactivated",
       "title": {
-        "en": "Siren deactivated"
+        "en": "Siren deactivated",
+        "de": "Sirene deaktiviert",
+        "es": "Sirena desactivada",
+        "it": "Sirena disattivata"
       },
       "titleFormatted": {
-        "en": "[[device]] siren was deactivated"
+        "en": "[[device]] siren was deactivated",
+        "de": "Die Sirene von [[device]] wurde deaktiviert",
+        "es": "La sirena de [[device]] se desactivó",
+        "it": "La sirena di [[device]] è stata disattivata"
       },
       "hint": {
-        "en": "Triggered when the siren stops playing (automatic or manual)."
+        "en": "Triggered when the siren stops playing (automatic or manual).",
+        "de": "Wird ausgelöst, wenn die Sirene aufhört zu spielen (automatisch oder manuell).",
+        "es": "Se activa cuando la sirena deja de sonar (automático o manual).",
+        "it": "Si attiva quando la sirena smette di suonare (automaticamente o manualmente)."
       },
       "tokens": [
         {
           "name": "reason",
           "type": "string",
           "title": {
-            "en": "Stop reason"
+            "en": "Stop reason",
+            "de": "Stoppgrund",
+            "es": "Motivo de parada",
+            "it": "Motivo dell'arresto"
           },
           "example": "auto"
         }
@@ -57,13 +81,22 @@
     {
       "id": "is_playing",
       "title": {
-        "en": "Siren is !{{playing|not playing}}"
+        "en": "Siren is !{{playing|not playing}}",
+        "de": "Sirene ist !{{aktiv|inaktiv}}",
+        "es": "La sirena está !{{sonando|sin sonar}}",
+        "it": "La sirena è !{{attiva|non attiva}}"
       },
       "titleFormatted": {
-        "en": "[[device]] siren is !{{playing|not playing}}"
+        "en": "[[device]] siren is !{{playing|not playing}}",
+        "de": "Die Sirene von [[device]] ist !{{aktiv|inaktiv}}",
+        "es": "La sirena de [[device]] está !{{sonando|sin sonar}}",
+        "it": "La sirena di [[device]] è !{{attiva|non attiva}}"
       },
       "hint": {
-        "en": "Check if the siren is currently active."
+        "en": "Check if the siren is currently active.",
+        "de": "Prüft, ob die Sirene derzeit aktiv ist.",
+        "es": "Comprueba si la sirena está activa actualmente.",
+        "it": "Controlla se la sirena è attualmente attiva."
       }
     }
   ],
@@ -71,37 +104,190 @@
     {
       "id": "siren_play",
       "title": {
-        "en": "Play siren with melody"
+        "en": "Play siren with melody",
+        "de": "Sirene mit Melodie abspielen",
+        "es": "Reproducir sirena con melodía",
+        "it": "Riproduci sirena con melodia"
       },
       "titleFormatted": {
-        "en": "Play [[melody]] for [[duration]] seconds"
+        "en": "Play [[melody]] for [[duration]] seconds",
+        "de": "Spiele [[melody]] für [[duration]] Sekunden",
+        "es": "Reproducir [[melody]] durante [[duration]] segundos",
+        "it": "Riproduci [[melody]] per [[duration]] secondi"
       },
       "hint": {
-        "en": "Play a specific melody for the given duration (volume is taken from Settings)."
+        "en": "Play a specific melody for the given duration (volume is taken from Settings).",
+        "de": "Spielt eine bestimmte Melodie für die angegebene Dauer ab (Lautstärke wird aus den Einstellungen übernommen).",
+        "es": "Reproduce una melodía específica durante la duración indicada (el volumen se toma de Ajustes).",
+        "it": "Riproduce una melodia specifica per la durata indicata (il volume viene preso dalle Impostazioni)."
       },
       "args": [
         {
           "name": "melody",
           "type": "dropdown",
           "values": [
-            { "id": "0",  "label": { "en": "Doorbell Chime" } },
-            { "id": "1",  "label": { "en": "Für Elise" } },
-            { "id": "2",  "label": { "en": "Westminster Chimes" } },
-            { "id": "3",  "label": { "en": "Fast Double Doorbell" } },
-            { "id": "4",  "label": { "en": "William Tell Overture" } },
-            { "id": "5",  "label": { "en": "Turkish March" } },
-            { "id": "6",  "label": { "en": "Safe / Security Alarm" } },
-            { "id": "7",  "label": { "en": "Chemical Spill Alert" } },
-            { "id": "8",  "label": { "en": "Piercing Alarm Clock" } },
-            { "id": "9",  "label": { "en": "Smoke Alarm" } },
-            { "id": "10", "label": { "en": "Dog Barking" } },
-            { "id": "11", "label": { "en": "Police Siren" } },
-            { "id": "12", "label": { "en": "Doorbell Chime (reverb)" } },
-            { "id": "13", "label": { "en": "Mechanical Telephone" } },
-            { "id": "14", "label": { "en": "Fire / Ambulance" } },
-            { "id": "15", "label": { "en": "3/1 Elevator" } },
-            { "id": "16", "label": { "en": "Buzzing Alarm Clock" } },
-            { "id": "17", "label": { "en": "School Bell" } }
+            {
+              "id": "0",
+              "label": {
+                "en": "Doorbell Chime",
+                "de": "Türklingel",
+                "es": "Timbre de puerta",
+                "it": "Campanello porta"
+              }
+            },
+            {
+              "id": "1",
+              "label": {
+                "en": "Für Elise",
+                "de": "Für Elise",
+                "es": "Para Elisa",
+                "it": "Per Elisa"
+              }
+            },
+            {
+              "id": "2",
+              "label": {
+                "en": "Westminster Chimes",
+                "de": "Westminster-Glocken",
+                "es": "Carillón Westminster",
+                "it": "Rintocchi Westminster"
+              }
+            },
+            {
+              "id": "3",
+              "label": {
+                "en": "Fast Double Doorbell",
+                "de": "Schnelle Doppelklingel",
+                "es": "Timbre doble rápido",
+                "it": "Doppio campanello veloce"
+              }
+            },
+            {
+              "id": "4",
+              "label": {
+                "en": "William Tell Overture",
+                "de": "Wilhelm Tell Ouvertüre",
+                "es": "Obertura Guillermo Tell",
+                "it": "Ouverture Guglielmo Tell"
+              }
+            },
+            {
+              "id": "5",
+              "label": {
+                "en": "Turkish March",
+                "de": "Türkischer Marsch",
+                "es": "Marcha turca",
+                "it": "Marcia turca"
+              }
+            },
+            {
+              "id": "6",
+              "label": {
+                "en": "Safe / Security Alarm",
+                "de": "Sicherheitsalarm",
+                "es": "Alarma de seguridad",
+                "it": "Allarme sicurezza"
+              }
+            },
+            {
+              "id": "7",
+              "label": {
+                "en": "Chemical Spill Alert",
+                "de": "Chemikalienalarm",
+                "es": "Alerta de derrame químico",
+                "it": "Allarme sostanze chimiche"
+              }
+            },
+            {
+              "id": "8",
+              "label": {
+                "en": "Piercing Alarm Clock",
+                "de": "Schriller Wecker",
+                "es": "Despertador estridente",
+                "it": "Sveglia acuta"
+              }
+            },
+            {
+              "id": "9",
+              "label": {
+                "en": "Smoke Alarm",
+                "de": "Rauchmelder",
+                "es": "Alarma de humo",
+                "it": "Allarme fumo"
+              }
+            },
+            {
+              "id": "10",
+              "label": {
+                "en": "Dog Barking",
+                "de": "Hundegebell",
+                "es": "Ladrido de perro",
+                "it": "Abbaiare di cane"
+              }
+            },
+            {
+              "id": "11",
+              "label": {
+                "en": "Police Siren",
+                "de": "Polizeisirene",
+                "es": "Sirena policial",
+                "it": "Sirena polizia"
+              }
+            },
+            {
+              "id": "12",
+              "label": {
+                "en": "Doorbell Chime (reverb)",
+                "de": "Türklingel (Hall)",
+                "es": "Timbre con reverb",
+                "it": "Campanello con riverbero"
+              }
+            },
+            {
+              "id": "13",
+              "label": {
+                "en": "Mechanical Telephone",
+                "de": "Mechanisches Telefon",
+                "es": "Teléfono mecánico",
+                "it": "Telefono meccanico"
+              }
+            },
+            {
+              "id": "14",
+              "label": {
+                "en": "Fire / Ambulance",
+                "de": "Feuerwehr / Krankenwagen",
+                "es": "Bomberos / Ambulancia",
+                "it": "Pompieri / Ambulanza"
+              }
+            },
+            {
+              "id": "15",
+              "label": {
+                "en": "3/1 Elevator",
+                "de": "Aufzug 3/1",
+                "es": "Ascensor 3/1",
+                "it": "Ascensore 3/1"
+              }
+            },
+            {
+              "id": "16",
+              "label": {
+                "en": "Buzzing Alarm Clock",
+                "de": "Summender Wecker",
+                "es": "Despertador zumbador",
+                "it": "Sveglia ronzante"
+              }
+            },
+            {
+              "id": "17",
+              "label": {
+                "en": "School Bell",
+                "de": "Schulklingel",
+                "es": "Timbre escolar",
+                "it": "Campanella scolastica"
+              }
+            }
           ]
         },
         {
@@ -119,13 +305,22 @@
     {
       "id": "siren_stop",
       "title": {
-        "en": "Stop siren"
+        "en": "Stop siren",
+        "de": "Sirene stoppen",
+        "es": "Detener sirena",
+        "it": "Ferma sirena"
       },
       "titleFormatted": {
-        "en": "Stop the siren"
+        "en": "Stop the siren",
+        "de": "Sirene stoppen",
+        "es": "Detener la sirena",
+        "it": "Ferma la sirena"
       },
       "hint": {
-        "en": "Immediately stop the siren if it is playing."
+        "en": "Immediately stop the siren if it is playing.",
+        "de": "Stoppt die Sirene sofort, wenn sie läuft.",
+        "es": "Detiene inmediatamente la sirena si está sonando.",
+        "it": "Ferma immediatamente la sirena se è in riproduzione."
       }
     }
   ]

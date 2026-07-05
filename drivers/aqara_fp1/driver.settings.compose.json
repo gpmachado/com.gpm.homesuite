@@ -1,47 +1,151 @@
 [
   {
     "type": "group",
-    "label": { "en": "Detection" },
+      "label": {
+        "en": "Detection",
+        "de": "Erkennung",
+        "es": "Detección",
+        "it": "Rilevamento"
+      },
     "children": [
       {
         "id": "motion_sensitivity",
         "type": "dropdown",
-        "label": { "en": "Motion sensitivity" },
-        "hint": { "en": "Detection sensitivity (low/medium/high)." },
+          "label": {
+            "en": "Motion sensitivity",
+            "de": "Bewegungsempfindlichkeit",
+            "es": "Sensibilidad de movimiento",
+            "it": "Sensibilità al movimento"
+          },
+          "hint": {
+            "en": "Detection sensitivity (low/medium/high).",
+            "de": "Erkennungsempfindlichkeit (niedrig/mittel/hoch).",
+            "es": "Sensibilidad de detección (baja/media/alta).",
+            "it": "Sensibilità di rilevamento (bassa/media/alta)."
+          },
         "value": "medium",
         "values": [
-          { "id": "low", "label": { "en": "Low" } },
-          { "id": "medium", "label": { "en": "Medium" } },
-          { "id": "high", "label": { "en": "High" } }
+          {
+            "id": "low",
+            "label": {
+              "en": "Low",
+              "de": "Niedrig",
+              "es": "Bajo",
+              "it": "Basso"
+            }
+          },
+          {
+            "id": "medium",
+            "label": {
+              "en": "Medium",
+              "de": "Mittel",
+              "es": "Medio",
+              "it": "Medio"
+            }
+          },
+          {
+            "id": "high",
+            "label": {
+              "en": "High",
+              "de": "Hoch",
+              "es": "Alto",
+              "it": "Alto"
+            }
+          }
         ]
       },
       {
         "id": "approach_distance",
         "type": "dropdown",
-        "label": { "en": "Approach distance" },
-        "hint": { "en": "Distance at which presence is triggered." },
+        "label": {
+          "en": "Approach distance",
+          "de": "Annäherungsdistanz",
+          "es": "Distancia de aproximación",
+          "it": "Distanza di avvicinamento"
+        },
+        "hint": {
+          "en": "Distance at which presence is triggered.",
+          "de": "Entfernung, bei der Anwesenheit ausgelöst wird.",
+          "es": "Distancia a la que se activa la presencia.",
+          "it": "Distanza alla quale viene attivata la presenza."
+        },
         "value": "medium",
         "values": [
-          { "id": "far", "label": { "en": "Far" } },
-          { "id": "medium", "label": { "en": "Medium" } },
-          { "id": "near", "label": { "en": "Near" } }
+          {
+            "id": "far",
+            "label": {
+              "en": "Far",
+              "de": "Weit",
+              "es": "Lejano",
+              "it": "Lontano"
+            }
+          },
+          {
+            "id": "medium",
+            "label": {
+              "en": "Medium",
+              "de": "Mittel",
+              "es": "Medio",
+              "it": "Medio"
+            }
+          },
+          {
+            "id": "near",
+            "label": {
+              "en": "Near",
+              "de": "Nah",
+              "es": "Cercano",
+              "it": "Vicino"
+            }
+          }
         ]
       }
     ]
   },
   {
     "type": "group",
-    "label": { "en": "Monitoring" },
+      "label": {
+        "en": "Monitoring",
+        "de": "Überwachung",
+        "es": "Supervisión",
+        "it": "Monitoraggio"
+      },
     "children": [
       {
         "id": "monitoring_mode",
         "type": "dropdown",
-        "label": { "en": "Monitoring mode" },
-        "hint": { "en": "Undirected = full area. Left/Right = directional detection." },
+          "label": {
+            "en": "Monitoring mode",
+            "de": "Überwachungsmodus",
+            "es": "Modo de supervisión",
+            "it": "Modalità di monitoraggio"
+          },
+          "hint": {
+            "en": "Undirected = full area. Left/Right = directional detection.",
+            "de": "Ohne Richtung = gesamter Bereich. Links/Rechts = Richtungsdetektion.",
+            "es": "Sin dirección = zona completa. Izquierda/Derecha = detección direccional.",
+            "it": "Non direzionale = area completa. Sinistra/Destra = rilevamento direzionale."
+          },
         "value": "undirected",
         "values": [
-          { "id": "undirected", "label": { "en": "Undirected" } },
-          { "id": "left_right", "label": { "en": "Left / Right" } }
+          {
+            "id": "undirected",
+            "label": {
+              "en": "Undirected",
+              "de": "Richtungsfrei",
+              "es": "Sin dirección",
+              "it": "Non direzionale"
+            }
+          },
+          {
+            "id": "left_right",
+            "label": {
+              "en": "Left / Right",
+              "de": "Links / Rechts",
+              "es": "Izquierda / Derecha",
+              "it": "Sinistra / Destra"
+            }
+          }
         ]
       }
     ]

@@ -1,18 +1,27 @@
 [
   {
     "type": "group",
-    "label": {
-      "en": "Device information"
-    },
+      "label": {
+        "en": "Device information",
+        "de": "Geräteinformationen",
+        "es": "Información del dispositivo",
+        "it": "Informazioni sul dispositivo"
+      },
     "children": [
       {
         "id": "_power_on_info",
         "type": "label",
         "label": {
-          "en": "Power-on behavior"
+          "en": "Power-on behavior",
+          "de": "Verhalten beim Einschalten",
+          "es": "Comportamiento al encender",
+          "it": "Comportamento all'accensione"
         },
         "hint": {
-          "en": "This firmware does not support configurable power-on behavior. All switches turn OFF when power is restored."
+          "en": "This firmware does not support configurable power-on behavior. All switches turn OFF when power is restored.",
+          "de": "Diese Firmware unterstützt kein konfigurierbares Einschaltverhalten. Alle Schalter schalten sich nach Wiederherstellung der Stromversorgung AUS.",
+          "es": "Este firmware no admite un comportamiento configurable al encender. Todos los interruptores se apagan cuando se restablece la alimentación.",
+          "it": "Questo firmware non supporta un comportamento all'accensione configurabile. Tutti gli interruttori si spengono quando torna l'alimentazione."
         },
         "value": "Always Off (firmware default)"
       }

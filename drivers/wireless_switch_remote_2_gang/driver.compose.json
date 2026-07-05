@@ -1,7 +1,10 @@
 {
     "id": "wireless_switch_remote_2_gang",
     "name": {
-      "en": "2 Gang Wireless Remote"
+      "en": "2 Gang Wireless Remote",
+      "de": "2-fach-Wireless-Fernbedienung",
+      "es": "Mando inalámbrico de 2 botones",
+      "it": "Telecomando wireless a 2 tasti"
     },
     "class": "remote",
     "platforms": ["local"],
@@ -39,7 +42,10 @@
       "learnmode": {
         "image": "{{driverAssetsPath}}/icon.svg",
         "instruction": {
-          "en": "Press either button for ~10 seconds until the LED starts blinking."
+          "en": "Press either button for ~10 seconds until the LED starts blinking.",
+          "de": "Drücke eine der beiden Tasten etwa 10 Sekunden lang, bis die LED zu blinken beginnt.",
+          "es": "Pulsa cualquiera de los botones durante unos 10 segundos hasta que el LED empiece a parpadear.",
+          "it": "Premi uno dei due pulsanti per circa 10 secondi finché il LED non inizia a lampeggiare."
         }
       }
     }
