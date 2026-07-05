@@ -15,7 +15,7 @@
   "getable": true,
   "setable": false,
   "uiComponent": "sensor",
-  "icon": "/assets/capabilities/percentual-agua.svg",
+  "icon": "/assets/capabilities/water-level-fill.svg",
   "insights": true,
   "decimals": 0,
   "min": 0,
