@@ -1,4 +1,7 @@
 {
+  "1.0.14": {
+    "en": "### Added\n- Linptech (Moes) radar sensor support.\n- Aqara FP1 presence sensor support.\n- Water level sensor (US variant) support.\n\n### Improved\n- Added settings statistics for message counts per device in the last hour and the last 24h.\n- Translated the app UI and driver settings into German, Spanish, and Italian.\n- Added missing localization strings for shared flow cards, capabilities, and device setup text.\n- Kept the Zigbee driver structure intact while filling the remaining language gaps."
+  },
   "1.0.0": {
     "en": "First version!"
   },
