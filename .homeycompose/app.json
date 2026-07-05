@@ -1,6 +1,6 @@
 {
   "id": "com.gpm.homesuite",
-  "version": "1.0.13",
+  "version": "1.0.14",
   "compatibility": ">=12.4.0",
   "sdk": 3,
   "platforms": [
@@ -88,6 +88,7 @@
     ]
   },
   "brandColor": "#5078C4",
+  "support": "mailto:g.machado@me.com",
   "permissions": [],
   "images": {
     "small": "/assets/images/small.png",

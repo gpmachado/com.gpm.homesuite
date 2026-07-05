@@ -1,14 +1,17 @@
 {
   "_comment": "This file is generated. Please edit .homeycompose/app.json instead.",
   "id": "com.gpm.homesuite",
-  "version": "1.0.13",
+  "version": "1.0.14",
   "compatibility": ">=12.4.0",
   "sdk": 3,
   "platforms": [
     "local"
   ],
   "name": {
-    "en": "HomeSuite"
+    "en": "HomeSuite",
+    "es": "HomeSuite",
+    "it": "HomeSuite",
+    "de": "HomeSuite"
   },
   "description": {
     "en": "Personal suite for Zigbee devices like Zemismart & NovaDigital switches, sirens, sensors and more",
@@ -86,6 +89,7 @@
     ]
   },
   "brandColor": "#5078C4",
+  "support": "mailto:g.machado@me.com",
   "permissions": [],
   "images": {
     "small": "/assets/images/small.png",
@@ -167,13 +171,22 @@
       {
         "id": "is_playing",
         "title": {
-          "en": "Siren is !{{playing|not playing}}"
+          "en": "Siren is !{{playing|not playing}}",
+          "de": "Sirene ist !{{aktiv|inaktiv}}",
+          "es": "La sirena está !{{sonando|sin sonar}}",
+          "it": "La sirena è !{{attiva|non attiva}}"
         },
         "titleFormatted": {
-          "en": "[[device]] siren is !{{playing|not playing}}"
+          "en": "[[device]] siren is !{{playing|not playing}}",
+          "de": "Die Sirene von [[device]] ist !{{aktiv|inaktiv}}",
+          "es": "La sirena de [[device]] está !{{sonando|sin sonar}}",
+          "it": "La sirena di [[device]] è !{{attiva|non attiva}}"
         },
         "hint": {
-          "en": "Check if the siren is currently active."
+          "en": "Check if the siren is currently active.",
+          "de": "Prüft, ob die Sirene derzeit aktiv ist.",
+          "es": "Comprueba si la sirena está activa actualmente.",
+          "it": "Controlla se la sirena è attualmente attiva."
         },
         "args": [
           {
@@ -188,10 +201,16 @@
       {
         "id": "BASICZBR3_availability_turned_on",
         "title": {
-          "en": "Became available"
+          "en": "Became available",
+          "de": "Wurde verfügbar",
+          "es": "Pasó a estar disponible",
+          "it": "Disponibile"
         },
         "hint": {
-          "en": "Fires when this device becomes available."
+          "en": "Fires when this device becomes available.",
+          "de": "Wird ausgelöst, wenn dieses Gerät verfügbar wird.",
+          "es": "Se activa cuando este dispositivo pasa a estar disponible.",
+          "it": "Si attiva quando questo dispositivo diventa disponibile."
         },
         "tokens": [
           {
@@ -226,10 +245,16 @@
       {
         "id": "BASICZBR3_availability_turned_off",
         "title": {
-          "en": "Became unavailable"
+          "en": "Became unavailable",
+          "de": "Wurde nicht verfügbar",
+          "es": "Pasó a no estar disponible",
+          "it": "Non più disponibile"
         },
         "hint": {
-          "en": "Fires when this device becomes unavailable."
+          "en": "Fires when this device becomes unavailable.",
+          "de": "Wird ausgelöst, wenn dieses Gerät nicht mehr verfügbar ist.",
+          "es": "Se activa cuando este dispositivo deja de estar disponible.",
+          "it": "Si attiva quando questo dispositivo non è più disponibile."
         },
         "tokens": [
           {
@@ -264,10 +289,16 @@
       {
         "id": "ZBMINIR2_availability_turned_on",
         "title": {
-          "en": "Became available"
+          "en": "Became available",
+          "de": "Wurde verfügbar",
+          "es": "Pasó a estar disponible",
+          "it": "Disponibile"
         },
         "hint": {
-          "en": "Fires when this device becomes available."
+          "en": "Fires when this device becomes available.",
+          "de": "Wird ausgelöst, wenn dieses Gerät verfügbar wird.",
+          "es": "Se activa cuando este dispositivo pasa a estar disponible.",
+          "it": "Si attiva quando questo dispositivo diventa disponibile."
         },
         "tokens": [
           {
@@ -302,10 +333,16 @@
       {
         "id": "ZBMINIR2_availability_turned_off",
         "title": {
-          "en": "Became unavailable"
+          "en": "Became unavailable",
+          "de": "Wurde nicht verfügbar",
+          "es": "Pasó a no estar disponible",
+          "it": "Non più disponibile"
         },
         "hint": {
-          "en": "Fires when this device becomes unavailable."
+          "en": "Fires when this device becomes unavailable.",
+          "de": "Wird ausgelöst, wenn dieses Gerät nicht mehr verfügbar ist.",
+          "es": "Se activa cuando este dispositivo deja de estar disponible.",
+          "it": "Si attiva quando questo dispositivo non è più disponibile."
         },
         "tokens": [
           {
@@ -340,10 +377,16 @@
       {
         "id": "ZBMINIR2_device_rejoined",
         "title": {
-          "en": "Reconnected after power cut"
+          "en": "Reconnected after power cut",
+          "de": "Nach Stromausfall wieder verbunden",
+          "es": "Reconectado tras un corte de energía",
+          "it": "Riconnesso dopo un'interruzione di corrente"
         },
         "hint": {
-          "en": "Fires when this device reconnects to the Zigbee network after a power cut."
+          "en": "Fires when this device reconnects to the Zigbee network after a power cut.",
+          "de": "Wird ausgelöst, wenn sich dieses Gerät nach einem Stromausfall erneut mit dem Zigbee-Netzwerk verbindet.",
+          "es": "Se activa cuando este dispositivo se reconecta a la red Zigbee tras un corte de energía.",
+          "it": "Si attiva quando questo dispositivo si riconnette alla rete Zigbee dopo un'interruzione di corrente."
         },
         "args": [
           {
@@ -357,10 +400,16 @@
         "id": "ZBMINIR2:click",
         "title": {
           "en": "Single click",
+          "de": "Einzelklick",
+          "es": "Pulsación única",
+          "it": "Pressione singola",
           "pt": "Clique único"
         },
         "hint": {
           "en": "This trigger fires when the physical switch is pressed and the 'Detach Relay' setting is enabled.",
+          "de": "Dieser Auslöser wird aktiviert, wenn der physische Schalter gedrückt wird und die Einstellung 'Relais trennen' aktiviert ist.",
+          "es": "Este disparador se activa cuando se pulsa el interruptor físico y la opción 'Separar relé' está activada.",
+          "it": "Questo trigger si attiva quando l'interruttore fisico viene premuto e l'impostazione 'Scollega relè' è abilitata.",
           "pt": "Este gatilho é acionado quando o interruptor físico é pressionado e a configuração 'Desconectar Relé' está ativada."
         },
         "args": [
@@ -374,10 +423,16 @@
       {
         "id": "doorwindowsensor_availability_turned_on",
         "title": {
-          "en": "Became available"
+          "en": "Became available",
+          "de": "Wurde verfügbar",
+          "es": "Pasó a estar disponible",
+          "it": "Disponibile"
         },
         "hint": {
-          "en": "Fires when this device becomes available."
+          "en": "Fires when this device becomes available.",
+          "de": "Wird ausgelöst, wenn dieses Gerät verfügbar wird.",
+          "es": "Se activa cuando este dispositivo pasa a estar disponible.",
+          "it": "Si attiva quando questo dispositivo diventa disponibile."
         },
         "tokens": [
           {
@@ -412,10 +467,16 @@
       {
         "id": "doorwindowsensor_availability_turned_off",
         "title": {
-          "en": "Became unavailable"
+          "en": "Became unavailable",
+          "de": "Wurde nicht verfügbar",
+          "es": "Pasó a no estar disponible",
+          "it": "Non più disponibile"
         },
         "hint": {
-          "en": "Fires when this device becomes unavailable."
+          "en": "Fires when this device becomes unavailable.",
+          "de": "Wird ausgelöst, wenn dieses Gerät nicht mehr verfügbar ist.",
+          "es": "Se activa cuando este dispositivo deja de estar disponible.",
+          "it": "Si attiva quando questo dispositivo non è più disponibile."
         },
         "tokens": [
           {
@@ -450,10 +511,16 @@
       {
         "id": "doorwindowsensor_2_availability_turned_on",
         "title": {
-          "en": "Became available"
+          "en": "Became available",
+          "de": "Wurde verfügbar",
+          "es": "Pasó a estar disponible",
+          "it": "Disponibile"
         },
         "hint": {
-          "en": "Fires when this device becomes available."
+          "en": "Fires when this device becomes available.",
+          "de": "Wird ausgelöst, wenn dieses Gerät verfügbar wird.",
+          "es": "Se activa cuando este dispositivo pasa a estar disponible.",
+          "it": "Si attiva quando questo dispositivo diventa disponibile."
         },
         "tokens": [
           {
@@ -488,10 +555,16 @@
       {
         "id": "doorwindowsensor_2_availability_turned_off",
         "title": {
-          "en": "Became unavailable"
+          "en": "Became unavailable",
+          "de": "Wurde nicht verfügbar",
+          "es": "Pasó a no estar disponible",
+          "it": "Non più disponibile"
         },
         "hint": {
-          "en": "Fires when this device becomes unavailable."
+          "en": "Fires when this device becomes unavailable.",
+          "de": "Wird ausgelöst, wenn dieses Gerät nicht mehr verfügbar ist.",
+          "es": "Se activa cuando este dispositivo deja de estar disponible.",
+          "it": "Si attiva quando questo dispositivo non è più disponibile."
         },
         "tokens": [
           {
@@ -526,10 +599,16 @@
       {
         "id": "ekaza_siren_availability_turned_on",
         "title": {
-          "en": "Became available"
+          "en": "Became available",
+          "de": "Wurde verfügbar",
+          "es": "Pasó a estar disponible",
+          "it": "Disponibile"
         },
         "hint": {
-          "en": "Fires when this device becomes available."
+          "en": "Fires when this device becomes available.",
+          "de": "Wird ausgelöst, wenn dieses Gerät verfügbar wird.",
+          "es": "Se activa cuando este dispositivo pasa a estar disponible.",
+          "it": "Si attiva quando questo dispositivo diventa disponibile."
         },
         "tokens": [
           {
@@ -564,10 +643,16 @@
       {
         "id": "ekaza_siren_availability_turned_off",
         "title": {
-          "en": "Became unavailable"
+          "en": "Became unavailable",
+          "de": "Wurde nicht verfügbar",
+          "es": "Pasó a no estar disponible",
+          "it": "Non più disponibile"
         },
         "hint": {
-          "en": "Fires when this device becomes unavailable."
+          "en": "Fires when this device becomes unavailable.",
+          "de": "Wird ausgelöst, wenn dieses Gerät nicht mehr verfügbar ist.",
+          "es": "Se activa cuando este dispositivo deja de estar disponible.",
+          "it": "Si attiva quando questo dispositivo non è più disponibile."
         },
         "tokens": [
           {
@@ -602,13 +687,22 @@
       {
         "id": "siren_activated",
         "title": {
-          "en": "Siren activated"
+          "en": "Siren activated",
+          "de": "Sirene aktiviert",
+          "es": "Sirena activada",
+          "it": "Sirena attivata"
         },
         "titleFormatted": {
-          "en": "[[device]] siren was activated"
+          "en": "[[device]] siren was activated",
+          "de": "Die Sirene von [[device]] wurde aktiviert",
+          "es": "La sirena de [[device]] se activó",
+          "it": "La sirena di [[device]] è stata attivata"
         },
         "hint": {
-          "en": "Triggered when the siren starts playing."
+          "en": "Triggered when the siren starts playing.",
+          "de": "Wird ausgelöst, wenn die Sirene zu spielen beginnt.",
+          "es": "Se activa cuando la sirena empieza a sonar.",
+          "it": "Si attiva quando la sirena inizia a suonare."
         },
         "tokens": [
           {
@@ -616,6 +710,8 @@
             "type": "number",
             "title": {
               "en": "Duration (seconds)",
+              "de": "Dauer (Sekunden)",
+              "es": "Duración (segundos)",
               "it": "Durata (secondi)"
             },
             "example": 10
@@ -632,20 +728,32 @@
       {
         "id": "siren_deactivated",
         "title": {
-          "en": "Siren deactivated"
+          "en": "Siren deactivated",
+          "de": "Sirene deaktiviert",
+          "es": "Sirena desactivada",
+          "it": "Sirena disattivata"
         },
         "titleFormatted": {
-          "en": "[[device]] siren was deactivated"
+          "en": "[[device]] siren was deactivated",
+          "de": "Die Sirene von [[device]] wurde deaktiviert",
+          "es": "La sirena de [[device]] se desactivó",
+          "it": "La sirena di [[device]] è stata disattivata"
         },
         "hint": {
-          "en": "Triggered when the siren stops playing (automatic or manual)."
+          "en": "Triggered when the siren stops playing (automatic or manual).",
+          "de": "Wird ausgelöst, wenn die Sirene aufhört zu spielen (automatisch oder manuell).",
+          "es": "Se activa cuando la sirena deja de sonar (automático o manual).",
+          "it": "Si attiva quando la sirena smette di suonare (automaticamente o manualmente)."
         },
         "tokens": [
           {
             "name": "reason",
             "type": "string",
             "title": {
-              "en": "Stop reason"
+              "en": "Stop reason",
+              "de": "Stoppgrund",
+              "es": "Motivo de parada",
+              "it": "Motivo dell'arresto"
             },
             "example": "auto"
           }
@@ -661,10 +769,16 @@
       {
         "id": "gas_detector_availability_turned_on",
         "title": {
-          "en": "Became available"
+          "en": "Became available",
+          "de": "Wurde verfügbar",
+          "es": "Pasó a estar disponible",
+          "it": "Disponibile"
         },
         "hint": {
-          "en": "Fires when this device becomes available."
+          "en": "Fires when this device becomes available.",
+          "de": "Wird ausgelöst, wenn dieses Gerät verfügbar wird.",
+          "es": "Se activa cuando este dispositivo pasa a estar disponible.",
+          "it": "Si attiva quando questo dispositivo diventa disponibile."
         },
         "tokens": [
           {
@@ -699,10 +813,16 @@
       {
         "id": "gas_detector_availability_turned_off",
         "title": {
-          "en": "Became unavailable"
+          "en": "Became unavailable",
+          "de": "Wurde nicht verfügbar",
+          "es": "Pasó a no estar disponible",
+          "it": "Non più disponibile"
         },
         "hint": {
-          "en": "Fires when this device becomes unavailable."
+          "en": "Fires when this device becomes unavailable.",
+          "de": "Wird ausgelöst, wenn dieses Gerät nicht mehr verfügbar ist.",
+          "es": "Se activa cuando este dispositivo deja de estar disponible.",
+          "it": "Si attiva quando questo dispositivo non è più disponibile."
         },
         "tokens": [
           {
@@ -737,10 +857,16 @@
       {
         "id": "lcdtemphumidsensor_availability_turned_on",
         "title": {
-          "en": "Became available"
+          "en": "Became available",
+          "de": "Wurde verfügbar",
+          "es": "Pasó a estar disponible",
+          "it": "Disponibile"
         },
         "hint": {
-          "en": "Fires when this device becomes available."
+          "en": "Fires when this device becomes available.",
+          "de": "Wird ausgelöst, wenn dieses Gerät verfügbar wird.",
+          "es": "Se activa cuando este dispositivo pasa a estar disponible.",
+          "it": "Si attiva quando questo dispositivo diventa disponibile."
         },
         "tokens": [
           {
@@ -775,10 +901,16 @@
       {
         "id": "lcdtemphumidsensor_availability_turned_off",
         "title": {
-          "en": "Became unavailable"
+          "en": "Became unavailable",
+          "de": "Wurde nicht verfügbar",
+          "es": "Pasó a no estar disponible",
+          "it": "Non più disponibile"
         },
         "hint": {
-          "en": "Fires when this device becomes unavailable."
+          "en": "Fires when this device becomes unavailable.",
+          "de": "Wird ausgelöst, wenn dieses Gerät nicht mehr verfügbar ist.",
+          "es": "Se activa cuando este dispositivo deja de estar disponible.",
+          "it": "Si attiva quando questo dispositivo non è più disponibile."
         },
         "tokens": [
           {
@@ -813,10 +945,16 @@
       {
         "id": "moes_dimmer_3_gang_availability_turned_on",
         "title": {
-          "en": "Became available"
+          "en": "Became available",
+          "de": "Wurde verfügbar",
+          "es": "Pasó a estar disponible",
+          "it": "Disponibile"
         },
         "hint": {
-          "en": "Fires when this device becomes available."
+          "en": "Fires when this device becomes available.",
+          "de": "Wird ausgelöst, wenn dieses Gerät verfügbar wird.",
+          "es": "Se activa cuando este dispositivo pasa a estar disponible.",
+          "it": "Si attiva quando questo dispositivo diventa disponibile."
         },
         "tokens": [
           {
@@ -851,10 +989,16 @@
       {
         "id": "moes_dimmer_3_gang_availability_turned_off",
         "title": {
-          "en": "Became unavailable"
+          "en": "Became unavailable",
+          "de": "Wurde nicht verfügbar",
+          "es": "Pasó a no estar disponible",
+          "it": "Non più disponibile"
         },
         "hint": {
-          "en": "Fires when this device becomes unavailable."
+          "en": "Fires when this device becomes unavailable.",
+          "de": "Wird ausgelöst, wenn dieses Gerät nicht mehr verfügbar ist.",
+          "es": "Se activa cuando este dispositivo deja de estar disponible.",
+          "it": "Si attiva quando questo dispositivo non è più disponibile."
         },
         "tokens": [
           {
@@ -889,10 +1033,16 @@
       {
         "id": "moes_dimmer_3_gang_device_rejoined",
         "title": {
-          "en": "Reconnected after power cut"
+          "en": "Reconnected after power cut",
+          "de": "Nach Stromausfall wieder verbunden",
+          "es": "Reconectado tras un corte de energía",
+          "it": "Riconnesso dopo un'interruzione di corrente"
         },
         "hint": {
-          "en": "Fires when this device reconnects to the Zigbee network after a power cut."
+          "en": "Fires when this device reconnects to the Zigbee network after a power cut.",
+          "de": "Wird ausgelöst, wenn sich dieses Gerät nach einem Stromausfall erneut mit dem Zigbee-Netzwerk verbindet.",
+          "es": "Se activa cuando este dispositivo se reconecta a la red Zigbee tras un corte de energía.",
+          "it": "Si attiva quando questo dispositivo si riconnette alla rete Zigbee dopo un'interruzione di corrente."
         },
         "args": [
           {
@@ -905,10 +1055,16 @@
       {
         "id": "moes_remote_4_gang_button",
         "title": {
-          "en": "Button action"
+          "en": "Button action",
+          "de": "Tastenaktion",
+          "es": "Acción del botón",
+          "it": "Azione del pulsante"
         },
         "titleFormatted": {
-          "en": "Action [[action]]"
+          "en": "Action [[action]]",
+          "de": "Aktion [[action]]",
+          "es": "Acción [[action]]",
+          "it": "Azione [[action]]"
         },
         "args": [
           {
@@ -920,79 +1076,118 @@
             "name": "action",
             "type": "dropdown",
             "title": {
-              "en": "Button action"
+              "en": "Button action",
+              "de": "Tastenaktion",
+              "es": "Acción del botón",
+              "it": "Azione del pulsante"
             },
             "values": [
               {
                 "id": "1-single",
                 "label": {
-                  "en": "Button 1 — single press"
+                  "en": "Button 1 — single press",
+                  "de": "Taste 1 - Einzelklick",
+                  "es": "Botón 1 - pulsación única",
+                  "it": "Pulsante 1 - pressione singola"
                 }
               },
               {
                 "id": "1-double",
                 "label": {
-                  "en": "Button 1 — double press"
+                  "en": "Button 1 — double press",
+                  "de": "Taste 1 - Doppelklick",
+                  "es": "Botón 1 - doble pulsación",
+                  "it": "Pulsante 1 - doppia pressione"
                 }
               },
               {
                 "id": "1-long",
                 "label": {
-                  "en": "Button 1 — long press"
+                  "en": "Button 1 — long press",
+                  "de": "Taste 1 - Langdruck",
+                  "es": "Botón 1 - pulsación larga",
+                  "it": "Pulsante 1 - pressione lunga"
                 }
               },
               {
                 "id": "2-single",
                 "label": {
-                  "en": "Button 2 — single press"
+                  "en": "Button 2 — single press",
+                  "de": "Taste 2 - Einzelklick",
+                  "es": "Botón 2 - pulsación única",
+                  "it": "Pulsante 2 - pressione singola"
                 }
               },
               {
                 "id": "2-double",
                 "label": {
-                  "en": "Button 2 — double press"
+                  "en": "Button 2 — double press",
+                  "de": "Taste 2 - Doppelklick",
+                  "es": "Botón 2 - doble pulsación",
+                  "it": "Pulsante 2 - doppia pressione"
                 }
               },
               {
                 "id": "2-long",
                 "label": {
-                  "en": "Button 2 — long press"
+                  "en": "Button 2 — long press",
+                  "de": "Taste 2 - Langdruck",
+                  "es": "Botón 2 - pulsación larga",
+                  "it": "Pulsante 2 - pressione lunga"
                 }
               },
               {
                 "id": "3-single",
                 "label": {
-                  "en": "Button 3 — single press"
+                  "en": "Button 3 — single press",
+                  "de": "Taste 3 - Einzelklick",
+                  "es": "Botón 3 - pulsación única",
+                  "it": "Pulsante 3 - pressione singola"
                 }
               },
               {
                 "id": "3-double",
                 "label": {
-                  "en": "Button 3 — double press"
+                  "en": "Button 3 — double press",
+                  "de": "Taste 3 - Doppelklick",
+                  "es": "Botón 3 - doble pulsación",
+                  "it": "Pulsante 3 - doppia pressione"
                 }
               },
               {
                 "id": "3-long",
                 "label": {
-                  "en": "Button 3 — long press"
+                  "en": "Button 3 — long press",
+                  "de": "Taste 3 - Langdruck",
+                  "es": "Botón 3 - pulsación larga",
+                  "it": "Pulsante 3 - pressione lunga"
                 }
               },
               {
                 "id": "4-single",
                 "label": {
-                  "en": "Button 4 — single press"
+                  "en": "Button 4 — single press",
+                  "de": "Taste 4 - Einzelklick",
+                  "es": "Botón 4 - pulsación única",
+                  "it": "Pulsante 4 - pressione singola"
                 }
               },
               {
                 "id": "4-double",
                 "label": {
-                  "en": "Button 4 — double press"
+                  "en": "Button 4 — double press",
+                  "de": "Taste 4 - Doppelklick",
+                  "es": "Botón 4 - doble pulsación",
+                  "it": "Pulsante 4 - doppia pressione"
                 }
               },
               {
                 "id": "4-long",
                 "label": {
-                  "en": "Button 4 — long press"
+                  "en": "Button 4 — long press",
+                  "de": "Taste 4 - Langdruck",
+                  "es": "Botón 4 - pulsación larga",
+                  "it": "Pulsante 4 - pressione lunga"
                 }
               }
             ]
@@ -1002,10 +1197,16 @@
       {
         "id": "novadigital_switch_1_gang_availability_turned_on",
         "title": {
-          "en": "Became available"
+          "en": "Became available",
+          "de": "Wurde verfügbar",
+          "es": "Pasó a estar disponible",
+          "it": "Disponibile"
         },
         "hint": {
-          "en": "Fires when this device becomes available."
+          "en": "Fires when this device becomes available.",
+          "de": "Wird ausgelöst, wenn dieses Gerät verfügbar wird.",
+          "es": "Se activa cuando este dispositivo pasa a estar disponible.",
+          "it": "Si attiva quando questo dispositivo diventa disponibile."
         },
         "tokens": [
           {
@@ -1040,10 +1241,16 @@
       {
         "id": "novadigital_switch_1_gang_availability_turned_off",
         "title": {
-          "en": "Became unavailable"
+          "en": "Became unavailable",
+          "de": "Wurde nicht verfügbar",
+          "es": "Pasó a no estar disponible",
+          "it": "Non più disponibile"
         },
         "hint": {
-          "en": "Fires when this device becomes unavailable."
+          "en": "Fires when this device becomes unavailable.",
+          "de": "Wird ausgelöst, wenn dieses Gerät nicht mehr verfügbar ist.",
+          "es": "Se activa cuando este dispositivo deja de estar disponible.",
+          "it": "Si attiva quando questo dispositivo non è più disponibile."
         },
         "tokens": [
           {
@@ -1078,10 +1285,16 @@
       {
         "id": "novadigital_switch_1_gang_device_rejoined",
         "title": {
-          "en": "Reconnected after power cut"
+          "en": "Reconnected after power cut",
+          "de": "Nach Stromausfall wieder verbunden",
+          "es": "Reconectado tras un corte de energía",
+          "it": "Riconnesso dopo un'interruzione di corrente"
         },
         "hint": {
-          "en": "Fires when this device reconnects to the Zigbee network after a power cut."
+          "en": "Fires when this device reconnects to the Zigbee network after a power cut.",
+          "de": "Wird ausgelöst, wenn sich dieses Gerät nach einem Stromausfall erneut mit dem Zigbee-Netzwerk verbindet.",
+          "es": "Se activa cuando este dispositivo se reconecta a la red Zigbee tras un corte de energía.",
+          "it": "Si attiva quando questo dispositivo si riconnette alla rete Zigbee dopo un'interruzione di corrente."
         },
         "args": [
           {
@@ -1094,10 +1307,16 @@
       {
         "id": "novadigital_switch_2_gang_availability_turned_on",
         "title": {
-          "en": "Became available"
+          "en": "Became available",
+          "de": "Wurde verfügbar",
+          "es": "Pasó a estar disponible",
+          "it": "Disponibile"
         },
         "hint": {
-          "en": "Fires when this device becomes available."
+          "en": "Fires when this device becomes available.",
+          "de": "Wird ausgelöst, wenn dieses Gerät verfügbar wird.",
+          "es": "Se activa cuando este dispositivo pasa a estar disponible.",
+          "it": "Si attiva quando questo dispositivo diventa disponibile."
         },
         "tokens": [
           {
@@ -1132,10 +1351,16 @@
       {
         "id": "novadigital_switch_2_gang_availability_turned_off",
         "title": {
-          "en": "Became unavailable"
+          "en": "Became unavailable",
+          "de": "Wurde nicht verfügbar",
+          "es": "Pasó a no estar disponible",
+          "it": "Non più disponibile"
         },
         "hint": {
-          "en": "Fires when this device becomes unavailable."
+          "en": "Fires when this device becomes unavailable.",
+          "de": "Wird ausgelöst, wenn dieses Gerät nicht mehr verfügbar ist.",
+          "es": "Se activa cuando este dispositivo deja de estar disponible.",
+          "it": "Si attiva quando questo dispositivo non è più disponibile."
         },
         "tokens": [
           {
@@ -1170,10 +1395,16 @@
       {
         "id": "novadigital_switch_2_gang_device_rejoined",
         "title": {
-          "en": "Reconnected after power cut"
+          "en": "Reconnected after power cut",
+          "de": "Nach Stromausfall wieder verbunden",
+          "es": "Reconectado tras un corte de energía",
+          "it": "Riconnesso dopo un'interruzione di corrente"
         },
         "hint": {
-          "en": "Fires when this device reconnects to the Zigbee network after a power cut."
+          "en": "Fires when this device reconnects to the Zigbee network after a power cut.",
+          "de": "Wird ausgelöst, wenn sich dieses Gerät nach einem Stromausfall erneut mit dem Zigbee-Netzwerk verbindet.",
+          "es": "Se activa cuando este dispositivo se reconecta a la red Zigbee tras un corte de energía.",
+          "it": "Si attiva quando questo dispositivo si riconnette alla rete Zigbee dopo un'interruzione di corrente."
         },
         "args": [
           {
@@ -1186,10 +1417,16 @@
       {
         "id": "novadigital_switch_3_gang_availability_turned_on",
         "title": {
-          "en": "Became available"
+          "en": "Became available",
+          "de": "Wurde verfügbar",
+          "es": "Pasó a estar disponible",
+          "it": "Disponibile"
         },
         "hint": {
-          "en": "Fires when this device becomes available."
+          "en": "Fires when this device becomes available.",
+          "de": "Wird ausgelöst, wenn dieses Gerät verfügbar wird.",
+          "es": "Se activa cuando este dispositivo pasa a estar disponible.",
+          "it": "Si attiva quando questo dispositivo diventa disponibile."
         },
         "tokens": [
           {
@@ -1224,10 +1461,16 @@
       {
         "id": "novadigital_switch_3_gang_availability_turned_off",
         "title": {
-          "en": "Became unavailable"
+          "en": "Became unavailable",
+          "de": "Wurde nicht verfügbar",
+          "es": "Pasó a no estar disponible",
+          "it": "Non più disponibile"
         },
         "hint": {
-          "en": "Fires when this device becomes unavailable."
+          "en": "Fires when this device becomes unavailable.",
+          "de": "Wird ausgelöst, wenn dieses Gerät nicht mehr verfügbar ist.",
+          "es": "Se activa cuando este dispositivo deja de estar disponible.",
+          "it": "Si attiva quando questo dispositivo non è più disponibile."
         },
         "tokens": [
           {
@@ -1262,10 +1505,16 @@
       {
         "id": "novadigital_switch_3_gang_device_rejoined",
         "title": {
-          "en": "Reconnected after power cut"
+          "en": "Reconnected after power cut",
+          "de": "Nach Stromausfall wieder verbunden",
+          "es": "Reconectado tras un corte de energía",
+          "it": "Riconnesso dopo un'interruzione di corrente"
         },
         "hint": {
-          "en": "Fires when this device reconnects to the Zigbee network after a power cut."
+          "en": "Fires when this device reconnects to the Zigbee network after a power cut.",
+          "de": "Wird ausgelöst, wenn sich dieses Gerät nach einem Stromausfall erneut mit dem Zigbee-Netzwerk verbindet.",
+          "es": "Se activa cuando este dispositivo se reconecta a la red Zigbee tras un corte de energía.",
+          "it": "Si attiva quando questo dispositivo si riconnette alla rete Zigbee dopo un'interruzione di corrente."
         },
         "args": [
           {
@@ -1278,10 +1527,16 @@
       {
         "id": "novadigital_switch_4_gang_availability_turned_on",
         "title": {
-          "en": "Became available"
+          "en": "Became available",
+          "de": "Wurde verfügbar",
+          "es": "Pasó a estar disponible",
+          "it": "Disponibile"
         },
         "hint": {
-          "en": "Fires when this device becomes available."
+          "en": "Fires when this device becomes available.",
+          "de": "Wird ausgelöst, wenn dieses Gerät verfügbar wird.",
+          "es": "Se activa cuando este dispositivo pasa a estar disponible.",
+          "it": "Si attiva quando questo dispositivo diventa disponibile."
         },
         "tokens": [
           {
@@ -1316,10 +1571,16 @@
       {
         "id": "novadigital_switch_4_gang_availability_turned_off",
         "title": {
-          "en": "Became unavailable"
+          "en": "Became unavailable",
+          "de": "Wurde nicht verfügbar",
+          "es": "Pasó a no estar disponible",
+          "it": "Non più disponibile"
         },
         "hint": {
-          "en": "Fires when this device becomes unavailable."
+          "en": "Fires when this device becomes unavailable.",
+          "de": "Wird ausgelöst, wenn dieses Gerät nicht mehr verfügbar ist.",
+          "es": "Se activa cuando este dispositivo deja de estar disponible.",
+          "it": "Si attiva quando questo dispositivo non è più disponibile."
         },
         "tokens": [
           {
@@ -1354,10 +1615,16 @@
       {
         "id": "novadigital_switch_4_gang_device_rejoined",
         "title": {
-          "en": "Reconnected after power cut"
+          "en": "Reconnected after power cut",
+          "de": "Nach Stromausfall wieder verbunden",
+          "es": "Reconectado tras un corte de energía",
+          "it": "Riconnesso dopo un'interruzione di corrente"
         },
         "hint": {
-          "en": "Fires when this device reconnects to the Zigbee network after a power cut."
+          "en": "Fires when this device reconnects to the Zigbee network after a power cut.",
+          "de": "Wird ausgelöst, wenn sich dieses Gerät nach einem Stromausfall erneut mit dem Zigbee-Netzwerk verbindet.",
+          "es": "Se activa cuando este dispositivo se reconecta a la red Zigbee tras un corte de energía.",
+          "it": "Si attiva quando questo dispositivo si riconnette alla rete Zigbee dopo un'interruzione di corrente."
         },
         "args": [
           {
@@ -1370,10 +1637,16 @@
       {
         "id": "novadigital_switch_6_gang_availability_turned_on",
         "title": {
-          "en": "Became available"
+          "en": "Became available",
+          "de": "Wurde verfügbar",
+          "es": "Pasó a estar disponible",
+          "it": "Disponibile"
         },
         "hint": {
-          "en": "Fires when this device becomes available."
+          "en": "Fires when this device becomes available.",
+          "de": "Wird ausgelöst, wenn dieses Gerät verfügbar wird.",
+          "es": "Se activa cuando este dispositivo pasa a estar disponible.",
+          "it": "Si attiva quando questo dispositivo diventa disponibile."
         },
         "tokens": [
           {
@@ -1408,10 +1681,16 @@
       {
         "id": "novadigital_switch_6_gang_availability_turned_off",
         "title": {
-          "en": "Became unavailable"
+          "en": "Became unavailable",
+          "de": "Wurde nicht verfügbar",
+          "es": "Pasó a no estar disponible",
+          "it": "Non più disponibile"
         },
         "hint": {
-          "en": "Fires when this device becomes unavailable."
+          "en": "Fires when this device becomes unavailable.",
+          "de": "Wird ausgelöst, wenn dieses Gerät nicht mehr verfügbar ist.",
+          "es": "Se activa cuando este dispositivo deja de estar disponible.",
+          "it": "Si attiva quando questo dispositivo non è più disponibile."
         },
         "tokens": [
           {
@@ -1446,10 +1725,16 @@
       {
         "id": "novadigital_switch_6_gang_device_rejoined",
         "title": {
-          "en": "Reconnected after power cut"
+          "en": "Reconnected after power cut",
+          "de": "Nach Stromausfall wieder verbunden",
+          "es": "Reconectado tras un corte de energía",
+          "it": "Riconnesso dopo un'interruzione di corrente"
         },
         "hint": {
-          "en": "Fires when this device reconnects to the Zigbee network after a power cut."
+          "en": "Fires when this device reconnects to the Zigbee network after a power cut.",
+          "de": "Wird ausgelöst, wenn sich dieses Gerät nach einem Stromausfall erneut mit dem Zigbee-Netzwerk verbindet.",
+          "es": "Se activa cuando este dispositivo se reconecta a la red Zigbee tras un corte de energía.",
+          "it": "Si attiva quando questo dispositivo si riconnette alla rete Zigbee dopo un'interruzione di corrente."
         },
         "args": [
           {
@@ -1462,10 +1747,16 @@
       {
         "id": "smartplug_availability_turned_on",
         "title": {
-          "en": "Became available"
+          "en": "Became available",
+          "de": "Wurde verfügbar",
+          "es": "Pasó a estar disponible",
+          "it": "Disponibile"
         },
         "hint": {
-          "en": "Fires when this device becomes available."
+          "en": "Fires when this device becomes available.",
+          "de": "Wird ausgelöst, wenn dieses Gerät verfügbar wird.",
+          "es": "Se activa cuando este dispositivo pasa a estar disponible.",
+          "it": "Si attiva quando questo dispositivo diventa disponibile."
         },
         "tokens": [
           {
@@ -1500,10 +1791,16 @@
       {
         "id": "smartplug_availability_turned_off",
         "title": {
-          "en": "Became unavailable"
+          "en": "Became unavailable",
+          "de": "Wurde nicht verfügbar",
+          "es": "Pasó a no estar disponible",
+          "it": "Non più disponibile"
         },
         "hint": {
-          "en": "Fires when this device becomes unavailable."
+          "en": "Fires when this device becomes unavailable.",
+          "de": "Wird ausgelöst, wenn dieses Gerät nicht mehr verfügbar ist.",
+          "es": "Se activa cuando este dispositivo deja de estar disponible.",
+          "it": "Si attiva quando questo dispositivo non è più disponibile."
         },
         "tokens": [
           {
@@ -1538,10 +1835,16 @@
       {
         "id": "smartplug_device_rejoined",
         "title": {
-          "en": "Reconnected after power cut"
+          "en": "Reconnected after power cut",
+          "de": "Nach Stromausfall wieder verbunden",
+          "es": "Reconectado tras un corte de energía",
+          "it": "Riconnesso dopo un'interruzione di corrente"
         },
         "hint": {
-          "en": "Fires when this device reconnects to the Zigbee network after a power cut."
+          "en": "Fires when this device reconnects to the Zigbee network after a power cut.",
+          "de": "Wird ausgelöst, wenn sich dieses Gerät nach einem Stromausfall erneut mit dem Zigbee-Netzwerk verbindet.",
+          "es": "Se activa cuando este dispositivo se reconecta a la red Zigbee tras un corte de energía.",
+          "it": "Si attiva quando questo dispositivo si riconnette alla rete Zigbee dopo un'interruzione di corrente."
         },
         "args": [
           {
@@ -1554,10 +1857,16 @@
       {
         "id": "smartplug_2_availability_turned_on",
         "title": {
-          "en": "Became available"
+          "en": "Became available",
+          "de": "Wurde verfügbar",
+          "es": "Pasó a estar disponible",
+          "it": "Disponibile"
         },
         "hint": {
-          "en": "Fires when this device becomes available."
+          "en": "Fires when this device becomes available.",
+          "de": "Wird ausgelöst, wenn dieses Gerät verfügbar wird.",
+          "es": "Se activa cuando este dispositivo pasa a estar disponible.",
+          "it": "Si attiva quando questo dispositivo diventa disponibile."
         },
         "tokens": [
           {
@@ -1592,10 +1901,16 @@
       {
         "id": "smartplug_2_availability_turned_off",
         "title": {
-          "en": "Became unavailable"
+          "en": "Became unavailable",
+          "de": "Wurde nicht verfügbar",
+          "es": "Pasó a no estar disponible",
+          "it": "Non più disponibile"
         },
         "hint": {
-          "en": "Fires when this device becomes unavailable."
+          "en": "Fires when this device becomes unavailable.",
+          "de": "Wird ausgelöst, wenn dieses Gerät nicht mehr verfügbar ist.",
+          "es": "Se activa cuando este dispositivo deja de estar disponible.",
+          "it": "Si attiva quando questo dispositivo non è più disponibile."
         },
         "tokens": [
           {
@@ -1630,10 +1945,16 @@
       {
         "id": "smartplug_2_device_rejoined",
         "title": {
-          "en": "Reconnected after power cut"
+          "en": "Reconnected after power cut",
+          "de": "Nach Stromausfall wieder verbunden",
+          "es": "Reconectado tras un corte de energía",
+          "it": "Riconnesso dopo un'interruzione di corrente"
         },
         "hint": {
-          "en": "Fires when this device reconnects to the Zigbee network after a power cut."
+          "en": "Fires when this device reconnects to the Zigbee network after a power cut.",
+          "de": "Wird ausgelöst, wenn sich dieses Gerät nach einem Stromausfall erneut mit dem Zigbee-Netzwerk verbindet.",
+          "es": "Se activa cuando este dispositivo se reconecta a la red Zigbee tras un corte de energía.",
+          "it": "Si attiva quando questo dispositivo si riconnette alla rete Zigbee dopo un'interruzione di corrente."
         },
         "args": [
           {
@@ -1646,10 +1967,16 @@
       {
         "id": "smartplug_3_availability_turned_on",
         "title": {
-          "en": "Became available"
+          "en": "Became available",
+          "de": "Wurde verfügbar",
+          "es": "Pasó a estar disponible",
+          "it": "Disponibile"
         },
         "hint": {
-          "en": "Fires when this device becomes available."
+          "en": "Fires when this device becomes available.",
+          "de": "Wird ausgelöst, wenn dieses Gerät verfügbar wird.",
+          "es": "Se activa cuando este dispositivo pasa a estar disponible.",
+          "it": "Si attiva quando questo dispositivo diventa disponibile."
         },
         "tokens": [
           {
@@ -1684,10 +2011,16 @@
       {
         "id": "smartplug_3_availability_turned_off",
         "title": {
-          "en": "Became unavailable"
+          "en": "Became unavailable",
+          "de": "Wurde nicht verfügbar",
+          "es": "Pasó a no estar disponible",
+          "it": "Non più disponibile"
         },
         "hint": {
-          "en": "Fires when this device becomes unavailable."
+          "en": "Fires when this device becomes unavailable.",
+          "de": "Wird ausgelöst, wenn dieses Gerät nicht mehr verfügbar ist.",
+          "es": "Se activa cuando este dispositivo deja de estar disponible.",
+          "it": "Si attiva quando questo dispositivo non è più disponibile."
         },
         "tokens": [
           {
@@ -1722,10 +2055,16 @@
       {
         "id": "smartplug_3_device_rejoined",
         "title": {
-          "en": "Reconnected after power cut"
+          "en": "Reconnected after power cut",
+          "de": "Nach Stromausfall wieder verbunden",
+          "es": "Reconectado tras un corte de energía",
+          "it": "Riconnesso dopo un'interruzione di corrente"
         },
         "hint": {
-          "en": "Fires when this device reconnects to the Zigbee network after a power cut."
+          "en": "Fires when this device reconnects to the Zigbee network after a power cut.",
+          "de": "Wird ausgelöst, wenn sich dieses Gerät nach einem Stromausfall erneut mit dem Zigbee-Netzwerk verbindet.",
+          "es": "Se activa cuando este dispositivo se reconecta a la red Zigbee tras un corte de energía.",
+          "it": "Si attiva quando questo dispositivo si riconnette alla rete Zigbee dopo un'interruzione di corrente."
         },
         "args": [
           {
@@ -1738,10 +2077,16 @@
       {
         "id": "socket_power_strip_availability_turned_on",
         "title": {
-          "en": "Became available"
+          "en": "Became available",
+          "de": "Wurde verfügbar",
+          "es": "Pasó a estar disponible",
+          "it": "Disponibile"
         },
         "hint": {
-          "en": "Fires when this device becomes available."
+          "en": "Fires when this device becomes available.",
+          "de": "Wird ausgelöst, wenn dieses Gerät verfügbar wird.",
+          "es": "Se activa cuando este dispositivo pasa a estar disponible.",
+          "it": "Si attiva quando questo dispositivo diventa disponibile."
         },
         "tokens": [
           {
@@ -1776,10 +2121,16 @@
       {
         "id": "socket_power_strip_availability_turned_off",
         "title": {
-          "en": "Became unavailable"
+          "en": "Became unavailable",
+          "de": "Wurde nicht verfügbar",
+          "es": "Pasó a no estar disponible",
+          "it": "Non più disponibile"
         },
         "hint": {
-          "en": "Fires when this device becomes unavailable."
+          "en": "Fires when this device becomes unavailable.",
+          "de": "Wird ausgelöst, wenn dieses Gerät nicht mehr verfügbar ist.",
+          "es": "Se activa cuando este dispositivo deja de estar disponible.",
+          "it": "Si attiva quando questo dispositivo non è più disponibile."
         },
         "tokens": [
           {
@@ -1814,10 +2165,16 @@
       {
         "id": "socket_power_strip_device_rejoined",
         "title": {
-          "en": "Reconnected after power cut"
+          "en": "Reconnected after power cut",
+          "de": "Nach Stromausfall wieder verbunden",
+          "es": "Reconectado tras un corte de energía",
+          "it": "Riconnesso dopo un'interruzione di corrente"
         },
         "hint": {
-          "en": "Fires when this device reconnects to the Zigbee network after a power cut."
+          "en": "Fires when this device reconnects to the Zigbee network after a power cut.",
+          "de": "Wird ausgelöst, wenn sich dieses Gerät nach einem Stromausfall erneut mit dem Zigbee-Netzwerk verbindet.",
+          "es": "Se activa cuando este dispositivo se reconecta a la red Zigbee tras un corte de energía.",
+          "it": "Si attiva quando questo dispositivo si riconnette alla rete Zigbee dopo un'interruzione di corrente."
         },
         "args": [
           {
@@ -1830,10 +2187,16 @@
       {
         "id": "sonoff_dongle_availability_turned_on",
         "title": {
-          "en": "Became available"
+          "en": "Became available",
+          "de": "Wurde verfügbar",
+          "es": "Pasó a estar disponible",
+          "it": "Disponibile"
         },
         "hint": {
-          "en": "Fires when this device becomes available."
+          "en": "Fires when this device becomes available.",
+          "de": "Wird ausgelöst, wenn dieses Gerät verfügbar wird.",
+          "es": "Se activa cuando este dispositivo pasa a estar disponible.",
+          "it": "Si attiva quando questo dispositivo diventa disponibile."
         },
         "tokens": [
           {
@@ -1868,10 +2231,16 @@
       {
         "id": "sonoff_dongle_availability_turned_off",
         "title": {
-          "en": "Became unavailable"
+          "en": "Became unavailable",
+          "de": "Wurde nicht verfügbar",
+          "es": "Pasó a no estar disponible",
+          "it": "Non più disponibile"
         },
         "hint": {
-          "en": "Fires when this device becomes unavailable."
+          "en": "Fires when this device becomes unavailable.",
+          "de": "Wird ausgelöst, wenn dieses Gerät nicht mehr verfügbar ist.",
+          "es": "Se activa cuando este dispositivo deja de estar disponible.",
+          "it": "Si attiva quando questo dispositivo non è più disponibile."
         },
         "tokens": [
           {
@@ -1906,10 +2275,16 @@
       {
         "id": "switch_1_ch_availability_turned_on",
         "title": {
-          "en": "Became available"
+          "en": "Became available",
+          "de": "Wurde verfügbar",
+          "es": "Pasó a estar disponible",
+          "it": "Disponibile"
         },
         "hint": {
-          "en": "Fires when this device becomes available."
+          "en": "Fires when this device becomes available.",
+          "de": "Wird ausgelöst, wenn dieses Gerät verfügbar wird.",
+          "es": "Se activa cuando este dispositivo pasa a estar disponible.",
+          "it": "Si attiva quando questo dispositivo diventa disponibile."
         },
         "tokens": [
           {
@@ -1944,10 +2319,16 @@
       {
         "id": "switch_1_ch_availability_turned_off",
         "title": {
-          "en": "Became unavailable"
+          "en": "Became unavailable",
+          "de": "Wurde nicht verfügbar",
+          "es": "Pasó a no estar disponible",
+          "it": "Non più disponibile"
         },
         "hint": {
-          "en": "Fires when this device becomes unavailable."
+          "en": "Fires when this device becomes unavailable.",
+          "de": "Wird ausgelöst, wenn dieses Gerät nicht mehr verfügbar ist.",
+          "es": "Se activa cuando este dispositivo deja de estar disponible.",
+          "it": "Si attiva quando questo dispositivo non è più disponibile."
         },
         "tokens": [
           {
@@ -1982,10 +2363,16 @@
       {
         "id": "switch_1_ch_device_rejoined",
         "title": {
-          "en": "Reconnected after power cut"
+          "en": "Reconnected after power cut",
+          "de": "Nach Stromausfall wieder verbunden",
+          "es": "Reconectado tras un corte de energía",
+          "it": "Riconnesso dopo un'interruzione di corrente"
         },
         "hint": {
-          "en": "Fires when this device reconnects to the Zigbee network after a power cut."
+          "en": "Fires when this device reconnects to the Zigbee network after a power cut.",
+          "de": "Wird ausgelöst, wenn sich dieses Gerät nach einem Stromausfall erneut mit dem Zigbee-Netzwerk verbindet.",
+          "es": "Se activa cuando este dispositivo se reconecta a la red Zigbee tras un corte de energía.",
+          "it": "Si attiva quando questo dispositivo si riconnette alla rete Zigbee dopo un'interruzione di corrente."
         },
         "args": [
           {
@@ -1998,10 +2385,16 @@
       {
         "id": "switch_2_ch_availability_turned_on",
         "title": {
-          "en": "Became available"
+          "en": "Became available",
+          "de": "Wurde verfügbar",
+          "es": "Pasó a estar disponible",
+          "it": "Disponibile"
         },
         "hint": {
-          "en": "Fires when this device becomes available."
+          "en": "Fires when this device becomes available.",
+          "de": "Wird ausgelöst, wenn dieses Gerät verfügbar wird.",
+          "es": "Se activa cuando este dispositivo pasa a estar disponible.",
+          "it": "Si attiva quando questo dispositivo diventa disponibile."
         },
         "tokens": [
           {
@@ -2036,10 +2429,16 @@
       {
         "id": "switch_2_ch_availability_turned_off",
         "title": {
-          "en": "Became unavailable"
+          "en": "Became unavailable",
+          "de": "Wurde nicht verfügbar",
+          "es": "Pasó a no estar disponible",
+          "it": "Non più disponibile"
         },
         "hint": {
-          "en": "Fires when this device becomes unavailable."
+          "en": "Fires when this device becomes unavailable.",
+          "de": "Wird ausgelöst, wenn dieses Gerät nicht mehr verfügbar ist.",
+          "es": "Se activa cuando este dispositivo deja de estar disponible.",
+          "it": "Si attiva quando questo dispositivo non è più disponibile."
         },
         "tokens": [
           {
@@ -2074,10 +2473,16 @@
       {
         "id": "switch_2_ch_device_rejoined",
         "title": {
-          "en": "Reconnected after power cut"
+          "en": "Reconnected after power cut",
+          "de": "Nach Stromausfall wieder verbunden",
+          "es": "Reconectado tras un corte de energía",
+          "it": "Riconnesso dopo un'interruzione di corrente"
         },
         "hint": {
-          "en": "Fires when this device reconnects to the Zigbee network after a power cut."
+          "en": "Fires when this device reconnects to the Zigbee network after a power cut.",
+          "de": "Wird ausgelöst, wenn sich dieses Gerät nach einem Stromausfall erneut mit dem Zigbee-Netzwerk verbindet.",
+          "es": "Se activa cuando este dispositivo se reconecta a la red Zigbee tras un corte de energía.",
+          "it": "Si attiva quando questo dispositivo si riconnette alla rete Zigbee dopo un'interruzione di corrente."
         },
         "args": [
           {
@@ -2090,10 +2495,16 @@
       {
         "id": "switch_3_ch_availability_turned_on",
         "title": {
-          "en": "Became available"
+          "en": "Became available",
+          "de": "Wurde verfügbar",
+          "es": "Pasó a estar disponible",
+          "it": "Disponibile"
         },
         "hint": {
-          "en": "Fires when this device becomes available."
+          "en": "Fires when this device becomes available.",
+          "de": "Wird ausgelöst, wenn dieses Gerät verfügbar wird.",
+          "es": "Se activa cuando este dispositivo pasa a estar disponible.",
+          "it": "Si attiva quando questo dispositivo diventa disponibile."
         },
         "tokens": [
           {
@@ -2128,10 +2539,16 @@
       {
         "id": "switch_3_ch_availability_turned_off",
         "title": {
-          "en": "Became unavailable"
+          "en": "Became unavailable",
+          "de": "Wurde nicht verfügbar",
+          "es": "Pasó a no estar disponible",
+          "it": "Non più disponibile"
         },
         "hint": {
-          "en": "Fires when this device becomes unavailable."
+          "en": "Fires when this device becomes unavailable.",
+          "de": "Wird ausgelöst, wenn dieses Gerät nicht mehr verfügbar ist.",
+          "es": "Se activa cuando este dispositivo deja de estar disponible.",
+          "it": "Si attiva quando questo dispositivo non è più disponibile."
         },
         "tokens": [
           {
@@ -2166,10 +2583,16 @@
       {
         "id": "switch_3_ch_device_rejoined",
         "title": {
-          "en": "Reconnected after power cut"
+          "en": "Reconnected after power cut",
+          "de": "Nach Stromausfall wieder verbunden",
+          "es": "Reconectado tras un corte de energía",
+          "it": "Riconnesso dopo un'interruzione di corrente"
         },
         "hint": {
-          "en": "Fires when this device reconnects to the Zigbee network after a power cut."
+          "en": "Fires when this device reconnects to the Zigbee network after a power cut.",
+          "de": "Wird ausgelöst, wenn sich dieses Gerät nach einem Stromausfall erneut mit dem Zigbee-Netzwerk verbindet.",
+          "es": "Se activa cuando este dispositivo se reconecta a la red Zigbee tras un corte de energía.",
+          "it": "Si attiva quando questo dispositivo si riconnette alla rete Zigbee dopo un'interruzione di corrente."
         },
         "args": [
           {
@@ -2182,10 +2605,16 @@
       {
         "id": "temphumidclock_availability_turned_on",
         "title": {
-          "en": "Became available"
+          "en": "Became available",
+          "de": "Wurde verfügbar",
+          "es": "Pasó a estar disponible",
+          "it": "Disponibile"
         },
         "hint": {
-          "en": "Fires when this device becomes available."
+          "en": "Fires when this device becomes available.",
+          "de": "Wird ausgelöst, wenn dieses Gerät verfügbar wird.",
+          "es": "Se activa cuando este dispositivo pasa a estar disponible.",
+          "it": "Si attiva quando questo dispositivo diventa disponibile."
         },
         "tokens": [
           {
@@ -2220,10 +2649,16 @@
       {
         "id": "temphumidclock_availability_turned_off",
         "title": {
-          "en": "Became unavailable"
+          "en": "Became unavailable",
+          "de": "Wurde nicht verfügbar",
+          "es": "Pasó a no estar disponible",
+          "it": "Non più disponibile"
         },
         "hint": {
-          "en": "Fires when this device becomes unavailable."
+          "en": "Fires when this device becomes unavailable.",
+          "de": "Wird ausgelöst, wenn dieses Gerät nicht mehr verfügbar ist.",
+          "es": "Se activa cuando este dispositivo deja de estar disponible.",
+          "it": "Si attiva quando questo dispositivo non è più disponibile."
         },
         "tokens": [
           {
@@ -2258,10 +2693,16 @@
       {
         "id": "wireless_switch_remote_2_gang_button",
         "title": {
-          "en": "Button action"
+          "en": "Button action",
+          "de": "Tastenaktion",
+          "es": "Acción del botón",
+          "it": "Azione del pulsante"
         },
         "titleFormatted": {
-          "en": "Action [[action]]"
+          "en": "Action [[action]]",
+          "de": "Aktion [[action]]",
+          "es": "Acción [[action]]",
+          "it": "Azione [[action]]"
         },
         "args": [
           {
@@ -2273,43 +2714,64 @@
             "name": "action",
             "type": "dropdown",
             "title": {
-              "en": "Button action"
+              "en": "Button action",
+              "de": "Tastenaktion",
+              "es": "Acción del botón",
+              "it": "Azione del pulsante"
             },
             "values": [
               {
                 "id": "1-single",
                 "label": {
-                  "en": "Button 1 — single press"
+                  "en": "Button 1 — single press",
+                  "de": "Taste 1 - Einzelklick",
+                  "es": "Botón 1 - pulsación única",
+                  "it": "Pulsante 1 - pressione singola"
                 }
               },
               {
                 "id": "1-double",
                 "label": {
-                  "en": "Button 1 — double press"
+                  "en": "Button 1 — double press",
+                  "de": "Taste 1 - Doppelklick",
+                  "es": "Botón 1 - doble pulsación",
+                  "it": "Pulsante 1 - doppia pressione"
                 }
               },
               {
                 "id": "1-long",
                 "label": {
-                  "en": "Button 1 — long press"
+                  "en": "Button 1 — long press",
+                  "de": "Taste 1 - Langdruck",
+                  "es": "Botón 1 - pulsación larga",
+                  "it": "Pulsante 1 - pressione lunga"
                 }
               },
               {
                 "id": "2-single",
                 "label": {
-                  "en": "Button 2 — single press"
+                  "en": "Button 2 — single press",
+                  "de": "Taste 2 - Einzelklick",
+                  "es": "Botón 2 - pulsación única",
+                  "it": "Pulsante 2 - pressione singola"
                 }
               },
               {
                 "id": "2-double",
                 "label": {
-                  "en": "Button 2 — double press"
+                  "en": "Button 2 — double press",
+                  "de": "Taste 2 - Doppelklick",
+                  "es": "Botón 2 - doble pulsación",
+                  "it": "Pulsante 2 - doppia pressione"
                 }
               },
               {
                 "id": "2-long",
                 "label": {
-                  "en": "Button 2 — long press"
+                  "en": "Button 2 — long press",
+                  "de": "Taste 2 - Langdruck",
+                  "es": "Botón 2 - pulsación larga",
+                  "it": "Pulsante 2 - pressione lunga"
                 }
               }
             ]
@@ -2319,10 +2781,16 @@
       {
         "id": "zigbee_repeater_availability_turned_on",
         "title": {
-          "en": "Became available"
+          "en": "Became available",
+          "de": "Wurde verfügbar",
+          "es": "Pasó a estar disponible",
+          "it": "Disponibile"
         },
         "hint": {
-          "en": "Fires when this device becomes available."
+          "en": "Fires when this device becomes available.",
+          "de": "Wird ausgelöst, wenn dieses Gerät verfügbar wird.",
+          "es": "Se activa cuando este dispositivo pasa a estar disponible.",
+          "it": "Si attiva quando questo dispositivo diventa disponibile."
         },
         "tokens": [
           {
@@ -2357,10 +2825,16 @@
       {
         "id": "zigbee_repeater_availability_turned_off",
         "title": {
-          "en": "Became unavailable"
+          "en": "Became unavailable",
+          "de": "Wurde nicht verfügbar",
+          "es": "Pasó a no estar disponible",
+          "it": "Non più disponibile"
         },
         "hint": {
-          "en": "Fires when this device becomes unavailable."
+          "en": "Fires when this device becomes unavailable.",
+          "de": "Wird ausgelöst, wenn dieses Gerät nicht mehr verfügbar ist.",
+          "es": "Se activa cuando este dispositivo deja de estar disponible.",
+          "it": "Si attiva quando questo dispositivo non è più disponibile."
         },
         "tokens": [
           {
@@ -2397,13 +2871,22 @@
       {
         "id": "siren_play",
         "title": {
-          "en": "Play siren with melody"
+          "en": "Play siren with melody",
+          "de": "Sirene mit Melodie abspielen",
+          "es": "Reproducir sirena con melodía",
+          "it": "Riproduci sirena con melodia"
         },
         "titleFormatted": {
-          "en": "Play [[melody]] for [[duration]] seconds"
+          "en": "Play [[melody]] for [[duration]] seconds",
+          "de": "Spiele [[melody]] für [[duration]] Sekunden",
+          "es": "Reproducir [[melody]] durante [[duration]] segundos",
+          "it": "Riproduci [[melody]] per [[duration]] secondi"
         },
         "hint": {
-          "en": "Play a specific melody for the given duration (volume is taken from Settings)."
+          "en": "Play a specific melody for the given duration (volume is taken from Settings).",
+          "de": "Spielt eine bestimmte Melodie für die angegebene Dauer ab (Lautstärke wird aus den Einstellungen übernommen).",
+          "es": "Reproduce una melodía específica durante la duración indicada (el volumen se toma de Ajustes).",
+          "it": "Riproduce una melodia specifica per la durata indicata (il volume viene preso dalle Impostazioni)."
         },
         "args": [
           {
@@ -2463,7 +2946,10 @@
               {
                 "id": "5",
                 "label": {
-                  "en": "Turkish March"
+                  "en": "Turkish March",
+                  "de": "Türkischer Marsch",
+                  "es": "Marcha turca",
+                  "it": "Marcia turca"
                 }
               },
               {
@@ -2591,13 +3077,22 @@
       {
         "id": "siren_stop",
         "title": {
-          "en": "Stop siren"
+          "en": "Stop siren",
+          "de": "Sirene stoppen",
+          "es": "Detener sirena",
+          "it": "Ferma sirena"
         },
         "titleFormatted": {
-          "en": "Stop the siren"
+          "en": "Stop the siren",
+          "de": "Sirene stoppen",
+          "es": "Detener la sirena",
+          "it": "Ferma la sirena"
         },
         "hint": {
-          "en": "Immediately stop the siren if it is playing."
+          "en": "Immediately stop the siren if it is playing.",
+          "de": "Stoppt die Sirene sofort, wenn sie läuft.",
+          "es": "Detiene inmediatamente la sirena si está sonando.",
+          "it": "Ferma immediatamente la sirena se è in riproduzione."
         },
         "args": [
           {
@@ -3104,10 +3599,14 @@
           "value": false,
           "label": {
             "en": "Turbo Mode",
+            "de": "Turbomodus",
+            "es": "Modo turbo",
             "it": "Modalità Turbo"
           },
           "hint": {
             "en": "Enhancing the signal strength.",
+            "de": "Verbessert die Signalstärke.",
+            "es": "Mejora la intensidad de la señal.",
             "it": "Migliora la forza del segnale."
           }
         },
@@ -3117,6 +3616,8 @@
           "value": true,
           "label": {
             "en": "Network Indicator",
+            "de": "Netzwerkanzeige",
+            "es": "Indicador de red",
             "it": "Indicatore di rete"
           }
         },
@@ -3144,6 +3645,8 @@
                   "id": "0",
                   "label": {
                     "en": "Edge Mode",
+                    "de": "Flankenmodus",
+                    "es": "Modo por flanco",
                     "it": "Modalità Edge"
                   }
                 },
@@ -3151,6 +3654,8 @@
                   "id": "1",
                   "label": {
                     "en": "Pulse Mode",
+                    "de": "Impulsmodus",
+                    "es": "Modo pulso",
                     "it": "Modalità Impulso"
                   }
                 },
@@ -3158,6 +3663,8 @@
                   "id": "2",
                   "label": {
                     "en": "Following Mode",
+                    "de": "Folgemodus",
+                    "es": "Modo seguimiento",
                     "it": "Modalità Inseguimento"
                   }
                 },
@@ -3165,6 +3672,8 @@
                   "id": "130",
                   "label": {
                     "en": "Following Mode (Reverse)",
+                    "de": "Folgemodus (umgekehrt)",
+                    "es": "Modo seguimiento (inverso)",
                     "it": "Modalità Inseguimento (Inverti)"
                   }
                 }
@@ -3176,6 +3685,8 @@
               "value": false,
               "label": {
                 "en": "Detach Relay",
+                "de": "Relais trennen",
+                "es": "Separar relé",
                 "it": "Stacca Relè"
               }
             }
@@ -3185,6 +3696,8 @@
           "type": "group",
           "label": {
             "en": "Power-on",
+            "de": "Einschalten",
+            "es": "Encendido",
             "it": "Accensione"
           },
           "children": [
@@ -3193,10 +3706,14 @@
               "type": "dropdown",
               "label": {
                 "en": "Power-on State",
+                "de": "Einschaltzustand",
+                "es": "Estado al encender",
                 "it": "Stato all'Accensione"
               },
               "hint": {
                 "en": "The state of the device when the power restores from a power outage or being turned off physically.",
+                "de": "Der Gerätezustand, wenn die Stromversorgung nach einem Stromausfall wiederhergestellt wird oder das Gerät physisch ausgeschaltet wurde.",
+                "es": "El estado del dispositivo cuando la alimentación se restablece tras un corte de energía o al apagarlo físicamente.",
                 "it": "Stato del dispositivo al momento dell'interruzione dell'alimentazione o dello spegnimento dell'interruttore."
               },
               "value": "last_state",
@@ -3232,6 +3749,8 @@
                   "id": "toggle",
                   "label": {
                     "en": "Toggle",
+                    "de": "Umschalten",
+                    "es": "Alternar",
                     "it": "Alterna"
                   }
                 }
@@ -3243,6 +3762,8 @@
               "value": false,
               "hint": {
                 "en": "Power-on state will be delayed for the time you set.",
+                "de": "Der Einschaltzustand wird um die von dir eingestellte Zeit verzögert.",
+                "es": "El estado al encender se retrasará durante el tiempo que configures.",
                 "it": "Lo stato all'accensione sarà ritardato per il tempo impostato."
               },
               "label": {
@@ -3257,6 +3778,8 @@
               "type": "number",
               "label": {
                 "en": "Duration (seconds)",
+                "de": "Dauer (Sekunden)",
+                "es": "Duración (segundos)",
                 "it": "Durata (secondi)"
               },
               "value": 28,
@@ -3270,6 +3793,8 @@
           "type": "group",
           "label": {
             "en": "Inching Settings",
+            "de": "Inching-Einstellungen",
+            "es": "Ajustes de inching",
             "it": "Impostazioni di Inching"
           },
           "children": [
@@ -3279,10 +3804,14 @@
               "value": false,
               "label": {
                 "en": "Enable Inching",
+                "de": "Inching aktivieren",
+                "es": "Activar inching",
                 "it": "Abilita Inching"
               },
               "hint": {
                 "en": "Automatically turn off/on after a set time.",
+                "de": "Schaltet nach einer festgelegten Zeit automatisch aus/ein.",
+                "es": "Apaga/enciende automáticamente tras un tiempo establecido.",
                 "it": "Spegne/accende automaticamente dopo un tempo impostato."
               }
             },
@@ -3291,6 +3820,8 @@
               "type": "number",
               "label": {
                 "en": "Inching time (seconds)",
+                "de": "Inching-Zeit (Sekunden)",
+                "es": "Tiempo de inching (segundos)",
                 "it": "Tempo di Inching (secondi)"
               },
               "value": 1,
@@ -3303,10 +3834,14 @@
               "type": "dropdown",
               "label": {
                 "en": "Status",
+                "de": "Status",
+                "es": "Estado",
                 "it": "Stato"
               },
               "hint": {
                 "en": "Choose whether to turn on or off after the set time.",
+                "de": "Wähle, ob nach der festgelegten Zeit ein- oder ausgeschaltet werden soll.",
+                "es": "Elige si encender o apagar después del tiempo establecido.",
                 "it": "Scegli se accendere o spegnere dopo il tempo impostato."
               },
               "value": "on",
@@ -3315,6 +3850,8 @@
                   "id": "on",
                   "label": {
                     "en": "Auto-On",
+                    "de": "Auto-Ein",
+                    "es": "Autoencendido",
                     "it": "Auto-acceso"
                   }
                 },
@@ -3322,6 +3859,8 @@
                   "id": "off",
                   "label": {
                     "en": "Auto-Off",
+                    "de": "Auto-Aus",
+                    "es": "Autoapagado",
                     "it": "Auto-spento"
                   }
                 }
@@ -3334,7 +3873,10 @@
     {
       "id": "aqara_fp1",
       "name": {
-        "en": "Aqara FP1 Presence Sensor"
+        "en": "Aqara FP1 Presence Sensor",
+        "de": "Aqara FP1 Präsenzsensor",
+        "es": "Sensor de presencia Aqara FP1",
+        "it": "Sensore di presenza Aqara FP1"
       },
       "class": "sensor",
       "platforms": [
@@ -3379,7 +3921,10 @@
         "learnmode": {
           "image": "/drivers/aqara_fp1/assets/icon.svg",
           "instruction": {
-            "en": "Press and hold the reset button on the FP1 for 5 seconds until the LED flashes blue."
+            "en": "Press and hold the reset button on the FP1 for 5 seconds until the LED flashes blue.",
+            "de": "Halte die Reset-Taste am FP1 5 Sekunden lang gedrückt, bis die LED blau blinkt.",
+            "es": "Mantén pulsado el botón de reinicio del FP1 durante 5 segundos hasta que el LED parpadee en azul.",
+            "it": "Tieni premuto il pulsante di reset dell'FP1 per 5 secondi finché il LED non lampeggia in blu."
           }
         }
       },
@@ -3387,17 +3932,26 @@
         {
           "type": "group",
           "label": {
-            "en": "Detection"
+            "en": "Detection",
+            "de": "Erkennung",
+            "es": "Detección",
+            "it": "Rilevamento"
           },
           "children": [
             {
               "id": "motion_sensitivity",
               "type": "dropdown",
               "label": {
-                "en": "Motion sensitivity"
+                "en": "Motion sensitivity",
+                "de": "Bewegungsempfindlichkeit",
+                "es": "Sensibilidad de movimiento",
+                "it": "Sensibilità al movimento"
               },
               "hint": {
-                "en": "Detection sensitivity (low/medium/high)."
+                "en": "Detection sensitivity (low/medium/high).",
+                "de": "Erkennungsempfindlichkeit (niedrig/mittel/hoch).",
+                "es": "Sensibilidad de detección (baja/media/alta).",
+                "it": "Sensibilità di rilevamento (bassa/media/alta)."
               },
               "value": "medium",
               "values": [
@@ -3434,17 +3988,26 @@
               "id": "approach_distance",
               "type": "dropdown",
               "label": {
-                "en": "Approach distance"
+                "en": "Approach distance",
+                "de": "Annäherungsdistanz",
+                "es": "Distancia de aproximación",
+                "it": "Distanza di avvicinamento"
               },
               "hint": {
-                "en": "Distance at which presence is triggered."
+                "en": "Distance at which presence is triggered.",
+                "de": "Entfernung, bei der Anwesenheit ausgelöst wird.",
+                "es": "Distancia a la que se activa la presencia.",
+                "it": "Distanza alla quale viene attivata la presenza."
               },
               "value": "medium",
               "values": [
                 {
                   "id": "far",
                   "label": {
-                    "en": "Far"
+                    "en": "Far",
+                    "de": "Weit",
+                    "es": "Lejano",
+                    "it": "Lontano"
                   }
                 },
                 {
@@ -3459,7 +4022,10 @@
                 {
                   "id": "near",
                   "label": {
-                    "en": "Near"
+                    "en": "Near",
+                    "de": "Nah",
+                    "es": "Cercano",
+                    "it": "Vicino"
                   }
                 }
               ]
@@ -3469,30 +4035,45 @@
         {
           "type": "group",
           "label": {
-            "en": "Monitoring"
+            "en": "Monitoring",
+            "de": "Überwachung",
+            "es": "Supervisión",
+            "it": "Monitoraggio"
           },
           "children": [
             {
               "id": "monitoring_mode",
               "type": "dropdown",
               "label": {
-                "en": "Monitoring mode"
+                "en": "Monitoring mode",
+                "de": "Überwachungsmodus",
+                "es": "Modo de supervisión",
+                "it": "Modalità di monitoraggio"
               },
               "hint": {
-                "en": "Undirected = full area. Left/Right = directional detection."
+                "en": "Undirected = full area. Left/Right = directional detection.",
+                "de": "Ohne Richtung = gesamter Bereich. Links/Rechts = Richtungsdetektion.",
+                "es": "Sin dirección = zona completa. Izquierda/Derecha = detección direccional.",
+                "it": "Non direzionale = area completa. Sinistra/Destra = rilevamento direzionale."
               },
               "value": "undirected",
               "values": [
                 {
                   "id": "undirected",
                   "label": {
-                    "en": "Undirected"
+                    "en": "Undirected",
+                    "de": "Richtungsfrei",
+                    "es": "Sin dirección",
+                    "it": "Non direzionale"
                   }
                 },
                 {
                   "id": "left_right",
                   "label": {
-                    "en": "Left / Right"
+                    "en": "Left / Right",
+                    "de": "Links / Rechts",
+                    "es": "Izquierda / Derecha",
+                    "it": "Sinistra / Destra"
                   }
                 }
               ]
@@ -3504,7 +4085,10 @@
     {
       "id": "doorwindowsensor",
       "name": {
-        "en": "Door & Window Sensor"
+        "en": "Door & Window Sensor",
+        "de": "Tür- und Fenstersensor",
+        "es": "Sensor de puerta y ventana",
+        "it": "Sensore porta e finestra"
       },
       "class": "sensor",
       "platforms": [
@@ -3554,7 +4138,10 @@
         "learnmode": {
           "image": "/drivers/doorwindowsensor/assets/icon.svg",
           "instruction": {
-            "en": "Open the device and press the reset button gently for aprox 10 seconds until the LED blinks rapidly."
+            "en": "Open the device and press the reset button gently for aprox 10 seconds until the LED blinks rapidly.",
+            "de": "Öffne das Gerät und drücke die Reset-Taste vorsichtig etwa 10 Sekunden lang, bis die LED schnell blinkt.",
+            "es": "Abre el dispositivo y pulsa suavemente el botón de reinicio durante aprox. 10 segundos hasta que el LED parpadee rápidamente.",
+            "it": "Apri il dispositivo e premi delicatamente il pulsante di reset per circa 10 secondi finché il LED non lampeggia rapidamente."
           }
         }
       }
@@ -3562,7 +4149,10 @@
     {
       "id": "doorwindowsensor_2",
       "name": {
-        "en": "Door & Window Sensor 2"
+        "en": "Door & Window Sensor 2",
+        "de": "Tür- und Fenstersensor 2",
+        "es": "Sensor de puerta y ventana 2",
+        "it": "Sensore porta e finestra 2"
       },
       "class": "sensor",
       "platforms": [
@@ -3612,7 +4202,10 @@
         "learnmode": {
           "image": "/drivers/doorwindowsensor_2/assets/icon.svg",
           "instruction": {
-            "en": "Open the device and press the reset button gently for aprox 10 seconds until the LED blinks rapidly."
+            "en": "Open the device and press the reset button gently for aprox 10 seconds until the LED blinks rapidly.",
+            "de": "Öffne das Gerät und drücke die Reset-Taste vorsichtig etwa 10 Sekunden lang, bis die LED schnell blinkt.",
+            "es": "Abre el dispositivo y pulsa suavemente el botón de reinicio durante aprox. 10 segundos hasta que el LED parpadee rápidamente.",
+            "it": "Apri il dispositivo e premi delicatamente il pulsante di reset per circa 10 secondi finché il LED non lampeggia rapidamente."
           }
         }
       }
@@ -4086,17 +4679,26 @@
         {
           "type": "group",
           "label": {
-            "en": "Alerts"
+            "en": "Alerts",
+            "de": "Warnungen",
+            "es": "Alertas",
+            "it": "Avvisi"
           },
           "children": [
             {
               "id": "alarm_problem_enabled",
               "type": "checkbox",
               "label": {
-                "en": "Enable device fault alert"
+                "en": "Enable device fault alert",
+                "de": "Gerätefehlerwarnung aktivieren",
+                "es": "Activar alerta de fallo del dispositivo",
+                "it": "Abilita avviso di guasto del dispositivo"
               },
               "hint": {
-                "en": "Show alert when the sensor reports a hardware fault."
+                "en": "Show alert when the sensor reports a hardware fault.",
+                "de": "Zeigt eine Warnung an, wenn der Sensor einen Hardwarefehler meldet.",
+                "es": "Muestra una alerta cuando el sensor informa de un fallo de hardware.",
+                "it": "Mostra un avviso quando il sensore segnala un guasto hardware."
               },
               "value": true
             }
@@ -4986,7 +5588,10 @@
     {
       "id": "moes_remote_4_gang",
       "name": {
-        "en": "Moes 4 Gang Wall Remote"
+        "en": "Moes 4 Gang Wall Remote",
+        "de": "Moes 4-fach-Wandfernbedienung",
+        "es": "Mando de pared Moes de 4 botones",
+        "it": "Telecomando da parete Moes a 4 tasti"
       },
       "class": "remote",
       "platforms": [
@@ -5057,7 +5662,10 @@
         "learnmode": {
           "image": "/drivers/moes_remote_4_gang/assets/icon.svg",
           "instruction": {
-            "en": "Press the lower-left button for ~10 seconds until all LEDs start blinking."
+            "en": "Press the lower-left button for ~10 seconds until all LEDs start blinking.",
+            "de": "Drücke die untere linke Taste etwa 10 Sekunden lang, bis alle LEDs zu blinken beginnen.",
+            "es": "Pulsa el botón inferior izquierdo durante unos 10 segundos hasta que todos los LED empiecen a parpadear.",
+            "it": "Premi il pulsante in basso a sinistra per circa 10 secondi finché tutti i LED non iniziano a lampeggiare."
           }
         }
       },
@@ -7025,17 +7633,26 @@
         {
           "type": "group",
           "label": {
-            "en": "Device information"
+            "en": "Device information",
+            "de": "Geräteinformationen",
+            "es": "Información del dispositivo",
+            "it": "Informazioni sul dispositivo"
           },
           "children": [
             {
               "id": "_power_on_info",
               "type": "label",
               "label": {
-                "en": "Power-on behavior"
+                "en": "Power-on behavior",
+                "de": "Verhalten beim Einschalten",
+                "es": "Comportamiento al encender",
+                "it": "Comportamento all'accensione"
               },
               "hint": {
-                "en": "This firmware does not support configurable power-on behavior. All switches turn OFF when power is restored."
+                "en": "This firmware does not support configurable power-on behavior. All switches turn OFF when power is restored.",
+                "de": "Diese Firmware unterstützt kein konfigurierbares Einschaltverhalten. Alle Schalter schalten sich nach Wiederherstellung der Stromversorgung AUS.",
+                "es": "Este firmware no admite un comportamiento configurable al encender. Todos los interruptores se apagan cuando se restablece la alimentación.",
+                "it": "Questo firmware non supporta un comportamento all'accensione configurabile. Tutti gli interruttori si spengono quando torna l'alimentazione."
               },
               "value": "Always Off (firmware default)"
             }
@@ -7264,7 +7881,10 @@
     {
       "id": "radar_sensor_mmwave",
       "name": {
-        "en": "Radar Sensor Moes (Linptech)"
+        "en": "Radar Sensor Moes (Linptech)",
+        "de": "Radar-Sensor Moes (Linptech)",
+        "es": "Sensor radar Moes (Linptech)",
+        "it": "Sensore radar Moes (Linptech)"
       },
       "class": "sensor",
       "platforms": [
@@ -7322,7 +7942,10 @@
         "learnmode": {
           "image": "/drivers/radar_sensor_mmwave/assets/icon.svg",
           "instruction": {
-            "en": "Press and hold the reset button for 5 seconds. When the indicator light flashes it is in pairing mode."
+            "en": "Press and hold the reset button for 5 seconds. When the indicator light flashes it is in pairing mode.",
+            "de": "Halte die Reset-Taste 5 Sekunden lang gedrückt. Wenn die Kontrollleuchte blinkt, befindet sich das Gerät im Kopplungsmodus.",
+            "es": "Mantén pulsado el botón de reinicio durante 5 segundos. Cuando la luz indicadora parpadea, está en modo de emparejamiento.",
+            "it": "Tieni premuto il pulsante di reset per 5 secondi. Quando la spia lampeggia, il dispositivo è in modalità associazione."
           }
         }
       },
@@ -7330,17 +7953,26 @@
         {
           "type": "group",
           "label": {
-            "en": "Detection"
+            "en": "Detection",
+            "de": "Erkennung",
+            "es": "Detección",
+            "it": "Rilevamento"
           },
           "children": [
             {
               "id": "motion_sensitivity",
               "type": "number",
               "label": {
-                "en": "Motion sensitivity"
+                "en": "Motion sensitivity",
+                "de": "Bewegungsempfindlichkeit",
+                "es": "Sensibilidad de movimiento",
+                "it": "Sensibilità al movimento"
               },
               "hint": {
-                "en": "Sensitivity for moving objects (0=lowest, 5=highest)."
+                "en": "Sensitivity for moving objects (0=lowest, 5=highest).",
+                "de": "Empfindlichkeit für bewegte Objekte (0=am niedrigsten, 5=am höchsten).",
+                "es": "Sensibilidad para objetos en movimiento (0=mínima, 5=máxima).",
+                "it": "Sensibilità per oggetti in movimento (0=minima, 5=massima)."
               },
               "value": 3,
               "min": 0,
@@ -7351,10 +7983,16 @@
               "id": "static_sensitivity",
               "type": "number",
               "label": {
-                "en": "Static sensitivity"
+                "en": "Static sensitivity",
+                "de": "Statische Empfindlichkeit",
+                "es": "Sensibilidad estática",
+                "it": "Sensibilità statica"
               },
               "hint": {
-                "en": "Sensitivity for stationary presence — micro-movements like breathing (0=lowest, 5=highest)."
+                "en": "Sensitivity for stationary presence — micro-movements like breathing (0=lowest, 5=highest).",
+                "de": "Empfindlichkeit für statische Anwesenheit - Mikrobewegungen wie Atmung (0=am niedrigsten, 5=am höchsten).",
+                "es": "Sensibilidad para presencia estática: micro-movimientos como la respiración (0=mínima, 5=máxima).",
+                "it": "Sensibilità per la presenza statica - micro-movimenti come la respirazione (0=minima, 5=massima)."
               },
               "value": 3,
               "min": 0,
@@ -7365,65 +8003,98 @@
               "id": "motion_detection_distance",
               "type": "dropdown",
               "label": {
-                "en": "Detection distance"
+                "en": "Detection distance",
+                "de": "Erkennungsdistanz",
+                "es": "Distancia de detección",
+                "it": "Distanza di rilevamento"
               },
               "hint": {
-                "en": "Maximum motion detection distance."
+                "en": "Maximum motion detection distance.",
+                "de": "Maximale Bewegungs-Erkennungsdistanz.",
+                "es": "Distancia máxima de detección de movimiento.",
+                "it": "Distanza massima di rilevamento del movimento."
               },
               "value": "600",
               "values": [
                 {
                   "id": "0",
                   "label": {
-                    "en": "0 cm"
+                    "en": "0 cm",
+                    "de": "0 cm",
+                    "es": "0 cm",
+                    "it": "0 cm"
                   }
                 },
                 {
                   "id": "75",
                   "label": {
-                    "en": "75 cm"
+                    "en": "75 cm",
+                    "de": "75 cm",
+                    "es": "75 cm",
+                    "it": "75 cm"
                   }
                 },
                 {
                   "id": "150",
                   "label": {
-                    "en": "150 cm"
+                    "en": "150 cm",
+                    "de": "150 cm",
+                    "es": "150 cm",
+                    "it": "150 cm"
                   }
                 },
                 {
                   "id": "225",
                   "label": {
-                    "en": "225 cm"
+                    "en": "225 cm",
+                    "de": "225 cm",
+                    "es": "225 cm",
+                    "it": "225 cm"
                   }
                 },
                 {
                   "id": "300",
                   "label": {
-                    "en": "300 cm"
+                    "en": "300 cm",
+                    "de": "300 cm",
+                    "es": "300 cm",
+                    "it": "300 cm"
                   }
                 },
                 {
                   "id": "375",
                   "label": {
-                    "en": "375 cm"
+                    "en": "375 cm",
+                    "de": "375 cm",
+                    "es": "375 cm",
+                    "it": "375 cm"
                   }
                 },
                 {
                   "id": "450",
                   "label": {
-                    "en": "450 cm"
+                    "en": "450 cm",
+                    "de": "450 cm",
+                    "es": "450 cm",
+                    "it": "450 cm"
                   }
                 },
                 {
                   "id": "525",
                   "label": {
-                    "en": "525 cm"
+                    "en": "525 cm",
+                    "de": "525 cm",
+                    "es": "525 cm",
+                    "it": "525 cm"
                   }
                 },
                 {
                   "id": "600",
                   "label": {
-                    "en": "600 cm"
+                    "en": "600 cm",
+                    "de": "600 cm",
+                    "es": "600 cm",
+                    "it": "600 cm"
                   }
                 }
               ]
@@ -7432,17 +8103,26 @@
               "id": "fading_time",
               "type": "number",
               "label": {
-                "en": "Fading time"
+                "en": "Fading time",
+                "de": "Nachlaufzeit",
+                "es": "Tiempo de desvanecimiento",
+                "it": "Tempo di spegnimento"
               },
               "hint": {
-                "en": "Time before clearing presence after no movement."
+                "en": "Time before clearing presence after no movement.",
+                "de": "Zeit bis zum Zurücksetzen der Anwesenheit nach fehlender Bewegung.",
+                "es": "Tiempo antes de borrar la presencia tras no detectar movimiento.",
+                "it": "Tempo prima di azzerare la presenza dopo l'assenza di movimento."
               },
               "value": 10,
               "min": 0,
               "max": 10000,
               "step": 1,
               "units": {
-                "en": "seconds"
+                "en": "seconds",
+                "de": "Sekunden",
+                "es": "segundos",
+                "it": "secondi"
               }
             }
           ]
@@ -7450,17 +8130,26 @@
         {
           "type": "group",
           "label": {
-            "en": "LED & Reporting"
+            "en": "LED & Reporting",
+            "de": "LED und Meldungen",
+            "es": "LED e informes",
+            "it": "LED e segnalazioni"
           },
           "children": [
             {
               "id": "led_indicator",
               "type": "checkbox",
               "label": {
-                "en": "LED presence indicator"
+                "en": "LED presence indicator",
+                "de": "LED-Anwesenheitsanzeige",
+                "es": "Indicador LED de presencia",
+                "it": "Indicatore LED di presenza"
               },
               "hint": {
-                "en": "Enable/disable the LED that flashes on presence detection."
+                "en": "Enable/disable the LED that flashes on presence detection.",
+                "de": "Aktiviert/deaktiviert die LED, die bei Anwesenheitserkennung blinkt.",
+                "es": "Activa o desactiva el LED que parpadea al detectar presencia.",
+                "it": "Attiva/disattiva il LED che lampeggia al rilevamento della presenza."
               },
               "value": true
             }
@@ -7469,17 +8158,26 @@
         {
           "type": "group",
           "label": {
-            "en": "Diagnostics & Statistics"
+            "en": "Diagnostics & Statistics",
+            "de": "Diagnose und Statistiken",
+            "es": "Diagnóstico y estadísticas",
+            "it": "Diagnostica e statistiche"
           },
           "children": [
             {
               "id": "device_stats_display",
               "type": "text",
               "label": {
-                "en": "Device stats"
+                "en": "Device stats",
+                "de": "Gerätestatistiken",
+                "es": "Estadísticas del dispositivo",
+                "it": "Statistiche del dispositivo"
               },
               "hint": {
-                "en": "Msg: messages last 24h / avg per hour | Dist: last target distance | Err: error count | Last: minutes since last message | Up: uptime"
+                "en": "Msg: messages last 24h / avg per hour | Dist: last target distance | Err: error count | Last: minutes since last message | Up: uptime",
+                "de": "Msg: Nachrichten letzte 24 Std. / Durchschnitt pro Stunde | Dist: letzte Zielentfernung | Err: Fehleranzahl | Last: Minuten seit der letzten Nachricht | Up: Laufzeit",
+                "es": "Msg: mensajes en las últimas 24 h / promedio por hora | Dist: última distancia objetivo | Err: recuento de errores | Last: minutos desde el último mensaje | Up: tiempo de actividad",
+                "it": "Msg: messaggi ultime 24 h / media per ora | Dist: ultima distanza del bersaglio | Err: conteggio errori | Last: minuti dall'ultimo messaggio | Up: uptime"
               },
               "value": "Waiting for data..."
             },
@@ -7487,27 +8185,42 @@
               "id": "luminance_change_threshold",
               "type": "number",
               "label": {
-                "en": "Min luminance change"
+                "en": "Min luminance change",
+                "de": "Mindeständerung der Helligkeit",
+                "es": "Cambio mínimo de luminancia",
+                "it": "Variazione minima di luminanza"
               },
               "hint": {
-                "en": "Only update Homey when luminance changes by at least this many lux. 0 = every report."
+                "en": "Only update Homey when luminance changes by at least this many lux. 0 = every report.",
+                "de": "Homey nur aktualisieren, wenn sich die Helligkeit um mindestens so viele Lux ändert. 0 = jeder Bericht.",
+                "es": "Solo actualiza Homey cuando la luminancia cambie al menos esta cantidad de lux. 0 = cada informe.",
+                "it": "Aggiorna Homey solo quando la luminanza cambia di almeno questo numero di lux. 0 = ogni report."
               },
               "value": 5,
               "min": 0,
               "max": 100,
               "step": 1,
               "units": {
-                "en": "lux"
+                "en": "lux",
+                "de": "Lux",
+                "es": "lux",
+                "it": "lux"
               }
             },
             {
               "id": "debug_logging",
               "type": "checkbox",
               "label": {
-                "en": "Debug logging"
+                "en": "Debug logging",
+                "de": "Debug-Protokollierung",
+                "es": "Registro de depuración",
+                "it": "Log di debug"
               },
               "hint": {
-                "en": "Log every event received from the device."
+                "en": "Log every event received from the device.",
+                "de": "Protokolliert jedes vom Gerät empfangene Ereignis.",
+                "es": "Registra todos los eventos recibidos del dispositivo.",
+                "it": "Registra ogni evento ricevuto dal dispositivo."
               },
               "value": false
             }
@@ -7588,17 +8301,26 @@
         {
           "type": "group",
           "label": {
-            "en": "Device control"
+            "en": "Device control",
+            "de": "Gerätesteuerung",
+            "es": "Control del dispositivo",
+            "it": "Controllo del dispositivo"
           },
           "children": [
             {
               "id": "relay_status",
               "type": "dropdown",
               "label": {
-                "en": "Power-on behavior"
+                "en": "Power-on behavior",
+                "de": "Verhalten beim Einschalten",
+                "es": "Comportamiento al encender",
+                "it": "Comportamento all'accensione"
               },
               "hint": {
-                "en": "State after power is restored."
+                "en": "State after power is restored.",
+                "de": "Zustand nach Wiederherstellung der Stromversorgung.",
+                "es": "Estado después de que se restablece la alimentación.",
+                "it": "Stato dopo il ripristino dell'alimentazione."
               },
               "value": "lastState",
               "values": [
@@ -7641,7 +8363,10 @@
                 "it": "Attuale (letto dal dispositivo)"
               },
               "hint": {
-                "en": "Last power-on behavior reported by the device. Updated at startup."
+                "en": "Last power-on behavior reported by the device. Updated at startup.",
+                "de": "Zuletzt vom Gerät gemeldetes Einschaltverhalten. Wird beim Start aktualisiert.",
+                "es": "Último comportamiento al encender informado por el dispositivo. Se actualiza al iniciar.",
+                "it": "Ultimo comportamento all'accensione segnalato dal dispositivo. Aggiornato all'avvio."
               },
               "value": "—"
             },
@@ -7649,17 +8374,26 @@
               "id": "indicator_mode",
               "type": "dropdown",
               "label": {
-                "en": "LED indicator"
+                "en": "LED indicator",
+                "de": "LED-Anzeige",
+                "es": "Indicador LED",
+                "it": "Indicatore LED"
               },
               "hint": {
-                "en": "When to light the LED."
+                "en": "When to light the LED.",
+                "de": "Wann die LED leuchten soll.",
+                "es": "Cuándo encender el LED.",
+                "it": "Quando accendere il LED."
               },
               "value": "status",
               "values": [
                 {
                   "id": "off",
                   "label": {
-                    "en": "Always off"
+                    "en": "Always off",
+                    "de": "Immer aus",
+                    "es": "Siempre apagado",
+                    "it": "Sempre spento"
                   }
                 },
                 {
@@ -7683,7 +8417,10 @@
                 {
                   "id": "on",
                   "label": {
-                    "en": "Always on"
+                    "en": "Always on",
+                    "de": "Immer ein",
+                    "es": "Siempre encendido",
+                    "it": "Sempre acceso"
                   }
                 }
               ]
@@ -7698,7 +8435,10 @@
                 "it": "Attuale (letto dal dispositivo)"
               },
               "hint": {
-                "en": "Last LED indicator mode reported by the device. Updated at startup."
+                "en": "Last LED indicator mode reported by the device. Updated at startup.",
+                "de": "Zuletzt vom Gerät gemeldeter LED-Modus. Wird beim Start aktualisiert.",
+                "es": "Último modo de indicador LED informado por el dispositivo. Se actualiza al iniciar.",
+                "it": "Ultima modalità dell'indicatore LED segnalata dal dispositivo. Aggiornata all'avvio."
               },
               "value": "—"
             },
@@ -7706,10 +8446,16 @@
               "id": "child_lock",
               "type": "checkbox",
               "label": {
-                "en": "Child lock"
+                "en": "Child lock",
+                "de": "Kindersicherung",
+                "es": "Bloqueo infantil",
+                "it": "Blocco bambini"
               },
               "hint": {
-                "en": "Disable physical button."
+                "en": "Disable physical button.",
+                "de": "Physische Taste deaktivieren.",
+                "es": "Desactiva el botón físico.",
+                "it": "Disabilita il pulsante fisico."
               },
               "value": false
             }
@@ -7718,17 +8464,26 @@
         {
           "type": "group",
           "label": {
-            "en": "Polling"
+            "en": "Polling",
+            "de": "Abfrage",
+            "es": "Consulta",
+            "it": "Polling"
           },
           "children": [
             {
               "id": "pollInterval",
               "type": "number",
               "label": {
-                "en": "Polling interval (s)"
+                "en": "Polling interval (s)",
+                "de": "Abfrageintervall (s)",
+                "es": "Intervalo de consulta (s)",
+                "it": "Intervallo di polling (s)"
               },
               "hint": {
-                "en": "How often Homey actively reads the plug (on/off, power, current). Default 120s — fine for a 10A plug. Lower = more responsive but more mesh traffic; raise it if you run many plugs. When the plug is unreachable, polling automatically backs off up to 15 min."
+                "en": "How often Homey actively reads the plug (on/off, power, current). Default 120s — fine for a 10A plug. Lower = more responsive but more mesh traffic; raise it if you run many plugs. When the plug is unreachable, polling automatically backs off up to 15 min.",
+                "de": "Wie oft Homey die Steckdose aktiv ausliest (ein/aus, Leistung, Strom). Standard 120 s - gut für eine 10A-Steckdose. Niedriger = reaktionsschneller, aber mehr Mesh-Traffic; erhöhe ihn, wenn du viele Steckdosen hast. Wenn die Steckdose nicht erreichbar ist, wird die Abfrage automatisch auf bis zu 15 Min. zurückgefahren.",
+                "es": "Con qué frecuencia Homey lee activamente el enchufe (encendido/apagado, potencia, corriente). Predeterminado 120 s, adecuado para un enchufe de 10 A. Menor = más respuesta, pero más tráfico de malla; súbelo si usas muchos enchufes. Cuando el enchufe no es alcanzable, la consulta se reduce automáticamente hasta 15 min.",
+                "it": "Con quale frequenza Homey legge attivamente la presa (on/off, potenza, corrente). Predefinito 120 s - va bene per una presa da 10 A. Più basso = più reattivo ma più traffico mesh; aumentalo se usi molte prese. Quando la presa non è raggiungibile, il polling si riduce automaticamente fino a 15 min."
               },
               "value": 120,
               "min": 60,
@@ -7740,17 +8495,26 @@
         {
           "type": "group",
           "label": {
-            "en": "Energy measurement"
+            "en": "Energy measurement",
+            "de": "Energiemessung",
+            "es": "Medición de energía",
+            "it": "Misurazione dell'energia"
           },
           "children": [
             {
               "id": "powerFactor",
               "type": "number",
               "label": {
-                "en": "Power correction factor"
+                "en": "Power correction factor",
+                "de": "Leistungskorrekturfaktor",
+                "es": "Factor de corrección de potencia",
+                "it": "Fattore di correzione della potenza"
               },
               "hint": {
-                "en": "Multiply reported active power by this value. Use 1.0 for no correction."
+                "en": "Multiply reported active power by this value. Use 1.0 for no correction.",
+                "de": "Multipliziere die gemeldete Wirkleistung mit diesem Wert. Verwende 1.0 für keine Korrektur.",
+                "es": "Multiplica la potencia activa informada por este valor. Usa 1.0 para no aplicar corrección.",
+                "it": "Moltiplica la potenza attiva riportata per questo valore. Usa 1.0 per nessuna correzione."
               },
               "value": 1,
               "min": 0.1,
@@ -7761,10 +8525,16 @@
               "id": "energyFactor",
               "type": "number",
               "label": {
-                "en": "Energy correction factor"
+                "en": "Energy correction factor",
+                "de": "Energiekorrekturfaktor",
+                "es": "Factor de corrección de energía",
+                "it": "Fattore di correzione dell'energia"
               },
               "hint": {
-                "en": "Multiply reported energy (kWh) by this value. Use 1.0 for no correction."
+                "en": "Multiply reported energy (kWh) by this value. Use 1.0 for no correction.",
+                "de": "Multipliziere die gemeldete Energie (kWh) mit diesem Wert. Verwende 1.0 für keine Korrektur.",
+                "es": "Multiplica la energía informada (kWh) por este valor. Usa 1.0 para no aplicar corrección.",
+                "it": "Moltiplica l'energia riportata (kWh) per questo valore. Usa 1.0 per nessuna correzione."
               },
               "value": 1,
               "min": 0.1,
@@ -7775,10 +8545,16 @@
               "id": "calcPower",
               "type": "checkbox",
               "label": {
-                "en": "Calculate power from V × A"
+                "en": "Calculate power from V × A",
+                "de": "Leistung aus V × A berechnen",
+                "es": "Calcular potencia a partir de V × A",
+                "it": "Calcola la potenza da V × A"
               },
               "hint": {
-                "en": "Compute power as Voltage × Current instead of using reported active power. Enabled by default because TS011F firmware variants typically report activePower = 0."
+                "en": "Compute power as Voltage × Current instead of using reported active power. Enabled by default because TS011F firmware variants typically report activePower = 0.",
+                "de": "Berechne die Leistung als Spannung × Strom statt die gemeldete Wirkleistung zu verwenden. Standardmäßig aktiviert, da TS011F-Firmwarevarianten typischerweise activePower = 0 melden.",
+                "es": "Calcula la potencia como Voltaje × Corriente en lugar de usar la potencia activa informada. Activado de forma predeterminada porque las variantes de firmware TS011F suelen informar activePower = 0.",
+                "it": "Calcola la potenza come Tensione × Corrente invece di usare la potenza attiva riportata. Abilitato per impostazione predefinita perché le varianti firmware TS011F in genere riportano activePower = 0."
               },
               "value": true
             }
@@ -7800,7 +8576,10 @@
       },
       "id": "smartplug_2",
       "name": {
-        "en": "Smart Plug (_TZ3210)"
+        "en": "Smart Plug (_TZ3210)",
+        "de": "Smart Plug (_TZ3210)",
+        "es": "Enchufe inteligente (_TZ3210)",
+        "it": "Presa intelligente (_TZ3210)"
       },
       "class": "socket",
       "capabilities": [
@@ -7843,7 +8622,10 @@
         },
         "learnmode": {
           "instruction": {
-            "en": "Press and hold the on/off button for approximately 5 seconds until the LED blinks rapidly."
+            "en": "Press and hold the on/off button for approximately 5 seconds until the LED blinks rapidly.",
+            "de": "Halte die Ein/Aus-Taste etwa 5 Sekunden lang gedrückt, bis die LED schnell blinkt.",
+            "es": "Mantén pulsado el botón de encendido/apagado durante aproximadamente 5 segundos hasta que el LED parpadee rápidamente.",
+            "it": "Tieni premuto il pulsante on/off per circa 5 secondi finché il LED non lampeggia rapidamente."
           }
         }
       },
@@ -7851,17 +8633,26 @@
         {
           "type": "group",
           "label": {
-            "en": "Diagnostics"
+            "en": "Diagnostics",
+            "de": "Diagnose",
+            "es": "Diagnósticos",
+            "it": "Diagnostica"
           },
           "children": [
             {
               "id": "debug_frames",
               "type": "checkbox",
               "label": {
-                "en": "Log Zigbee frames"
+                "en": "Log Zigbee frames",
+                "de": "Zigbee-Frames protokollieren",
+                "es": "Registrar tramas Zigbee",
+                "it": "Registra frame Zigbee"
               },
               "hint": {
-                "en": "Logs cluster, command, interval and whether the frame arrived during active polling."
+                "en": "Logs cluster, command, interval and whether the frame arrived during active polling.",
+                "de": "Protokolliert Cluster, Befehl, Intervall und ob das Frame während der aktiven Abfrage angekommen ist.",
+                "es": "Registra clúster, comando, intervalo y si la trama llegó durante la consulta activa.",
+                "it": "Registra cluster, comando, intervallo e se il frame è arrivato durante il polling attivo."
               },
               "value": true
             },
@@ -7869,10 +8660,16 @@
               "id": "debug_raw_payload",
               "type": "checkbox",
               "label": {
-                "en": "Include raw frame payload"
+                "en": "Include raw frame payload",
+                "de": "Rohes Frame-Payload einschließen",
+                "es": "Incluir carga útil sin procesar",
+                "it": "Includi payload grezzo del frame"
               },
               "hint": {
-                "en": "Include the hexadecimal ZCL frame for detailed analysis."
+                "en": "Include the hexadecimal ZCL frame for detailed analysis.",
+                "de": "Fügt das hexadezimale ZCL-Frame für eine detaillierte Analyse hinzu.",
+                "es": "Incluye la trama ZCL hexadecimal para un análisis detallado.",
+                "it": "Includi il frame ZCL esadecimale per un'analisi dettagliata."
               },
               "value": true
             }
@@ -7881,17 +8678,26 @@
         {
           "type": "group",
           "label": {
-            "en": "Device control"
+            "en": "Device control",
+            "de": "Gerätesteuerung",
+            "es": "Control del dispositivo",
+            "it": "Controllo del dispositivo"
           },
           "children": [
             {
               "id": "relay_status",
               "type": "dropdown",
               "label": {
-                "en": "Power-on behavior"
+                "en": "Power-on behavior",
+                "de": "Verhalten beim Einschalten",
+                "es": "Comportamiento al encender",
+                "it": "Comportamento all'accensione"
               },
               "hint": {
-                "en": "State after power is restored."
+                "en": "State after power is restored.",
+                "de": "Zustand nach Wiederherstellung der Stromversorgung.",
+                "es": "Estado después de que se restablece la alimentación.",
+                "it": "Stato dopo il ripristino dell'alimentazione."
               },
               "value": "lastState",
               "values": [
@@ -7939,14 +8745,20 @@
               "id": "indicator_mode",
               "type": "dropdown",
               "label": {
-                "en": "LED indicator"
+                "en": "LED indicator",
+                "de": "LED-Anzeige",
+                "es": "Indicador LED",
+                "it": "Indicatore LED"
               },
               "value": "status",
               "values": [
                 {
                   "id": "off",
                   "label": {
-                    "en": "Always off"
+                    "en": "Always off",
+                    "de": "Immer aus",
+                    "es": "Siempre apagado",
+                    "it": "Sempre spento"
                   }
                 },
                 {
@@ -7970,7 +8782,10 @@
                 {
                   "id": "on",
                   "label": {
-                    "en": "Always on"
+                    "en": "Always on",
+                    "de": "Immer ein",
+                    "es": "Siempre encendido",
+                    "it": "Sempre acceso"
                   }
                 }
               ]
@@ -7990,7 +8805,10 @@
               "id": "child_lock",
               "type": "checkbox",
               "label": {
-                "en": "Child lock"
+                "en": "Child lock",
+                "de": "Kindersicherung",
+                "es": "Bloqueo infantil",
+                "it": "Blocco bambini"
               },
               "value": false
             }
@@ -7999,17 +8817,26 @@
         {
           "type": "group",
           "label": {
-            "en": "Polling"
+            "en": "Polling",
+            "de": "Abfrage",
+            "es": "Consulta",
+            "it": "Polling"
           },
           "children": [
             {
               "id": "pollInterval",
               "type": "number",
               "label": {
-                "en": "Polling interval (s)"
+                "en": "Polling interval (s)",
+                "de": "Abfrageintervall (s)",
+                "es": "Intervalo de consulta (s)",
+                "it": "Intervallo di polling (s)"
               },
               "hint": {
-                "en": "Active Homey polling interval. Keep this distinct from passive Zigbee reporting during diagnostics."
+                "en": "Active Homey polling interval. Keep this distinct from passive Zigbee reporting during diagnostics.",
+                "de": "Aktives Homey-Abfrageintervall. Trenne dies während der Diagnose von passiven Zigbee-Meldungen.",
+                "es": "Intervalo de consulta activa de Homey. Mantenlo distinto del informe pasivo de Zigbee durante el diagnóstico.",
+                "it": "Intervallo di polling attivo di Homey. Tienilo distinto dal reporting Zigbee passivo durante la diagnostica."
               },
               "value": 180,
               "min": 60,
@@ -8021,14 +8848,20 @@
         {
           "type": "group",
           "label": {
-            "en": "Energy measurement"
+            "en": "Energy measurement",
+            "de": "Energiemessung",
+            "es": "Medición de energía",
+            "it": "Misurazione dell'energia"
           },
           "children": [
             {
               "id": "powerFactor",
               "type": "number",
               "label": {
-                "en": "Power correction factor"
+                "en": "Power correction factor",
+                "de": "Leistungskorrekturfaktor",
+                "es": "Factor de corrección de potencia",
+                "it": "Fattore di correzione della potenza"
               },
               "value": 1,
               "min": 0.1,
@@ -8039,7 +8872,10 @@
               "id": "energyFactor",
               "type": "number",
               "label": {
-                "en": "Energy correction factor"
+                "en": "Energy correction factor",
+                "de": "Energiekorrekturfaktor",
+                "es": "Factor de corrección de energía",
+                "it": "Fattore di correzione dell'energia"
               },
               "value": 1,
               "min": 0.1,
@@ -8050,7 +8886,10 @@
               "id": "calcPower",
               "type": "checkbox",
               "label": {
-                "en": "Calculate power from V × A"
+                "en": "Calculate power from V × A",
+                "de": "Leistung aus V × A berechnen",
+                "es": "Calcular potencia a partir de V × A",
+                "it": "Calcola la potenza da V × A"
               },
               "value": true
             }
@@ -8072,7 +8911,10 @@
       },
       "id": "smartplug_3",
       "name": {
-        "en": "Smart Plug (_TZ3000)"
+        "en": "Smart Plug (_TZ3000)",
+        "de": "Smart Plug (_TZ3000)",
+        "es": "Enchufe inteligente (_TZ3000)",
+        "it": "Presa intelligente (_TZ3000)"
       },
       "class": "socket",
       "capabilities": [
@@ -8117,7 +8959,10 @@
         },
         "learnmode": {
           "instruction": {
-            "en": "Press and hold the on/off button for approximately 5 seconds until the LED blinks rapidly."
+            "en": "Press and hold the on/off button for approximately 5 seconds until the LED blinks rapidly.",
+            "de": "Halte die Ein/Aus-Taste etwa 5 Sekunden lang gedrückt, bis die LED schnell blinkt.",
+            "es": "Mantén pulsado el botón de encendido/apagado durante aproximadamente 5 segundos hasta que el LED parpadee rápidamente.",
+            "it": "Tieni premuto il pulsante on/off per circa 5 secondi finché il LED non lampeggia rapidamente."
           }
         }
       },
@@ -8125,17 +8970,26 @@
         {
           "type": "group",
           "label": {
-            "en": "Diagnostics"
+            "en": "Diagnostics",
+            "de": "Diagnose",
+            "es": "Diagnósticos",
+            "it": "Diagnostica"
           },
           "children": [
             {
               "id": "debug_frames",
               "type": "checkbox",
               "label": {
-                "en": "Log Zigbee frames"
+                "en": "Log Zigbee frames",
+                "de": "Zigbee-Frames protokollieren",
+                "es": "Registrar tramas Zigbee",
+                "it": "Registra frame Zigbee"
               },
               "hint": {
-                "en": "Logs cluster, command, interval and whether the frame arrived during active polling."
+                "en": "Logs cluster, command, interval and whether the frame arrived during active polling.",
+                "de": "Protokolliert Cluster, Befehl, Intervall und ob das Frame während der aktiven Abfrage angekommen ist.",
+                "es": "Registra clúster, comando, intervalo y si la trama llegó durante la consulta activa.",
+                "it": "Registra cluster, comando, intervallo e se il frame è arrivato durante il polling attivo."
               },
               "value": true
             },
@@ -8143,10 +8997,16 @@
               "id": "debug_raw_payload",
               "type": "checkbox",
               "label": {
-                "en": "Include raw frame payload"
+                "en": "Include raw frame payload",
+                "de": "Rohes Frame-Payload einschließen",
+                "es": "Incluir carga útil sin procesar",
+                "it": "Includi payload grezzo del frame"
               },
               "hint": {
-                "en": "Include the hexadecimal ZCL frame for detailed analysis."
+                "en": "Include the hexadecimal ZCL frame for detailed analysis.",
+                "de": "Fügt das hexadezimale ZCL-Frame für eine detaillierte Analyse hinzu.",
+                "es": "Incluye la trama ZCL hexadecimal para un análisis detallado.",
+                "it": "Includi il frame ZCL esadecimale per un'analisi dettagliata."
               },
               "value": true
             }
@@ -8155,17 +9015,26 @@
         {
           "type": "group",
           "label": {
-            "en": "Device control"
+            "en": "Device control",
+            "de": "Gerätesteuerung",
+            "es": "Control del dispositivo",
+            "it": "Controllo del dispositivo"
           },
           "children": [
             {
               "id": "relay_status",
               "type": "dropdown",
               "label": {
-                "en": "Power-on behavior"
+                "en": "Power-on behavior",
+                "de": "Verhalten beim Einschalten",
+                "es": "Comportamiento al encender",
+                "it": "Comportamento all'accensione"
               },
               "hint": {
-                "en": "State after power is restored."
+                "en": "State after power is restored.",
+                "de": "Zustand nach Wiederherstellung der Stromversorgung.",
+                "es": "Estado después de que se restablece la alimentación.",
+                "it": "Stato dopo il ripristino dell'alimentazione."
               },
               "value": "lastState",
               "values": [
@@ -8213,14 +9082,20 @@
               "id": "indicator_mode",
               "type": "dropdown",
               "label": {
-                "en": "LED indicator"
+                "en": "LED indicator",
+                "de": "LED-Anzeige",
+                "es": "Indicador LED",
+                "it": "Indicatore LED"
               },
               "value": "status",
               "values": [
                 {
                   "id": "off",
                   "label": {
-                    "en": "Always off"
+                    "en": "Always off",
+                    "de": "Immer aus",
+                    "es": "Siempre apagado",
+                    "it": "Sempre spento"
                   }
                 },
                 {
@@ -8244,7 +9119,10 @@
                 {
                   "id": "on",
                   "label": {
-                    "en": "Always on"
+                    "en": "Always on",
+                    "de": "Immer ein",
+                    "es": "Siempre encendido",
+                    "it": "Sempre acceso"
                   }
                 }
               ]
@@ -8264,7 +9142,10 @@
               "id": "child_lock",
               "type": "checkbox",
               "label": {
-                "en": "Child lock"
+                "en": "Child lock",
+                "de": "Kindersicherung",
+                "es": "Bloqueo infantil",
+                "it": "Blocco bambini"
               },
               "value": false
             }
@@ -8273,17 +9154,26 @@
         {
           "type": "group",
           "label": {
-            "en": "Polling"
+            "en": "Polling",
+            "de": "Abfrage",
+            "es": "Consulta",
+            "it": "Polling"
           },
           "children": [
             {
               "id": "pollInterval",
               "type": "number",
               "label": {
-                "en": "Polling interval (s)"
+                "en": "Polling interval (s)",
+                "de": "Abfrageintervall (s)",
+                "es": "Intervalo de consulta (s)",
+                "it": "Intervallo di polling (s)"
               },
               "hint": {
-                "en": "Active Homey polling interval. Keep this distinct from passive Zigbee reporting during diagnostics."
+                "en": "Active Homey polling interval. Keep this distinct from passive Zigbee reporting during diagnostics.",
+                "de": "Aktives Homey-Abfrageintervall. Trenne dies während der Diagnose von passiven Zigbee-Meldungen.",
+                "es": "Intervalo de consulta activa de Homey. Mantenlo distinto del informe pasivo de Zigbee durante el diagnóstico.",
+                "it": "Intervallo di polling attivo di Homey. Tienilo distinto dal reporting Zigbee passivo durante la diagnostica."
               },
               "value": 600,
               "min": 600,
@@ -8295,14 +9185,20 @@
         {
           "type": "group",
           "label": {
-            "en": "Energy measurement"
+            "en": "Energy measurement",
+            "de": "Energiemessung",
+            "es": "Medición de energía",
+            "it": "Misurazione dell'energia"
           },
           "children": [
             {
               "id": "powerFactor",
               "type": "number",
               "label": {
-                "en": "Power correction factor"
+                "en": "Power correction factor",
+                "de": "Leistungskorrekturfaktor",
+                "es": "Factor de corrección de potencia",
+                "it": "Fattore di correzione della potenza"
               },
               "value": 1,
               "min": 0.1,
@@ -8313,7 +9209,10 @@
               "id": "energyFactor",
               "type": "number",
               "label": {
-                "en": "Energy correction factor"
+                "en": "Energy correction factor",
+                "de": "Energiekorrekturfaktor",
+                "es": "Factor de corrección de energía",
+                "it": "Fattore di correzione dell'energia"
               },
               "value": 1,
               "min": 0.1,
@@ -8324,10 +9223,16 @@
               "id": "calcPower",
               "type": "checkbox",
               "label": {
-                "en": "Calculate power from V × A"
+                "en": "Calculate power from V × A",
+                "de": "Leistung aus V × A berechnen",
+                "es": "Calcular potencia a partir de V × A",
+                "it": "Calcola la potenza da V × A"
               },
               "hint": {
-                "en": "Disabled for this model because it reports active power directly while current may remain zero."
+                "en": "Disabled for this model because it reports active power directly while current may remain zero.",
+                "de": "Für dieses Modell deaktiviert, da es die Wirkleistung direkt meldet, während der Strom bei null bleiben kann.",
+                "es": "Desactivado para este modelo porque informa la potencia activa directamente mientras la corriente puede permanecer en cero.",
+                "it": "Disabilitato per questo modello perché riporta direttamente la potenza attiva mentre la corrente può rimanere a zero."
               },
               "value": false
             }
@@ -9178,7 +10083,10 @@
       },
       "id": "switch_2_ch",
       "name": {
-        "en": "2CH Relay Module"
+        "en": "2CH Relay Module",
+        "de": "2-fach-Relaismodul",
+        "es": "Módulo de relé de 2 canales",
+        "it": "Modulo relè a 2 canali"
       },
       "class": "socket",
       "capabilities": [
@@ -9196,10 +10104,16 @@
           "id": "device_siblings_info",
           "type": "label",
           "label": {
-            "en": "Connected relays"
+            "en": "Connected relays",
+            "de": "Verbundene Relais",
+            "es": "Relés conectados",
+            "it": "Relè collegati"
           },
           "hint": {
-            "en": "Other relay channels sharing this physical module."
+            "en": "Other relay channels sharing this physical module.",
+            "de": "Andere Relaiskanäle, die dieses physische Modul teilen.",
+            "es": "Otros canales de relé que comparten este módulo físico.",
+            "it": "Altri canali relè che condividono questo modulo fisico."
           },
           "value": "-"
         },
@@ -9222,7 +10136,10 @@
                 "it": "Comportamento predefinito"
               },
               "hint": {
-                "en": "Applies to both relay channels."
+                "en": "Applies to both relay channels.",
+                "de": "Gilt für beide Relaiskanäle.",
+                "es": "Se aplica a ambos los canales de relé.",
+                "it": "Si applica a entrambi i canali relè."
               },
               "value": "lastState",
               "values": [
@@ -9271,14 +10188,20 @@
         {
           "type": "group",
           "label": {
-            "en": "Power-On Relay 1"
+            "en": "Power-On Relay 1",
+            "de": "Einschalten Relais 1",
+            "es": "Encendido relé 1",
+            "it": "Accensione relè 1"
           },
           "children": [
             {
               "id": "power_on_behavior_gang1",
               "type": "dropdown",
               "label": {
-                "en": "Relay 1 override"
+                "en": "Relay 1 override",
+                "de": "Relais 1 überschreiben",
+                "es": "Sobrescribir relé 1",
+                "it": "Sovrascrivi relè 1"
               },
               "value": "lastState",
               "values": [
@@ -9315,7 +10238,10 @@
               "id": "power_on_current_gang1",
               "type": "label",
               "label": {
-                "en": "Current (Relay 1)"
+                "en": "Current (Relay 1)",
+                "de": "Aktuell (Relais 1)",
+                "es": "Actual (relé 1)",
+                "it": "Attuale (relè 1)"
               },
               "value": "-"
             }
@@ -9325,10 +10251,16 @@
           "id": "power_on_current_gang2",
           "type": "label",
           "label": {
-            "en": "Current (Relay 2)"
+            "en": "Current (Relay 2)",
+            "de": "Aktuell (Relais 2)",
+            "es": "Actual (relé 2)",
+            "it": "Attuale (relè 2)"
           },
           "hint": {
-            "en": "Change from the Relay 2 tile settings."
+            "en": "Change from the Relay 2 tile settings.",
+            "de": "Änderung über die Kachel-Einstellungen von Relais 2.",
+            "es": "Cámbialo desde los ajustes de la baldosa de relé 2.",
+            "it": "Modifica dalle impostazioni del riquadro del relè 2."
           },
           "value": "-"
         },
@@ -9348,11 +10280,14 @@
               "label": {
                 "en": "Inching (auto-off)",
                 "de": "Inching (Auto-Aus)",
-                "es": "Inching (apagado auto)",
-                "it": "Inching (spegnimento auto)"
+                "es": "Inching (apagado automático)",
+                "it": "Inching (spegnimento automatico)"
               },
               "hint": {
-                "en": "Use only with a momentary push button that returns to its resting position."
+                "en": "Use only with a momentary push button that returns to its resting position.",
+                "de": "Nur mit einem Taster verwenden, der in die Ruheposition zurückkehrt.",
+                "es": "Usar solo con un pulsador momentáneo que vuelva a su posición de reposo.",
+                "it": "Usa solo con un pulsante momentaneo che ritorna alla posizione di riposo."
               }
             },
             {
@@ -9365,11 +10300,14 @@
               "label": {
                 "en": "Inching delay",
                 "de": "Inching-Verzögerung",
-                "es": "Retardo inching",
+                "es": "Retardo de inching",
                 "it": "Ritardo inching"
               },
               "hint": {
-                "en": "0–3600 seconds."
+                "en": "0–3600 seconds.",
+                "de": "0-3600 Sekunden.",
+                "es": "0-3600 segundos.",
+                "it": "0-3600 secondi."
               }
             }
           ]
@@ -9421,7 +10359,10 @@
         "learnmode": {
           "image": "/drivers/switch_2_ch/assets/icon.svg",
           "instruction": {
-            "en": "Hold the setup button for 10 seconds, or power-cycle the module five times, until its indicator blinks. Two tiles will be created."
+            "en": "Hold the setup button for 10 seconds, or power-cycle the module five times, until its indicator blinks. Two tiles will be created.",
+            "de": "Halte die Setup-Taste 10 Sekunden lang gedrückt oder schalte das Modul fünfmal aus und ein, bis die Anzeige blinkt. Es werden zwei Kacheln erstellt.",
+            "es": "Mantén pulsado el botón de configuración durante 10 segundos, o reinicia el módulo cinco veces, hasta que el indicador parpadee. Se crearán dos tarjetas.",
+            "it": "Tieni premuto il pulsante di configurazione per 10 secondi, oppure spegni e riaccendi il modulo cinque volte, finché l'indicatore non lampeggia. Verranno create due tile."
           }
         },
         "devices": {
@@ -9431,7 +10372,10 @@
               "onoff"
             ],
             "name": {
-              "en": "2CH Relay Module - Relay 2"
+              "en": "2CH Relay Module - Relay 2",
+              "de": "2-fach-Relaismodul - Relais 2",
+              "es": "Módulo de relé de 2 canales - Relé 2",
+              "it": "Modulo relè a 2 canali - Relè 2"
             },
             "energy": {
               "approximation": {
@@ -9444,21 +10388,30 @@
                 "id": "device_siblings_info",
                 "type": "label",
                 "label": {
-                  "en": "Connected relays"
+                  "en": "Connected relays",
+                  "de": "Verbundene Relais",
+                  "es": "Relés conectados",
+                  "it": "Relè collegati"
                 },
                 "value": "-"
               },
               {
                 "type": "group",
                 "label": {
-                  "en": "Power-On Relay 2"
+                  "en": "Power-On Relay 2",
+                  "de": "Einschalten Relais 2",
+                  "es": "Encendido relé 2",
+                  "it": "Accensione relè 2"
                 },
                 "children": [
                   {
                     "id": "power_on_behavior_gang2",
                     "type": "dropdown",
                     "label": {
-                      "en": "Relay 2 override"
+                      "en": "Relay 2 override",
+                      "de": "Relais 2 überschreiben",
+                      "es": "Sobrescribir relé 2",
+                      "it": "Sovrascrivi relè 2"
                     },
                     "value": "lastState",
                     "values": [
@@ -9495,7 +10448,10 @@
                     "id": "power_on_current_gang2",
                     "type": "label",
                     "label": {
-                      "en": "Current (Relay 2)"
+                      "en": "Current (Relay 2)",
+                      "de": "Aktuell (Relais 2)",
+                      "es": "Actual (relé 2)",
+                      "it": "Attuale (relè 2)"
                     },
                     "value": "-"
                   }
@@ -9521,7 +10477,10 @@
                       "it": "Inching (spegnimento auto)"
                     },
                     "hint": {
-                      "en": "Use only with a momentary push button that returns to its resting position."
+                      "en": "Use only with a momentary push button that returns to its resting position.",
+                      "de": "Nur mit einem Taster verwenden, der in die Ruheposition zurückkehrt.",
+                      "es": "Usar solo con un pulsador momentáneo que vuelva a su posición de reposo.",
+                      "it": "Usa solo con un pulsante momentaneo che ritorna alla posizione di riposo."
                     }
                   },
                   {
@@ -9534,7 +10493,7 @@
                     "label": {
                       "en": "Inching delay",
                       "de": "Inching-Verzögerung",
-                      "es": "Retardo inching",
+                      "es": "Retardo de inching",
                       "it": "Ritardo inching"
                     }
                   }
@@ -9559,7 +10518,10 @@
       },
       "id": "switch_3_ch",
       "name": {
-        "en": "3CH Relay Module"
+        "en": "3CH Relay Module",
+        "de": "3-fach-Relaismodul",
+        "es": "Módulo de relé de 3 canales",
+        "it": "Modulo relè a 3 canali"
       },
       "class": "socket",
       "capabilities": [
@@ -9577,10 +10539,16 @@
           "id": "device_siblings_info",
           "type": "label",
           "label": {
-            "en": "Connected relays"
+            "en": "Connected relays",
+            "de": "Verbundene Relais",
+            "es": "Relés conectados",
+            "it": "Relè collegati"
           },
           "hint": {
-            "en": "Other relay channels sharing this physical module."
+            "en": "Other relay channels sharing this physical module.",
+            "de": "Andere Relaiskanäle, die dieses physische Modul teilen.",
+            "es": "Otros canales de relé que comparten este módulo físico.",
+            "it": "Altri canali relè che condividono questo modulo fisico."
           },
           "value": "-"
         },
@@ -9603,7 +10571,10 @@
                 "it": "Comportamento predefinito"
               },
               "hint": {
-                "en": "Applies to all three relay channels."
+                "en": "Applies to all three relay channels.",
+                "de": "Gilt für alle drei Relaiskanäle.",
+                "es": "Se aplica a los tres canales de relé.",
+                "it": "Si applica a tutti e tre i canali relè."
               },
               "value": "lastState",
               "values": [
@@ -9652,14 +10623,20 @@
         {
           "type": "group",
           "label": {
-            "en": "Power-On Relay 1"
+            "en": "Power-On Relay 1",
+            "de": "Einschalten Relais 1",
+            "es": "Encendido relé 1",
+            "it": "Accensione relè 1"
           },
           "children": [
             {
               "id": "power_on_behavior_gang1",
               "type": "dropdown",
               "label": {
-                "en": "Relay 1 override"
+                "en": "Relay 1 override",
+                "de": "Relais 1 überschreiben",
+                "es": "Sobrescribir relé 1",
+                "it": "Sovrascrivi relè 1"
               },
               "value": "lastState",
               "values": [
@@ -9696,7 +10673,10 @@
               "id": "power_on_current_gang1",
               "type": "label",
               "label": {
-                "en": "Current (Relay 1)"
+                "en": "Current (Relay 1)",
+                "de": "Aktuell (Relais 1)",
+                "es": "Actual (relé 1)",
+                "it": "Attuale (relè 1)"
               },
               "value": "-"
             }
@@ -9706,10 +10686,16 @@
           "id": "power_on_current_gang2",
           "type": "label",
           "label": {
-            "en": "Current (Relay 2)"
+            "en": "Current (Relay 2)",
+            "de": "Aktuell (Relais 2)",
+            "es": "Actual (relé 2)",
+            "it": "Attuale (relè 2)"
           },
           "hint": {
-            "en": "Change from the Relay 2 tile settings."
+            "en": "Change from the Relay 2 tile settings.",
+            "de": "Änderung über die Kachel-Einstellungen von Relais 2.",
+            "es": "Cámbialo desde los ajustes de la baldosa de relé 2.",
+            "it": "Modifica dalle impostazioni del riquadro del relè 2."
           },
           "value": "-"
         },
@@ -9717,10 +10703,16 @@
           "id": "power_on_current_gang3",
           "type": "label",
           "label": {
-            "en": "Current (Relay 3)"
+            "en": "Current (Relay 3)",
+            "de": "Aktuell (Relais 3)",
+            "es": "Actual (relé 3)",
+            "it": "Attuale (relè 3)"
           },
           "hint": {
-            "en": "Change from the Relay 3 tile settings."
+            "en": "Change from the Relay 3 tile settings.",
+            "de": "Änderung über die Kachel-Einstellungen von Relais 3.",
+            "es": "Cámbialo desde los ajustes de la baldosa de relé 3.",
+            "it": "Modifica dalle impostazioni del riquadro del relè 3."
           },
           "value": "-"
         },
@@ -9740,11 +10732,14 @@
               "label": {
                 "en": "Inching (auto-off)",
                 "de": "Inching (Auto-Aus)",
-                "es": "Inching (apagado auto)",
-                "it": "Inching (spegnimento auto)"
+                "es": "Inching (apagado automático)",
+                "it": "Inching (spegnimento automatico)"
               },
               "hint": {
-                "en": "Use only with a momentary push button that returns to its resting position."
+                "en": "Use only with a momentary push button that returns to its resting position.",
+                "de": "Nur mit einem Taster verwenden, der in die Ruheposition zurückkehrt.",
+                "es": "Usar solo con un pulsador momentáneo que vuelva a su posición de reposo.",
+                "it": "Usa solo con un pulsante momentaneo che ritorna alla posizione di riposo."
               }
             },
             {
@@ -9761,7 +10756,10 @@
                 "it": "Ritardo inching"
               },
               "hint": {
-                "en": "0–3600 seconds."
+                "en": "0–3600 seconds.",
+                "de": "0-3600 Sekunden.",
+                "es": "0-3600 segundos.",
+                "it": "0-3600 secondi."
               }
             }
           ]
@@ -9817,7 +10815,10 @@
         "learnmode": {
           "image": "/drivers/switch_3_ch/assets/icon.svg",
           "instruction": {
-            "en": "Hold the setup button for 10 seconds, or power-cycle the module five times, until its indicator blinks. Three tiles will be created."
+            "en": "Hold the setup button for 10 seconds, or power-cycle the module five times, until its indicator blinks. Three tiles will be created.",
+            "de": "Halte die Setup-Taste 10 Sekunden lang gedrückt oder schalte das Modul fünfmal aus und ein, bis die Anzeige blinkt. Es werden drei Kacheln erstellt.",
+            "es": "Mantén pulsado el botón de configuración durante 10 segundos, o reinicia el módulo cinco veces, hasta que el indicador parpadee. Se crearán tres tarjetas.",
+            "it": "Tieni premuto il pulsante di configurazione per 10 secondi, oppure spegni e riaccendi il modulo cinque volte, finché l'indicatore non lampeggia. Verranno create tre tile."
           }
         },
         "devices": {
@@ -9827,7 +10828,10 @@
               "onoff"
             ],
             "name": {
-              "en": "3CH Relay Module - Relay 2"
+              "en": "3CH Relay Module - Relay 2",
+              "de": "3-fach-Relaismodul - Relais 2",
+              "es": "Módulo de relé de 3 canales - Relé 2",
+              "it": "Modulo relè a 3 canali - Relè 2"
             },
             "energy": {
               "approximation": {
@@ -9840,21 +10844,30 @@
                 "id": "device_siblings_info",
                 "type": "label",
                 "label": {
-                  "en": "Connected relays"
+                  "en": "Connected relays",
+                  "de": "Verbundene Relais",
+                  "es": "Relés conectados",
+                  "it": "Relè collegati"
                 },
                 "value": "-"
               },
               {
                 "type": "group",
                 "label": {
-                  "en": "Power-On Relay 2"
+                  "en": "Power-On Relay 2",
+                  "de": "Einschalten Relais 2",
+                  "es": "Encendido relé 2",
+                  "it": "Accensione relè 2"
                 },
                 "children": [
                   {
                     "id": "power_on_behavior_gang2",
                     "type": "dropdown",
                     "label": {
-                      "en": "Relay 2 override"
+                      "en": "Relay 2 override",
+                      "de": "Relais 2 überschreiben",
+                      "es": "Sobrescribir relé 2",
+                      "it": "Sovrascrivi relè 2"
                     },
                     "value": "lastState",
                     "values": [
@@ -9891,7 +10904,10 @@
                     "id": "power_on_current_gang2",
                     "type": "label",
                     "label": {
-                      "en": "Current (Relay 2)"
+                      "en": "Current (Relay 2)",
+                      "de": "Aktuell (Relais 2)",
+                      "es": "Actual (relé 2)",
+                      "it": "Attuale (relè 2)"
                     },
                     "value": "-"
                   }
@@ -9917,7 +10933,10 @@
                       "it": "Inching (spegnimento auto)"
                     },
                     "hint": {
-                      "en": "Use only with a momentary push button that returns to its resting position."
+                      "en": "Use only with a momentary push button that returns to its resting position.",
+                      "de": "Nur mit einem Taster verwenden, der in die Ruheposition zurückkehrt.",
+                      "es": "Usar solo con un pulsador momentáneo que vuelva a su posición de reposo.",
+                      "it": "Usa solo con un pulsante momentaneo che ritorna alla posizione di riposo."
                     }
                   },
                   {
@@ -9930,8 +10949,14 @@
                     "label": {
                       "en": "Inching delay",
                       "de": "Inching-Verzögerung",
-                      "es": "Retardo inching",
+                      "es": "Retardo de inching",
                       "it": "Ritardo inching"
+                    },
+                    "hint": {
+                      "en": "0–3600 seconds.",
+                      "de": "0-3600 Sekunden.",
+                      "es": "0-3600 segundos.",
+                      "it": "0-3600 secondi."
                     }
                   }
                 ]
@@ -9944,7 +10969,10 @@
               "onoff"
             ],
             "name": {
-              "en": "3CH Relay Module - Relay 3"
+              "en": "3CH Relay Module - Relay 3",
+              "de": "3-fach-Relaismodul - Relais 3",
+              "es": "Módulo de relé de 3 canales - Relé 3",
+              "it": "Modulo relè a 3 canali - Relè 3"
             },
             "energy": {
               "approximation": {
@@ -9957,21 +10985,30 @@
                 "id": "device_siblings_info",
                 "type": "label",
                 "label": {
-                  "en": "Connected relays"
+                  "en": "Connected relays",
+                  "de": "Verbundene Relais",
+                  "es": "Relés conectados",
+                  "it": "Relè collegati"
                 },
                 "value": "-"
               },
               {
                 "type": "group",
                 "label": {
-                  "en": "Power-On Relay 3"
+                  "en": "Power-On Relay 3",
+                  "de": "Einschalten Relais 3",
+                  "es": "Encendido relé 3",
+                  "it": "Accensione relè 3"
                 },
                 "children": [
                   {
                     "id": "power_on_behavior_gang3",
                     "type": "dropdown",
                     "label": {
-                      "en": "Relay 3 override"
+                      "en": "Relay 3 override",
+                      "de": "Relais 3 überschreiben",
+                      "es": "Sobrescribir relé 3",
+                      "it": "Sovrascrivi relè 3"
                     },
                     "value": "lastState",
                     "values": [
@@ -10008,7 +11045,10 @@
                     "id": "power_on_current_gang3",
                     "type": "label",
                     "label": {
-                      "en": "Current (Relay 3)"
+                      "en": "Current (Relay 3)",
+                      "de": "Aktuell (Relais 3)",
+                      "es": "Actual (relé 3)",
+                      "it": "Attuale (relè 3)"
                     },
                     "value": "-"
                   }
@@ -10034,7 +11074,10 @@
                       "it": "Inching (spegnimento auto)"
                     },
                     "hint": {
-                      "en": "Use only with a momentary push button that returns to its resting position."
+                      "en": "Use only with a momentary push button that returns to its resting position.",
+                      "de": "Nur mit einem Taster verwenden, der in die Ruheposition zurückkehrt.",
+                      "es": "Usar solo con un pulsador momentáneo que vuelva a su posición de reposo.",
+                      "it": "Usa solo con un pulsante momentaneo che ritorna alla posizione di riposo."
                     }
                   },
                   {
@@ -10047,8 +11090,14 @@
                     "label": {
                       "en": "Inching delay",
                       "de": "Inching-Verzögerung",
-                      "es": "Retardo inching",
+                      "es": "Retardo de inching",
                       "it": "Ritardo inching"
+                    },
+                    "hint": {
+                      "en": "0–3600 seconds.",
+                      "de": "0-3600 Sekunden.",
+                      "es": "0-3600 segundos.",
+                      "it": "0-3600 secondi."
                     }
                   }
                 ]
@@ -10166,7 +11215,10 @@
     },
     {
       "name": {
-        "en": "Ultrasonic Liquid Level Sensor"
+        "en": "Ultrasonic Liquid Level Sensor",
+        "de": "Ultraschall-Flüssigkeitsfüllstandssensor",
+        "es": "Sensor ultrasónico de nivel de líquido",
+        "it": "Sensore a ultrasuoni del livello del liquido"
       },
       "class": "sensor",
       "platforms": [
@@ -10205,7 +11257,10 @@
         "learnmode": {
           "image": "/drivers/water_tank_monitor/assets/icon.svg",
           "instruction": {
-            "en": "Press and hold the pairing button until the indicator starts blinking."
+            "en": "Press and hold the pairing button until the indicator starts blinking.",
+            "de": "Halte die Pairing-Taste gedrückt, bis die Anzeige zu blinken beginnt.",
+            "es": "Mantén pulsado el botón de emparejamiento hasta que el indicador empiece a parpadear.",
+            "it": "Tieni premuto il pulsante di associazione finché l'indicatore non inizia a lampeggiare."
           }
         }
       },
@@ -10213,17 +11268,26 @@
         {
           "type": "group",
           "label": {
-            "en": "Tank configuration"
+            "en": "Tank configuration",
+            "de": "Tankkonfiguration",
+            "es": "Configuración del depósito",
+            "it": "Configurazione del serbatoio"
           },
           "children": [
             {
               "id": "upper_limit",
               "type": "number",
               "label": {
-                "en": "High level alert"
+                "en": "High level alert",
+                "de": "Warnung bei hohem Füllstand",
+                "es": "Alerta de nivel alto",
+                "it": "Avviso livello alto"
               },
               "hint": {
-                "en": "The device reports a high-level state above this percentage (DP7)."
+                "en": "The device reports a high-level state above this percentage (DP7).",
+                "de": "Das Gerät meldet einen Hochfüllstand oberhalb dieses Prozentsatzes (DP7).",
+                "es": "El dispositivo informa de un estado de nivel alto por encima de este porcentaje (DP7).",
+                "it": "Il dispositivo segnala uno stato di livello alto oltre questa percentuale (DP7)."
               },
               "value": 75,
               "min": 0,
@@ -10235,10 +11299,16 @@
               "id": "lower_limit",
               "type": "number",
               "label": {
-                "en": "Low level alert"
+                "en": "Low level alert",
+                "de": "Warnung bei niedrigem Füllstand",
+                "es": "Alerta de nivel bajo",
+                "it": "Avviso livello basso"
               },
               "hint": {
-                "en": "The device reports a low-level state below this percentage (DP8)."
+                "en": "The device reports a low-level state below this percentage (DP8).",
+                "de": "Das Gerät meldet einen Niedrigfüllstand unterhalb dieses Prozentsatzes (DP8).",
+                "es": "El dispositivo informa de un estado de nivel bajo por debajo de este porcentaje (DP8).",
+                "it": "Il dispositivo segnala uno stato di livello basso al di sotto di questa percentuale (DP8)."
               },
               "value": 25,
               "min": 0,
@@ -10250,10 +11320,16 @@
               "id": "installation_height",
               "type": "number",
               "label": {
-                "en": "Sensor to tank bottom"
+                "en": "Sensor to tank bottom",
+                "de": "Sensor bis Tankboden",
+                "es": "Sensor al fondo del depósito",
+                "it": "Sensore al fondo del serbatoio"
               },
               "hint": {
-                "en": "Vertical distance from the sensor face to the tank bottom (DP19)."
+                "en": "Vertical distance from the sensor face to the tank bottom (DP19).",
+                "de": "Vertikaler Abstand von der Sensorfläche bis zum Tankboden (DP19).",
+                "es": "Distancia vertical desde la cara del sensor hasta el fondo del depósito (DP19).",
+                "it": "Distanza verticale dalla faccia del sensore al fondo del serbatoio (DP19)."
               },
               "value": 2000,
               "min": 10,
@@ -10265,10 +11341,16 @@
               "id": "full_level_distance",
               "type": "number",
               "label": {
-                "en": "Sensor to full level"
+                "en": "Sensor to full level",
+                "de": "Sensor bis Vollfüllstand",
+                "es": "Sensor al nivel lleno",
+                "it": "Sensore al livello pieno"
               },
               "hint": {
-                "en": "Distance from the sensor face to the liquid surface when the tank is considered full (DP21)."
+                "en": "Distance from the sensor face to the liquid surface when the tank is considered full (DP21).",
+                "de": "Abstand von der Sensorfläche bis zur Flüssigkeitsoberfläche, wenn der Tank als voll gilt (DP21).",
+                "es": "Distancia desde la cara del sensor hasta la superficie del líquido cuando el depósito se considera lleno (DP21).",
+                "it": "Distanza dalla faccia del sensore alla superficie del liquido quando il serbatoio è considerato pieno (DP21)."
               },
               "value": 100,
               "min": 10,
@@ -10281,17 +11363,26 @@
         {
           "type": "group",
           "label": {
-            "en": "Event filtering"
+            "en": "Event filtering",
+            "de": "Ereignisfilterung",
+            "es": "Filtrado de eventos",
+            "it": "Filtro eventi"
           },
           "children": [
             {
               "id": "level_change_threshold",
               "type": "number",
               "label": {
-                "en": "Minimum level change"
+                "en": "Minimum level change",
+                "de": "Minimale Füllstandsänderung",
+                "es": "Cambio mínimo de nivel",
+                "it": "Variazione minima di livello"
               },
               "hint": {
-                "en": "Only update Homey when the fill level changes by at least this many percentage points. This does not change Zigbee reporting."
+                "en": "Only update Homey when the fill level changes by at least this many percentage points. This does not change Zigbee reporting.",
+                "de": "Homey nur aktualisieren, wenn sich der Füllstand um mindestens so viele Prozentpunkte ändert. Das ändert die Zigbee-Berichte nicht.",
+                "es": "Solo actualiza Homey cuando el nivel de llenado cambie al menos esta cantidad de puntos porcentuales. Esto no cambia el informe Zigbee.",
+                "it": "Aggiorna Homey solo quando il livello di riempimento cambia di almeno tanti punti percentuali. Questo non modifica il reporting Zigbee."
               },
               "value": 0,
               "min": 0,
@@ -10303,10 +11394,16 @@
               "id": "depth_change_threshold",
               "type": "number",
               "label": {
-                "en": "Minimum depth change"
+                "en": "Minimum depth change",
+                "de": "Minimale Tiefenänderung",
+                "es": "Cambio mínimo de profundidad",
+                "it": "Variazione minima di profondità"
               },
               "hint": {
-                "en": "Only update Homey when the measured liquid depth changes by at least this value."
+                "en": "Only update Homey when the measured liquid depth changes by at least this value.",
+                "de": "Homey nur aktualisieren, wenn sich die gemessene Flüssigkeitstiefe um mindestens diesen Wert ändert.",
+                "es": "Solo actualiza Homey cuando la profundidad medida del líquido cambie al menos este valor.",
+                "it": "Aggiorna Homey solo quando la profondità del liquido misurata cambia almeno di questo valore."
               },
               "value": 0,
               "min": 0,
@@ -10319,10 +11416,16 @@
               "id": "minimum_update_interval",
               "type": "number",
               "label": {
-                "en": "Minimum update interval"
+                "en": "Minimum update interval",
+                "de": "Mindestaktualisierungsintervall",
+                "es": "Intervalo mínimo de actualización",
+                "it": "Intervallo minimo di aggiornamento"
               },
               "hint": {
-                "en": "Minimum time between Homey updates for level and depth."
+                "en": "Minimum time between Homey updates for level and depth.",
+                "de": "Mindestzeit zwischen Homey-Aktualisierungen für Füllstand und Tiefe.",
+                "es": "Tiempo mínimo entre actualizaciones de Homey para nivel y profundidad.",
+                "it": "Tempo minimo tra gli aggiornamenti Homey per livello e profondità."
               },
               "value": 0,
               "min": 0,
@@ -10334,10 +11437,16 @@
               "id": "debug_logging",
               "type": "checkbox",
               "label": {
-                "en": "Log every Tuya report"
+                "en": "Log every Tuya report",
+                "de": "Jeden Tuya-Bericht protokollieren",
+                "es": "Registrar cada informe de Tuya",
+                "it": "Registra ogni report Tuya"
               },
               "hint": {
-                "en": "Diagnostic option. Leave disabled to avoid filling the app log with duplicate reports."
+                "en": "Diagnostic option. Leave disabled to avoid filling the app log with duplicate reports.",
+                "de": "Diagnoseoption. Deaktiviert lassen, um das App-Protokoll nicht mit doppelten Berichten zu füllen.",
+                "es": "Opción de diagnóstico. Déjalo desactivado para evitar llenar el registro de la app con informes duplicados.",
+                "it": "Opzione diagnostica. Lascia disabilitato per evitare di riempire il registro dell'app con report duplicati."
               },
               "value": false
             }
@@ -10349,7 +11458,10 @@
     {
       "id": "wireless_switch_remote_2_gang",
       "name": {
-        "en": "2 Gang Wireless Remote"
+        "en": "2 Gang Wireless Remote",
+        "de": "2-fach-Wireless-Fernbedienung",
+        "es": "Mando inalámbrico de 2 botones",
+        "it": "Telecomando wireless a 2 tasti"
       },
       "class": "remote",
       "platforms": [
@@ -10402,7 +11514,10 @@
         "learnmode": {
           "image": "/drivers/wireless_switch_remote_2_gang/assets/icon.svg",
           "instruction": {
-            "en": "Press either button for ~10 seconds until the LED starts blinking."
+            "en": "Press either button for ~10 seconds until the LED starts blinking.",
+            "de": "Drücke eine der beiden Tasten etwa 10 Sekunden lang, bis die LED zu blinken beginnt.",
+            "es": "Pulsa cualquiera de los botones durante unos 10 segundos hasta que el LED empiece a parpadear.",
+            "it": "Premi uno dei due pulsanti per circa 10 secondi finché il LED non inizia a lampeggiare."
           }
         }
       },
@@ -10464,7 +11579,10 @@
     "alarm_water_high": {
       "type": "boolean",
       "title": {
-        "en": "High Liquid Level"
+        "en": "High Liquid Level",
+        "de": "Hoher Flüssigkeitsstand",
+        "es": "Nivel alto de líquido",
+        "it": "Livello alto del liquido"
       },
       "getable": true,
       "setable": false,
@@ -10474,7 +11592,10 @@
     "alarm_water_low": {
       "type": "boolean",
       "title": {
-        "en": "Low Liquid Level"
+        "en": "Low Liquid Level",
+        "de": "Niedriger Flüssigkeitsstand",
+        "es": "Nivel bajo de líquido",
+        "it": "Livello basso del liquido"
       },
       "getable": true,
       "setable": false,
@@ -10503,10 +11624,16 @@
     "measure_water_level": {
       "type": "number",
       "title": {
-        "en": "Liquid Depth"
+        "en": "Liquid Depth",
+        "de": "Flüssigkeitstiefe",
+        "es": "Profundidad del líquido",
+        "it": "Profondità del liquido"
       },
       "units": {
-        "en": "cm"
+        "en": "cm",
+        "de": "cm",
+        "es": "cm",
+        "it": "cm"
       },
       "getable": true,
       "setable": false,
@@ -10520,7 +11647,10 @@
     "measure_water_percentage": {
       "type": "number",
       "title": {
-        "en": "Fill Level"
+        "en": "Fill Level",
+        "de": "Füllstand",
+        "es": "Nivel de llenado",
+        "it": "Livello di riempimento"
       },
       "units": {
         "en": "%",
@@ -10540,10 +11670,16 @@
     "presence_keep_time": {
       "type": "number",
       "title": {
-        "en": "Presence time"
+        "en": "Presence time",
+        "de": "Präsenzzeit",
+        "es": "Tiempo de presencia",
+        "it": "Tempo di presenza"
       },
       "units": {
-        "en": "min"
+        "en": "min",
+        "de": "min",
+        "es": "min",
+        "it": "min"
       },
       "getable": true,
       "setable": false,
