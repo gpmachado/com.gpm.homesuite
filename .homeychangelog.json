@@ -40,5 +40,8 @@
   },
   "1.0.13": {
     "en": "### Added\n- Support for a second Tuya Door & Window Sensor model.\n\n### Improved\n- Faster time synchronization and network rejoin for the Tuya temperature, humidity and clock sensor.\n- IAS enrollment and status handling for Door & Window Sensors and the Sonoff SNZB-03 motion sensor.\n- Battery handling for sleeping sensors, avoiding unnecessary communication while devices are asleep.\n- Smart plug power monitoring, availability detection and recovery after temporary disconnection.\n- Restoration of configured indicator and backlight settings after a power outage.\n\n### Fixed\n- Intermittent pairing, delayed initial readings and false offline states on supported Zigbee sensors."
+  },
+  "1.0.15": {
+    "en": "Added support for Linptech (Moes), Aqara FP1, and US water level devices. Improved translations and added per-device message statistics for the last 1 hour and 24 hours."
   }
 }
