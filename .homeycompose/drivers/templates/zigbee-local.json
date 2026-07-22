@@ -1,6 +1,10 @@
 {
-  "platforms": ["local"],
-  "connectivity": ["zigbee"],
+  "platforms": [
+    "local"
+  ],
+  "connectivity": [
+    "zigbee"
+  ],
   "images": {
     "xlarge": "{{driverAssetsPath}}/images/xlarge.png",
     "large": "{{driverAssetsPath}}/images/large.png",

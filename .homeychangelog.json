@@ -43,5 +43,8 @@
   },
   "1.0.15": {
     "en": "Added support for Linptech (Moes), Aqara FP1, and US water level devices. Improved translations and added per-device message statistics for the last 1 hour and 24 hours."
+  },
+  "1.0.16": {
+    "en": "add NovaDigital 4 Gang (ZCL)"
   }
 }
