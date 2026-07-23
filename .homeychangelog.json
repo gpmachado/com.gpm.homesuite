@@ -1,7 +1,4 @@
 {
-  "1.0.14": {
-    "en": "### Added\n- Linptech (Moes) radar sensor support.\n- Aqara FP1 presence sensor support.\n- Water level sensor (US variant) support.\n\n### Improved\n- Added settings statistics for message counts per device in the last hour and the last 24h.\n- Translated the app UI and driver settings into German, Spanish, and Italian.\n- Added missing localization strings for shared flow cards, capabilities, and device setup text.\n- Kept the Zigbee driver structure intact while filling the remaining language gaps."
-  },
   "1.0.0": {
     "en": "First version!"
   },
@@ -41,10 +38,19 @@
   "1.0.13": {
     "en": "### Added\n- Support for a second Tuya Door & Window Sensor model.\n\n### Improved\n- Faster time synchronization and network rejoin for the Tuya temperature, humidity and clock sensor.\n- IAS enrollment and status handling for Door & Window Sensors and the Sonoff SNZB-03 motion sensor.\n- Battery handling for sleeping sensors, avoiding unnecessary communication while devices are asleep.\n- Smart plug power monitoring, availability detection and recovery after temporary disconnection.\n- Restoration of configured indicator and backlight settings after a power outage.\n\n### Fixed\n- Intermittent pairing, delayed initial readings and false offline states on supported Zigbee sensors."
   },
+  "1.0.14": {
+    "en": "### Added\n- Linptech (Moes) radar sensor support.\n- Aqara FP1 presence sensor support.\n- Water level sensor (US variant) support.\n\n### Improved\n- Added settings statistics for message counts per device in the last hour and the last 24h.\n- Translated the app UI and driver settings into German, Spanish, and Italian.\n- Added missing localization strings for shared flow cards, capabilities, and device setup text.\n- Kept the Zigbee driver structure intact while filling the remaining language gaps."
+  },
   "1.0.15": {
     "en": "Added support for Linptech (Moes), Aqara FP1, and US water level devices. Improved translations and added per-device message statistics for the last 1 hour and 24 hours."
   },
   "1.0.16": {
     "en": "add NovaDigital 4 Gang (ZCL)"
+  },
+  "1.0.17": {
+    "en": "Add support Nova Digital Switch 2 Gang Touch"
+  },
+  "1.0.18": {
+    "en":  "Added support for 4-gang and 6-gang switches with manufacturer ID variations"
   }
 }
