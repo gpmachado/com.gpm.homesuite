@@ -1,7 +1,7 @@
 {
   "_comment": "This file is generated. Please edit .homeycompose/app.json instead.",
   "id": "com.gpm.homesuite",
-  "version": "1.0.16",
+  "version": "1.0.17",
   "compatibility": ">=12.4.0",
   "sdk": 3,
   "platforms": [
@@ -1411,6 +1411,116 @@
             "type": "device",
             "name": "device",
             "filter": "driver_id=novadigital_switch_2_gang"
+          }
+        ]
+      },
+      {
+        "id": "novadigital_switch_2_gang_touch_availability_turned_on",
+        "title": {
+          "en": "Became available",
+          "de": "Wurde verfügbar",
+          "es": "Pasó a estar disponible",
+          "it": "Disponibile"
+        },
+        "hint": {
+          "en": "Fires when this device becomes available.",
+          "de": "Wird ausgelöst, wenn dieses Gerät verfügbar wird.",
+          "es": "Se activa cuando este dispositivo pasa a estar disponible.",
+          "it": "Si attiva quando questo dispositivo diventa disponibile."
+        },
+        "tokens": [
+          {
+            "name": "device_name",
+            "type": "string",
+            "title": {
+              "en": "Device name",
+              "de": "Gerätename",
+              "es": "Nombre del dispositivo",
+              "it": "Nome del dispositivo"
+            }
+          },
+          {
+            "name": "timestamp",
+            "type": "string",
+            "title": {
+              "en": "Timestamp",
+              "de": "Zeitstempel",
+              "es": "Marca de tiempo",
+              "it": "Data e ora"
+            }
+          }
+        ],
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=novadigital_switch_2gang_touch"
+          }
+        ]
+      },
+      {
+        "id": "novadigital_switch_2_gang_touch_availability_turned_off",
+        "title": {
+          "en": "Became unavailable",
+          "de": "Wurde nicht verfügbar",
+          "es": "Pasó a no estar disponible",
+          "it": "Non più disponibile"
+        },
+        "hint": {
+          "en": "Fires when this device becomes unavailable.",
+          "de": "Wird ausgelöst, wenn dieses Gerät nicht mehr verfügbar ist.",
+          "es": "Se activa cuando este dispositivo deja de estar disponible.",
+          "it": "Si attiva quando questo dispositivo non è più disponibile."
+        },
+        "tokens": [
+          {
+            "name": "device_name",
+            "type": "string",
+            "title": {
+              "en": "Device name",
+              "de": "Gerätename",
+              "es": "Nombre del dispositivo",
+              "it": "Nome del dispositivo"
+            }
+          },
+          {
+            "name": "timestamp",
+            "type": "string",
+            "title": {
+              "en": "Timestamp",
+              "de": "Zeitstempel",
+              "es": "Marca de tiempo",
+              "it": "Data e ora"
+            }
+          }
+        ],
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=novadigital_switch_2gang_touch"
+          }
+        ]
+      },
+      {
+        "id": "novadigital_switch_2_gang_touch_device_rejoined",
+        "title": {
+          "en": "Reconnected after power cut",
+          "de": "Nach Stromausfall wieder verbunden",
+          "es": "Reconectado tras un corte de energía",
+          "it": "Riconnesso dopo un'interruzione di corrente"
+        },
+        "hint": {
+          "en": "Fires when this device reconnects to the Zigbee network after a power cut.",
+          "de": "Wird ausgelöst, wenn sich dieses Gerät nach einem Stromausfall erneut mit dem Zigbee-Netzwerk verbindet.",
+          "es": "Se activa cuando este dispositivo se reconecta a la red Zigbee tras un corte de energía.",
+          "it": "Si attiva quando questo dispositivo si riconnette alla rete Zigbee dopo un'interruzione di corrente."
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=novadigital_switch_2gang_touch"
           }
         ]
       },
@@ -6410,6 +6520,596 @@
         },
         "learnmode": {
           "image": "/drivers/novadigital_switch_2_gang/assets/icon.svg",
+          "instruction": {
+            "en": "Hold the setup button 5s until LED blinks. Two tiles will be created.",
+            "es": "Mantén el botón de configuración 5 s hasta que el LED parpadee. Se crearán dos mosaicos.",
+            "it": "Tieni premuto il pulsante di configurazione per 5 s fino a quando il LED lampeggia. Verranno creati due riquadri.",
+            "de": "Halte die Setup-Taste 5 s gedrückt, bis die LED blinkt. Es werden zwei Kacheln erstellt."
+          }
+        },
+        "devices": {
+          "secondSwitch": {
+            "class": "socket",
+            "capabilities": [
+              "onoff"
+            ],
+            "name": {
+              "en": "NovaDigital 2 Gang - Switch 2",
+              "es": "NovaDigital 2 canales - Interruptor 2",
+              "it": "NovaDigital 2 canali - Interruttore 2",
+              "de": "NovaDigital 2-fach - Schalter 2"
+            },
+            "energy": {
+              "approximation": {
+                "usageOn": 0,
+                "usageOff": 0
+              }
+            },
+            "settings": [
+              {
+                "id": "device_siblings_info",
+                "type": "label",
+                "label": {
+                  "en": "Connected Switches",
+                  "es": "Interruptores conectados",
+                  "it": "Interruttori collegati",
+                  "de": "Verbundene Schalter"
+                },
+                "hint": {
+                  "en": "Other switches sharing this physical board",
+                  "es": "Otros interruptores que comparten esta placa física",
+                  "it": "Altri interruttori che condividono questa scheda fisica",
+                  "de": "Andere Schalter, die diese physische Platine teilen"
+                },
+                "value": "-"
+              },
+              {
+                "type": "group",
+                "label": {
+                  "en": "Power-On Gang 2",
+                  "es": "Encendido grupo 2",
+                  "it": "Accensione gruppo 2",
+                  "de": "Einschalten Gruppe 2"
+                },
+                "children": [
+                  {
+                    "id": "power_on_behavior_gang2",
+                    "type": "dropdown",
+                    "label": {
+                      "en": "Gang 2 Override",
+                      "es": "Anular grupo 2",
+                      "it": "Ignora gruppo 2",
+                      "de": "Gruppe 2 überschreiben"
+                    },
+                    "hint": {
+                      "en": "Overrides global for this gang only",
+                      "es": "Anula el ajuste global solo para este grupo",
+                      "it": "Ignora il globale solo per questo gruppo",
+                      "de": "Überschreibt global nur für diese Gruppe"
+                    },
+                    "value": "lastState",
+                    "values": [
+                      {
+                        "id": "off",
+                        "label": {
+                          "en": "Always Off",
+                          "es": "Siempre apagado",
+                          "it": "Sempre spento",
+                          "de": "Immer aus"
+                        }
+                      },
+                      {
+                        "id": "on",
+                        "label": {
+                          "en": "Always On",
+                          "es": "Siempre encendido",
+                          "it": "Sempre acceso",
+                          "de": "Immer ein"
+                        }
+                      },
+                      {
+                        "id": "lastState",
+                        "label": {
+                          "en": "Last State",
+                          "es": "Último estado",
+                          "it": "Ultimo stato",
+                          "de": "Letzter Zustand"
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "id": "power_on_current_gang2",
+                    "type": "label",
+                    "label": {
+                      "en": "Current (Gang 2)",
+                      "es": "Actual (grupo 2)",
+                      "it": "Attuale (gruppo 2)",
+                      "de": "Aktuell (Gruppe 2)"
+                    },
+                    "hint": {
+                      "en": "Read from device",
+                      "es": "Leído del dispositivo",
+                      "it": "Letto dal dispositivo",
+                      "de": "Vom Gerät gelesen"
+                    },
+                    "value": "-"
+                  }
+                ]
+              },
+              {
+                "type": "group",
+                "label": {
+                  "en": "Switch Mode",
+                  "es": "Modo del interruptor",
+                  "it": "Modalità interruttore",
+                  "de": "Schaltmodus"
+                },
+                "children": [
+                  {
+                    "id": "switch_mode_readonly",
+                    "type": "label",
+                    "label": {
+                      "en": "Mode",
+                      "es": "Modo",
+                      "it": "Modalità",
+                      "de": "Modus"
+                    },
+                    "hint": {
+                      "en": "Global setting -- change from Gang 1 (main tile)",
+                      "es": "Ajuste global -- cambiar desde el grupo 1 (mosaico principal)",
+                      "it": "Impostazione globale -- modifica dal gruppo 1 (riquadro principale)",
+                      "de": "Globale Einstellung -- über Gruppe 1 (Hauptkachel) ändern"
+                    },
+                    "value": "-"
+                  }
+                ]
+              },
+              {
+                "type": "group",
+                "label": {
+                  "en": "Inching",
+                  "es": "Inching",
+                  "it": "Inching",
+                  "de": "Inching"
+                },
+                "children": [
+                  {
+                    "id": "inching_enabled",
+                    "type": "checkbox",
+                    "value": false,
+                    "label": {
+                      "en": "Inching (auto-off)",
+                      "es": "Inching (apagado auto)",
+                      "it": "Inching (spegnimento auto)",
+                      "de": "Inching (Auto-Aus)"
+                    },
+                    "hint": {
+                      "en": "Each time this gang turns on, it auto-turns-off after the delay below (pulse/doorbell). Persists across power cuts.",
+                      "es": "Cada vez que se enciende, se apaga solo tras el retardo (pulso/timbre). Persiste tras cortes de energía.",
+                      "it": "Ogni volta che si accende, si spegne dopo il ritardo (impulso/campanello). Persiste dopo interruzioni.",
+                      "de": "Bei jedem Einschalten schaltet sich der Gang nach der Verzögerung automatisch aus (Impuls/Klingel). Bleibt nach Stromausfall erhalten."
+                    }
+                  },
+                  {
+                    "id": "inching_time",
+                    "type": "number",
+                    "value": 0,
+                    "min": 0,
+                    "max": 3600,
+                    "units": "s",
+                    "label": {
+                      "en": "Inching delay",
+                      "es": "Retardo inching",
+                      "it": "Ritardo inching",
+                      "de": "Inching-Verzögerung"
+                    },
+                    "hint": {
+                      "en": "0–3600 s (max 60 min). E.g. 90 = 1 min 30 s.",
+                      "es": "0–3600 s (máx. 60 min). Ej.: 90 = 1 min 30 s.",
+                      "it": "0–3600 s (max 60 min). Es.: 90 = 1 min 30 s.",
+                      "de": "0–3600 s (max. 60 Min). Z.B. 90 = 1 Min 30 s."
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "platforms": [
+        "local"
+      ],
+      "connectivity": [
+        "zigbee"
+      ],
+      "images": {
+        "xlarge": "/drivers/novadigital_switch_2gang_touch/assets/images/xlarge.png",
+        "large": "/drivers/novadigital_switch_2gang_touch/assets/images/large.png",
+        "small": "/drivers/novadigital_switch_2gang_touch/assets/images/small.png"
+      },
+      "id": "novadigital_switch_2gang_touch",
+      "name": {
+        "en": "NovaDigital Switch 2 Gang Touch",
+        "es": "Interruptor NovaDigital 2 canales Touch",
+        "it": "Interruttore NovaDigital 2 canali Touch",
+        "de": "NovaDigital Schalter 2-fach Touch"
+      },
+      "class": "socket",
+      "capabilities": [
+        "onoff",
+        "is_availability"
+      ],
+      "energy": {
+        "approximation": {
+          "usageOn": 0,
+          "usageOff": 0
+        }
+      },
+      "settings": [
+        {
+          "type": "group",
+          "label": {
+            "en": "Switch Settings",
+            "es": "Configuración del interruptor",
+            "it": "Impostazioni interruttore",
+            "de": "Schaltereinstellungen"
+          },
+          "children": [
+            {
+              "id": "device_siblings_info",
+              "type": "label",
+              "label": {
+                "en": "Connected Switches",
+                "es": "Interruptores conectados",
+                "it": "Interruttori collegati",
+                "de": "Verbundene Schalter"
+              },
+              "hint": {
+                "en": "Other switches sharing this physical board",
+                "es": "Otros interruptores que comparten esta placa física",
+                "it": "Altri interruttori che condividono questa scheda fisica",
+                "de": "Andere Schalter, die diese physische Platine teilen"
+              },
+              "value": "-"
+            },
+            {
+              "id": "backlight_enabled",
+              "type": "checkbox",
+              "label": {
+                "en": "LED Backlight",
+                "es": "Retroiluminación LED",
+                "it": "Retroilluminazione LED",
+                "de": "LED-Hintergrundbeleuchtung"
+              },
+              "hint": {
+                "en": "Status LED on physical buttons. If disabled, it will automatically stay OFF after a power failure.",
+                "es": "LED de estado en los botones físicos. Si está desactivado, permanecerá APAGADO automáticamente tras un corte de luz.",
+                "it": "LED di stato sui pulsanti fisici. Se disabilitato, rimarrà SPENTO automaticamente dopo un'interruzione di corrente.",
+                "de": "Status-LED an den physischen Tasten. Wenn deaktiviert, bleibt sie nach einem Stromausfall automatisch AUS."
+              },
+              "value": true
+            },
+            {
+              "id": "switch_mode_global",
+              "type": "dropdown",
+              "label": {
+                "en": "Switch Mode",
+                "es": "Modo del interruptor",
+                "it": "Modalità interruttore",
+                "de": "Schaltmodus"
+              },
+              "hint": {
+                "en": "Physical button behavior (global, all gangs)",
+                "es": "Comportamiento del botón físico (global, todos los grupos)",
+                "it": "Comportamento del pulsante fisico (globale, tutti i gruppi)",
+                "de": "Verhalten der physischen Taste (global, alle Gruppen)"
+              },
+              "value": "toggle",
+              "values": [
+                {
+                  "id": "toggle",
+                  "label": {
+                    "en": "Toggle (Standard)",
+                    "es": "Alternante (estándar)",
+                    "it": "Alternante (standard)",
+                    "de": "Umschalten (Standard)"
+                  }
+                },
+                {
+                  "id": "momentary",
+                  "label": {
+                    "en": "Momentary (Pulse)",
+                    "es": "Momentáneo (pulso)",
+                    "it": "Momentaneo (impulso)",
+                    "de": "Momentan (Impuls)"
+                  }
+                }
+              ]
+            },
+            {
+              "id": "switch_mode_current",
+              "type": "label",
+              "label": {
+                "en": "Current Mode",
+                "es": "Modo actual",
+                "it": "Modalità attuale",
+                "de": "Aktueller Modus"
+              },
+              "hint": {
+                "en": "Read from device",
+                "es": "Leído del dispositivo",
+                "it": "Letto dal dispositivo",
+                "de": "Vom Gerät gelesen"
+              },
+              "value": "-"
+            }
+          ]
+        },
+        {
+          "type": "group",
+          "label": {
+            "en": "Power-On Global",
+            "es": "Encendido global",
+            "it": "Accensione globale",
+            "de": "Globales Einschalten"
+          },
+          "children": [
+            {
+              "id": "power_on_behavior_global",
+              "type": "dropdown",
+              "label": {
+                "en": "Default (all gangs)",
+                "es": "Predeterminado (todos los grupos)",
+                "it": "Predefinito (tutti i gruppi)",
+                "de": "Standard (alle Gruppen)"
+              },
+              "hint": {
+                "en": "Applies to all gangs when changed. Individual gang settings below can override.",
+                "es": "Se aplica a todos los grupos al cambiar. Los ajustes individuales de cada grupo pueden anularlo.",
+                "it": "Si applica a tutti i gruppi quando viene modificato. Le impostazioni individuali dei gruppi possono ignorarlo.",
+                "de": "Gilt bei Änderung für alle Gruppen. Individuelle Gruppeneinstellungen unten können überschreiben."
+              },
+              "value": "lastState",
+              "values": [
+                {
+                  "id": "off",
+                  "label": {
+                    "en": "Always Off",
+                    "es": "Siempre apagado",
+                    "it": "Sempre spento",
+                    "de": "Immer aus"
+                  }
+                },
+                {
+                  "id": "on",
+                  "label": {
+                    "en": "Always On",
+                    "es": "Siempre encendido",
+                    "it": "Sempre acceso",
+                    "de": "Immer ein"
+                  }
+                },
+                {
+                  "id": "lastState",
+                  "label": {
+                    "en": "Last State",
+                    "es": "Último estado",
+                    "it": "Ultimo stato",
+                    "de": "Letzter Zustand"
+                  }
+                }
+              ]
+            },
+            {
+              "id": "power_on_current_global",
+              "type": "label",
+              "label": {
+                "en": "Current (Global)",
+                "es": "Actual (global)",
+                "it": "Attuale (globale)",
+                "de": "Aktuell (global)"
+              },
+              "hint": {
+                "en": "Read from device",
+                "es": "Leído del dispositivo",
+                "it": "Letto dal dispositivo",
+                "de": "Vom Gerät gelesen"
+              },
+              "value": "-"
+            }
+          ]
+        },
+        {
+          "type": "group",
+          "label": {
+            "en": "Power-On Gang 1",
+            "es": "Encendido grupo 1",
+            "it": "Accensione gruppo 1",
+            "de": "Einschalten Gruppe 1"
+          },
+          "children": [
+            {
+              "id": "power_on_behavior_gang1",
+              "type": "dropdown",
+              "label": {
+                "en": "Gang 1 Override",
+                "es": "Anular grupo 1",
+                "it": "Ignora gruppo 1",
+                "de": "Gruppe 1 überschreiben"
+              },
+              "hint": {
+                "en": "Overrides global for this gang only",
+                "es": "Anula el ajuste global solo para este grupo",
+                "it": "Ignora il globale solo per questo gruppo",
+                "de": "Überschreibt global nur für diese Gruppe"
+              },
+              "value": "lastState",
+              "values": [
+                {
+                  "id": "off",
+                  "label": {
+                    "en": "Always Off",
+                    "es": "Siempre apagado",
+                    "it": "Sempre spento",
+                    "de": "Immer aus"
+                  }
+                },
+                {
+                  "id": "on",
+                  "label": {
+                    "en": "Always On",
+                    "es": "Siempre encendido",
+                    "it": "Sempre acceso",
+                    "de": "Immer ein"
+                  }
+                },
+                {
+                  "id": "lastState",
+                  "label": {
+                    "en": "Last State",
+                    "es": "Último estado",
+                    "it": "Ultimo stato",
+                    "de": "Letzter Zustand"
+                  }
+                }
+              ]
+            },
+            {
+              "id": "power_on_current_gang1",
+              "type": "label",
+              "label": {
+                "en": "Current (Gang 1)",
+                "es": "Actual (grupo 1)",
+                "it": "Attuale (gruppo 1)",
+                "de": "Aktuell (Gruppe 1)"
+              },
+              "hint": {
+                "en": "Read from device",
+                "es": "Leído del dispositivo",
+                "it": "Letto dal dispositivo",
+                "de": "Vom Gerät gelesen"
+              },
+              "value": "-"
+            }
+          ]
+        },
+        {
+          "type": "group",
+          "label": {
+            "en": "Gang 2 (info)",
+            "es": "Grupo 2 (información)",
+            "it": "Gruppo 2 (informazioni)",
+            "de": "Gruppe 2 (Info)"
+          },
+          "children": [
+            {
+              "id": "power_on_current_gang2",
+              "type": "label",
+              "label": {
+                "en": "Current (Gang 2)",
+                "es": "Actual (grupo 2)",
+                "it": "Attuale (gruppo 2)",
+                "de": "Aktuell (Gruppe 2)"
+              },
+              "hint": {
+                "en": "Change from Gang 2 tile settings",
+                "es": "Cambiar desde los ajustes del mosaico del grupo 2",
+                "it": "Modifica dalle impostazioni del riquadro del gruppo 2",
+                "de": "Über die Einstellungen der Gruppe-2-Kachel ändern"
+              },
+              "value": "-"
+            }
+          ]
+        },
+        {
+          "type": "group",
+          "label": {
+            "en": "Inching",
+            "es": "Inching",
+            "it": "Inching",
+            "de": "Inching"
+          },
+          "children": [
+            {
+              "id": "inching_enabled",
+              "type": "checkbox",
+              "value": false,
+              "label": {
+                "en": "Inching (auto-off)",
+                "es": "Inching (apagado auto)",
+                "it": "Inching (spegnimento auto)",
+                "de": "Inching (Auto-Aus)"
+              },
+              "hint": {
+                "en": "Each time this gang turns on, it auto-turns-off after the delay below (pulse/doorbell). Persists across power cuts.",
+                "es": "Cada vez que se enciende, se apaga solo tras el retardo (pulso/timbre). Persiste tras cortes de energía.",
+                "it": "Ogni volta che si accende, si spegne dopo il ritardo (impulso/campanello). Persiste dopo interruzioni.",
+                "de": "Bei jedem Einschalten schaltet sich der Gang nach der Verzögerung automatisch aus (Impuls/Klingel). Bleibt nach Stromausfall erhalten."
+              }
+            },
+            {
+              "id": "inching_time",
+              "type": "number",
+              "value": 0,
+              "min": 0,
+              "max": 3600,
+              "units": "s",
+              "label": {
+                "en": "Inching delay",
+                "es": "Retardo inching",
+                "it": "Ritardo inching",
+                "de": "Inching-Verzögerung"
+              },
+              "hint": {
+                "en": "0–3600 s (max 60 min). E.g. 90 = 1 min 30 s.",
+                "es": "0–3600 s (máx. 60 min). Ej.: 90 = 1 min 30 s.",
+                "it": "0–3600 s (max 60 min). Es.: 90 = 1 min 30 s.",
+                "de": "0–3600 s (max. 60 Min). Z.B. 90 = 1 Min 30 s."
+              }
+            }
+          ]
+        }
+      ],
+      "zigbee": {
+        "manufacturerName": [
+          "_TZ3000_jjdkhueq"
+        ],
+        "productId": [
+          "TS0002"
+        ],
+        "endpoints": {
+          "1": {
+            "clusters": [
+              0,
+              3,
+              4,
+              5,
+              6,
+              10,
+              57344,
+              57345
+            ],
+            "bindings": [
+              6
+            ]
+          },
+          "2": {
+            "clusters": [
+              4,
+              5,
+              6,
+              57345
+            ],
+            "bindings": [
+              6
+            ]
+          }
+        },
+        "learnmode": {
+          "image": "/drivers/novadigital_switch_2gang_touch/assets/icon.svg",
           "instruction": {
             "en": "Hold the setup button 5s until LED blinks. Two tiles will be created.",
             "es": "Mantén el botón de configuración 5 s hasta que el LED parpadee. Se crearán dos mosaicos.",

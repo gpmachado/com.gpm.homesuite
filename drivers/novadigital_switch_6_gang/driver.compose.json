@@ -38,7 +38,8 @@
   ],
   "zigbee": {
     "manufacturerName": [
-      "_TZE200_r731zlxk"
+      "_TZE200_r731zlxk",
+      "_TZE284_r731zlxk"
     ],
     "productId": [
       "TS0601"

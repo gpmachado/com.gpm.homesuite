@@ -1,0 +1,16 @@
+{
+  "triggers": [
+    {
+      "$extends": "availability_turned_on",
+      "$id": "novadigital_switch_2_gang_touch_availability_turned_on"
+    },
+    {
+      "$extends": "availability_turned_off",
+      "$id": "novadigital_switch_2_gang_touch_availability_turned_off"
+    },
+    {
+      "$extends": "device_rejoined",
+      "$id": "novadigital_switch_2_gang_touch_device_rejoined"
+    }
+  ]
+}

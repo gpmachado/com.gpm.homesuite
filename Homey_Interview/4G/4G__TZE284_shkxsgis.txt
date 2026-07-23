@@ -1,0 +1,445 @@
+Device Name: Smart Wall Switch
+Device Model: TB26-4 (Zemismart)
+Device Description: Zemismart Tuya Zigbee 4 Gangs
+Link to device image: https://www.zemismart.com/products/tb26-4
+
+Device Interview:
+
+  "ids": {
+    "modelId": "TS0601",
+    "manufacturerName": "_TZE284_shkxsgis"
+  },
+  "endpoints": {
+    "ieeeAddress": "a4:c1:38:5b:01:a2:dc:c6",
+    "networkAddress": 64974,
+    "modelId": "TS0601",
+    "manufacturerName": "_TZE284_shkxsgis",
+    "endpointDescriptors": [
+      {
+        "status": "SUCCESS",
+        "nwkAddrOfInterest": 64974,
+        "_reserved": 22,
+        "endpointId": 1,
+        "applicationProfileId": 260,
+        "applicationDeviceId": 81,
+        "applicationDeviceVersion": 0,
+        "_reserved1": 1,
+        "inputClusters": [
+          4,
+          5,
+          61184,
+          0,
+          60672
+        ],
+        "outputClusters": [
+          25,
+          10
+        ]
+      },
+      {
+        "status": "SUCCESS",
+        "nwkAddrOfInterest": 64974,
+        "_reserved": 10,
+        "endpointId": 242,
+        "applicationProfileId": 41440,
+        "applicationDeviceId": 97,
+        "applicationDeviceVersion": 0,
+        "_reserved1": 0,
+        "inputClusters": [],
+        "outputClusters": [
+          33
+        ]
+      }
+    ],
+    "deviceType": "router",
+    "receiveWhenIdle": true,
+    "capabilities": {
+      "alternatePANCoordinator": false,
+      "deviceType": true,
+      "powerSourceMains": true,
+      "receiveWhenIdle": true,
+      "security": false,
+      "allocateAddress": true
+    },
+    "extendedEndpointDescriptors": {
+      "1": {
+        "clusters": {
+          "groups": {
+            "attributes": [
+              {
+                "acl": [
+                  "readable",
+                  "reportable"
+                ],
+                "id": 0,
+                "dataTypeId": 24,
+                "name": "nameSupport",
+                "value": {
+                  "type": "Buffer",
+                  "data": [
+                    0
+                  ]
+                },
+                "reportingConfiguration": {
+                  "status": "NOT_FOUND",
+                  "direction": "reported"
+                }
+              },
+              {
+                "acl": [
+                  "readable",
+                  "reportable"
+                ],
+                "id": 65533,
+                "dataTypeId": 33,
+                "name": "clusterRevision",
+                "value": 2,
+                "reportingConfiguration": {
+                  "status": "NOT_FOUND",
+                  "direction": "reported"
+                }
+              }
+            ]
+          },
+          "scenes": {
+            "attributes": [
+              {
+                "acl": [
+                  "readable",
+                  "reportable"
+                ],
+                "id": 0,
+                "dataTypeId": 32,
+                "reportingConfiguration": {
+                  "status": "NOT_FOUND",
+                  "direction": "reported"
+                }
+              },
+              {
+                "acl": [
+                  "readable",
+                  "reportable"
+                ],
+                "id": 1,
+                "dataTypeId": 32,
+                "reportingConfiguration": {
+                  "status": "NOT_FOUND",
+                  "direction": "reported"
+                }
+              },
+              {
+                "acl": [
+                  "readable",
+                  "reportable"
+                ],
+                "id": 2,
+                "dataTypeId": 33,
+                "reportingConfiguration": {
+                  "status": "NOT_FOUND",
+                  "direction": "reported"
+                }
+              },
+              {
+                "acl": [
+                  "readable",
+                  "reportable"
+                ],
+                "id": 3,
+                "dataTypeId": 16,
+                "reportingConfiguration": {
+                  "status": "NOT_FOUND",
+                  "direction": "reported"
+                }
+              },
+              {
+                "acl": [
+                  "readable",
+                  "reportable"
+                ],
+                "id": 4,
+                "dataTypeId": 24,
+                "reportingConfiguration": {
+                  "status": "NOT_FOUND",
+                  "direction": "reported"
+                }
+              },
+              {
+                "acl": [
+                  "readable",
+                  "reportable"
+                ],
+                "id": 65533,
+                "dataTypeId": 33,
+                "name": "clusterRevision",
+                "value": 2,
+                "reportingConfiguration": {
+                  "status": "NOT_FOUND",
+                  "direction": "reported"
+                }
+              }
+            ]
+          },
+          "basic": {
+            "attributes": [
+              {
+                "acl": [
+                  "readable",
+                  "reportable"
+                ],
+                "id": 0,
+                "dataTypeId": 32,
+                "name": "zclVersion",
+                "value": 3
+              },
+              {
+                "acl": [
+                  "readable",
+                  "reportable"
+                ],
+                "id": 1,
+                "dataTypeId": 32,
+                "name": "appVersion",
+                "value": 78
+              },
+              {
+                "acl": [
+                  "readable",
+                  "reportable"
+                ],
+                "id": 2,
+                "dataTypeId": 32,
+                "name": "stackVersion",
+                "value": 0
+              },
+              {
+                "acl": [
+                  "readable",
+                  "reportable"
+                ],
+                "id": 3,
+                "dataTypeId": 32,
+                "name": "hwVersion",
+                "value": 1
+              },
+              {
+                "acl": [
+                  "readable",
+                  "reportable"
+                ],
+                "id": 4,
+                "dataTypeId": 66,
+                "name": "manufacturerName",
+                "value": "_TZE284_shkxsgis"
+              },
+              {
+                "acl": [
+                  "readable",
+                  "reportable"
+                ],
+                "id": 5,
+                "dataTypeId": 66,
+                "name": "modelId",
+                "value": "TS0601"
+              },
+              {
+                "acl": [
+                  "readable",
+                  "reportable"
+                ],
+                "id": 6,
+                "dataTypeId": 66,
+                "name": "dateCode",
+                "value": ""
+              },
+              {
+                "acl": [
+                  "readable",
+                  "reportable"
+                ],
+                "id": 7,
+                "dataTypeId": 48,
+                "name": "powerSource",
+                "value": "mains"
+              },
+              {
+                "acl": [
+                  "readable",
+                  "writable",
+                  "reportable"
+                ],
+                "id": 65502,
+                "dataTypeId": 32
+              },
+              {
+                "acl": [
+                  "readable",
+                  "reportable"
+                ],
+                "id": 65533,
+                "dataTypeId": 33,
+                "name": "clusterRevision",
+                "value": 2
+              },
+              {
+                "acl": [
+                  "readable",
+                  "reportable"
+                ],
+                "id": 65534,
+                "dataTypeId": 48,
+                "name": "attributeReportingStatus",
+                "value": "PENDING"
+              },
+              {
+                "acl": [
+                  "readable",
+                  "reportable"
+                ],
+                "id": 65506,
+                "dataTypeId": 32
+              },
+              {
+                "acl": [
+                  "readable",
+                  "reportable"
+                ],
+                "id": 65507,
+                "dataTypeId": 72
+              },
+              {
+                "acl": [
+                  "readable",
+                  "writable",
+                  "reportable"
+                ],
+                "id": 65487,
+                "dataTypeId": 33
+              }
+            ]
+          }
+        },
+        "bindings": {
+          "ota": {
+            "attributes": [
+              {
+                "acl": [
+                  "readable"
+                ],
+                "id": 0,
+                "dataTypeId": 240,
+                "name": "upgradeServerID",
+                "value": "ff:ff:ff:ff:ff:ff:ff:ff"
+              },
+              {
+                "acl": [
+                  "readable"
+                ],
+                "id": 1,
+                "dataTypeId": 35,
+                "name": "fileOffset",
+                "value": 4294967295
+              },
+              {
+                "acl": [
+                  "readable"
+                ],
+                "id": 2,
+                "dataTypeId": 35,
+                "name": "currentFileVersion",
+                "value": 78
+              },
+              {
+                "acl": [
+                  "readable"
+                ],
+                "id": 3,
+                "dataTypeId": 33,
+                "name": "currentZigBeeStackVersion",
+                "value": 2
+              },
+              {
+                "acl": [
+                  "readable"
+                ],
+                "id": 4,
+                "dataTypeId": 35,
+                "name": "downloadedFileVersion",
+                "value": 4294967295
+              },
+              {
+                "acl": [
+                  "readable"
+                ],
+                "id": 5,
+                "dataTypeId": 33,
+                "name": "downloadedZigBeeStackVersion",
+                "value": 65535
+              },
+              {
+                "acl": [
+                  "readable"
+                ],
+                "id": 6,
+                "dataTypeId": 48,
+                "name": "imageUpgradeStatus",
+                "value": "normal"
+              },
+              {
+                "acl": [
+                  "readable"
+                ],
+                "id": 7,
+                "dataTypeId": 33,
+                "name": "manufacturerID",
+                "value": 4417
+              },
+              {
+                "acl": [
+                  "readable"
+                ],
+                "id": 8,
+                "dataTypeId": 33,
+                "name": "imageTypeID",
+                "value": 65535
+              },
+              {
+                "acl": [
+                  "readable"
+                ],
+                "id": 9,
+                "dataTypeId": 33,
+                "name": "minimumBlockPeriod",
+                "value": 0
+              },
+              {
+                "acl": [
+                  "readable"
+                ],
+                "id": 65533,
+                "dataTypeId": 33,
+                "name": "clusterRevision",
+                "value": 3
+              }
+            ]
+          },
+          "time": {
+            "attributes": [
+              {
+                "acl": [
+                  "readable"
+                ],
+                "id": 65533,
+                "dataTypeId": 33,
+                "name": "clusterRevision",
+                "value": 1
+              }
+            ]
+          }
+        }
+      },
+      "242": {
+        "clusters": {},
+        "bindings": {}
+      }
+    }
+  }
