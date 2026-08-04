@@ -81,7 +81,6 @@ class RadarSensorMmwaveDevice extends TuyaSpecificClusterDevice {
     }
 
     // ── IAS Zone: presence / motion (cluster 0x0500) ──
-    // Deferred — device takes ~15s to become reachable after power-on
     this._iasHelper = new IASZoneHelper(this, {
       endpointId: this.tuyaEndpoint,
       sendEnrollOnInit: true,
@@ -99,11 +98,9 @@ class RadarSensorMmwaveDevice extends TuyaSpecificClusterDevice {
       },
     });
 
-    this.homey.setTimeout(() => {
-      this._iasHelper.init(this.zclNode).catch(err => {
-        this.log('[mmWave] IAS init deferred:', err.message);
-      });
-    }, 15000);
+    this._iasHelper.init(this.zclNode).catch(err => {
+      this.log('[mmWave] IAS init deferred:', err.message);
+    });
 
     // ── manuSpecificTuya3 0xE002: attribute reports (distance, sensitivity) ──
     this._manuTuyaValues = {};

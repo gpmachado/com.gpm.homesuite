@@ -16,8 +16,7 @@
   },
   "class": "sensor",
   "capabilities": [
-    "alarm_motion",
-    "sonoff_illuminance"
+    "alarm_motion"
   ],
   "images": {
     "small": "{{driverAssetsPath}}/images/small.png",

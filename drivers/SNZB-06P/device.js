@@ -2,7 +2,7 @@
 
 const SonoffBase = require('../../lib/SonoffBase');
 const { CLUSTER } = require('zigbee-clusters');
-const SonoffCluster = require('../../lib/SonoffCluster');
+const IASZoneHelper = require('../../lib/IASZoneHelper');
 const { AvailabilityManagerCluster0 } = require('../../lib/AvailabilityManager');
 
 const OccupancySensing = CLUSTER.OCCUPANCY_SENSING;
@@ -25,26 +25,36 @@ class SonoffSNZB06P extends SonoffBase {
       await this.addCapability('alarm_motion');
     }
 
-    const occCluster = zclNode.endpoints[1].clusters[OccupancySensing.NAME];
-    const sonoffCluster = zclNode.endpoints[1].clusters[SonoffCluster.NAME];
+    // IAS Zone — enrolled by Homey 13.4 stack during pairing; we only install
+    // listeners and read initial state. The SNZB-06P firmware 1.0.6 does not
+    // reliably emit zoneStatusChangeNotification for this device, so the
+    // occupancySensing cluster is the primary motion channel (below).
+    this._iasZone = new IASZoneHelper(this, {
+      endpointId: 1,
+      zoneId: 1,
+      sendEnrollOnInit: false,
+      readInitialState: true,
+      configureCieAddress: false,
+      onActivity: source => this._availability?.notifyActivity(source),
+      onStatus: zoneStatus => this._zoneStatusChangeNotification(zoneStatus),
+    });
+    await this._iasZone.init(zclNode);
 
-    // Occupancy — reports spontaneously, no configureReporting needed
-    this._onOccupancyReport ??= value => {
+    // Occupancy cluster — primary presence channel for SNZB-06P firmware 1.0.6.
+    // Configure attribute reporting so the device pushes occupancy changes.
+    const occCluster = zclNode.endpoints[1].clusters[OccupancySensing.NAME];
+    occCluster.configureReporting([{ occupancy: { minInterval: 0, maxInterval: 600 } }])
+      .catch(err => this.log('[SNZB06P] occupancy configureReporting failed:', err.message));
+
+    this._onOccupancyReport = value => {
       this.log('[SNZB06P] occupancy:', value);
-      this.setCapabilityValue('alarm_motion', Boolean(value?.occupied))
+      const motion = Boolean(value?.occupied);
+      this.setCapabilityValue('alarm_motion', motion)
         .catch(error => this.error('[SNZB06P] occupancy update failed:', error.message));
+      if (motion) this._availability?.notifyActivity('occupancy-report');
     };
     occCluster.removeListener('attr.occupancy', this._onOccupancyReport);
     occCluster.on('attr.occupancy', this._onOccupancyReport);
-
-    // Illuminance — only when occupied
-    this._onIlluminanceReport ??= value => {
-      this.log('[SNZB06P] illuminance:', value ? 'bright' : 'dim');
-      this.setCapabilityValue('sonoff_illuminance', value ? 'bright' : 'dim')
-        .catch(error => this.error('[SNZB06P] illumination update failed:', error.message));
-    };
-    sonoffCluster.removeListener('attr.illuminance', this._onIlluminanceReport);
-    sonoffCluster.on('attr.illuminance', this._onIlluminanceReport);
 
     // Defer initial read until device wakes up (it reports on first occupancy)
     this._settingsReadTimer = this.homey.setTimeout(() => {
@@ -75,6 +85,13 @@ class SonoffSNZB06P extends SonoffBase {
     }
   }
 
+  _zoneStatusChangeNotification(zoneStatus) {
+    const motion = IASZoneHelper.hasAlarm(zoneStatus);
+    this.log('[SNZB06P] IAS zoneStatus:', zoneStatus, '-> motion:', motion);
+    this.setCapabilityValue('alarm_motion', motion)
+      .catch(error => this.error('[SNZB06P] motion update failed:', error.message));
+  }
+
   async onSettings({ newSettings, changedKeys }) {
     const writes = {};
     if (changedKeys.includes('occupied_to_unoccupied_delay')) {
@@ -95,11 +112,11 @@ class SonoffSNZB06P extends SonoffBase {
       this._settingsReadTimer = null;
     }
 
+    this._iasZone?.dispose();
+
     const endpoint = this.zclNode?.endpoints?.[1];
     endpoint?.clusters?.[OccupancySensing.NAME]
       ?.removeListener('attr.occupancy', this._onOccupancyReport);
-    endpoint?.clusters?.[SonoffCluster.NAME]
-      ?.removeListener('attr.illuminance', this._onIlluminanceReport);
 
     await super._teardown?.();
   }
