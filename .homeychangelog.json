@@ -51,13 +51,15 @@
     "en": "Add support Nova Digital Switch 2 Gang Touch"
   },
   "1.0.18": {
-    "en":  "Added support for 4-gang and 6-gang switches with manufacturer ID variations"
+    "en": "Added support for 4-gang and 6-gang switches with manufacturer ID variations"
   },
   "1.0.19": {
-    "en":  "Add support to Moes Linptech wich manufacturedID variations"
-
+    "en": "Add support to Moes Linptech wich manufacturedID variations"
   },
   "1.0.20": {
     "en": "Fix Sonoff SNZB06P and Linptech IAS enrollment"
+  },
+  "1.0.21": {
+    "en": "Add Sonoff Mini-ZB1GP, improve Linptech and Aqara FP1 "
   }
 }
