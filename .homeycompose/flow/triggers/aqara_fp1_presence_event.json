@@ -1,0 +1,50 @@
+{
+  "id": "aqara_fp1_presence_event",
+  "title": {
+    "en": "Presence event",
+    "es": "Evento de presencia",
+    "it": "Evento di presenza",
+    "de": "Präsenzereignis"
+  },
+  "titleFormatted": {
+    "en": "[[device]] presence event",
+    "es": "Evento de presencia de [[device]]",
+    "it": "Evento di presenza di [[device]]",
+    "de": "Präsenzereignis von [[device]]"
+  },
+  "hint": {
+    "en": "Fires when the FP1 reports a presence event such as enter, leave or approach.",
+    "es": "Se activa cuando el FP1 informa un evento de presencia como entrar, salir o acercarse.",
+    "it": "Si attiva quando l'FP1 segnala un evento di presenza come entrare, uscire o avvicinarsi.",
+    "de": "Wird ausgelöst, wenn der FP1 ein Präsenzereignis wie Betreten, Verlassen oder Annäherung meldet."
+  },
+  "tokens": [
+    {
+      "name": "event",
+      "type": "string",
+      "title": {
+        "en": "Presence event",
+        "es": "Evento de presencia",
+        "it": "Evento di presenza",
+        "de": "Präsenzereignis"
+      }
+    },
+    {
+      "name": "event_id",
+      "type": "string",
+      "title": {
+        "en": "Event ID",
+        "es": "ID del evento",
+        "it": "ID evento",
+        "de": "Ereignis-ID"
+      }
+    }
+  ],
+  "args": [
+    {
+      "type": "device",
+      "name": "device",
+      "filter": "driver_id=aqara_fp1"
+    }
+  ]
+}

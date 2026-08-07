@@ -99,6 +99,23 @@
             }
           }
         ]
+      },
+      {
+        "id": "show_power_outage_count",
+        "type": "checkbox",
+        "label": {
+          "en": "Show power outage count",
+          "de": "Stromausfall-Zähler anzeigen",
+          "es": "Mostrar contador de cortes",
+          "it": "Mostra contatore interruzioni"
+        },
+        "hint": {
+          "en": "Hide this sensor tile if you do not want to see the power outage count.",
+          "de": "Blendet diese Kachel aus, wenn der Zähler nicht angezeigt werden soll.",
+          "es": "Oculta esta tarjeta si no quieres ver el contador.",
+          "it": "Nasconde questa tessera se non vuoi vedere il contatore."
+        },
+        "value": false
       }
     ]
   },

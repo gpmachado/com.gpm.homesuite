@@ -1,0 +1,22 @@
+{
+  "id": "aqara_fp1_reset_presence",
+  "title": {
+    "en": "Reset presence",
+    "es": "Resetear presencia",
+    "it": "Reset presenza",
+    "de": "Präsenz zurücksetzen"
+  },
+  "hint": {
+    "en": "Send the FP1 reset presence command.",
+    "es": "Envía el comando de restablecimiento de presencia del FP1.",
+    "it": "Invia il comando di reset della presenza per l'FP1.",
+    "de": "Sendet den Befehl zum Zurücksetzen der Präsenz des FP1."
+  },
+  "args": [
+    {
+      "type": "device",
+      "name": "device",
+      "filter": "driver_id=aqara_fp1"
+    }
+  ]
+}

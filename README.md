@@ -158,6 +158,20 @@ A plug-in IAS-zone detector (pairs as `_TYZB01_0w3d5uw3` / TS0204). IAS-zone pai
 and availability. The firmware advertises a tamper, but the sensor is built into a
 plug that doesn't open — there's no physical tamper — so the phantom setting is hidden.
 
+**Aqara FP1 / RTCZCGQ11LM**
+The FP1 uses Aqara's proprietary `manuSpecificLumi` cluster instead of the normal
+temperature / occupancy clusters, so the driver maps the device the same way
+Zigbee2MQTT does:
+- `presence` -> `alarm_occupancy`
+- `device_temperature` -> `measure_temperature`
+- `power_outage_count` -> optional read-only capability, hidden by default
+- `presence_event` -> Flow trigger for `enter`, `leave`, `approach`, `away`, etc.
+- `monitoring_mode`, `approach_distance`, `motion_sensitivity` -> device settings
+- `reset_nopresence_status` -> action card that resets no-presence state
+
+The sensor also reports a packed `0x00F7` lifeline struct with temperature and
+power-outage count. That struct is parsed directly from the raw report payload.
+
 **MOES wireless remotes (4-gang & 2-gang)**
 Battery, single / double / long press. Long-press is only recognised when you hold
 until the LED turns off — it works, but it's fiddly because the firmware sometimes

@@ -73,12 +73,15 @@ class SonoffSNZB06P extends SonoffBase {
         'ultrasonicOccupiedToUnoccupiedDelay',
         'ultrasonicUnoccupiedToOccupiedThreshold',
       ]);
-      this.log('[SNZB06P] read settings:', JSON.stringify(data));
-      if (data.ultrasonicOccupiedToUnoccupiedDelay != null) {
-        await this.setSettings({ occupied_to_unoccupied_delay: data.ultrasonicOccupiedToUnoccupiedDelay });
+      const updates = {};
+      if (data.ultrasonicOccupiedToUnoccupiedDelay != null && this.getSetting('occupied_to_unoccupied_delay') !== data.ultrasonicOccupiedToUnoccupiedDelay) {
+        updates.occupied_to_unoccupied_delay = data.ultrasonicOccupiedToUnoccupiedDelay;
       }
-      if (data.ultrasonicUnoccupiedToOccupiedThreshold != null) {
-        await this.setSettings({ occupied_threshold: String(data.ultrasonicUnoccupiedToOccupiedThreshold) });
+      if (data.ultrasonicUnoccupiedToOccupiedThreshold != null && this.getSetting('occupied_threshold') !== String(data.ultrasonicUnoccupiedToOccupiedThreshold)) {
+        updates.occupied_threshold = String(data.ultrasonicUnoccupiedToOccupiedThreshold);
+      }
+      if (Object.keys(updates).length > 0) {
+        await this.setSettings(updates);
       }
     } catch (err) {
       this.log('[SNZB06P] Settings read deferred:', err.message);

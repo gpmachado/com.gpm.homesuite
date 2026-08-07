@@ -138,9 +138,10 @@ class RadarSensorMmwaveDevice extends TuyaSpecificClusterDevice {
     this.log('[mmWave] TS0225 / _TZ3218_t9ynfz4x initialized');
 
     // Defer first stats refresh so device settings are fully registered
-    this._statsTimer = this.homey.setTimeout(() => {
+    this._statsTimeout = this.homey.setTimeout(() => {
+      this._statsTimeout = null;
       this._refreshStatsLabel().catch(() => {});
-      this._statsTimer = this.homey.setInterval(() => {
+      this._statsInterval = this.homey.setInterval(() => {
         this._refreshStatsLabel().catch(() => {});
       }, STATS_REFRESH_MS);
     }, 10000);
@@ -414,9 +415,13 @@ class RadarSensorMmwaveDevice extends TuyaSpecificClusterDevice {
   }
 
   async _teardown() {
-    if (this._statsTimer) {
-      this.homey.clearInterval(this._statsTimer);
-      this._statsTimer = null;
+    if (this._statsTimeout) {
+      this.homey.clearTimeout(this._statsTimeout);
+      this._statsTimeout = null;
+    }
+    if (this._statsInterval) {
+      this.homey.clearInterval(this._statsInterval);
+      this._statsInterval = null;
     }
     if (this._iasHelper) {
       this._iasHelper.dispose();

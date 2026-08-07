@@ -10,7 +10,8 @@
   "platforms": ["local"],
   "connectivity": ["zigbee"],
   "capabilities": [
-    "alarm_occupancy"
+    "alarm_occupancy",
+    "measure_temperature"
   ],
   "images": {
     "xlarge": "{{driverAssetsPath}}/images/xlarge.png",

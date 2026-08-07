@@ -1,0 +1,18 @@
+[
+  {
+    "id": "network_led",
+    "type": "checkbox",
+    "label": {
+      "en": "Network indicator"
+    },
+    "value": false
+  },
+  {
+    "id": "TurboMode",
+    "type": "checkbox",
+    "label": {
+      "en": "Turbo mode"
+    },
+    "value": false
+  }
+]

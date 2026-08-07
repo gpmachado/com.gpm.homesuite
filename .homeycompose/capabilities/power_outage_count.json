@@ -1,0 +1,22 @@
+{
+  "type": "number",
+  "title": {
+    "en": "Power Outage Count",
+    "de": "Stromausfall-Zähler",
+    "es": "Contador de cortes de energía",
+    "it": "Contatore interruzioni alimentazione"
+  },
+  "units": {
+    "en": "times",
+    "de": "mal",
+    "es": "veces",
+    "it": "volte"
+  },
+  "getable": true,
+  "setable": false,
+  "uiComponent": "sensor",
+  "icon": "/assets/capabilities/power-outage-count.svg",
+  "insights": true,
+  "decimals": 0,
+  "min": 0
+}

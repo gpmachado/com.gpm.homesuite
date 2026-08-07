@@ -115,65 +115,57 @@
     "zigbee-clusters": "^3.0.2"
   },
   "flow": {
-    "conditions": [
+    "triggers": [
       {
-        "id": "availability_is_on",
+        "id": "aqara_fp1_presence_event",
         "title": {
-          "en": "Availability is on",
-          "es": "Disponibilidad activada",
-          "it": "Disponibilità attiva",
-          "de": "Verfügbarkeit ist aktiv"
+          "en": "Presence event",
+          "es": "Evento de presencia",
+          "it": "Evento di presenza",
+          "de": "Präsenzereignis"
         },
         "titleFormatted": {
-          "en": "[[device]] is available",
-          "es": "[[device]] está disponible",
-          "it": "[[device]] è disponibile",
-          "de": "[[device]] ist verfügbar"
+          "en": "[[device]] presence event",
+          "es": "Evento de presencia de [[device]]",
+          "it": "Evento di presenza di [[device]]",
+          "de": "Präsenzereignis von [[device]]"
         },
         "hint": {
-          "en": "True when the device is currently online",
-          "es": "Verdadero cuando el dispositivo está actualmente en línea",
-          "it": "Vero quando il dispositivo è attualmente online",
-          "de": "Wahr, wenn das Gerät aktuell online ist"
+          "en": "Fires when the FP1 reports a presence event such as enter, leave or approach.",
+          "es": "Se activa cuando el FP1 informa un evento de presencia como entrar, salir o acercarse.",
+          "it": "Si attiva quando l'FP1 segnala un evento di presenza come entrare, uscire o avvicinarsi.",
+          "de": "Wird ausgelöst, wenn der FP1 ein Präsenzereignis wie Betreten, Verlassen oder Annäherung meldet."
         },
+        "tokens": [
+          {
+            "name": "event",
+            "type": "string",
+            "title": {
+              "en": "Presence event",
+              "es": "Evento de presencia",
+              "it": "Evento di presenza",
+              "de": "Präsenzereignis"
+            }
+          },
+          {
+            "name": "event_id",
+            "type": "string",
+            "title": {
+              "en": "Event ID",
+              "es": "ID del evento",
+              "it": "ID evento",
+              "de": "Ereignis-ID"
+            }
+          }
+        ],
         "args": [
           {
-            "name": "device",
             "type": "device",
-            "filter": "capabilities=is_availability"
+            "name": "device",
+            "filter": "driver_id=aqara_fp1"
           }
         ]
       },
-      {
-        "id": "is_playing",
-        "title": {
-          "en": "Siren is !{{playing|not playing}}",
-          "de": "Sirene ist !{{aktiv|inaktiv}}",
-          "es": "La sirena está !{{sonando|sin sonar}}",
-          "it": "La sirena è !{{attiva|non attiva}}"
-        },
-        "titleFormatted": {
-          "en": "[[device]] siren is !{{playing|not playing}}",
-          "de": "Die Sirene von [[device]] ist !{{aktiv|inaktiv}}",
-          "es": "La sirena de [[device]] está !{{sonando|sin sonar}}",
-          "it": "La sirena di [[device]] è !{{attiva|non attiva}}"
-        },
-        "hint": {
-          "en": "Check if the siren is currently active.",
-          "de": "Prüft, ob die Sirene derzeit aktiv ist.",
-          "es": "Comprueba si la sirena está activa actualmente.",
-          "it": "Controlla se la sirena è attualmente attiva."
-        },
-        "args": [
-          {
-            "type": "device",
-            "name": "device",
-            "filter": "driver_id=ekaza_siren"
-          }
-        ]
-      }
-    ],
-    "triggers": [
       {
         "id": "BASICZBR3_availability_turned_on",
         "title": {
@@ -2953,7 +2945,87 @@
         ]
       }
     ],
+    "conditions": [
+      {
+        "id": "availability_is_on",
+        "title": {
+          "en": "Availability is on",
+          "es": "Disponibilidad activada",
+          "it": "Disponibilità attiva",
+          "de": "Verfügbarkeit ist aktiv"
+        },
+        "titleFormatted": {
+          "en": "[[device]] is available",
+          "es": "[[device]] está disponible",
+          "it": "[[device]] è disponibile",
+          "de": "[[device]] ist verfügbar"
+        },
+        "hint": {
+          "en": "True when the device is currently online",
+          "es": "Verdadero cuando el dispositivo está actualmente en línea",
+          "it": "Vero quando il dispositivo è attualmente online",
+          "de": "Wahr, wenn das Gerät aktuell online ist"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "capabilities=is_availability"
+          }
+        ]
+      },
+      {
+        "id": "is_playing",
+        "title": {
+          "en": "Siren is !{{playing|not playing}}",
+          "de": "Sirene ist !{{aktiv|inaktiv}}",
+          "es": "La sirena está !{{sonando|sin sonar}}",
+          "it": "La sirena è !{{attiva|non attiva}}"
+        },
+        "titleFormatted": {
+          "en": "[[device]] siren is !{{playing|not playing}}",
+          "de": "Die Sirene von [[device]] ist !{{aktiv|inaktiv}}",
+          "es": "La sirena de [[device]] está !{{sonando|sin sonar}}",
+          "it": "La sirena di [[device]] è !{{attiva|non attiva}}"
+        },
+        "hint": {
+          "en": "Check if the siren is currently active.",
+          "de": "Prüft, ob die Sirene derzeit aktiv ist.",
+          "es": "Comprueba si la sirena está activa actualmente.",
+          "it": "Controlla se la sirena è attualmente attiva."
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=ekaza_siren"
+          }
+        ]
+      }
+    ],
     "actions": [
+      {
+        "id": "aqara_fp1_reset_presence",
+        "title": {
+          "en": "Reset presence",
+          "es": "Resetear presencia",
+          "it": "Reset presenza",
+          "de": "Präsenz zurücksetzen"
+        },
+        "hint": {
+          "en": "Send the FP1 reset presence command.",
+          "es": "Envía el comando de restablecimiento de presencia del FP1.",
+          "it": "Invia il comando di reset della presenza per l'FP1.",
+          "de": "Sendet den Befehl zum Zurücksetzen der Präsenz des FP1."
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=aqara_fp1"
+          }
+        ]
+      },
       {
         "id": "siren_play",
         "title": {
@@ -3252,6 +3324,86 @@
         }
       },
       "settings": []
+    },
+    {
+      "platforms": [
+        "local"
+      ],
+      "connectivity": [
+        "zigbee"
+      ],
+      "images": {
+        "xlarge": "/drivers/MINI-ZB1GP/assets/images/xlarge.png",
+        "large": "/drivers/MINI-ZB1GP/assets/images/large.png",
+        "small": "/drivers/MINI-ZB1GP/assets/images/small.png"
+      },
+      "id": "MINI-ZB1GP",
+      "name": {
+        "en": "Sonoff Energy Meter",
+        "pt": "Medidor de Energia Sonoff"
+      },
+      "class": "sensor",
+      "capabilities": [
+        "measure_power",
+        "meter_power",
+        "measure_current",
+        "measure_voltage",
+        "is_availability"
+      ],
+      "energy": {
+        "meterPowerImportedCapability": "meter_power"
+      },
+      "zigbee": {
+        "manufacturerName": [
+          "SONOFF"
+        ],
+        "productId": [
+          "MINI-ZB1GP"
+        ],
+        "endpoints": {
+          "1": {
+            "clusters": [
+              0,
+              3,
+              4,
+              5,
+              6,
+              1794,
+              2820,
+              64529,
+              64599
+            ],
+            "bindings": [
+              1794,
+              2820,
+              64529
+            ]
+          }
+        },
+        "learnmode": {
+          "instruction": {
+            "en": "Press and hold the button on the device until the LED starts blinking rapidly."
+          }
+        }
+      },
+      "settings": [
+        {
+          "id": "network_led",
+          "type": "checkbox",
+          "label": {
+            "en": "Network indicator"
+          },
+          "value": false
+        },
+        {
+          "id": "TurboMode",
+          "type": "checkbox",
+          "label": {
+            "en": "Turbo mode"
+          },
+          "value": false
+        }
+      ]
     },
     {
       "platforms": [
@@ -3971,7 +4123,8 @@
         "zigbee"
       ],
       "capabilities": [
-        "alarm_occupancy"
+        "alarm_occupancy",
+        "measure_temperature"
       ],
       "images": {
         "xlarge": "/drivers/aqara_fp1/assets/images/xlarge.png",
@@ -4114,6 +4267,23 @@
                   }
                 }
               ]
+            },
+            {
+              "id": "show_power_outage_count",
+              "type": "checkbox",
+              "label": {
+                "en": "Show power outage count",
+                "de": "Stromausfall-Zähler anzeigen",
+                "es": "Mostrar contador de cortes",
+                "it": "Mostra contatore interruzioni"
+              },
+              "hint": {
+                "en": "Hide this sensor tile if you do not want to see the power outage count.",
+                "de": "Blendet diese Kachel aus, wenn der Zähler nicht angezeigt werden soll.",
+                "es": "Oculta esta tarjeta si no quieres ver el contador.",
+                "it": "Nasconde questa tessera se non vuoi vedere il contatore."
+              },
+              "value": false
             }
           ]
         },
@@ -13246,6 +13416,28 @@
       "decimals": 0,
       "min": 0,
       "max": 100
+    },
+    "power_outage_count": {
+      "type": "number",
+      "title": {
+        "en": "Power Outage Count",
+        "de": "Stromausfall-Zähler",
+        "es": "Contador de cortes de energía",
+        "it": "Contatore interruzioni alimentazione"
+      },
+      "units": {
+        "en": "times",
+        "de": "mal",
+        "es": "veces",
+        "it": "volte"
+      },
+      "getable": true,
+      "setable": false,
+      "uiComponent": "sensor",
+      "icon": "/assets/capabilities/power-outage-count.svg",
+      "insights": true,
+      "decimals": 0,
+      "min": 0
     },
     "presence_keep_time": {
       "type": "number",
