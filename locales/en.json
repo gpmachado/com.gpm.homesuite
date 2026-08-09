@@ -31,6 +31,18 @@
     "resetting": "Resetting…",
     "reset_failed": "Reset failed:",
     "reset_confirmation": "Reset all Zigbee traffic statistics? This cannot be undone.",
-    "confirmation_failed": "Confirmation failed:"
+    "confirmation_failed": "Confirmation failed:",
+    "rejoins": "Rejoins",
+    "rejoins_since": "Rejoins tracked since",
+    "reset_rejoins": "Reset rejoins",
+    "resetting_rejoins": "Resetting rejoins…",
+    "reset_rejoins_failed": "Reset failed:",
+    "reset_rejoins_confirmation": "Reset the rejoin counters for all devices? This cannot be undone.",
+    "tab_traffic": "Traffic",
+    "tab_rejoins": "Rejoins",
+    "total_rejoins": "Total rejoins",
+    "devices_with_rejoins": "Devices affected",
+    "last_rejoin": "Last rejoin",
+    "no_rejoins": "No rejoins recorded yet."
   }
 }

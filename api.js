@@ -11,6 +11,7 @@ module.exports = {
   async getMessageStats({ homey }) {
     const rowsByPhysicalDevice = new Map();
     const drivers = homey.drivers.getDrivers();
+    const rejoinSince = homey.settings.get('rejoin_tracking_since') || null;
 
     for (const [driverId, driver] of Object.entries(drivers)) {
       for (const device of driver.getDevices()) {
@@ -44,6 +45,9 @@ module.exports = {
             data.manufacturerName || settings.zb_manufacturer_name || '',
           available: device.getAvailable(),
           stats,
+          rejoinCount: device.getStoreValue?.('rejoin_count') ?? null,
+          rejoinLastAt: device.getStoreValue?.('rejoin_last_at') ?? null,
+          rejoinSince,
         };
 
         const existing = rowsByPhysicalDevice.get(physicalId);
@@ -86,5 +90,24 @@ module.exports = {
     }
 
     return { reset: results.length };
+  },
+
+  async resetRejoinStats({ homey }) {
+    const drivers = homey.drivers.getDrivers();
+    const writes = [];
+
+    for (const driver of Object.values(drivers)) {
+      for (const device of driver.getDevices()) {
+        if (device.getStoreValue?.('rejoin_count') !== undefined) {
+          writes.push(device.setStoreValue('rejoin_count', 0));
+          writes.push(device.setStoreValue('rejoin_last_at', null));
+        }
+      }
+    }
+
+    await Promise.allSettled(writes);
+    homey.settings.set('rejoin_tracking_since', Date.now());
+
+    return { since: homey.settings.get('rejoin_tracking_since') };
   },
 };

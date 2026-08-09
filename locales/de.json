@@ -31,6 +31,18 @@
     "resetting": "Wird zurückgesetzt…",
     "reset_failed": "Zurücksetzen fehlgeschlagen:",
     "reset_confirmation": "Alle Zigbee-Datenverkehrsstatistiken zurücksetzen? Dies kann nicht rückgängig gemacht werden.",
-    "confirmation_failed": "Bestätigung fehlgeschlagen:"
+    "confirmation_failed": "Bestätigung fehlgeschlagen:",
+    "rejoins": "Wiederverbindungen",
+    "rejoins_since": "Wiederverbindungen erfasst seit",
+    "reset_rejoins": "Wiederverbindungen zurücksetzen",
+    "resetting_rejoins": "Wird zurückgesetzt…",
+    "reset_rejoins_failed": "Zurücksetzen fehlgeschlagen:",
+    "reset_rejoins_confirmation": "Die Wiederverbindungszähler für alle Geräte zurücksetzen? Dies kann nicht rückgängig gemacht werden.",
+    "tab_traffic": "Datenverkehr",
+    "tab_rejoins": "Wiederverbindungen",
+    "total_rejoins": "Wiederverbindungen gesamt",
+    "devices_with_rejoins": "Betroffene Geräte",
+    "last_rejoin": "Letzte Wiederverbindung",
+    "no_rejoins": "Noch keine Wiederverbindungen erfasst."
   }
 }

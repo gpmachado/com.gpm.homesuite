@@ -31,6 +31,18 @@
     "resetting": "Azzeramento…",
     "reset_failed": "Azzeramento non riuscito:",
     "reset_confirmation": "Azzerare tutte le statistiche del traffico Zigbee? Questa operazione non può essere annullata.",
-    "confirmation_failed": "Conferma non riuscita:"
+    "confirmation_failed": "Conferma non riuscita:",
+    "rejoins": "Riconnessioni",
+    "rejoins_since": "Riconnessioni monitorate da",
+    "reset_rejoins": "Azzera riconnessioni",
+    "resetting_rejoins": "Azzeramento riconnessioni…",
+    "reset_rejoins_failed": "Azzeramento non riuscito:",
+    "reset_rejoins_confirmation": "Azzerare i contatori di riconnessione per tutti i dispositivi? Questa operazione non può essere annullata.",
+    "tab_traffic": "Traffico",
+    "tab_rejoins": "Riconnessioni",
+    "total_rejoins": "Riconnessioni totali",
+    "devices_with_rejoins": "Dispositivi interessati",
+    "last_rejoin": "Ultima riconnessione",
+    "no_rejoins": "Nessuna riconnessione registrata finora."
   }
 }

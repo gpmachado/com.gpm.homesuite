@@ -31,6 +31,18 @@
     "resetting": "Restableciendo…",
     "reset_failed": "Error al restablecer:",
     "reset_confirmation": "¿Restablecer todas las estadísticas de tráfico Zigbee? Esta acción no se puede deshacer.",
-    "confirmation_failed": "Error de confirmación:"
+    "confirmation_failed": "Error de confirmación:",
+    "rejoins": "Reconexiones",
+    "rejoins_since": "Reconexiones registradas desde",
+    "reset_rejoins": "Restablecer reconexiones",
+    "resetting_rejoins": "Restableciendo reconexiones…",
+    "reset_rejoins_failed": "Error al restablecer:",
+    "reset_rejoins_confirmation": "¿Restablecer los contadores de reconexión de todos los dispositivos? Esta acción no se puede deshacer.",
+    "tab_traffic": "Tráfico",
+    "tab_rejoins": "Reconexiones",
+    "total_rejoins": "Reconexiones totales",
+    "devices_with_rejoins": "Dispositivos afectados",
+    "last_rejoin": "Última reconexión",
+    "no_rejoins": "Aún no se registraron reconexiones."
   }
 }

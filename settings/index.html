@@ -80,14 +80,36 @@
       background: transparent;
       font-weight: 650;
       cursor: pointer;
+      white-space: nowrap;
     }
     .reset:hover { color: #fff; background: var(--bad); }
     .refresh:hover { background: var(--blue-dark); }
     .refresh[disabled], .reset[disabled] { cursor: wait; opacity: 0.65; }
-    .refresh:focus-visible, .reset:focus-visible, select:focus-visible, th button:focus-visible {
+    .refresh:focus-visible, .reset:focus-visible, select:focus-visible, th button:focus-visible, .tab:focus-visible {
       outline: 3px solid rgba(80, 120, 196, 0.28);
       outline-offset: 2px;
     }
+
+    .tabs {
+      display: flex;
+      gap: 4px;
+      margin-bottom: 16px;
+      border-bottom: 1px solid var(--line);
+    }
+    .tab {
+      padding: 10px 4px;
+      margin-bottom: -1px;
+      border: 0;
+      border-bottom: 2px solid transparent;
+      background: transparent;
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 650;
+      cursor: pointer;
+    }
+    .tab + .tab { margin-left: 16px; }
+    .tab.active { color: var(--blue-dark); border-bottom-color: var(--blue); }
+    .panel[hidden] { display: none; }
 
     .summary {
       display: grid;
@@ -99,6 +121,7 @@
       background: var(--panel);
       box-shadow: var(--shadow);
     }
+    .summary.summary-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
     .summary-item { min-width: 0; padding: 16px 18px; border-right: 1px solid var(--line); }
     .summary-item:last-child { border-right: 0; }
     .summary-label {
@@ -128,6 +151,7 @@
       margin-bottom: 10px;
     }
     .toolbar-note, .sort-wrap { color: var(--muted); font-size: 12px; }
+    .toolbar-actions { display: flex; gap: 12px; align-items: center; }
     .sort-wrap { display: flex; gap: 8px; align-items: center; }
     select {
       min-height: 36px;
@@ -168,6 +192,7 @@
       text-transform: uppercase;
       cursor: pointer;
     }
+    th.plain { padding: 12px 14px; font-size: 10px; font-weight: 750; letter-spacing: 0.065em; text-transform: uppercase; }
     td {
       padding: 14px;
       border-bottom: 1px solid #edf3f7;
@@ -217,6 +242,15 @@
       font-weight: 700;
       text-transform: uppercase;
     }
+    .rejoin-count-badge {
+      display: inline-block;
+      min-width: 22px;
+      padding: 2px 8px;
+      border-radius: 999px;
+      background: rgba(196, 81, 81, 0.12);
+      color: var(--bad);
+      font-weight: 700;
+    }
     .state { padding: 40px 18px; color: var(--muted); text-align: center; }
     .footnote { margin: 12px 2px 0; color: var(--muted); font-size: 11px; }
 
@@ -226,12 +260,11 @@
       .eyebrow { margin-bottom: 4px; font-size: 9px; }
       h1 { font-size: 24px; letter-spacing: -0.035em; }
       .intro { margin-top: 8px; font-size: 12px; }
-      .header-actions {
-        display: grid;
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-      }
+      .header-actions { display: grid; grid-template-columns: 1fr; }
       .refresh, .reset { min-height: 36px; padding: 0 10px; font-size: 13px; }
-      .summary { grid-template-columns: 1fr; margin-bottom: 12px; }
+      .tabs { margin-bottom: 12px; }
+      .tab { font-size: 12px; padding: 8px 2px; }
+      .summary, .summary.summary-3 { grid-template-columns: 1fr; margin-bottom: 12px; }
       .summary-item { padding: 11px 14px; border-right: 0; border-bottom: 1px solid var(--line); }
       .summary-item:last-child { border-bottom: 0; }
       .summary-label { margin-bottom: 3px; font-size: 9px; }
@@ -243,11 +276,12 @@
         white-space: normal;
       }
       .toolbar { gap: 8px; align-items: stretch; flex-direction: column; margin-bottom: 8px; }
+      .toolbar-actions { flex-direction: column; align-items: stretch; }
       .toolbar-note, .sort-wrap { font-size: 10px; }
       .sort-wrap { justify-content: space-between; }
       select { flex: 1; min-height: 32px; font-size: 11px; }
       table { font-size: 11px; }
-      th button { padding: 9px 10px; font-size: 8px; }
+      th button, th.plain { padding: 9px 10px; font-size: 8px; }
       td { padding: 10px; }
       td:first-child { min-width: 205px; }
       .device-name { gap: 7px; font-size: 11px; line-height: 1.3; }
@@ -266,61 +300,109 @@
       </div>
       <div class="header-actions">
         <button id="refresh" class="refresh" type="button" data-i18n="settings.refresh">Refresh now</button>
-        <button id="reset" class="reset" type="button" data-i18n="settings.reset">Reset statistics</button>
       </div>
     </header>
 
-    <section class="summary" aria-label="Summary">
-      <div class="summary-item">
-        <span class="summary-label" data-i18n="settings.physical_devices">Physical devices</span>
-        <strong id="device-count" class="summary-value">—</strong>
-      </div>
-      <div class="summary-item">
-        <span class="summary-label" data-i18n="settings.messages_24h">Messages · 24 h</span>
-        <strong id="message-total" class="summary-value">—</strong>
-      </div>
-      <div class="summary-item">
-        <span class="summary-label" data-i18n="settings.messages_current_hour">Messages · current hour</span>
-        <strong id="current-hour-total" class="summary-value">—</strong>
-      </div>
-      <div class="summary-item">
-        <span class="summary-label" data-i18n="settings.most_active_current_hour">Most active · current hour</span>
-        <strong id="top-talker" class="summary-value">—</strong>
-      </div>
-    </section>
+    <nav class="tabs" role="tablist">
+      <button type="button" class="tab active" data-tab="traffic" role="tab" aria-selected="true" data-i18n="settings.tab_traffic">Traffic</button>
+      <button type="button" class="tab" data-tab="rejoins" role="tab" aria-selected="false" data-i18n="settings.tab_rejoins">Rejoins</button>
+    </nav>
 
-    <div class="toolbar">
-      <span id="updated-at" class="toolbar-note" data-i18n="settings.waiting_for_data">Waiting for data…</span>
-      <label class="sort-wrap" for="sort">
-        <span data-i18n="settings.sort_by">Sort by</span>
-        <select id="sort">
-          <option value="name-asc" data-i18n="settings.sort_name">Name A–Z</option>
-          <option value="last24h-desc" data-i18n="settings.sort_24h">Most messages · 24 h</option>
-          <option value="currentHour-desc" data-i18n="settings.sort_current_hour">Most messages · current hour</option>
-          <option value="previousHour-desc" data-i18n="settings.sort_previous_hour">Most messages · previous hour</option>
-          <option value="lastMessageAt-desc" data-i18n="settings.sort_recent">Most recent activity</option>
-        </select>
-      </label>
+    <div id="panel-traffic" class="panel" role="tabpanel">
+      <section class="summary" aria-label="Summary">
+        <div class="summary-item">
+          <span class="summary-label" data-i18n="settings.physical_devices">Physical devices</span>
+          <strong id="device-count" class="summary-value">—</strong>
+        </div>
+        <div class="summary-item">
+          <span class="summary-label" data-i18n="settings.messages_24h">Messages · 24 h</span>
+          <strong id="message-total" class="summary-value">—</strong>
+        </div>
+        <div class="summary-item">
+          <span class="summary-label" data-i18n="settings.messages_current_hour">Messages · current hour</span>
+          <strong id="current-hour-total" class="summary-value">—</strong>
+        </div>
+        <div class="summary-item">
+          <span class="summary-label" data-i18n="settings.most_active_current_hour">Most active · current hour</span>
+          <strong id="top-talker" class="summary-value">—</strong>
+        </div>
+      </section>
+
+      <div class="toolbar">
+        <span id="updated-at" class="toolbar-note" data-i18n="settings.waiting_for_data">Waiting for data…</span>
+        <div class="toolbar-actions">
+          <button id="reset" class="reset" type="button" data-i18n="settings.reset">Reset statistics</button>
+          <label class="sort-wrap" for="sort">
+            <span data-i18n="settings.sort_by">Sort by</span>
+            <select id="sort">
+              <option value="name-asc" data-i18n="settings.sort_name">Name A–Z</option>
+              <option value="last24h-desc" data-i18n="settings.sort_24h">Most messages · 24 h</option>
+              <option value="currentHour-desc" data-i18n="settings.sort_current_hour">Most messages · current hour</option>
+              <option value="previousHour-desc" data-i18n="settings.sort_previous_hour">Most messages · previous hour</option>
+              <option value="lastMessageAt-desc" data-i18n="settings.sort_recent">Most recent activity</option>
+            </select>
+          </label>
+        </div>
+      </div>
+
+      <section class="table-shell" aria-live="polite">
+        <table>
+          <thead>
+            <tr>
+              <th><button type="button" data-sort="name-asc" data-i18n="settings.device">Device</button></th>
+              <th><button type="button" data-sort="currentHour-desc" data-i18n="settings.current_hour">Current hour</button></th>
+              <th><button type="button" data-sort="previousHour-desc" data-i18n="settings.previous_hour">Previous hour</button></th>
+              <th><button type="button" data-sort="last24h-desc">24 h</button></th>
+              <th><button type="button" data-sort="lastMessageAt-desc" data-i18n="settings.last_message">Last message</button></th>
+            </tr>
+          </thead>
+          <tbody id="rows">
+            <tr><td colspan="5" class="state" data-i18n="settings.loading">Loading statistics…</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <p class="footnote" data-i18n="settings.footnote">“Frames” are raw Zigbee messages. “Activity” represents explicit callbacks from sleepy sensors. Data is persisted at most once every five minutes.</p>
     </div>
 
-    <section class="table-shell" aria-live="polite">
-      <table>
-        <thead>
-          <tr>
-            <th><button type="button" data-sort="name-asc" data-i18n="settings.device">Device</button></th>
-            <th><button type="button" data-sort="currentHour-desc" data-i18n="settings.current_hour">Current hour</button></th>
-            <th><button type="button" data-sort="previousHour-desc" data-i18n="settings.previous_hour">Previous hour</button></th>
-            <th><button type="button" data-sort="last24h-desc">24 h</button></th>
-            <th><button type="button" data-sort="lastMessageAt-desc" data-i18n="settings.last_message">Last message</button></th>
-          </tr>
-        </thead>
-        <tbody id="rows">
-          <tr><td colspan="5" class="state" data-i18n="settings.loading">Loading statistics…</td></tr>
-        </tbody>
-      </table>
-    </section>
+    <div id="panel-rejoins" class="panel" role="tabpanel" hidden>
+      <section class="summary summary-3" aria-label="Rejoin summary">
+        <div class="summary-item">
+          <span class="summary-label" data-i18n="settings.total_rejoins">Total rejoins</span>
+          <strong id="rejoin-total" class="summary-value">—</strong>
+        </div>
+        <div class="summary-item">
+          <span class="summary-label" data-i18n="settings.devices_with_rejoins">Devices affected</span>
+          <strong id="rejoin-device-count" class="summary-value">—</strong>
+        </div>
+        <div class="summary-item">
+          <span class="summary-label" data-i18n="settings.rejoins_since">Rejoins tracked since</span>
+          <strong id="rejoin-since" class="summary-value">—</strong>
+        </div>
+      </section>
 
-    <p class="footnote" data-i18n="settings.footnote">“Frames” are raw Zigbee messages. “Activity” represents explicit callbacks from sleepy sensors. Data is persisted at most once every five minutes.</p>
+      <div class="toolbar">
+        <span class="toolbar-note"></span>
+        <div class="toolbar-actions">
+          <button id="reset-rejoins" class="reset" type="button" data-i18n="settings.reset_rejoins">Reset rejoins</button>
+        </div>
+      </div>
+
+      <section class="table-shell" aria-live="polite">
+        <table>
+          <thead>
+            <tr>
+              <th class="plain" style="text-align:left" data-i18n="settings.device">Device</th>
+              <th class="plain" data-i18n="settings.rejoins">Rejoins</th>
+              <th class="plain" data-i18n="settings.last_rejoin">Last rejoin</th>
+            </tr>
+          </thead>
+          <tbody id="rejoin-rows">
+            <tr><td colspan="3" class="state" data-i18n="settings.loading">Loading statistics…</td></tr>
+          </tbody>
+        </table>
+      </section>
+    </div>
   </main>
 
   <script>
@@ -329,6 +411,7 @@
     var currentSort = 'name-asc';
     var latestRequest = 0;
     var resetInFlight = false;
+    var activeTab = 'traffic';
 
     function translate(key) {
       if (homeyApi && typeof homeyApi.__ === 'function') return homeyApi.__(key);
@@ -363,6 +446,26 @@
       }).format(new Date(timestamp));
     }
 
+    function formatDate(timestamp) {
+      if (!timestamp) return '—';
+      return new Intl.DateTimeFormat(userLocale(), {
+        day: '2-digit',
+        month: '2-digit',
+        year: 'numeric'
+      }).format(new Date(timestamp));
+    }
+
+    function switchTab(tab) {
+      activeTab = tab;
+      document.querySelectorAll('.tab').forEach(function(button) {
+        var isActive = button.getAttribute('data-tab') === tab;
+        button.classList.toggle('active', isActive);
+        button.setAttribute('aria-selected', String(isActive));
+      });
+      document.getElementById('panel-traffic').hidden = tab !== 'traffic';
+      document.getElementById('panel-rejoins').hidden = tab !== 'rejoins';
+    }
+
     function compareDevices(a, b) {
       var parts = currentSort.split('-');
       var direction = parts.pop();
@@ -378,7 +481,7 @@
       return (aValue - bValue) * multiplier;
     }
 
-    function render() {
+    function renderTraffic() {
       var rows = document.getElementById('rows');
       var sorted = devices.slice().sort(compareDevices);
       var max24h = sorted.reduce(function(maximum, device) {
@@ -436,19 +539,56 @@
       document.getElementById('top-talker').textContent = top ? top.name : '—';
     }
 
+    function renderRejoins() {
+      var affected = devices
+        .filter(function(device) { return device.rejoinCount; })
+        .sort(function(a, b) { return (b.rejoinCount || 0) - (a.rejoinCount || 0); });
+
+      var rows = document.getElementById('rejoin-rows');
+      if (affected.length === 0) {
+        rows.innerHTML = '<tr><td colspan="3" class="state">' + escapeHtml(translate('settings.no_rejoins')) + '</td></tr>';
+      } else {
+        rows.innerHTML = affected.map(function(device) {
+          return '<tr>' +
+            '<td>' +
+              '<div class="device-name">' +
+                '<span>' + escapeHtml(device.name) + '</span>' +
+              '</div>' +
+            '</td>' +
+            '<td class="number"><span class="rejoin-count-badge">' + formatNumber(device.rejoinCount) + '</span></td>' +
+            '<td class="number">' + escapeHtml(formatTime(device.rejoinLastAt)) + '</td>' +
+          '</tr>';
+        }).join('');
+      }
+
+      var totalRejoins = affected.reduce(function(sum, device) { return sum + (device.rejoinCount || 0); }, 0);
+      var since = devices.length ? devices[0].rejoinSince : null;
+      document.getElementById('rejoin-total').textContent = formatNumber(totalRejoins);
+      document.getElementById('rejoin-device-count').textContent = formatNumber(affected.length);
+      document.getElementById('rejoin-since').textContent = formatDate(since);
+    }
+
+    function render() {
+      renderTraffic();
+      renderRejoins();
+    }
+
     function loadStats() {
       if (!homeyApi || resetInFlight) return;
       var requestId = ++latestRequest;
       var refreshButton = document.getElementById('refresh');
       var resetButton = document.getElementById('reset');
+      var resetRejoinsButton = document.getElementById('reset-rejoins');
       refreshButton.disabled = true;
       resetButton.disabled = true;
+      resetRejoinsButton.disabled = true;
       refreshButton.textContent = translate('settings.refreshing');
 
       homeyApi.api('GET', '/message-stats?t=' + Date.now(), {}, function(error, result) {
         if (requestId !== latestRequest) return;
         refreshButton.disabled = false;
         resetButton.disabled = false;
+        resetRejoinsButton.disabled = false;
         refreshButton.textContent = translate('settings.refresh');
         if (error) {
           document.getElementById('rows').innerHTML =
@@ -521,17 +661,76 @@
       }
     }
 
+    function performResetRejoins() {
+      latestRequest += 1;
+      var refreshButton = document.getElementById('refresh');
+      var resetRejoinsButton = document.getElementById('reset-rejoins');
+      refreshButton.disabled = true;
+      resetRejoinsButton.disabled = true;
+      resetRejoinsButton.textContent = translate('settings.resetting_rejoins');
+
+      homeyApi.api('POST', '/rejoin-stats/reset', {}, function(error) {
+        resetInFlight = false;
+        refreshButton.disabled = false;
+        resetRejoinsButton.disabled = false;
+        resetRejoinsButton.textContent = translate('settings.reset_rejoins');
+
+        if (error) {
+          document.getElementById('updated-at').textContent =
+            translate('settings.reset_rejoins_failed') + ' ' + (error.message || error);
+          return;
+        }
+
+        loadStats();
+      });
+    }
+
+    function resetRejoinsStats() {
+      if (!homeyApi || resetInFlight) return;
+
+      var message = translate('settings.reset_rejoins_confirmation');
+      var resetRejoinsButton = document.getElementById('reset-rejoins');
+      resetInFlight = true;
+      resetRejoinsButton.disabled = true;
+
+      function handleConfirmation(error, confirmed) {
+        if (error || !confirmed) {
+          resetInFlight = false;
+          resetRejoinsButton.disabled = false;
+          if (error) {
+            document.getElementById('updated-at').textContent =
+              translate('settings.confirmation_failed') + ' ' + (error.message || error);
+          }
+          return;
+        }
+
+        performResetRejoins();
+      }
+
+      if (typeof homeyApi.confirm === 'function') {
+        homeyApi.confirm(message, 'warning', handleConfirmation);
+      } else {
+        handleConfirmation(null, window.confirm(message));
+      }
+    }
+
+    document.querySelectorAll('.tab').forEach(function(button) {
+      button.addEventListener('click', function() {
+        switchTab(button.getAttribute('data-tab'));
+      });
+    });
     document.getElementById('refresh').addEventListener('click', loadStats);
     document.getElementById('reset').addEventListener('click', resetStats);
+    document.getElementById('reset-rejoins').addEventListener('click', resetRejoinsStats);
     document.getElementById('sort').addEventListener('change', function(event) {
       currentSort = event.target.value;
-      render();
+      renderTraffic();
     });
-    document.querySelectorAll('th button[data-sort]').forEach(function(button) {
+    document.querySelectorAll('#panel-traffic th button[data-sort]').forEach(function(button) {
       button.addEventListener('click', function() {
         currentSort = button.getAttribute('data-sort');
         document.getElementById('sort').value = currentSort;
-        render();
+        renderTraffic();
       });
     });
 

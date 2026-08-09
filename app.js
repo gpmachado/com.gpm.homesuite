@@ -20,6 +20,12 @@ class MyHomeSuiteApp extends Homey.App {
   async onInit() {
     this.log('HomeSuite initiating...');
     this._registerFlowCards();
+
+    // Baseline for the settings-page "Rejoins" counter — only set once;
+    // resetRejoinStats (api.js) moves it forward when the user resets.
+    if (!this.homey.settings.get('rejoin_tracking_since')) {
+      this.homey.settings.set('rejoin_tracking_since', Date.now());
+    }
   }
 
   _registerFlowCards() {

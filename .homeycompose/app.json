@@ -107,6 +107,10 @@
     "resetMessageStats": {
       "method": "POST",
       "path": "/message-stats/reset"
+    },
+    "resetRejoinStats": {
+      "method": "POST",
+      "path": "/rejoin-stats/reset"
     }
   },
   "dependencies": {
