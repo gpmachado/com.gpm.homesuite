@@ -1,0 +1,277 @@
+[
+  {
+    "id": "TurboMode",
+    "type": "checkbox",
+    "value": false,
+    "label": {
+      "en": "Turbo Mode",
+      "de": "Turbomodus",
+      "es": "Modo turbo",
+      "it": "Modalità Turbo"
+    },
+    "hint": {
+      "en": "Enhancing the signal strength.",
+      "de": "Verbessert die Signalstärke.",
+      "es": "Mejora la intensidad de la señal.",
+      "it": "Migliora la forza del segnale."
+    }
+  },
+  {
+    "id": "network_led",
+    "type": "checkbox",
+    "value": true,
+    "label": {
+      "en": "Network Indicator",
+      "de": "Netzwerkanzeige",
+      "es": "Indicador de red",
+      "it": "Indicatore di rete"
+    }
+  },
+  {
+    "type": "group",
+      "label": {
+        "en": "Switch Mode",
+        "it": "Cambia Modalità",
+        "de": "Schaltmodus",
+        "es": "Modo del interruptor"
+      },
+    "children": [
+      {
+        "id": "switch_mode",
+        "type": "dropdown",
+        "label": {
+          "en": "Mode",
+          "it": "Modalità",
+          "de": "Modus",
+          "es": "Modo"
+        },
+        "value": "0",
+        "values": [
+          {
+            "id": "0",
+            "label": {
+              "en": "Edge Mode",
+              "de": "Flankenmodus",
+              "es": "Modo por flanco",
+              "it": "Modalità Edge"
+            }
+          },
+          {
+            "id": "1",
+            "label": {
+              "en": "Pulse Mode",
+              "de": "Impulsmodus",
+              "es": "Modo pulso",
+              "it": "Modalità Impulso"
+            }
+          },
+          {
+            "id": "2",
+            "label": {
+              "en": "Following Mode",
+              "de": "Folgemodus",
+              "es": "Modo seguimiento",
+              "it": "Modalità Inseguimento"
+            }
+          },
+          {
+            "id": "130",
+            "label": {
+              "en": "Following Mode (Reverse)",
+              "de": "Folgemodus (umgekehrt)",
+              "es": "Modo seguimiento (inverso)",
+              "it": "Modalità Inseguimento (Inverti)"
+            }
+          }
+        ]
+      },
+      {
+        "id": "detach_mode",
+        "type": "checkbox",
+        "value": false,
+        "label": {
+          "en": "Detach Relay",
+          "de": "Relais trennen",
+          "es": "Separar relé",
+          "it": "Stacca Relè"
+        }
+      }
+    ]
+  },
+  {
+    "type": "group",
+      "label": {
+        "en": "Power-on",
+        "de": "Einschalten",
+        "es": "Encendido",
+        "it": "Accensione"
+      },
+    "children": [
+      {
+        "id": "power_on_behavior",
+        "type": "dropdown",
+        "label": {
+          "en": "Power-on State",
+          "de": "Einschaltzustand",
+          "es": "Estado al encender",
+          "it": "Stato all'Accensione"
+        },
+        "hint": {
+          "en": "The state of the device when the power restores from a power outage or being turned off physically.",
+          "de": "Der Gerätezustand, wenn die Stromversorgung nach einem Stromausfall wiederhergestellt wird oder das Gerät physisch ausgeschaltet wurde.",
+          "es": "El estado del dispositivo cuando la alimentación se restablece tras un corte de energía o al apagarlo físicamente.",
+          "it": "Stato del dispositivo al momento dell'interruzione dell'alimentazione o dello spegnimento dell'interruttore."
+        },
+        "value": "last_state",
+        "values": [
+          {
+            "id": "on",
+            "label": {
+              "en": "Always On",
+              "it": "Sempre acceso",
+              "de": "Immer ein",
+              "es": "Siempre encendido"
+            }
+          },
+          {
+            "id": "off",
+            "label": {
+              "en": "Always Off",
+              "it": "Sempre spento",
+              "de": "Immer aus",
+              "es": "Siempre apagado"
+            }
+          },
+          {
+            "id": "last_state",
+            "label": {
+              "en": "Last State",
+              "it": "Ultimo stato",
+              "de": "Letzter Zustand",
+              "es": "Último estado"
+            }
+          },
+          {
+            "id": "toggle",
+            "label": {
+              "en": "Toggle",
+              "de": "Umschalten",
+              "es": "Alternar",
+              "it": "Alterna"
+            }
+          }
+        ]
+      },
+      {
+        "id": "power_on_delay_state",
+        "type": "checkbox",
+        "value": false,
+        "hint": {
+          "en": "Power-on state will be delayed for the time you set.",
+          "de": "Der Einschaltzustand wird um die von dir eingestellte Zeit verzögert.",
+          "es": "El estado al encender se retrasará durante el tiempo que configures.",
+          "it": "Lo stato all'accensione sarà ritardato per il tempo impostato."
+        },
+        "label": {
+          "en": "Delay",
+          "it": "Ritardo",
+          "de": "Verzögerung",
+          "es": "Retraso"
+        }
+      },
+      {
+        "id": "power_on_delay_time",
+        "type": "number",
+        "label": {
+          "en": "Duration (seconds)",
+          "de": "Dauer (Sekunden)",
+          "es": "Duración (segundos)",
+          "it": "Durata (secondi)"
+        },
+        "value": 28,
+        "min": 0.5,
+        "max": 3599.5,
+        "step": 0.5
+      }
+    ]
+  },
+  {
+    "type": "group",
+      "label": {
+        "en": "Inching Settings",
+        "de": "Inching-Einstellungen",
+        "es": "Ajustes de inching",
+        "it": "Impostazioni di Inching"
+      },
+    "children": [
+      {
+        "id": "inching_enabled",
+        "type": "checkbox",
+        "value": false,
+        "label": {
+          "en": "Enable Inching",
+          "de": "Inching aktivieren",
+          "es": "Activar inching",
+          "it": "Abilita Inching"
+        },
+        "hint": {
+          "en": "Automatically turn off/on after a set time.",
+          "de": "Schaltet nach einer festgelegten Zeit automatisch aus/ein.",
+          "es": "Apaga/enciende automáticamente tras un tiempo establecido.",
+          "it": "Spegne/accende automaticamente dopo un tempo impostato."
+        }
+      },
+      {
+        "id": "inching_time",
+        "type": "number",
+        "label": {
+          "en": "Inching time (seconds)",
+          "de": "Inching-Zeit (Sekunden)",
+          "es": "Tiempo de inching (segundos)",
+          "it": "Tempo di Inching (secondi)"
+        },
+        "value": 1,
+        "min": 0.5,
+        "max": 3599.5,
+        "step": 0.5
+      },
+      {
+        "id": "inching_mode",
+        "type": "dropdown",
+        "label": {
+          "en": "Status",
+          "de": "Status",
+          "es": "Estado",
+          "it": "Stato"
+        },
+        "hint": {
+          "en": "Choose whether to turn on or off after the set time.",
+          "de": "Wähle, ob nach der festgelegten Zeit ein- oder ausgeschaltet werden soll.",
+          "es": "Elige si encender o apagar después del tiempo establecido.",
+          "it": "Scegli se accendere o spegnere dopo il tempo impostato."
+        },
+        "value": "on",
+        "values": [
+          {
+            "id": "on",
+            "label": {
+              "en": "Auto-On",
+              "de": "Auto-Ein",
+              "es": "Autoencendido",
+              "it": "Auto-acceso"
+            }
+          },
+          {
+            "id": "off",
+            "label": {
+              "en": "Auto-Off",
+              "de": "Auto-Aus",
+              "es": "Autoapagado",
+              "it": "Auto-spento"
+            }
+          }
+        ]
+      }
+    ]
+  }
+]

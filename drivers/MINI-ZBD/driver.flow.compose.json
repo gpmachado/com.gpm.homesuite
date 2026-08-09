@@ -1,0 +1,31 @@
+{
+  "triggers": [
+    {
+      "$extends": "availability_turned_on",
+      "$id": "MINI-ZBD_availability_turned_on"
+    },
+    {
+      "$extends": "availability_turned_off",
+      "$id": "MINI-ZBD_availability_turned_off"
+    },
+    {
+      "$extends": "device_rejoined",
+      "$id": "MINI-ZBD_device_rejoined"
+    },
+    {
+      "id": "MINI-ZBD:click",
+      "title": {
+        "en": "Single click",
+        "de": "Einzelklick",
+        "es": "Pulsación única",
+        "it": "Pressione singola"
+      },
+      "hint": {
+        "en": "This trigger fires when the physical switch is pressed and the 'Detach Relay' setting is enabled.",
+        "de": "Dieser Auslöser wird aktiviert, wenn der physische Schalter gedrückt wird und die Einstellung 'Relais trennen' aktiviert ist.",
+        "es": "Este disparador se activa cuando se pulsa el interruptor físico y la opción 'Separar relé' está activada.",
+        "it": "Questo trigger si attiva quando l'interruttore fisico viene premuto e l'impostazione 'Scollega relè' è abilitata."
+      }
+    }
+  ]
+}
