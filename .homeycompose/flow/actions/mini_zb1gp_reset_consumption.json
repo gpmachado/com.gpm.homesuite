@@ -7,10 +7,10 @@
     "de": "Akkumulierten Verbrauch zurücksetzen"
   },
   "hint": {
-    "en": "Sends the energy meter reset command. Obtained by reverse engineering via sniffer, not confirmed against any public source.",
-    "es": "Envía el comando de reinicio del medidor de energía. Obtenido por ingeniería inversa mediante sniffer, no confirmado en ninguna fuente pública.",
-    "it": "Invia il comando di reset del contatore di energia. Ottenuto tramite reverse engineering con sniffer, non confermato da fonti pubbliche.",
-    "de": "Sendet den Reset-Befehl für den Energiezähler. Durch Reverse Engineering per Sniffer ermittelt, nicht durch eine öffentliche Quelle bestätigt."
+    "en": "Sends the energy meter reset command, identified via sniffer analysis and confirmed working on real hardware.",
+    "es": "Envía el comando de reinicio del medidor de energía, identificado mediante análisis con sniffer y confirmado en hardware real.",
+    "it": "Invia il comando di reset del contatore di energia, identificato tramite analisi con sniffer e confermato su hardware reale.",
+    "de": "Sendet den Reset-Befehl für den Energiezähler, ermittelt durch Sniffer-Analyse und auf echter Hardware bestätigt."
   },
   "args": [
     {
