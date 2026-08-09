@@ -3,8 +3,8 @@
 const { CLUSTER } = require('zigbee-clusters');
 const SonoffBase = require('../../lib/SonoffBase');
 const AvailabilityManager = require('../../lib/AvailabilityManager');
-const { AvailabilityManagerCluster0 } = AvailabilityManager;
-const { SONOFF_HEARTBEAT_TIMEOUT_MS } = require('../../lib/constants');
+const { AvailabilityManagerPassive } = AvailabilityManager;
+const { HEARTBEAT_MEDIUM_MS } = require('../../lib/constants');
 
 class SonoffBASICZBR3 extends SonoffBase {
 
@@ -16,10 +16,12 @@ class SonoffBASICZBR3 extends SonoffBase {
       // Same fix as ZBMINIR2: wire manually with waitForResponse: false.
       const _onOffCluster = zclNode.endpoints[1].clusters.onOff;
 
-      _onOffCluster.on('attr.onOff', value => {
+      this._onOnOff ??= value => {
         this.log(`handle report (cluster: onOff, capability: onoff), parsed payload: ${value}`);
         this.setCapabilityValue('onoff', value).catch(this.error);
-      });
+      };
+      _onOffCluster.removeListener('attr.onOff', this._onOnOff);
+      _onOffCluster.on('attr.onOff', this._onOnOff);
 
       this.registerCapabilityListener('onoff', async value => {
         this.log(`set onoff → ${value} (cluster: onOff, endpoint: 1)`);
@@ -29,7 +31,7 @@ class SonoffBASICZBR3 extends SonoffBase {
     }
 
     // Availability tracking
-    this._availability = new AvailabilityManagerCluster0(this, { timeout: SONOFF_HEARTBEAT_TIMEOUT_MS });
+    this._availability = new AvailabilityManagerPassive(this, { timeout: HEARTBEAT_MEDIUM_MS });
     await this._availability.install();
 
     // NOTE: BASICZBR3 firmware responds UNSUP_GENERAL_COMMAND to all ZCL general commands

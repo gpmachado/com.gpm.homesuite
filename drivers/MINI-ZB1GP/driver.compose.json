@@ -2,7 +2,9 @@
   "id": "MINI-ZB1GP",
   "name": {
     "en": "Sonoff Energy Meter",
-    "pt": "Medidor de Energia Sonoff"
+    "es": "Medidor de Energía Sonoff",
+    "it": "Misuratore di Energia Sonoff",
+    "de": "Sonoff Energiezähler"
   },
   "class": "sensor",
   "capabilities": [
@@ -44,7 +46,10 @@
     },
     "learnmode": {
       "instruction": {
-        "en": "Press and hold the button on the device until the LED starts blinking rapidly."
+        "en": "Press and hold the button on the device until the LED starts blinking rapidly.",
+        "es": "Mantén pulsado el botón del dispositivo hasta que el LED empiece a parpadear rápidamente.",
+        "it": "Tieni premuto il pulsante del dispositivo finché il LED non inizia a lampeggiare rapidamente.",
+        "de": "Halte die Taste am Gerät gedrückt, bis die LED schnell zu blinken beginnt."
       }
     }
   },

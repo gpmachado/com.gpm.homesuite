@@ -39,7 +39,7 @@ class novadigital_switch_2gang extends TuyaZclBase {
     if (this._isMainDevice) {
       this._attachGangPowerOnListener(gangCluster, this._endpoint, 'power_on_behavior_gang1', 'power_on_current_gang1');
 
-      gangCluster.on('attr.switchMode', value => {
+      this._onSwitchMode ??= value => {
         this.log(`[EP${this._endpoint}] switchMode:`, value);
         const norm  = SWITCH_NORMALIZE(value);
         const label = SWITCH_DISPLAY[norm] || norm;
@@ -48,7 +48,9 @@ class novadigital_switch_2gang extends TuyaZclBase {
           switch_mode_current: label,
         }).catch(err => this.error('setSettings switchMode:', err));
         this._propagateSwitchModeLabel(label);
-      });
+      };
+      gangCluster.removeListener('attr.switchMode', this._onSwitchMode);
+      gangCluster.on('attr.switchMode', this._onSwitchMode);
     } else {
       this._attachGangPowerOnListener(gangCluster, this._endpoint, 'power_on_behavior_gang2', 'power_on_current_gang2');
     }
@@ -69,9 +71,13 @@ class novadigital_switch_2gang extends TuyaZclBase {
       // Extended onOff listeners (backlight + powerOnStateGlobal)
       this._attachBacklightListener(onOffCluster);
       this._attachPowerOnGlobalListener(onOffCluster, 'power_on_behavior_global', 'power_on_current_global');
+      this._onIndicatorModeLog ??= value => this.log('[EP1] indicatorMode:', value);
+      this._onChildLockLog ??= value => this.log('[EP1] childLock:', value);
+      onOffCluster.removeListener('attr.indicatorMode', this._onIndicatorModeLog);
+      onOffCluster.removeListener('attr.childLock', this._onChildLockLog);
       onOffCluster
-        .on('attr.indicatorMode', value => this.log('[EP1] indicatorMode:', value))
-        .on('attr.childLock',     value => this.log('[EP1] childLock:', value));
+        .on('attr.indicatorMode', this._onIndicatorModeLog)
+        .on('attr.childLock',     this._onChildLockLog);
 
       // Cross-endpoint: keep main device's gang2 current label in sync
       this._attachGangPowerOnListener(

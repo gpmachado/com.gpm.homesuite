@@ -3,12 +3,12 @@
 /**
  * @file device.js
  * @description Smart Plug with Energy Metering (TS011F / TS0121)
- * Manufacturers: _TZ3000_88iqnhvd, _TZ3000_okaz9tjs, _TZ3210_cehuw1lw
+ * Manufacturers: _TZ3000_88iqnhvd, _TZ3000_okaz9tjs
  */
 
 const { CLUSTER } = require('zigbee-clusters');
 const { TuyaZclBase } = require('../../lib/TuyaZclBase');
-const { AvailabilityManagerCluster0 } = require('../../lib/AvailabilityManager');
+const { AvailabilityManagerPassive } = require('../../lib/AvailabilityManager');
 const { safeGetNumberSettings } = require('../../lib/settingsUtils');
 const { isDeviceUnreachable } = require('../../lib/errorUtils');
 const {
@@ -16,7 +16,7 @@ const {
   powerOnSettingsPatch, indicatorSettingsPatch,
 } = require('../../lib/ZclOnOffSettings');
 const {
-  SMART_PLUG_TIMEOUT_MS,
+  HEARTBEAT_FAST_MS,
   SMART_PLUG_POLL_MIN_MS,
   SMART_PLUG_POLL_MAX_MS,
   SMART_PLUG_VOLTAGE_POLL_EVERY,
@@ -94,7 +94,8 @@ class SmartPlugDevice extends TuyaZclBase {
     // availability wrapper; we wrap it once more (outermost) and call through.
     {
       const node = await this.homey.zigbee.getNode(this);
-      const _hook = node.handleFrame.bind(node);
+      this._origHandleFrameE001 = node.handleFrame.bind(node);
+      const _hook = this._origHandleFrameE001;
       node.handleFrame = (...args) => {
         const [, clusterId, frame] = args;
         if (clusterId === 0xE001 && Buffer.isBuffer(frame) && frame.length >= 3) {
@@ -120,7 +121,7 @@ class SmartPlugDevice extends TuyaZclBase {
     // If the device was unreachable at init (Zigbee mesh still stabilising after app restart),
     // marking unavailable + stopping polling creates a deadlock: no polls go out, reporting
     // was never configured, so no frames arrive and the device stays stuck as unavailable.
-    // The watchdog will mark it unavailable after SMART_PLUG_TIMEOUT_MS if truly offline.
+    // The watchdog will mark it unavailable after HEARTBEAT_FAST_MS if truly offline.
     if (!reachable) {
       this.log('[Init] Device not reachable at boot — polling will confirm state');
     }
@@ -134,8 +135,8 @@ class SmartPlugDevice extends TuyaZclBase {
 
   async _installAvailability() {
     this._startedAt = Date.now(); // boot guard for _notifyRejoin (not set by super override)
-    this._availability = new AvailabilityManagerCluster0(this, {
-      timeout: SMART_PLUG_TIMEOUT_MS,
+    this._availability = new AvailabilityManagerPassive(this, {
+      timeout: HEARTBEAT_FAST_MS,
     });
     await this._availability.install();
   }
@@ -435,30 +436,42 @@ class SmartPlugDevice extends TuyaZclBase {
   _attachOnOffListeners(zclNode) {
     const onOff = zclNode.endpoints[1].clusters.onOff;
 
+    // Stable references so remove-then-add guards against duplicate
+    // accumulation if onNodeInit runs again on a reused cluster object.
+
     // Report path (device → Homey): same debounce the old reportParser used.
-    onOff.on('attr.onOff', value => {
+    this._onOnOffAttr ??= value => {
       const v = this._debouncedParser('onoff', value);
       if (v === null) return;
       this.setCapabilityValue('onoff', v).catch(this.error);
-    });
+    };
 
-    onOff.on('attr.childLock', value => {
+    this._onChildLock ??= value => {
       this._trackBootBurst('childLock');
       this.setSettings({ child_lock: Boolean(value) }).catch(() => {});
-    });
+    };
 
-    onOff.on('attr.indicatorMode', value => {
+    this._onIndicatorMode ??= value => {
       this._trackBootBurst('indicatorMode');
       this.setSettings(indicatorSettingsPatch('indicator_mode', 'indicator_mode_current', value)).catch(() => {});
-    });
+    };
 
-    onOff.on('attr.powerOnStateGlobal', value => {
+    this._onPowerOnStateGlobal ??= value => {
       this._trackBootBurst('powerOnGlobal');
       this.setSettings(powerOnSettingsPatch('relay_status', 'relay_status_current', value)).catch(() => {});
       // Note: rejoin no longer fires on a single attribute. _trackBootBurst requires
       // 3+ DISTINCT config attributes within ~2s (a reboot dump), so a lone periodic
       // powerOnStateGlobal report from TS011F firmware does not trigger device_rejoined.
-    });
+    };
+
+    onOff.removeListener('attr.onOff', this._onOnOffAttr);
+    onOff.on('attr.onOff', this._onOnOffAttr);
+    onOff.removeListener('attr.childLock', this._onChildLock);
+    onOff.on('attr.childLock', this._onChildLock);
+    onOff.removeListener('attr.indicatorMode', this._onIndicatorMode);
+    onOff.on('attr.indicatorMode', this._onIndicatorMode);
+    onOff.removeListener('attr.powerOnStateGlobal', this._onPowerOnStateGlobal);
+    onOff.on('attr.powerOnStateGlobal', this._onPowerOnStateGlobal);
   }
 
   // ─── Tuya attribute read / configure ───────────────────────────────────
@@ -517,9 +530,15 @@ class SmartPlugDevice extends TuyaZclBase {
 
   // _teardown is invoked by both onUninit (re-init/restart) and onDeleted
   // (user removal) via TuyaZclBase. Stopping polling here prevents a leaked
-  // interval + orphaned availability hook on app restart.
+  // interval + orphaned availability hook on app restart. Restoring the E001
+  // handleFrame hook here prevents it from stacking on the shared node across
+  // an onNodeInit re-run.
   async _teardown() {
     this._stopPolling();
+    if (this.zclNode && this._origHandleFrameE001 !== undefined) {
+      const node = await this.homey.zigbee.getNode(this).catch(() => null);
+      if (node) node.handleFrame = this._origHandleFrameE001;
+    }
     await super._teardown();
   }
 

@@ -1,7 +1,7 @@
 'use strict';
 
 const TuyaSpecificClusterDevice = require('../../lib/TuyaSpecificClusterDevice');
-const { AvailabilityManagerCluster0 } = require('../../lib/AvailabilityManager');
+const { AvailabilityManagerPassive } = require('../../lib/AvailabilityManager');
 const IASZoneHelper = require('../../lib/IASZoneHelper');
 
 const DATA_POINTS = {
@@ -43,7 +43,7 @@ class RadarSensorMmwaveDevice extends TuyaSpecificClusterDevice {
     this._presenceKeepTime = null;
     this._occupied = null;
 
-    this._availability = new AvailabilityManagerCluster0(this, {
+    this._availability = new AvailabilityManagerPassive(this, {
       timeout: 12 * 60 * 60 * 1000,
       pollBeforeOffline: false,
     });

@@ -143,10 +143,9 @@ class SmartPlug2Device extends SmartPlugDevice {
   }
 
   async _installDiagnosticFrameHook() {
-    if (this._debugFrameHookInstalled) return;
-
     const node = await this.homey.zigbee.getNode(this);
-    const previousHandleFrame = node.handleFrame.bind(node);
+    this._origHandleFrameDiagnostic = node.handleFrame.bind(node);
+    const previousHandleFrame = this._origHandleFrameDiagnostic;
 
     node.handleFrame = (...args) => {
       try {
@@ -260,6 +259,13 @@ class SmartPlug2Device extends SmartPlugDevice {
     }
     this._debugFrameCounts.clear();
     this._debugLastFrameAt.clear();
+    // Restore the diagnostic handleFrame hook so it doesn't stack on the
+    // shared node across an onNodeInit re-run.
+    if (this._origHandleFrameDiagnostic !== undefined) {
+      const node = await this.homey.zigbee.getNode(this).catch(() => null);
+      if (node) node.handleFrame = this._origHandleFrameDiagnostic;
+      this._debugFrameHookInstalled = false;
+    }
     await super._teardown();
   }
 }

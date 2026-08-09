@@ -3,7 +3,7 @@
 const SonoffBase = require('../../lib/SonoffBase');
 const { CLUSTER } = require('zigbee-clusters');
 const IASZoneHelper = require('../../lib/IASZoneHelper');
-const { AvailabilityManagerCluster0 } = require('../../lib/AvailabilityManager');
+const { AvailabilityManagerPassive } = require('../../lib/AvailabilityManager');
 
 const OccupancySensing = CLUSTER.OCCUPANCY_SENSING;
 
@@ -12,7 +12,7 @@ class SonoffSNZB06P extends SonoffBase {
   async onNodeInit({ zclNode }) {
     await super.onNodeInit({ zclNode });
 
-    this._availability = new AvailabilityManagerCluster0(this, {
+    this._availability = new AvailabilityManagerPassive(this, {
       timeout: 12 * 60 * 60 * 1000,
       // The sensor can remain silent while the room is empty. Confirm that the
       // always-powered router still answers before marking it unavailable.

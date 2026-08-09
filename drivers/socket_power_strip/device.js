@@ -13,7 +13,7 @@
  *   onRenamed / onDeleted / onBecameUnavailable  (TuyaZclBase)
  *
  * Overrides:
- *   _installAvailability  → SOCKET_POWER_STRIP_TIMEOUT_MS
+ *   _installAvailability  → HEARTBEAT_FAST_MS
  *   _updateSiblingNames   → SOCKET_ORDER sort via updateSiblingNames
  *   onBecameAvailable     → re-sync onOff state on rejoin
  *   onDeleted             → clear handleFrame override
@@ -25,9 +25,9 @@
 const { CLUSTER } = require('zigbee-clusters');
 const { TuyaZclBase, POWER_ON_DISPLAY } = require('../../lib/TuyaZclBase');
 const { normalizeIndicatorMode } = require('../../lib/ZclOnOffSettings');
-const { AvailabilityManagerCluster0 } = require('../../lib/AvailabilityManager');
+const { AvailabilityManagerPassive } = require('../../lib/AvailabilityManager');
 const { updateSiblingNames } = require('../../lib/connectedDevices');
-const { SOCKET_POWER_STRIP_TIMEOUT_MS, ONOFF_REPORT_MAX_INTERVAL_S } = require('../../lib/constants');
+const { HEARTBEAT_FAST_MS, ONOFF_REPORT_MAX_INTERVAL_S } = require('../../lib/constants');
 
 /** subDeviceId → Zigbee endpoint number */
 const ENDPOINT_MAP = Object.freeze({ socket2: 2, socket3: 3, socket4: 4, usb: 5 });
@@ -107,7 +107,7 @@ class PowerStripDevice extends TuyaZclBase {
 
       // powerOnStateGlobal — inline listener (base class version also re-enforces
       // backlight which is not applicable to this device)
-      onOffCluster.on('attr.powerOnStateGlobal', value => {
+      this._onPowerOnStateGlobal ??= value => {
         this.log('[EP1] powerOnStateGlobal:', value);
         this.setSettings({
           power_on_behavior_global: value,
@@ -115,17 +115,21 @@ class PowerStripDevice extends TuyaZclBase {
         }).catch(err => this.error('setSettings powerOnStateGlobal:', err));
         // Rejoin is signalled via onEndDeviceAnnounce (ZDO Device Announce).
         // powerOnStateGlobal can be reported periodically — not a reliable rejoin signal.
-      });
-
-      onOffCluster.on('attr.indicatorMode', value => {
+      };
+      this._onIndicatorMode ??= value => {
         this.log('[EP1] indicatorMode:', value);
         this.setSettings({ indicator_mode: normalizeIndicatorMode(value) }).catch(() => {});
-      });
-
-      onOffCluster.on('attr.childLock', value => {
+      };
+      this._onChildLock ??= value => {
         this.log('[EP1] childLock:', value);
         this.setSettings({ child_lock: Boolean(value) }).catch(() => {});
-      });
+      };
+      onOffCluster.removeListener('attr.powerOnStateGlobal', this._onPowerOnStateGlobal);
+      onOffCluster.on('attr.powerOnStateGlobal', this._onPowerOnStateGlobal);
+      onOffCluster.removeListener('attr.indicatorMode', this._onIndicatorMode);
+      onOffCluster.on('attr.indicatorMode', this._onIndicatorMode);
+      onOffCluster.removeListener('attr.childLock', this._onChildLock);
+      onOffCluster.on('attr.childLock', this._onChildLock);
 
       // Read initial powerOnStateGlobal + indicatorMode — first pairing only.
       // Non-volatile settings; no need to re-read on every boot.
@@ -230,8 +234,8 @@ class PowerStripDevice extends TuyaZclBase {
   // ── Overrides ──────────────────────────────────────────────────────────────
 
   async _installAvailability() {
-    this._availability = new AvailabilityManagerCluster0(this, {
-      timeout: SOCKET_POWER_STRIP_TIMEOUT_MS,
+    this._availability = new AvailabilityManagerPassive(this, {
+      timeout: HEARTBEAT_FAST_MS,
     });
     await this._availability.install();
   }

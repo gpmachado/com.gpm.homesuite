@@ -2,10 +2,10 @@
 
 const TuyaSpecificClusterDevice = require('../../lib/TuyaSpecificClusterDevice');
 const AvailabilityManager = require('../../lib/AvailabilityManager');
-const { AvailabilityManagerCluster0 } = AvailabilityManager;
+const { AvailabilityManagerPassive } = AvailabilityManager;
 const { isDeviceUnreachable } = require('../../lib/errorUtils');
 const { TimeSilentBoundCluster } = require('../../lib/TimeCluster');
-const { APP_VERSION, TEMPHUMID_CLOCK_HEARTBEAT_MS } = require('../../lib/constants');
+const { APP_VERSION, HEARTBEAT_VERY_SLOW_MS } = require('../../lib/constants');
 
 const VERSION = APP_VERSION;
 
@@ -33,8 +33,8 @@ class TempHumidClock extends TuyaSpecificClusterDevice {
 
     // Availability watchdog — install FIRST so inbound wake/rejoin frames mark
     // the sleepy device as available without needing active polling.
-    this._availability = new AvailabilityManagerCluster0(this, {
-      timeout: TEMPHUMID_CLOCK_HEARTBEAT_MS,
+    this._availability = new AvailabilityManagerPassive(this, {
+      timeout: HEARTBEAT_VERY_SLOW_MS,
     });
     await this._availability.install();
 

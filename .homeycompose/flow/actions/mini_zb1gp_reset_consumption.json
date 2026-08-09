@@ -1,0 +1,22 @@
+{
+  "id": "mini_zb1gp_reset_consumption",
+  "title": {
+    "en": "Reset accumulated consumption",
+    "es": "Restablecer consumo acumulado",
+    "it": "Reimposta il consumo accumulato",
+    "de": "Akkumulierten Verbrauch zurücksetzen"
+  },
+  "hint": {
+    "en": "Sends the energy meter reset command. Obtained by reverse engineering via sniffer, not confirmed against any public source.",
+    "es": "Envía el comando de reinicio del medidor de energía. Obtenido por ingeniería inversa mediante sniffer, no confirmado en ninguna fuente pública.",
+    "it": "Invia il comando di reset del contatore di energia. Ottenuto tramite reverse engineering con sniffer, non confermato da fonti pubbliche.",
+    "de": "Sendet den Reset-Befehl für den Energiezähler. Durch Reverse Engineering per Sniffer ermittelt, nicht durch eine öffentliche Quelle bestätigt."
+  },
+  "args": [
+    {
+      "type": "device",
+      "name": "device",
+      "filter": "driver_id=MINI-ZB1GP"
+    }
+  ]
+}

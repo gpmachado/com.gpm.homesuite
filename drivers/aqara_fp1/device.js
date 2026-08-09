@@ -2,7 +2,8 @@
 
 const { ZigBeeDevice } = require('homey-zigbeedriver');
 const AqaraLumiCluster = require('../../lib/AqaraLumiCluster');
-const { AvailabilityManagerCluster0 } = require('../../lib/AvailabilityManager');
+const { AvailabilityManagerPassive } = require('../../lib/AvailabilityManager');
+const { TimeSilentBoundCluster } = require('../../lib/TimeCluster');
 
 const AQARA_MFG = 0x115F;
 
@@ -34,11 +35,16 @@ class AqaraFP1Device extends ZigBeeDevice {
   async onNodeInit({ zclNode }) {
     await super.onNodeInit({ zclNode });
 
+    // FP1 doesn't declare the Time cluster in its own cluster list, but still
+    // probes it — without a bound cluster this logs binding_unavailable on
+    // every attempt (interview-confirmed: no 'time' entry in input/output clusters).
+    try { zclNode.endpoints[1].bind('time', new TimeSilentBoundCluster()); } catch {}
+
     this._presenceEventTrigger = this.homey.flow.getDeviceTriggerCard('aqara_fp1_presence_event');
 
     // FP1 is mains-powered and reports continuously. Count its raw inbound
     // frames so it appears in the Zigbee Traffic report like the Linptech.
-    this._availability = new AvailabilityManagerCluster0(this, {
+    this._availability = new AvailabilityManagerPassive(this, {
       timeout: 12 * 60 * 60 * 1000,
       pollBeforeOffline: false,
     });
@@ -149,6 +155,10 @@ class AqaraFP1Device extends ZigBeeDevice {
       default:
         this.log(`[FP1] unhandled attr: ${name}=${this._fmtValue(value)}`);
     }
+  }
+
+  _handleCommand(cmd) {
+    this.log('[FP1] raw command:', this._fmtValue(cmd));
   }
 
   _handleRawReport(data) {
@@ -335,6 +345,7 @@ class AqaraFP1Device extends ZigBeeDevice {
         lumiCluster.removeAllListeners(`attr.${name}`);
       }
       lumiCluster.removeAllListeners('command');
+      lumiCluster.removeAllListeners('reportAttributes');
     }
   }
 

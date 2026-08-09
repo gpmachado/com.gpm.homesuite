@@ -1,10 +1,10 @@
 'use strict';
 
 const SonoffBase = require('../../lib/SonoffBase');
-const { AvailabilityManagerCluster0 } = require('../../lib/AvailabilityManager');
+const { AvailabilityManagerPassive } = require('../../lib/AvailabilityManager');
 const { BasicSilentBoundCluster } = require('../../lib/TimeCluster');
 const IASZoneHelper = require('../../lib/IASZoneHelper');
-const { BATTERY_DEVICE_HEARTBEAT_MS } = require('../../lib/constants');
+const { HEARTBEAT_SLOW_MS } = require('../../lib/constants');
 
 class SonoffSNZB03 extends SonoffBase {
 
@@ -12,8 +12,8 @@ class SonoffSNZB03 extends SonoffBase {
 
         await super.onNodeInit({ zclNode }, { noAttribCheck: true });
 
-        // Availability tracking - Cluster0 captures ALL frames (including cluster 0 basic)
-        this._availability = new AvailabilityManagerCluster0(this, { timeout: BATTERY_DEVICE_HEARTBEAT_MS });
+        // Availability tracking - Passive captures ALL frames (including cluster 0 basic)
+        this._availability = new AvailabilityManagerPassive(this, { timeout: HEARTBEAT_SLOW_MS });
         await this._availability.install();
 
         // Silence cluster 0 frames to avoid "cluster_unavailable" errors
@@ -36,12 +36,14 @@ class SonoffSNZB03 extends SonoffBase {
         const powerConfig = zclNode.endpoints[1].clusters.powerConfiguration;
         if (powerConfig) {
             this._absorbLateGlobalResponses(powerConfig);
-            powerConfig.on('attr.batteryPercentageRemaining', value => {
+            this._onBatteryPercentage ??= value => {
                 const pct = Math.round(value / 2);
                 this.log(`[Battery] ${pct}% (raw=${value})`);
                 this.setCapabilityValue('measure_battery', pct).catch(this.error);
                 this._availability?.notifyActivity('battery-report');
-            });
+            };
+            powerConfig.removeListener('attr.batteryPercentageRemaining', this._onBatteryPercentage);
+            powerConfig.on('attr.batteryPercentageRemaining', this._onBatteryPercentage);
         }
 
         this._iasZone = new IASZoneHelper(this, {

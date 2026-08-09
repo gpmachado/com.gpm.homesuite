@@ -4,8 +4,8 @@ const SonoffCluster = require('../../lib/SonoffCluster');
 const { Cluster, CLUSTER, BoundCluster } = require('zigbee-clusters');
 const SonoffBase = require('../../lib/SonoffBase');
 const AvailabilityManager = require('../../lib/AvailabilityManager');
-const { AvailabilityManagerCluster0 } = AvailabilityManager;
-const { SONOFF_HEARTBEAT_TIMEOUT_MS, SONOFF_REPORT_MAX_INTERVAL_S } = require('../../lib/constants');
+const { AvailabilityManagerPassive } = AvailabilityManager;
+const { HEARTBEAT_MEDIUM_MS, SONOFF_REPORT_MAX_INTERVAL_S } = require('../../lib/constants');
 
 // Handles external switch commands (detach_mode) sent directly to the hub
 class MyOnOffBoundCluster extends BoundCluster {
@@ -63,10 +63,12 @@ class SonoffZBMINIR2 extends SonoffBase {
             //   - REPORT: cluster attr.onOff event → setCapabilityValue
             const _onOffCluster = zclNode.endpoints[1].clusters.onOff;
 
-            _onOffCluster.on('attr.onOff', value => {
+            this._onOnOff ??= value => {
                 this.log(`handle report (cluster: onOff, capability: onoff), parsed payload: ${value}`);
                 this.setCapabilityValue('onoff', value).catch(this.error);
-            });
+            };
+            _onOffCluster.removeListener('attr.onOff', this._onOnOff);
+            _onOffCluster.on('attr.onOff', this._onOnOff);
 
             this.registerCapabilityListener('onoff', async value => {
                 this.log(`set onoff → ${value} (cluster: onOff, endpoint: 1)`);
@@ -79,7 +81,7 @@ class SonoffZBMINIR2 extends SonoffBase {
 
         // Availability tracking — install FIRST so ZCL responses during init reads
         // (configureReporting, checkAttributes) update last_seen_ts.
-        this._availability = new AvailabilityManagerCluster0(this, { timeout: SONOFF_HEARTBEAT_TIMEOUT_MS });
+        this._availability = new AvailabilityManagerPassive(this, { timeout: HEARTBEAT_MEDIUM_MS });
         await this._availability.install();
 
         // Deferred 30 s: mesh routes are stale immediately after boot.
@@ -107,7 +109,13 @@ class SonoffZBMINIR2 extends SonoffBase {
         //      On power restore both clusters report together (sniffer confirmed: ~8ms apart).
         //      Periodic 0xFC11 heartbeats arrive without a 0x0006 companion → no false positive.
         this._onOffReportTs = 0; // timestamp of last 0x0006 Report Attributes (boot-dump corroborator)
-        {
+        // Guarded against re-installing on re-init: this.node can be reused by the
+        // framework across an onNodeInit re-run, and wrapping handleFrame again on
+        // the same node would stack interceptors indefinitely (see SonoffBase#_installClusterReportInterceptor).
+        if (this.node._zbminir2FrameHookInstalled) {
+            this.log('[ZBMINIR2] handleFrame hook already installed (shared node)');
+        } else {
+            this.node._zbminir2FrameHookInstalled = true;
             const _hook = this.node.handleFrame.bind(this.node);
             this.node.handleFrame = (...args) => {
                 const [, clusterId, frame] = args;

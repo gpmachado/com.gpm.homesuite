@@ -2,9 +2,9 @@
 
 const { ZigBeeDevice } = require('homey-zigbeedriver');
 const AvailabilityManager = require('../../lib/AvailabilityManager');
-const { AvailabilityManagerCluster0 } = AvailabilityManager;
+const { AvailabilityManagerPassive } = AvailabilityManager;
 const { readAttrCatch } = require('../../lib/errorUtils');
-const { ZIGBEE_REPEATER_HEARTBEAT_MS, ZIGBEE_REPEATER_PING_INTERVAL_MS } = require('../../lib/constants');
+const { HEARTBEAT_MEDIUM_MS, ZIGBEE_REPEATER_PING_INTERVAL_MS } = require('../../lib/constants');
 const { TimeSilentBoundCluster } = require('../../lib/TimeCluster');
 
 
@@ -19,8 +19,8 @@ class ZigbeeRepeaterDevice extends ZigBeeDevice {
 
     // Passive availability watchdog — install FIRST so the ZCL response to
     // readAttributes below updates last_seen_ts and fires onBecameAvailable.
-    this._availability = new AvailabilityManagerCluster0(this, {
-      timeout: ZIGBEE_REPEATER_HEARTBEAT_MS,
+    this._availability = new AvailabilityManagerPassive(this, {
+      timeout: HEARTBEAT_MEDIUM_MS,
     });
     await this._availability.install();
 

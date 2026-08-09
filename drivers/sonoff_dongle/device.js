@@ -3,7 +3,7 @@
 const { ZigBeeDevice } = require('homey-zigbeedriver');
 const { CLUSTER } = require('zigbee-clusters');
 const AvailabilityManager = require('../../lib/AvailabilityManager');
-const { AvailabilityManagerCluster0 } = AvailabilityManager;
+const { AvailabilityManagerPassive } = AvailabilityManager;
 const { readAttrCatch } = require('../../lib/errorUtils');
 const { SONOFF_DONGLE_HEARTBEAT_MS } = require('../../lib/constants');
 const { TimeSilentBoundCluster } = require('../../lib/TimeCluster');
@@ -20,7 +20,7 @@ class SonoffDongleDevice extends ZigBeeDevice {
     // Passive availability watchdog — install FIRST so ZCL responses during
     // readAttributes and configureReporting below update last_seen_ts.
     // Timeout = 15 min = 3× the 5 min reporting interval.
-    this._availability = new AvailabilityManagerCluster0(this, {
+    this._availability = new AvailabilityManagerPassive(this, {
       timeout: SONOFF_DONGLE_HEARTBEAT_MS,
     });
     await this._availability.install();

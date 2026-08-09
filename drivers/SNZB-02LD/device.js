@@ -2,8 +2,8 @@
 
 const SonoffBase = require('../../lib/SonoffBase');
 const { CLUSTER } = require('zigbee-clusters');
-const { AvailabilityManagerCluster6 } = require('../../lib/AvailabilityManager');
-const { BATTERY_DEVICE_HEARTBEAT_MS } = require('../../lib/constants');
+const { AvailabilityManagerCallback } = require('../../lib/AvailabilityManager');
+const { HEARTBEAT_SLOW_MS } = require('../../lib/constants');
 
 class SonoffSNZB02LD extends SonoffBase {
 
@@ -12,7 +12,7 @@ class SonoffSNZB02LD extends SonoffBase {
         super.onNodeInit(...arguments);
 
         // Availability tracking (battery device — callback-driven via temperature reports)
-        this._availability = new AvailabilityManagerCluster6(this, { timeout: BATTERY_DEVICE_HEARTBEAT_MS });
+        this._availability = new AvailabilityManagerCallback(this, { timeout: HEARTBEAT_SLOW_MS });
         await this._availability.install();
 
         if (this.isFirstInit()) {

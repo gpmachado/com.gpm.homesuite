@@ -3,7 +3,10 @@
     "id": "network_led",
     "type": "checkbox",
     "label": {
-      "en": "Network indicator"
+      "en": "Network indicator",
+      "es": "Indicador de red",
+      "it": "Indicatore di rete",
+      "de": "Netzwerkanzeige"
     },
     "value": false
   },
@@ -11,7 +14,10 @@
     "id": "TurboMode",
     "type": "checkbox",
     "label": {
-      "en": "Turbo mode"
+      "en": "Turbo mode",
+      "es": "Modo turbo",
+      "it": "Modalità turbo",
+      "de": "Turbo-Modus"
     },
     "value": false
   }

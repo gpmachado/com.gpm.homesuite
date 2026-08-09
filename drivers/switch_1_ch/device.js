@@ -30,23 +30,29 @@ class switch_1_ch extends TuyaZclBase {
 
     this._attachGangPowerOnListener(gangCluster, 1, 'power_on_behavior_gang1', 'power_on_current_gang1');
 
-    gangCluster.on('attr.switchMode', value => {
+    this._onSwitchMode ??= value => {
       this.log('[EP1] switchMode:', value);
       const norm = SWITCH_NORMALIZE(value);
       this.setSettings({
         switch_mode_global:  norm,
         switch_mode_current: SWITCH_DISPLAY[norm] || norm,
       }).catch(err => this.error('setSettings switchMode:', err));
-    });
+    };
+    gangCluster.removeListener('attr.switchMode', this._onSwitchMode);
+    gangCluster.on('attr.switchMode', this._onSwitchMode);
 
     // -- Extended onOff listeners (powerOnStateGlobal + backlight) -----------
     // No LED-indicator UI on an inline relay. Backlight has no UI either, but we
     // keep listening: the device re-reports backlightControl on power restore, so
     // it doubles as a rejoin/activity signal (also caught by the availability hook).
     this._attachPowerOnGlobalListener(onOffCluster, 'power_on_behavior_global', 'power_on_current_global');
+    this._onBacklightLog ??= value => this.log('[EP1] backlightControl (rejoin signal):', value);
+    this._onChildLockLog ??= value => this.log('[EP1] childLock:', value);
+    onOffCluster.removeListener('attr.backlightControl', this._onBacklightLog);
+    onOffCluster.removeListener('attr.childLock', this._onChildLockLog);
     onOffCluster
-      .on('attr.backlightControl', value => this.log('[EP1] backlightControl (rejoin signal):', value))
-      .on('attr.childLock',        value => this.log('[EP1] childLock:', value));
+      .on('attr.backlightControl', this._onBacklightLog)
+      .on('attr.childLock',        this._onChildLockLog);
 
     // -- tuyaE000 boot listener (power-restore rejoin signal) ----------------
     this._attachTuyaBootListener(zclNode);

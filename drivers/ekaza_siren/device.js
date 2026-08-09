@@ -1,8 +1,8 @@
 'use strict';
 
 const TuyaSpecificClusterDevice = require('../../lib/TuyaSpecificClusterDevice');
-const { AvailabilityManagerCluster0 } = require('../../lib/AvailabilityManager');
-const { HEARTBEAT_TIMEOUT_MS, APP_VERSION } = require('../../lib/constants');
+const { AvailabilityManagerPassive } = require('../../lib/AvailabilityManager');
+const { HEARTBEAT_FAST_MS, APP_VERSION } = require('../../lib/constants');
 const { TimeSilentBoundCluster } = require('../../lib/TimeCluster');
 
 const DRIVER_NAME = 'Ekaza Smart Siren';
@@ -58,8 +58,8 @@ class EkazaSiren extends TuyaSpecificClusterDevice {
 
     // Availability management (non-fatal: getNode() may fail on first pairing)
     try {
-      this._availability = new AvailabilityManagerCluster0(this, {
-        timeout: HEARTBEAT_TIMEOUT_MS,
+      this._availability = new AvailabilityManagerPassive(this, {
+        timeout: HEARTBEAT_FAST_MS,
       });
       await this._availability.install();
     } catch (err) {

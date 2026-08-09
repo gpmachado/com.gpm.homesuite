@@ -30,21 +30,27 @@ class novadigital_switch_1gang extends TuyaZclBase {
 
     this._attachGangPowerOnListener(gangCluster, 1, 'power_on_behavior_gang1', 'power_on_current_gang1');
 
-    gangCluster.on('attr.switchMode', value => {
+    this._onSwitchMode ??= value => {
       this.log('[EP1] switchMode:', value);
       const norm = SWITCH_NORMALIZE(value);
       this.setSettings({
         switch_mode_global:  norm,
         switch_mode_current: SWITCH_DISPLAY[norm] || norm,
       }).catch(err => this.error('setSettings switchMode:', err));
-    });
+    };
+    gangCluster.removeListener('attr.switchMode', this._onSwitchMode);
+    gangCluster.on('attr.switchMode', this._onSwitchMode);
 
     // -- Extended onOff listeners (backlight + powerOnStateGlobal) -----------
     this._attachBacklightListener(onOffCluster);
     this._attachPowerOnGlobalListener(onOffCluster, 'power_on_behavior_global', 'power_on_current_global');
+    this._onIndicatorModeLog ??= value => this.log('[EP1] indicatorMode:', value);
+    this._onChildLockLog ??= value => this.log('[EP1] childLock:', value);
+    onOffCluster.removeListener('attr.indicatorMode', this._onIndicatorModeLog);
+    onOffCluster.removeListener('attr.childLock', this._onChildLockLog);
     onOffCluster
-      .on('attr.indicatorMode', value => this.log('[EP1] indicatorMode:', value))
-      .on('attr.childLock',     value => this.log('[EP1] childLock:', value));
+      .on('attr.indicatorMode', this._onIndicatorModeLog)
+      .on('attr.childLock',     this._onChildLockLog);
 
     // -- tuyaE000 boot listener (power-restore rejoin signal) ----------------
     this._attachTuyaBootListener(zclNode);

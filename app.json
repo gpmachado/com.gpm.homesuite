@@ -3027,6 +3027,28 @@
         ]
       },
       {
+        "id": "mini_zb1gp_reset_consumption",
+        "title": {
+          "en": "Reset accumulated consumption",
+          "es": "Restablecer consumo acumulado",
+          "it": "Reimposta il consumo accumulato",
+          "de": "Akkumulierten Verbrauch zurücksetzen"
+        },
+        "hint": {
+          "en": "Sends the energy meter reset command. Obtained by reverse engineering via sniffer, not confirmed against any public source.",
+          "es": "Envía el comando de reinicio del medidor de energía. Obtenido por ingeniería inversa mediante sniffer, no confirmado en ninguna fuente pública.",
+          "it": "Invia il comando di reset del contatore di energia. Ottenuto tramite reverse engineering con sniffer, non confermato da fonti pubbliche.",
+          "de": "Sendet den Reset-Befehl für den Energiezähler. Durch Reverse Engineering per Sniffer ermittelt, nicht durch eine öffentliche Quelle bestätigt."
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=MINI-ZB1GP"
+          }
+        ]
+      },
+      {
         "id": "siren_play",
         "title": {
           "en": "Play siren with melody",
@@ -3340,7 +3362,9 @@
       "id": "MINI-ZB1GP",
       "name": {
         "en": "Sonoff Energy Meter",
-        "pt": "Medidor de Energia Sonoff"
+        "es": "Medidor de Energía Sonoff",
+        "it": "Misuratore di Energia Sonoff",
+        "de": "Sonoff Energiezähler"
       },
       "class": "sensor",
       "capabilities": [
@@ -3382,7 +3406,10 @@
         },
         "learnmode": {
           "instruction": {
-            "en": "Press and hold the button on the device until the LED starts blinking rapidly."
+            "en": "Press and hold the button on the device until the LED starts blinking rapidly.",
+            "es": "Mantén pulsado el botón del dispositivo hasta que el LED empiece a parpadear rápidamente.",
+            "it": "Tieni premuto il pulsante del dispositivo finché il LED non inizia a lampeggiare rapidamente.",
+            "de": "Halte die Taste am Gerät gedrückt, bis die LED schnell zu blinken beginnt."
           }
         }
       },
@@ -3391,7 +3418,10 @@
           "id": "network_led",
           "type": "checkbox",
           "label": {
-            "en": "Network indicator"
+            "en": "Network indicator",
+            "es": "Indicador de red",
+            "it": "Indicatore di rete",
+            "de": "Netzwerkanzeige"
           },
           "value": false
         },
@@ -3399,7 +3429,10 @@
           "id": "TurboMode",
           "type": "checkbox",
           "label": {
-            "en": "Turbo mode"
+            "en": "Turbo mode",
+            "es": "Modo turbo",
+            "it": "Modalità turbo",
+            "de": "Turbo-Modus"
           },
           "value": false
         }
@@ -10012,8 +10045,7 @@
       "zigbee": {
         "manufacturerName": [
           "_TZ3000_88iqnhvd",
-          "_TZ3000_okaz9tjs",
-          "_TZ3210_cehuw1lw"
+          "_TZ3000_okaz9tjs"
         ],
         "productId": [
           "TS011F"

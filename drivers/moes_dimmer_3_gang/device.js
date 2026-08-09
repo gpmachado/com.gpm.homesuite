@@ -1,7 +1,7 @@
 'use strict';
 
 const TuyaSpecificClusterDevice = require('../../lib/TuyaSpecificClusterDevice');
-const { AvailabilityManagerCluster0 } = require('../../lib/AvailabilityManager');
+const { AvailabilityManagerPassive } = require('../../lib/AvailabilityManager');
 const { APP_VERSION } = require('../../lib/constants');
 
 const DRIVER_NAME = 'MOES 3-Gang Fan Controller';
@@ -83,8 +83,8 @@ class MoesDimmer3Gang extends TuyaSpecificClusterDevice {
 
     // Tuya cluster listeners are shared — attach only once, on the main device
     if (this._isMain) {
-      this._availability = new AvailabilityManagerCluster0(this, {
-        timeout: require('../../lib/constants').HEARTBEAT_TIMEOUT_MS,
+      this._availability = new AvailabilityManagerPassive(this, {
+        timeout: require('../../lib/constants').HEARTBEAT_FAST_MS,
       });
       await this._availability.install();
       this._setupTuyaListeners(zclNode);

@@ -36,15 +36,23 @@ class MoesRemote4Gang extends ZigBeeDevice {
     // Wrap node.handleFrame (don't replace it): intercept the button commands on
     // cluster 6, but forward every other frame to the original handler so battery
     // reports (cluster 1) and normal ZCL processing keep working.
+    // Guarded against re-installing on re-init: this.node can be reused by the
+    // framework across an onNodeInit re-run, and wrapping handleFrame again on
+    // the same node would stack interceptors indefinitely.
     const node = await this.homey.zigbee.getNode(this);
-    const original = typeof node.handleFrame === 'function' ? node.handleFrame.bind(node) : null;
-    node.handleFrame = (endpointId, clusterId, frame, meta) => {
-      if (clusterId === 6) {
-        this._parseButton(endpointId, frame);
-        return false;
-      }
-      return original ? original(endpointId, clusterId, frame, meta) : false;
-    };
+    if (node._moes4gFrameHookInstalled) {
+      this.log('handleFrame hook already installed (shared node)');
+    } else {
+      node._moes4gFrameHookInstalled = true;
+      const original = typeof node.handleFrame === 'function' ? node.handleFrame.bind(node) : null;
+      node.handleFrame = (endpointId, clusterId, frame, meta) => {
+        if (clusterId === 6) {
+          this._parseButton(endpointId, frame);
+          return false;
+        }
+        return original ? original(endpointId, clusterId, frame, meta) : false;
+      };
+    }
   }
 
   _parseButton(ep, frame) {

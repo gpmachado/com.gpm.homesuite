@@ -11,7 +11,7 @@
  *   Bit 0 (0x0001) alarm1   -> alarm_contact (open = true)
  *   Bit 3 (0x0008) battery  -> alarm_battery (low battery = true)
  *
- * Availability: AvailabilityManagerCluster0 (passive handleFrame hook, 15 min test timeout).
+ * Availability: AvailabilityManagerPassive (passive handleFrame hook, 15 min test timeout).
  * Any inbound Zigbee frame counts as activity, including:
  *   - Basic cluster reports (0x0000)
  *   - Identify cluster frames (0x0003)
@@ -32,8 +32,8 @@
 
 const { ZigBeeDevice } = require('homey-zigbeedriver');
 const { CLUSTER } = require('zigbee-clusters');
-const { AvailabilityManagerCluster0 } = require('../../lib/AvailabilityManager');
-const { APP_VERSION, DOOR_SENSOR_HEARTBEAT_MS } = require('../../lib/constants');
+const { AvailabilityManagerPassive } = require('../../lib/AvailabilityManager');
+const { APP_VERSION, HEARTBEAT_SLOW_MS } = require('../../lib/constants');
 
 // ─────────────────────────────────────────────────────────────────────────────
 
@@ -73,8 +73,8 @@ class DoorWindowSensorDevice2 extends ZigBeeDevice {
       await this.addCapability('is_availability')
         .catch(err => this.error('addCapability is_availability:', err));
 
-    this._availability = new AvailabilityManagerCluster0(this, {
-      timeout: DOOR_SENSOR_HEARTBEAT_MS,
+    this._availability = new AvailabilityManagerPassive(this, {
+      timeout: HEARTBEAT_SLOW_MS,
       resetLastSeenOnInstall: true,
     });
     await this._availability.install();
@@ -118,11 +118,13 @@ class DoorWindowSensorDevice2 extends ZigBeeDevice {
     };
 
     // Also listen to attribute reports (fallback for some devices)
-    iasZone.on('attr.zoneStatus', (zoneStatus) => {
+    this._onAttrZoneStatus ??= (zoneStatus) => {
       this._notifyAvailability('ias-attr');
       this.log('[IAS] attr.zoneStatus report received:', zoneStatus);
       this._applyZoneStatus(zoneStatus);
-    });
+    };
+    iasZone.removeListener('attr.zoneStatus', this._onAttrZoneStatus);
+    iasZone.on('attr.zoneStatus', this._onAttrZoneStatus);
 
     // Run enrollment flow asynchronously so we don't block node initialization
     this._runEnrollmentFlow(iasZone).catch(err => {
@@ -288,9 +290,11 @@ class DoorWindowSensorDevice2 extends ZigBeeDevice {
     const powerConfiguration = zclNode.endpoints[ENDPOINT_ID].clusters.powerConfiguration;
     this._absorbLateGlobalResponses(powerConfiguration);
 
-    powerConfiguration.on('attr.batteryPercentageRemaining', value => {
+    this._onBatteryPercentage ??= value => {
       this._applyBatteryPercentage(value, 'battery');
-    });
+    };
+    powerConfiguration.removeListener('attr.batteryPercentageRemaining', this._onBatteryPercentage);
+    powerConfiguration.on('attr.batteryPercentageRemaining', this._onBatteryPercentage);
 
     if (!this.isFirstInit()) {
       this.log('[Battery] Initial read/reporting deferred until wake');

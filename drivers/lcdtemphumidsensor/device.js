@@ -15,9 +15,9 @@
 
 const { ZigBeeDevice } = require('homey-zigbeedriver');
 const { CLUSTER } = require('zigbee-clusters');
-const { AvailabilityManagerCluster6 } = require('../../lib/AvailabilityManager');
+const { AvailabilityManagerCallback } = require('../../lib/AvailabilityManager');
 const { TimeSilentBoundCluster } = require('../../lib/TimeCluster');
-const { BATTERY_DEVICE_HEARTBEAT_MS, APP_VERSION } = require('../../lib/constants');
+const { HEARTBEAT_SLOW_MS, APP_VERSION } = require('../../lib/constants');
 
 const DRIVER_NAME = 'LCD Temp/Humidity Sensor';
 
@@ -37,11 +37,11 @@ class LCDTempHumidSensor extends ZigBeeDevice {
     if (!this.hasCapability('is_availability'))
       await this.addCapability('is_availability').catch(err => this.error('addCapability is_availability:', err));
 
-    // Availability: Cluster6 watchdog — resets on each reportParser call.
+    // Availability: Callback watchdog — resets on each reportParser call.
     // cluster.on('report') is unreliable in some homey-zigbeedriver versions;
     // calling _markAliveFromAvailability inside reportParser is more robust.
-    this._availability = new AvailabilityManagerCluster6(this, {
-      timeout: BATTERY_DEVICE_HEARTBEAT_MS,
+    this._availability = new AvailabilityManagerCallback(this, {
+      timeout: HEARTBEAT_SLOW_MS,
     });
     await this._availability.install();
 

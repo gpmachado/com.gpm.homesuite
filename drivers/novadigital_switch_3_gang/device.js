@@ -44,14 +44,16 @@ class novadigital_switch_3gang extends TuyaZclBase {
     );
 
     if (this._isMainDevice) {
-      gangCluster.on('attr.switchMode', value => {
+      this._onSwitchMode ??= value => {
         this.log(`[EP${this._endpoint}] switchMode:`, value);
         const norm = SWITCH_NORMALIZE(value);
         this.setSettings({
           switch_mode:         norm,
           switch_mode_current: SWITCH_DISPLAY[norm] || norm,
         }).catch(err => this.error('setSettings switchMode:', err));
-      });
+      };
+      gangCluster.removeListener('attr.switchMode', this._onSwitchMode);
+      gangCluster.on('attr.switchMode', this._onSwitchMode);
     }
 
     // Read gang power-on state — first pairing only (stored in non-volatile memory).
@@ -73,7 +75,9 @@ class novadigital_switch_3gang extends TuyaZclBase {
       this._attachPowerOnGlobalListener(onOffCluster, 'power_on_global', 'power_on_global_current');
       this._attachIndicatorModeListener(onOffCluster);
       // childLock: TS0003 reports it but it's not user-configurable on a wall switch
-      onOffCluster.on('attr.childLock', value => this.log('[EP1] childLock:', value));
+      this._onChildLockLog ??= value => this.log('[EP1] childLock:', value);
+      onOffCluster.removeListener('attr.childLock', this._onChildLockLog);
+      onOffCluster.on('attr.childLock', this._onChildLockLog);
 
       // Cross-endpoint: keep main device's gang2/gang3 settings in sync
       for (const epId of [2, 3]) {

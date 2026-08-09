@@ -1,7 +1,7 @@
 'use strict';
 
 const TuyaSpecificClusterDevice = require('../../lib/TuyaSpecificClusterDevice');
-const { AvailabilityManagerCluster0 } = require('../../lib/AvailabilityManager');
+const { AvailabilityManagerPassive } = require('../../lib/AvailabilityManager');
 
 const DATA_POINTS = {
   LIQUID_STATE: 1,
@@ -26,7 +26,7 @@ class WaterTankMonitorDevice extends TuyaSpecificClusterDevice {
 
     // The device can be quiet for long periods when the surface is stable.
     // A 12-hour timeout avoids treating normal end-device silence as offline.
-    this._availability = new AvailabilityManagerCluster0(this, {
+    this._availability = new AvailabilityManagerPassive(this, {
       timeout: 12 * 60 * 60 * 1000,
       pollBeforeOffline: false,
     });

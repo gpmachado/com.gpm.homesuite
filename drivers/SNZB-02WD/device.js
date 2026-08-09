@@ -2,8 +2,8 @@
 
 const SonoffBase = require('../../lib/SonoffBase');
 const { CLUSTER } = require('zigbee-clusters');
-const { AvailabilityManagerCluster6 } = require('../../lib/AvailabilityManager');
-const { BATTERY_DEVICE_HEARTBEAT_MS } = require('../../lib/constants');
+const { AvailabilityManagerCallback } = require('../../lib/AvailabilityManager');
+const { HEARTBEAT_SLOW_MS } = require('../../lib/constants');
 
 class SonoffSNZB02WD extends SonoffBase {
 
@@ -38,7 +38,7 @@ class SonoffSNZB02WD extends SonoffBase {
         humidityCluster.on('attr.measuredValue', this._onHumidityReport);
 
         // Availability tracking (battery device — callback-driven via temperature/humidity reports)
-        this._availability = new AvailabilityManagerCluster6(this, { timeout: BATTERY_DEVICE_HEARTBEAT_MS });
+        this._availability = new AvailabilityManagerCallback(this, { timeout: HEARTBEAT_SLOW_MS });
         await this._availability.install();
 
         this.log('SNZB-02WD initialized');
