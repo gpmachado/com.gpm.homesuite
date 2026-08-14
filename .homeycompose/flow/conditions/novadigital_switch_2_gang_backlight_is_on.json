@@ -1,0 +1,22 @@
+{
+  "id": "novadigital_switch_2_gang_backlight_is_on",
+  "title": {
+    "en": "Backlight is on",
+    "es": "La retroiluminación está encendida",
+    "it": "La retroilluminazione è accesa",
+    "de": "Hintergrundbeleuchtung ist an"
+  },
+  "hint": {
+    "en": "True when the device's physical backlight is currently on",
+    "es": "Verdadero cuando la retroiluminación física del dispositivo está encendida",
+    "it": "Vero quando la retroilluminazione fisica del dispositivo è attualmente accesa",
+    "de": "Wahr, wenn die physische Hintergrundbeleuchtung des Geräts aktuell an ist"
+  },
+  "args": [
+    {
+      "type": "device",
+      "name": "device",
+      "filter": "driver_id=novadigital_switch_2_gang&capabilities=is_availability"
+    }
+  ]
+}

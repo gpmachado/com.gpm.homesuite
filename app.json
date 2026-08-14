@@ -1847,6 +1847,116 @@
         ]
       },
       {
+        "id": "novadigital_switch_4_gang_zcl_availability_turned_on",
+        "title": {
+          "en": "Became available",
+          "de": "Wurde verfügbar",
+          "es": "Pasó a estar disponible",
+          "it": "Disponibile"
+        },
+        "hint": {
+          "en": "Fires when this device becomes available.",
+          "de": "Wird ausgelöst, wenn dieses Gerät verfügbar wird.",
+          "es": "Se activa cuando este dispositivo pasa a estar disponible.",
+          "it": "Si attiva quando questo dispositivo diventa disponibile."
+        },
+        "tokens": [
+          {
+            "name": "device_name",
+            "type": "string",
+            "title": {
+              "en": "Device name",
+              "de": "Gerätename",
+              "es": "Nombre del dispositivo",
+              "it": "Nome del dispositivo"
+            }
+          },
+          {
+            "name": "timestamp",
+            "type": "string",
+            "title": {
+              "en": "Timestamp",
+              "de": "Zeitstempel",
+              "es": "Marca de tiempo",
+              "it": "Data e ora"
+            }
+          }
+        ],
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=novadigital_switch_4_gang_zcl"
+          }
+        ]
+      },
+      {
+        "id": "novadigital_switch_4_gang_zcl_availability_turned_off",
+        "title": {
+          "en": "Became unavailable",
+          "de": "Wurde nicht verfügbar",
+          "es": "Pasó a no estar disponible",
+          "it": "Non più disponibile"
+        },
+        "hint": {
+          "en": "Fires when this device becomes unavailable.",
+          "de": "Wird ausgelöst, wenn dieses Gerät nicht mehr verfügbar ist.",
+          "es": "Se activa cuando este dispositivo deja de estar disponible.",
+          "it": "Si attiva quando questo dispositivo non è più disponibile."
+        },
+        "tokens": [
+          {
+            "name": "device_name",
+            "type": "string",
+            "title": {
+              "en": "Device name",
+              "de": "Gerätename",
+              "es": "Nombre del dispositivo",
+              "it": "Nome del dispositivo"
+            }
+          },
+          {
+            "name": "timestamp",
+            "type": "string",
+            "title": {
+              "en": "Timestamp",
+              "de": "Zeitstempel",
+              "es": "Marca de tiempo",
+              "it": "Data e ora"
+            }
+          }
+        ],
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=novadigital_switch_4_gang_zcl"
+          }
+        ]
+      },
+      {
+        "id": "novadigital_switch_4_gang_zcl_device_rejoined",
+        "title": {
+          "en": "Reconnected after power cut",
+          "de": "Nach Stromausfall wieder verbunden",
+          "es": "Reconectado tras un corte de energía",
+          "it": "Riconnesso dopo un'interruzione di corrente"
+        },
+        "hint": {
+          "en": "Fires when this device reconnects to the Zigbee network after a power cut.",
+          "de": "Wird ausgelöst, wenn sich dieses Gerät nach einem Stromausfall erneut mit dem Zigbee-Netzwerk verbindet.",
+          "es": "Se activa cuando este dispositivo se reconecta a la red Zigbee tras un corte de energía.",
+          "it": "Si attiva quando questo dispositivo si riconnette alla rete Zigbee dopo un'interruzione di corrente."
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=novadigital_switch_4_gang_zcl"
+          }
+        ]
+      },
+      {
         "id": "novadigital_switch_6_gang_availability_turned_on",
         "title": {
           "en": "Became available",
@@ -3109,6 +3219,116 @@
         ]
       },
       {
+        "id": "novadigital_switch_1_gang_backlight_is_on",
+        "title": {
+          "en": "Backlight is on",
+          "es": "La retroiluminación está encendida",
+          "it": "La retroilluminazione è accesa",
+          "de": "Hintergrundbeleuchtung ist an"
+        },
+        "hint": {
+          "en": "True when the device's physical backlight is currently on",
+          "es": "Verdadero cuando la retroiluminación física del dispositivo está encendida",
+          "it": "Vero quando la retroilluminazione fisica del dispositivo è attualmente accesa",
+          "de": "Wahr, wenn die physische Hintergrundbeleuchtung des Geräts aktuell an ist"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=novadigital_switch_1_gang&capabilities=is_availability"
+          }
+        ]
+      },
+      {
+        "id": "novadigital_switch_2_gang_backlight_is_on",
+        "title": {
+          "en": "Backlight is on",
+          "es": "La retroiluminación está encendida",
+          "it": "La retroilluminazione è accesa",
+          "de": "Hintergrundbeleuchtung ist an"
+        },
+        "hint": {
+          "en": "True when the device's physical backlight is currently on",
+          "es": "Verdadero cuando la retroiluminación física del dispositivo está encendida",
+          "it": "Vero quando la retroilluminazione fisica del dispositivo è attualmente accesa",
+          "de": "Wahr, wenn die physische Hintergrundbeleuchtung des Geräts aktuell an ist"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=novadigital_switch_2_gang&capabilities=is_availability"
+          }
+        ]
+      },
+      {
+        "id": "novadigital_switch_2gang_touch_backlight_is_on",
+        "title": {
+          "en": "Backlight is on",
+          "es": "La retroiluminación está encendida",
+          "it": "La retroilluminazione è accesa",
+          "de": "Hintergrundbeleuchtung ist an"
+        },
+        "hint": {
+          "en": "True when the device's physical backlight is currently on",
+          "es": "Verdadero cuando la retroiluminación física del dispositivo está encendida",
+          "it": "Vero quando la retroilluminazione fisica del dispositivo è attualmente accesa",
+          "de": "Wahr, wenn die physische Hintergrundbeleuchtung des Geräts aktuell an ist"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=novadigital_switch_2gang_touch&capabilities=is_availability"
+          }
+        ]
+      },
+      {
+        "id": "novadigital_switch_3_gang_backlight_is_on",
+        "title": {
+          "en": "Backlight is on",
+          "es": "La retroiluminación está encendida",
+          "it": "La retroilluminazione è accesa",
+          "de": "Hintergrundbeleuchtung ist an"
+        },
+        "hint": {
+          "en": "True when the device's physical backlight is currently on",
+          "es": "Verdadero cuando la retroiluminación física del dispositivo está encendida",
+          "it": "Vero quando la retroilluminazione fisica del dispositivo è attualmente accesa",
+          "de": "Wahr, wenn die physische Hintergrundbeleuchtung des Geräts aktuell an ist"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=novadigital_switch_3_gang&capabilities=is_availability"
+          }
+        ]
+      },
+      {
+        "id": "novadigital_switch_4_gang_zcl_backlight_is_on",
+        "title": {
+          "en": "Backlight is on",
+          "es": "La retroiluminación está encendida",
+          "it": "La retroilluminazione è accesa",
+          "de": "Hintergrundbeleuchtung ist an"
+        },
+        "hint": {
+          "en": "True when the device's physical backlight is currently on",
+          "es": "Verdadero cuando la retroiluminación física del dispositivo está encendida",
+          "it": "Vero quando la retroilluminazione fisica del dispositivo è attualmente accesa",
+          "de": "Wahr, wenn die physische Hintergrundbeleuchtung des Geräts aktuell an ist"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=novadigital_switch_4_gang_zcl&capabilities=is_availability"
+          }
+        ]
+      },
+      {
         "id": "is_playing",
         "title": {
           "en": "Siren is !{{playing|not playing}}",
@@ -3179,6 +3399,236 @@
             "type": "device",
             "name": "device",
             "filter": "driver_id=MINI-ZB1GP"
+          }
+        ]
+      },
+      {
+        "id": "novadigital_switch_1_gang_set_backlight",
+        "title": {
+          "en": "Set backlight",
+          "es": "Configurar retroiluminación",
+          "it": "Imposta retroilluminazione",
+          "de": "Hintergrundbeleuchtung einstellen"
+        },
+        "titleFormatted": {
+          "en": "Turn backlight [[state]]",
+          "es": "Poner la retroiluminación en [[state]]",
+          "it": "Imposta la retroilluminazione su [[state]]",
+          "de": "Hintergrundbeleuchtung auf [[state]] stellen"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=novadigital_switch_1_gang&capabilities=is_availability"
+          },
+          {
+            "name": "state",
+            "type": "dropdown",
+            "values": [
+              {
+                "id": "on",
+                "label": {
+                  "en": "On",
+                  "es": "Encendida",
+                  "it": "Accesa",
+                  "de": "An"
+                }
+              },
+              {
+                "id": "off",
+                "label": {
+                  "en": "Off",
+                  "es": "Apagada",
+                  "it": "Spenta",
+                  "de": "Aus"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "novadigital_switch_2_gang_set_backlight",
+        "title": {
+          "en": "Set backlight",
+          "es": "Configurar retroiluminación",
+          "it": "Imposta retroilluminazione",
+          "de": "Hintergrundbeleuchtung einstellen"
+        },
+        "titleFormatted": {
+          "en": "Turn backlight [[state]]",
+          "es": "Poner la retroiluminación en [[state]]",
+          "it": "Imposta la retroilluminazione su [[state]]",
+          "de": "Hintergrundbeleuchtung auf [[state]] stellen"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=novadigital_switch_2_gang&capabilities=is_availability"
+          },
+          {
+            "name": "state",
+            "type": "dropdown",
+            "values": [
+              {
+                "id": "on",
+                "label": {
+                  "en": "On",
+                  "es": "Encendida",
+                  "it": "Accesa",
+                  "de": "An"
+                }
+              },
+              {
+                "id": "off",
+                "label": {
+                  "en": "Off",
+                  "es": "Apagada",
+                  "it": "Spenta",
+                  "de": "Aus"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "novadigital_switch_2gang_touch_set_backlight",
+        "title": {
+          "en": "Set backlight",
+          "es": "Configurar retroiluminación",
+          "it": "Imposta retroilluminazione",
+          "de": "Hintergrundbeleuchtung einstellen"
+        },
+        "titleFormatted": {
+          "en": "Turn backlight [[state]]",
+          "es": "Poner la retroiluminación en [[state]]",
+          "it": "Imposta la retroilluminazione su [[state]]",
+          "de": "Hintergrundbeleuchtung auf [[state]] stellen"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=novadigital_switch_2gang_touch&capabilities=is_availability"
+          },
+          {
+            "name": "state",
+            "type": "dropdown",
+            "values": [
+              {
+                "id": "on",
+                "label": {
+                  "en": "On",
+                  "es": "Encendida",
+                  "it": "Accesa",
+                  "de": "An"
+                }
+              },
+              {
+                "id": "off",
+                "label": {
+                  "en": "Off",
+                  "es": "Apagada",
+                  "it": "Spenta",
+                  "de": "Aus"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "novadigital_switch_3_gang_set_backlight",
+        "title": {
+          "en": "Set backlight",
+          "es": "Configurar retroiluminación",
+          "it": "Imposta retroilluminazione",
+          "de": "Hintergrundbeleuchtung einstellen"
+        },
+        "titleFormatted": {
+          "en": "Turn backlight [[state]]",
+          "es": "Poner la retroiluminación en [[state]]",
+          "it": "Imposta la retroilluminazione su [[state]]",
+          "de": "Hintergrundbeleuchtung auf [[state]] stellen"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=novadigital_switch_3_gang&capabilities=is_availability"
+          },
+          {
+            "name": "state",
+            "type": "dropdown",
+            "values": [
+              {
+                "id": "on",
+                "label": {
+                  "en": "On",
+                  "es": "Encendida",
+                  "it": "Accesa",
+                  "de": "An"
+                }
+              },
+              {
+                "id": "off",
+                "label": {
+                  "en": "Off",
+                  "es": "Apagada",
+                  "it": "Spenta",
+                  "de": "Aus"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "novadigital_switch_4_gang_zcl_set_backlight",
+        "title": {
+          "en": "Set backlight",
+          "es": "Configurar retroiluminación",
+          "it": "Imposta retroilluminazione",
+          "de": "Hintergrundbeleuchtung einstellen"
+        },
+        "titleFormatted": {
+          "en": "Turn backlight [[state]]",
+          "es": "Poner la retroiluminación en [[state]]",
+          "it": "Imposta la retroilluminazione su [[state]]",
+          "de": "Hintergrundbeleuchtung auf [[state]] stellen"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=novadigital_switch_4_gang_zcl&capabilities=is_availability"
+          },
+          {
+            "name": "state",
+            "type": "dropdown",
+            "values": [
+              {
+                "id": "on",
+                "label": {
+                  "en": "On",
+                  "es": "Encendida",
+                  "it": "Accesa",
+                  "de": "An"
+                }
+              },
+              {
+                "id": "off",
+                "label": {
+                  "en": "Off",
+                  "es": "Apagada",
+                  "it": "Spenta",
+                  "de": "Aus"
+                }
+              }
+            ]
           }
         ]
       },

@@ -1,0 +1,46 @@
+{
+  "id": "novadigital_switch_1_gang_set_backlight",
+  "title": {
+    "en": "Set backlight",
+    "es": "Configurar retroiluminación",
+    "it": "Imposta retroilluminazione",
+    "de": "Hintergrundbeleuchtung einstellen"
+  },
+  "titleFormatted": {
+    "en": "Turn backlight [[state]]",
+    "es": "Poner la retroiluminación en [[state]]",
+    "it": "Imposta la retroilluminazione su [[state]]",
+    "de": "Hintergrundbeleuchtung auf [[state]] stellen"
+  },
+  "args": [
+    {
+      "type": "device",
+      "name": "device",
+      "filter": "driver_id=novadigital_switch_1_gang&capabilities=is_availability"
+    },
+    {
+      "name": "state",
+      "type": "dropdown",
+      "values": [
+        {
+          "id": "on",
+          "label": {
+            "en": "On",
+            "es": "Encendida",
+            "it": "Accesa",
+            "de": "An"
+          }
+        },
+        {
+          "id": "off",
+          "label": {
+            "en": "Off",
+            "es": "Apagada",
+            "it": "Spenta",
+            "de": "Aus"
+          }
+        }
+      ]
+    }
+  ]
+}
