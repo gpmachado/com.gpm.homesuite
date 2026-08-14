@@ -64,5 +64,8 @@
   },
   "1.0.22": {
     "en": "Fix duplicate event listeners re-stacking on device reinit; add MINI-ZB1GP energy reset action; add per-device Zigbee rejoin tracking in Settings; add Sonoff MINI-ZBD (dry contact) driver"
+  },
+  "1.0.23": {
+    "en": "Add backlight flow cards (Set backlight / Backlight is on) for NovaDigital switches; extend backlight re-enforce retries after power restore"
   }
 }
