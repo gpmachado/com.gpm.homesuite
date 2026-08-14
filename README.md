@@ -84,6 +84,15 @@ These cut across most drivers:
 - **No dead settings** — where Tuya firmware advertises a feature the actual hardware
   doesn't have (a tamper on a plug-in gas detector, an LED on a relay module), it's
   hidden rather than shown as a non-functional option.
+- **Rejoin history** — a dedicated tab in the app's Settings page lists, per device,
+  how many power-restore rejoins were detected and when the last one happened, with
+  a global reset. Complements the existing Zigbee Traffic tab (message counts per
+  hour/24h) without mixing the two differently-paced datasets in one table.
+- **Backlight flow cards** — a `Set backlight` action and `Backlight is on` condition
+  for NovaDigital switches with an LED backlight, so you can query or force the LED
+  state from a flow (the condition does a live read from the device rather than
+  trusting the last-known setting). On multi-gang boards the backlight is physically
+  a single EP1-level LED, so the device picker only offers the **Main** device.
 
 ## Flow triggers
 
@@ -181,6 +190,26 @@ sends a single press instead of a long one.
 Devices that drop off (e.g. unplugged) past the configured tolerance are marked
 unavailable, and recover automatically if they never actually left the network.
 
+**1/2/3-channel relay modules (GIRIER and other TS0001/2/3 variants)**
+Same family as the NovaDigital switches but sold under different manufacturer IDs;
+each channel count gets its own driver so wiring/pairing matches the physical board.
+
+**Door & window sensors (TS0203, two manufacturer variants)**
+IAS-zone contact sensors; a second driver (`doorwindowsensor_2`) covers a variant
+that reports slightly differently and wasn't reliably matched by the first.
+
+**Radar sensor (Linptech / Moes TS0225, mmWave presence)**
+Very chatty on the mesh by firmware design — `configureReporting` is rejected by
+the device (`UNSUP_CLUSTER_COMMAND`, confirmed on real hardware and matching
+zigbee-herdsman-converters' own Linptech definition, which never attempts it
+either), so the report rate can't be throttled from the app side.
+
+**Ultrasonic liquid level sensor (water tank)**
+Tank level/percentage plus high/low alarms from a Tuya EF00 ultrasonic sensor.
+
+**Wireless remotes (2-gang TS0042, 4-gang MOES TS0044)**
+Battery-powered scene controllers; press events exposed as flow triggers.
+
 ### Sonoff / eWeLink
 
 Bundled into this app to centralise maintenance (different platform, but easily
@@ -197,6 +226,16 @@ separable into its own app).
   benefit on these (zigbee2mqtt unbinds it on Sonoff because it slows polling).
 - **Sonoff Zigbee USB Dongle** — a spare from Home Assistant testing, flashed with
   router firmware and given a repeater-style driver.
+- **SNZB-06P** — 24 GHz presence sensor with availability.
+- **MINI-ZB1GP** — single-channel relay with energy metering (power, current,
+  voltage, accumulated consumption). `resetConsumption` was identified by
+  reverse-engineering a real sniffer capture (it's not in any public reference) and
+  confirmed working against real hardware — exposed as a flow action to zero the
+  accumulated meter.
+- **MINI-ZBD** — the dry-contact ("MINI Dry") sibling of the ZBMINIR2: same
+  protocol and settings, but the output is an isolated dry contact for triggering
+  external equipment (gate, garage door) rather than switching a mains load, so it's
+  named and paired accordingly.
 
 ---
 
@@ -206,25 +245,39 @@ separable into its own app).
 |--------|------------|--------------------|
 | NovaDigital / Zemismart switch 1 gang | TS0001 | `_TZ3000_ovyaisip` `_TZ3000_pk8tgtdb` |
 | NovaDigital / Zemismart switch 2 gang | TS0002 | `_TZ3000_ywubfuvt` `_TZ3000_kgxej1dv` |
+| NovaDigital / Zemismart switch 2 gang (touch) | TS0002 | `_TZ3000_jjdkhueq` |
 | NovaDigital / Zemismart switch 3 gang | TS0003 | `_TZ3000_yervjnlj` `_TZ3000_vjhcenzo` `_TZ3000_qxcnwv26` `_TZ3000_eqsair32` `_TZ3000_f09j9qjb` `_TZ3000_fawk5xjv` `_TZ3000_ok0ggpk7` |
-| NovaDigital / Zemismart switch 4 gang | TS0601 | `_TZE200_shkxsgis` `_TZE204_aagrxlbd` |
-| NovaDigital / Zemismart switch 6 gang | TS0601 | `_TZE200_r731zlxk` |
-| 1-channel relay module (GIRIER) | TS0001 | `_TZ3000_tqlv4ug4` |
+| NovaDigital / Zemismart switch 4 gang | TS0601 | `_TZE200_shkxsgis` `_TZE284_shkxsgis` `_TZE204_aagrxlbd` |
+| NovaDigital / Zemismart switch 4 gang (ZCL) | TS0004 | `_TZ3000_lwthnp7j` |
+| NovaDigital / Zemismart switch 6 gang | TS0601 | `_TZE200_r731zlxk` `_TZE284_r731zlxk` |
+| 1-channel relay module (GIRIER + variants) | TS0001 | `_TZ3000_npzfdcof` `_TZ3000_hktqahrq` `_TZ3000_mx3vgyea` `_TZ3000_5ng23zjs` `_TZ3000_rmjr4ufz` `_TZ3000_v7gnj3ad` `_TZ3000_qsp2pwtf` `_TZ3000_oex7egmt` `_TZ3000_tqlv4ug4` |
+| 2-channel relay module | TS0002 | `_TZ3000_fisb3ajo` `_TZ3000_bvrlqyj7` `_TZ3000_7ed9cqgi` `_TZ3000_lmlsduws` `_TZ3000_qaa59zqd` `_TZ3000_ruxexjfz` `_TZ3000_zmy4lslw` `_TZ3000_hznzbl0x` `_TZ3000_mtnpt6ws` `_TZ3000_pxfjrzyj` |
+| 3-channel relay module | TS0003 | `_TZ3000_odzoiovu` `_TZ3000_lvhy15ix` `_TZ3000_4o16jdca` |
 | MOES dimmer 3 gang | TS0601 | `_TZE204_1v1dxkck` |
 | MOES 4-gang wireless remote | TS0044 | `_TZ3000_wkai4ga5` |
 | 2-gang wireless remote | TS0042 | `_TZ3000_tzvbimpq` |
-| Smart plug (metering) | TS011F | `_TZ3000_88iqnhvd` `_TZ3000_okaz9tjs` `_TZ3210_cehuw1lw` `_TZ3210_fgwhjm9j` |
+| Smart plug (metering) | TS011F | `_TZ3000_88iqnhvd` `_TZ3000_okaz9tjs` |
+| Smart plug (metering, `_TZ3210` variant) | TS011F | `_TZ3210_fgwhjm9j` |
+| Smart plug (metering, `_TZ3000_cehuw1lw` variant) | TS011F | `_TZ3000_cehuw1lw` |
 | Socket power strip (4 + USB) | TS011F | `_TZ3000_cfnprab5` |
 | LCD temperature & humidity sensor | TS0201 | `_TZ3000_ywagc4rj` |
 | Temperature & humidity sensor w/ clock | TS0601 | `_TZE200_cirvgep4` `_TZE204_cirvgep4` |
 | HEIMAN combustible gas detector (natural gas & LPG) | TS0204 | `_TYZB01_0w3d5uw3` |
 | Siren | TS0601 | `_TZE204_q76rtoa9` |
+| Door & window sensor | TS0203 | `_TZ3000_7tbsruql` `_TZ3000_osu834un` |
+| Door & window sensor (variant 2) | TS0203 | `_TZ3000_6zvw8ham` |
+| Radar sensor (Linptech / Moes, mmWave presence) | TS0225 | `_TZ3218_t9ynfz4x` `_TZ3218_awarhusb` |
+| Ultrasonic liquid level sensor (water tank) | TS0601 | `_TZE200_lvkk0hdg` |
 | Zigbee repeater | TS0207 | `_TZ3000_nkkl7uzv` |
 | Sonoff BASICZBR3 relay | BASICZBR3 | `SONOFF` |
 | Sonoff ZBMINIR2 relay | ZBMINIR2 | `SONOFF` |
+| Sonoff MINI-ZBD dry contact | MINI-ZBD | `SONOFF` |
+| Sonoff MINI-ZB1GP energy meter | MINI-ZB1GP | `SONOFF` |
 | Sonoff SNZB-02LD temp/humidity (LCD) | SNZB-02LD | `SONOFF` |
 | Sonoff SNZB-02WD temp/humidity (display) | SNZB-02WD | `SONOFF` |
 | Sonoff SNZB-03 motion sensor | MS01 | `eWeLink` |
+| Sonoff SNZB-06P presence sensor (24 GHz) | SNZB-06P | `SONOFF` |
+| Aqara FP1 presence sensor | `lumi.motion.ac01` | `aqara` |
 | Sonoff Zigbee USB Dongle (router firmware) | DONGLE-E_R | `SONOFF` |
 
 ---
