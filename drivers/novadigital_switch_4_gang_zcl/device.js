@@ -1,6 +1,6 @@
 'use strict';
 
-const { TimeSilentBoundCluster, BasicSilentBoundCluster } = require('../../lib/TimeCluster');
+const { TimeServerBoundCluster, BasicSilentBoundCluster } = require('../../lib/TimeCluster');
 const { readAttrCatch } = require('../../lib/errorUtils');
 const {
   TuyaZclBase,
@@ -108,7 +108,7 @@ class novadigital_switch_4gang_zcl extends TuyaZclBase {
       // Suppress Time + Basic cluster frame spam
       try {
         const ep1 = zclNode.endpoints[1];
-        if (ep1.clusters.time)  ep1.bind('time',  new TimeSilentBoundCluster());
+        ep1.bind('time',  new TimeServerBoundCluster());
         if (ep1.clusters.basic) ep1.bind('basic', new BasicSilentBoundCluster());
       } catch (err) {}
 

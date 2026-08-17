@@ -3,7 +3,7 @@
 const TuyaSpecificClusterDevice = require('../../lib/TuyaSpecificClusterDevice');
 const { AvailabilityManagerPassive } = require('../../lib/AvailabilityManager');
 const { HEARTBEAT_FAST_MS, APP_VERSION } = require('../../lib/constants');
-const { TimeSilentBoundCluster } = require('../../lib/TimeCluster');
+const { TimeServerBoundCluster } = require('../../lib/TimeCluster');
 
 const DRIVER_NAME = 'Ekaza Smart Siren';
 
@@ -47,7 +47,7 @@ class EkazaSiren extends TuyaSpecificClusterDevice {
     await super.onNodeInit({ zclNode });
 
     this.log(`${DRIVER_NAME} v${APP_VERSION}`);
-    try { zclNode.endpoints[1].bind('time', new TimeSilentBoundCluster()); } catch {}
+    try { zclNode.endpoints[1].bind('time', new TimeServerBoundCluster()); } catch {}
     this.printNode();
 
     this._alarmAutoResetTimer = null;

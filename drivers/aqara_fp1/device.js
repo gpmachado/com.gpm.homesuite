@@ -3,7 +3,7 @@
 const { ZigBeeDevice } = require('homey-zigbeedriver');
 const AqaraLumiCluster = require('../../lib/AqaraLumiCluster');
 const { AvailabilityManagerPassive } = require('../../lib/AvailabilityManager');
-const { TimeSilentBoundCluster } = require('../../lib/TimeCluster');
+const { TimeServerBoundCluster } = require('../../lib/TimeCluster');
 
 const AQARA_MFG = 0x115F;
 
@@ -38,7 +38,7 @@ class AqaraFP1Device extends ZigBeeDevice {
     // FP1 doesn't declare the Time cluster in its own cluster list, but still
     // probes it — without a bound cluster this logs binding_unavailable on
     // every attempt (interview-confirmed: no 'time' entry in input/output clusters).
-    try { zclNode.endpoints[1].bind('time', new TimeSilentBoundCluster()); } catch {}
+    try { zclNode.endpoints[1].bind('time', new TimeServerBoundCluster()); } catch {}
 
     this._presenceEventTrigger = this.homey.flow.getDeviceTriggerCard('aqara_fp1_presence_event');
 

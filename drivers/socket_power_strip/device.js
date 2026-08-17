@@ -66,11 +66,11 @@ class PowerStripDevice extends TuyaZclBase {
       this._attachTuyaBootListener(zclNode);
 
       // Silence Time cluster requests from TS011F
-      const { TimeSilentBoundCluster } = require('../../lib/TimeCluster');
+      const { TimeServerBoundCluster } = require('../../lib/TimeCluster');
       for (const ep of [1, 2, 3, 4, 5]) {
         try {
-          if (zclNode.endpoints[ep]?.clusters?.time) {
-            zclNode.endpoints[ep].bind('time', new TimeSilentBoundCluster());
+          if (zclNode.endpoints[ep]) {
+            zclNode.endpoints[ep].bind('time', new TimeServerBoundCluster());
           }
         } catch {}
       }

@@ -6,7 +6,7 @@ const AvailabilityManager = require('../../lib/AvailabilityManager');
 const { AvailabilityManagerPassive } = AvailabilityManager;
 const { readAttrCatch } = require('../../lib/errorUtils');
 const { SONOFF_DONGLE_HEARTBEAT_MS } = require('../../lib/constants');
-const { TimeSilentBoundCluster } = require('../../lib/TimeCluster');
+const { TimeServerBoundCluster } = require('../../lib/TimeCluster');
 
 class SonoffDongleDevice extends ZigBeeDevice {
 
@@ -32,7 +32,7 @@ class SonoffDongleDevice extends ZigBeeDevice {
       .catch(readAttrCatch(this, '[basic] readAttributes', { markOffline: true }));
 
     // Silence ZCL time cluster frames.
-    try { zclNode.endpoints[1].bind('time', new TimeSilentBoundCluster()); } catch {}
+    try { zclNode.endpoints[1].bind('time', new TimeServerBoundCluster()); } catch {}
 
     // Configure onOff reporting — maxInterval 300s (5 min) so the device sends
     // periodic frames even when idle. These frames are caught by handleFrame to

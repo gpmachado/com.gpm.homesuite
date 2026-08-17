@@ -27,12 +27,8 @@ const UINT16_DATA_TYPE_ID = 0x21;
 
 class SmartPlug3Device extends SmartPlugBase {
 
-  get diagnosticTag() {
+  get logTag() {
     return 'SP3';
-  }
-
-  get diagnosticManufacturer() {
-    return '_TZ3000_cehuw1lw';
   }
 
   async onNodeInit(args) {

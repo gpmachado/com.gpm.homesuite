@@ -12,6 +12,7 @@
 
 const { ZigBeeDevice } = require('homey-zigbeedriver');
 const { CLUSTER } = require('zigbee-clusters');
+const { TimeServerBoundCluster } = require('../../lib/TimeCluster');
 
 const ACTION = { 0: 'single', 1: 'double', 2: 'long' };
 
@@ -31,6 +32,8 @@ class WirelessSwitchRemote2Gang extends ZigBeeDevice {
 
     this._buttonTrigger = this.homey.flow.getDeviceTriggerCard('wireless_switch_remote_2_gang_button')
       .registerRunListener((args, state) => args.action === state.action);
+
+    try { zclNode.endpoints[1].bind('time', new TimeServerBoundCluster()); } catch {}
 
     // Wrap node.handleFrame (don't replace it): intercept the button commands on
     // cluster 6, but forward every other frame to the original handler so battery

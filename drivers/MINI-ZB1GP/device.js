@@ -3,7 +3,7 @@
 const SonoffBase = require('../../lib/SonoffBase');
 const SonoffCluster = require('../../lib/SonoffCluster');
 const { CLUSTER } = require('zigbee-clusters');
-const { SonoffTimeSilentBoundCluster } = require('../../lib/TimeCluster');
+const { SonoffTimeServerBoundCluster } = require('../../lib/TimeCluster');
 const { AvailabilityManagerPassive } = require('../../lib/AvailabilityManager');
 const { HEARTBEAT_FAST_MS } = require('../../lib/constants');
 
@@ -41,7 +41,7 @@ class SonoffMINIZB1GP extends SonoffBase {
     this._installClusterReportInterceptor(SonoffCluster, { suppressCmdIds: [0x01, 0x03] });
 
     // Suppress Time cluster (0x000A) binding_unavailable errors
-    this.zclNode.endpoints[1].bind('time', new SonoffTimeSilentBoundCluster());
+    this.zclNode.endpoints[1].bind('time', new SonoffTimeServerBoundCluster());
 
     // Read initial data
     await this.checkAttributes();

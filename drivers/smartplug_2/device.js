@@ -23,7 +23,7 @@ const REDUCED_REPORTING = {
 
 class SmartPlug2Device extends SmartPlugBase {
 
-  get diagnosticTag() {
+  get logTag() {
     return 'SP2';
   }
 
@@ -43,7 +43,7 @@ class SmartPlug2Device extends SmartPlugBase {
         rmsVoltage: REDUCED_REPORTING.rmsVoltage,
       });
       this.log(
-        `[${this.diagnosticTag} reporting] electricalMeasurement configure accepted: `
+        `[${this.logTag} reporting] electricalMeasurement configure accepted: `
         + JSON.stringify({
           activePower: REDUCED_REPORTING.activePower,
           rmsCurrent: REDUCED_REPORTING.rmsCurrent,
@@ -52,7 +52,7 @@ class SmartPlug2Device extends SmartPlugBase {
       );
     } catch (err) {
       this.log(
-        `[${this.diagnosticTag} reporting] electricalMeasurement configure failed (${err.message})`,
+        `[${this.logTag} reporting] electricalMeasurement configure failed (${err.message})`,
       );
     }
 
@@ -62,14 +62,14 @@ class SmartPlug2Device extends SmartPlugBase {
           REDUCED_REPORTING.currentSummationDelivered,
       });
       this.log(
-        `[${this.diagnosticTag} reporting] metering configure accepted: `
+        `[${this.logTag} reporting] metering configure accepted: `
         + JSON.stringify({
           currentSummationDelivered:
             REDUCED_REPORTING.currentSummationDelivered,
         }),
       );
     } catch (err) {
-      this.log(`[${this.diagnosticTag} reporting] metering configure failed (${err.message})`);
+      this.log(`[${this.logTag} reporting] metering configure failed (${err.message})`);
     }
   }
 }

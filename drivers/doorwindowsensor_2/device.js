@@ -33,6 +33,7 @@
 const { ZigBeeDevice } = require('homey-zigbeedriver');
 const { CLUSTER } = require('zigbee-clusters');
 const { AvailabilityManagerPassive } = require('../../lib/AvailabilityManager');
+const { TimeServerBoundCluster } = require('../../lib/TimeCluster');
 const { APP_VERSION, HEARTBEAT_SLOW_MS } = require('../../lib/constants');
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -81,6 +82,7 @@ class DoorWindowSensorDevice2 extends ZigBeeDevice {
 
     await this._setupIASZone(zclNode);
     await this._setupBatteryReporting(zclNode);
+    try { zclNode.endpoints[ENDPOINT_ID].bind('time', new TimeServerBoundCluster()); } catch {}
 
     await this.ready();
     this.log(`${DRIVER_NAME} - ready`);

@@ -2,6 +2,7 @@
 
 const TuyaSpecificClusterDevice = require('../../lib/TuyaSpecificClusterDevice');
 const { AvailabilityManagerPassive } = require('../../lib/AvailabilityManager');
+const { TimeServerBoundCluster } = require('../../lib/TimeCluster');
 
 const DATA_POINTS = {
   LIQUID_STATE: 1,
@@ -31,6 +32,8 @@ class WaterTankMonitorDevice extends TuyaSpecificClusterDevice {
       pollBeforeOffline: false,
     });
     await this._availability.install();
+
+    try { this.zclNode?.endpoints?.[this.tuyaEndpoint]?.bind('time', new TimeServerBoundCluster()); } catch {}
 
     const tuyaCluster = this.zclNode?.endpoints?.[this.tuyaEndpoint]?.clusters?.tuya;
     if (!tuyaCluster) {

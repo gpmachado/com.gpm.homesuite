@@ -33,7 +33,7 @@ const { ZigBeeDevice } = require('homey-zigbeedriver');
 const { CLUSTER } = require('zigbee-clusters');
 const { AvailabilityManagerPassive } = require('../../lib/AvailabilityManager');
 const IASZoneHelper = require('../../lib/IASZoneHelper');
-const { TimeSilentBoundCluster } = require('../../lib/TimeCluster');
+const { TimeServerBoundCluster } = require('../../lib/TimeCluster');
 const { APP_VERSION, HEARTBEAT_SLOW_MS, DOOR_SENSOR_POLL_INTERVAL_MS } = require('../../lib/constants');
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -80,7 +80,7 @@ class DoorWindowSensorDevice extends ZigBeeDevice {
     });
     await this._availability.install();
 
-    this._bindSilentTimeCluster(zclNode);
+    this._bindTimeServerCluster(zclNode);
     await this._setupIASZone(zclNode);
     await this._setupBatteryReporting(zclNode);
     this._startPolling();
@@ -308,11 +308,11 @@ class DoorWindowSensorDevice extends ZigBeeDevice {
     });
   }
 
-  _bindSilentTimeCluster(zclNode) {
+  _bindTimeServerCluster(zclNode) {
     try {
       const endpoint = zclNode.endpoints[ENDPOINT_ID];
       if (!endpoint) return;
-      endpoint.bind('time', new TimeSilentBoundCluster());
+      endpoint.bind('time', new TimeServerBoundCluster());
       this.log('[Time] Silent bound cluster installed');
     } catch (err) {
       this.log('[Time] Silent bind skipped:', err.message);

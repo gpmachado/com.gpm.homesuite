@@ -4,7 +4,7 @@ const TuyaSpecificClusterDevice = require('../../lib/TuyaSpecificClusterDevice')
 const AvailabilityManager = require('../../lib/AvailabilityManager');
 const { AvailabilityManagerPassive } = AvailabilityManager;
 const { isDeviceUnreachable } = require('../../lib/errorUtils');
-const { TimeSilentBoundCluster } = require('../../lib/TimeCluster');
+const { TimeServerBoundCluster } = require('../../lib/TimeCluster');
 const { APP_VERSION, HEARTBEAT_VERY_SLOW_MS } = require('../../lib/constants');
 
 const VERSION = APP_VERSION;
@@ -39,7 +39,7 @@ class TempHumidClock extends TuyaSpecificClusterDevice {
     await this._availability.install();
 
     try {
-      zclNode.endpoints[1].bind('time', new TimeSilentBoundCluster({
+      zclNode.endpoints[1].bind('time', new TimeServerBoundCluster({
         onReadAttributes: () => this._handleZclTimeRead(),
       }));
     } catch {}

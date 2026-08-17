@@ -5,7 +5,7 @@ const AvailabilityManager = require('../../lib/AvailabilityManager');
 const { AvailabilityManagerPassive } = AvailabilityManager;
 const { readAttrCatch } = require('../../lib/errorUtils');
 const { HEARTBEAT_MEDIUM_MS, ZIGBEE_REPEATER_PING_INTERVAL_MS } = require('../../lib/constants');
-const { TimeSilentBoundCluster } = require('../../lib/TimeCluster');
+const { TimeServerBoundCluster } = require('../../lib/TimeCluster');
 
 
 class ZigbeeRepeaterDevice extends ZigBeeDevice {
@@ -31,7 +31,7 @@ class ZigbeeRepeaterDevice extends ZigBeeDevice {
       .catch(readAttrCatch(this, '[basic] readAttributes', { markOffline: true }));
 
     // Silence ZCL time cluster frames (repeater probes coordinator's time cluster)
-    try { zclNode.endpoints[1].bind('time', new TimeSilentBoundCluster()); } catch {}
+    try { zclNode.endpoints[1].bind('time', new TimeServerBoundCluster()); } catch {}
 
     // TS0207 sends no spontaneous ZCL frames — active ping every 30 min keeps
     // the availability watchdog alive (same pattern as Hubitat generic repeater).
@@ -50,7 +50,7 @@ class ZigbeeRepeaterDevice extends ZigBeeDevice {
   onEndDeviceAnnounce() {
     // ZDO Device Announce is a reliable "I'm back" signal. Actively restore
     // availability instead of waiting for a spontaneous frame — a quiet router
-    // (further silenced by TimeSilentBoundCluster) may not send one, leaving it
+    // (further silenced by TimeServerBoundCluster) may not send one, leaving it
     // stuck as unavailable after it physically returns to the network.
     this.log('Rejoined (ZDO announce) — restoring availability');
     this._availability?.notifyActivity('rejoin').catch(() => {});

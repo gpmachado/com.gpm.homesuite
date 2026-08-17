@@ -2,6 +2,7 @@
 
 const TuyaSpecificClusterDevice = require('../../lib/TuyaSpecificClusterDevice');
 const { AvailabilityManagerPassive } = require('../../lib/AvailabilityManager');
+const { TimeServerBoundCluster } = require('../../lib/TimeCluster');
 const IASZoneHelper = require('../../lib/IASZoneHelper');
 
 const DATA_POINTS = {
@@ -50,6 +51,8 @@ class RadarSensorMmwaveDevice extends TuyaSpecificClusterDevice {
     await this._availability.install();
 
     const ep = this.zclNode?.endpoints?.[this.tuyaEndpoint];
+
+    try { ep?.bind('time', new TimeServerBoundCluster()); } catch {}
 
     // Same initialization read as Zigbee2MQTT's configureMagicPacket. This
     // TS0225 can keep sending IAS occupancy while its illuminance and 0xE002

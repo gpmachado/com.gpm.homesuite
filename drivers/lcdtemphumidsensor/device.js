@@ -16,7 +16,7 @@
 const { ZigBeeDevice } = require('homey-zigbeedriver');
 const { CLUSTER } = require('zigbee-clusters');
 const { AvailabilityManagerCallback } = require('../../lib/AvailabilityManager');
-const { TimeSilentBoundCluster } = require('../../lib/TimeCluster');
+const { TimeServerBoundCluster } = require('../../lib/TimeCluster');
 const { HEARTBEAT_SLOW_MS, APP_VERSION } = require('../../lib/constants');
 
 const DRIVER_NAME = 'LCD Temp/Humidity Sensor';
@@ -47,7 +47,7 @@ class LCDTempHumidSensor extends ZigBeeDevice {
 
     // Silence ZCL time cluster frames (device probes coordinator's time cluster;
     // not used here — suppress binding_unavailable log noise)
-    try { zclNode.endpoints[1].bind('time', new TimeSilentBoundCluster()); } catch {}
+    try { zclNode.endpoints[1].bind('time', new TimeServerBoundCluster()); } catch {}
 
     this.log(`${DRIVER_NAME} - ready`);
   }

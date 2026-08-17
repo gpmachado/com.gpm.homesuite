@@ -2,6 +2,7 @@
 
 const TuyaSpecificClusterDevice = require('../../lib/TuyaSpecificClusterDevice');
 const { AvailabilityManagerPassive } = require('../../lib/AvailabilityManager');
+const { TimeServerBoundCluster } = require('../../lib/TimeCluster');
 const { APP_VERSION } = require('../../lib/constants');
 
 const DRIVER_NAME = 'MOES 3-Gang Fan Controller';
@@ -88,6 +89,7 @@ class MoesDimmer3Gang extends TuyaSpecificClusterDevice {
       });
       await this._availability.install();
       this._setupTuyaListeners(zclNode);
+      try { zclNode.endpoints[1].bind('time', new TimeServerBoundCluster()); } catch {}
     }
 
     this.registerCapabilityListener('onoff', v => this._onCapabilityOnOff(v));
