@@ -11337,51 +11337,6 @@
         {
           "type": "group",
           "label": {
-            "en": "Diagnostics",
-            "de": "Diagnose",
-            "es": "Diagnósticos",
-            "it": "Diagnostica"
-          },
-          "children": [
-            {
-              "id": "debug_frames",
-              "type": "checkbox",
-              "label": {
-                "en": "Log Zigbee frames",
-                "de": "Zigbee-Frames protokollieren",
-                "es": "Registrar tramas Zigbee",
-                "it": "Registra frame Zigbee"
-              },
-              "hint": {
-                "en": "Logs cluster, command, interval and whether the frame arrived during active polling.",
-                "de": "Protokolliert Cluster, Befehl, Intervall und ob das Frame während der aktiven Abfrage angekommen ist.",
-                "es": "Registra clúster, comando, intervalo y si la trama llegó durante la consulta activa.",
-                "it": "Registra cluster, comando, intervallo e se il frame è arrivato durante il polling attivo."
-              },
-              "value": true
-            },
-            {
-              "id": "debug_raw_payload",
-              "type": "checkbox",
-              "label": {
-                "en": "Include raw frame payload",
-                "de": "Rohes Frame-Payload einschließen",
-                "es": "Incluir carga útil sin procesar",
-                "it": "Includi payload grezzo del frame"
-              },
-              "hint": {
-                "en": "Include the hexadecimal ZCL frame for detailed analysis.",
-                "de": "Fügt das hexadezimale ZCL-Frame für eine detaillierte Analyse hinzu.",
-                "es": "Incluye la trama ZCL hexadecimal para un análisis detallado.",
-                "it": "Includi il frame ZCL esadecimale per un'analisi dettagliata."
-              },
-              "value": true
-            }
-          ]
-        },
-        {
-          "type": "group",
-          "label": {
             "en": "Device control",
             "de": "Gerätesteuerung",
             "es": "Control del dispositivo",
@@ -11671,51 +11626,6 @@
         }
       },
       "settings": [
-        {
-          "type": "group",
-          "label": {
-            "en": "Diagnostics",
-            "de": "Diagnose",
-            "es": "Diagnósticos",
-            "it": "Diagnostica"
-          },
-          "children": [
-            {
-              "id": "debug_frames",
-              "type": "checkbox",
-              "label": {
-                "en": "Log Zigbee frames",
-                "de": "Zigbee-Frames protokollieren",
-                "es": "Registrar tramas Zigbee",
-                "it": "Registra frame Zigbee"
-              },
-              "hint": {
-                "en": "Logs cluster, command, interval and whether the frame arrived during active polling.",
-                "de": "Protokolliert Cluster, Befehl, Intervall und ob das Frame während der aktiven Abfrage angekommen ist.",
-                "es": "Registra clúster, comando, intervalo y si la trama llegó durante la consulta activa.",
-                "it": "Registra cluster, comando, intervallo e se il frame è arrivato durante il polling attivo."
-              },
-              "value": true
-            },
-            {
-              "id": "debug_raw_payload",
-              "type": "checkbox",
-              "label": {
-                "en": "Include raw frame payload",
-                "de": "Rohes Frame-Payload einschließen",
-                "es": "Incluir carga útil sin procesar",
-                "it": "Includi payload grezzo del frame"
-              },
-              "hint": {
-                "en": "Include the hexadecimal ZCL frame for detailed analysis.",
-                "de": "Fügt das hexadezimale ZCL-Frame für eine detaillierte Analyse hinzu.",
-                "es": "Incluye la trama ZCL hexadecimal para un análisis detallado.",
-                "it": "Includi il frame ZCL esadecimale per un'analisi dettagliata."
-              },
-              "value": true
-            }
-          ]
-        },
         {
           "type": "group",
           "label": {

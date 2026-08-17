@@ -1,14 +1,14 @@
 'use strict';
 
 /**
- * Diagnostic driver for TS011F / _TZ3000_cehuw1lw.
+ * Variant driver for TS011F / _TZ3000_cehuw1lw.
  *
- * It reuses the raw-frame diagnostics from smartplug_2 and applies conservative
- * reporting intervals to suppress the firmware's three-frame bursts.
+ * Applies conservative reporting intervals to suppress the firmware's
+ * three-frame bursts.
  */
 
 const { Cluster } = require('zigbee-clusters');
-const SmartPlugDiagnosticDevice = require('../smartplug_2/device');
+const SmartPlugBase = require('../../lib/SmartPlugBase');
 
 const POLL_INTERVAL_SECONDS = 600;
 const REDUCED_REPORTING = {
@@ -25,7 +25,7 @@ const REDUCED_REPORTING = {
 const ACTIVE_POWER_ATTRIBUTE_ID = 0x050B;
 const UINT16_DATA_TYPE_ID = 0x21;
 
-class SmartPlug3Device extends SmartPlugDiagnosticDevice {
+class SmartPlug3Device extends SmartPlugBase {
 
   get diagnosticTag() {
     return 'SP3';
