@@ -237,7 +237,9 @@ separable into its own app).
   benefit on these (zigbee2mqtt unbinds it on Sonoff because it slows polling).
 - **Sonoff Zigbee USB Dongle** — a spare from Home Assistant testing, flashed with
   router firmware and given a repeater-style driver.
-- **SNZB-06P** — 24 GHz presence sensor with availability.
+- **SNZB-06P** — PIR + mmWave presence sensor with availability. Not the same
+  hardware as the `SNZB-06P24` (24 GHz) variant — different product ID, not
+  supported here.
 - **MINI-ZB1GP** — single-channel relay with energy metering (power, current,
   voltage, accumulated consumption). `resetConsumption` was identified by
   reverse-engineering a real sniffer capture (it's not in any public reference) and
@@ -291,7 +293,7 @@ not necessarily the device's full raw cluster list. See
 | Sonoff SNZB-02LD temp/humidity (LCD) | SNZB-02LD | `SONOFF` | 0, 1, 1026, 64529 |
 | Sonoff SNZB-02WD temp/humidity (display) | SNZB-02WD | `SONOFF` | 0, 1, 1026, 1029, 64529 |
 | Sonoff SNZB-03 motion sensor | MS01 | `eWeLink` | 0, 1, 1280 |
-| Sonoff SNZB-06P presence sensor (24 GHz) | SNZB-06P | `SONOFF` | 0, 3, 1030, 1280, 64529 |
+| Sonoff SNZB-06P presence sensor (PIR + mmWave) | SNZB-06P | `SONOFF` | 0, 3, 1030, 1280, 64529 |
 | Aqara FP1 presence sensor | `lumi.motion.ac01` | `aqara` | 0, 3, 64704 |
 | Sonoff Zigbee USB Dongle (router firmware) | DONGLE-E_R | `SONOFF` | 0, 3, 4, 5, 6, 4096 |
 
