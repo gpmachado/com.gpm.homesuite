@@ -119,16 +119,27 @@ Fires when the physical switch wired to a ZBMINIR2 is pressed, in Detach-Relay m
 ## Device notes
 
 **Switches (Zemismart / NovaDigital TB26, 1–6 gang + 1CH relay)**
-Johan's app only covered 4/6-gang; 1/2/3-gang and the inline 1CH relay are built
-here. The 4/6-gang are EF00 datapoint devices (TS0601); the rest are ZCL (TS000x)
-using the Tuya `0xE000` / `0xE001` private clusters. Each gang pairs as its own
-sub-device; the main device's **Advanced Settings** expose:
+Johan's app only covered 4/6-gang; 1/2/3-gang (+ touch) and the inline 1CH
+relay are built here. The 1/2/3-gang (+ touch) are ZCL (TS000x) using the
+Tuya `0xE000` / `0xE001` private clusters; the 4/6-gang are EF00 datapoint
+devices (TS0601) on **different, more limited firmware** — don't assume
+feature parity across the family. Each gang pairs as its own sub-device.
+
+*1/2/3-gang (+ touch) / 1CH relay* — main device's **Advanced Settings** expose:
 - **Connected Switches** — the group and which one is the Main.
 - **LED Backlight** and **LED Indicator** — persistent (re-enforced after a power cut).
 - **Switch Mode** — Toggle (Standard) / Momentary — with a read-only *Current Mode* label.
 - **Power-On Behavior** — global (all gangs) and per-gang, each with a *current* label.
 - **Inching (auto-off)** with a delay in seconds, per gang.
 - **Energy** — Always On + power usage (W) when off / on.
+
+*4-gang* — firmware exposes only **Connected Switches** and a *global*
+**Power-On Behavior** (with a current-value label) — no backlight, no LED
+indicator, no switch mode, no inching, no per-gang power-on.
+
+*6-gang* — even more limited: only **Connected Switches**. No power-on
+behavior setting at all (not even global), and none of the 4-gang's other
+settings either.
 
 On the **1CH relay module**, the firmware also advertises an LED Backlight / LED
 Indicator, but they have no effect on that hardware — so they're hidden rather than
@@ -241,59 +252,65 @@ separable into its own app).
 
 ## Supported devices
 
-EP1 clusters as declared in each driver's `driver.compose.json` (not necessarily
-the device's full raw cluster list — see [Note on cluster IDs](#note-on-cluster-ids)
-below). `PowerConfig` = battery (0x0001), `Diag` = Diagnostics (0x0B15/2821).
+EP1 cluster IDs (decimal) as declared in each driver's `driver.compose.json` —
+not necessarily the device's full raw cluster list. See
+[Note on cluster IDs](#note-on-cluster-ids) below to decode them.
 
 | Device | Product ID | Manufacturer ID(s) | Clusters (EP1) |
 |--------|------------|--------------------|-----------------|
-| NovaDigital / Zemismart switch 1 gang | TS0001 | `_TZ3000_ovyaisip` `_TZ3000_pk8tgtdb` | Basic, Identify, Groups, Scenes, OnOff, Time, TuyaE000, TuyaE001 |
-| NovaDigital / Zemismart switch 2 gang | TS0002 | `_TZ3000_ywubfuvt` `_TZ3000_kgxej1dv` | Basic, Identify, Groups, Scenes, OnOff, Time, TuyaE000, TuyaE001 |
-| NovaDigital / Zemismart switch 2 gang (touch) | TS0002 | `_TZ3000_jjdkhueq` | Basic, Identify, Groups, Scenes, OnOff, Time, TuyaE000, TuyaE001 |
-| NovaDigital / Zemismart switch 3 gang | TS0003 | `_TZ3000_yervjnlj` `_TZ3000_vjhcenzo` `_TZ3000_qxcnwv26` `_TZ3000_eqsair32` `_TZ3000_f09j9qjb` `_TZ3000_fawk5xjv` `_TZ3000_ok0ggpk7` | Basic, Identify, Groups, Scenes, OnOff, Time, TuyaE000, TuyaE001 |
-| NovaDigital / Zemismart switch 4 gang | TS0601 | `_TZE200_shkxsgis` `_TZE284_shkxsgis` `_TZE204_aagrxlbd` | Basic, Groups, Scenes, Time, TuyaEF00 (DP protocol) |
-| NovaDigital / Zemismart switch 4 gang (ZCL) | TS0004 | `_TZ3000_lwthnp7j` | Basic, Identify, Groups, Scenes, OnOff, TuyaE000, TuyaE001 |
-| NovaDigital / Zemismart switch 6 gang | TS0601 | `_TZE200_r731zlxk` `_TZE284_r731zlxk` | Basic, Groups, Scenes, Time, TuyaEF00 (DP protocol) |
-| 1-channel relay module (GIRIER + variants) | TS0001 | `_TZ3000_npzfdcof` `_TZ3000_hktqahrq` `_TZ3000_mx3vgyea` `_TZ3000_5ng23zjs` `_TZ3000_rmjr4ufz` `_TZ3000_v7gnj3ad` `_TZ3000_qsp2pwtf` `_TZ3000_oex7egmt` `_TZ3000_tqlv4ug4` | Basic, Identify, Groups, Scenes, OnOff, TuyaE000, TuyaE001 |
-| 2-channel relay module | TS0002 | `_TZ3000_fisb3ajo` `_TZ3000_bvrlqyj7` `_TZ3000_7ed9cqgi` `_TZ3000_lmlsduws` `_TZ3000_qaa59zqd` `_TZ3000_ruxexjfz` `_TZ3000_zmy4lslw` `_TZ3000_hznzbl0x` `_TZ3000_mtnpt6ws` `_TZ3000_pxfjrzyj` | Basic, Identify, Groups, Scenes, OnOff, TuyaE000, TuyaE001 |
-| 3-channel relay module | TS0003 | `_TZ3000_odzoiovu` `_TZ3000_lvhy15ix` `_TZ3000_4o16jdca` | Basic, Identify, Groups, Scenes, OnOff, TuyaE000, TuyaE001 |
-| MOES dimmer 3 gang | TS0601 | `_TZE204_1v1dxkck` | Basic, Groups, Scenes, TuyaEF00 (DP protocol) |
-| MOES 4-gang wireless remote | TS0044 | `_TZ3000_wkai4ga5` | Basic, PowerConfig, OnOff |
-| 2-gang wireless remote | TS0042 | `_TZ3000_tzvbimpq` | Basic, PowerConfig, OnOff |
-| Smart plug (metering) | TS011F | `_TZ3000_88iqnhvd` `_TZ3000_okaz9tjs` | Basic, Identify, Groups, Scenes, OnOff, Time, Metering, ElectricalMeasurement, TuyaE000, TuyaE001 |
-| Smart plug (metering, `_TZ3210` variant) | TS011F | `_TZ3210_fgwhjm9j` | same as above |
-| Smart plug (metering, `_TZ3000_cehuw1lw` variant) | TS011F | `_TZ3000_cehuw1lw` | Basic, Identify, Groups, Scenes, OnOff, Time, Metering, ElectricalMeasurement, Touchlink, TuyaE000 |
-| Socket power strip (4 + USB) | TS011F | `_TZ3000_cfnprab5` | Basic, Identify, Groups, Scenes, OnOff, TuyaE000 |
-| LCD temperature & humidity sensor | TS0201 | `_TZ3000_ywagc4rj` | Basic, PowerConfig, Identify, Temperature, Humidity |
-| Temperature & humidity sensor w/ clock | TS0601 | `_TZE200_cirvgep4` `_TZE204_cirvgep4` | Basic, Groups, Scenes, TuyaEF00 (DP protocol) |
-| HEIMAN combustible gas detector (natural gas & LPG) | TS0204 | `_TYZB01_0w3d5uw3` | Basic, Identify, IASZone, Diag |
-| Siren | TS0601 | `_TZE204_q76rtoa9` | Basic, Groups, Scenes, TuyaEF00 (DP protocol) |
-| Door & window sensor | TS0203 | `_TZ3000_7tbsruql` `_TZ3000_osu834un` | Basic, PowerConfig, Identify, IASZone |
-| Door & window sensor (variant 2) | TS0203 | `_TZ3000_6zvw8ham` | Basic, PowerConfig, Identify, IASZone |
-| Radar sensor (Linptech / Moes, mmWave presence) | TS0225 | `_TZ3218_t9ynfz4x` `_TZ3218_awarhusb` | Basic, Identify, Groups, Scenes, Illuminance, ManuSpecTuya3, TuyaEF00, IASZone |
-| Ultrasonic liquid level sensor (water tank) | TS0601 | `_TZE200_lvkk0hdg` | Basic, Groups, Scenes, TuyaEF00 (DP protocol) |
-| Zigbee repeater | TS0207 | `_TZ3000_nkkl7uzv` | Basic, Identify, Time |
-| Sonoff BASICZBR3 relay | BASICZBR3 | `SONOFF` | Basic, Identify, Groups, Scenes, OnOff |
-| Sonoff ZBMINIR2 relay | ZBMINIR2 | `SONOFF` | Basic, Identify, Groups, OnOff, Diag, SonoffFC11, SonoffFC57 |
-| Sonoff MINI-ZBD dry contact | MINI-ZBD | `SONOFF` | Basic, Identify, Groups, OnOff, Diag, SonoffFC11, SonoffFC57 |
-| Sonoff MINI-ZB1GP energy meter | MINI-ZB1GP | `SONOFF` | Basic, Identify, Groups, Scenes, OnOff, Metering, ElectricalMeasurement, SonoffFC11, SonoffFC57 |
-| Sonoff SNZB-02LD temp/humidity (LCD) | SNZB-02LD | `SONOFF` | Basic, PowerConfig, Temperature, SonoffFC11 |
-| Sonoff SNZB-02WD temp/humidity (display) | SNZB-02WD | `SONOFF` | Basic, PowerConfig, Temperature, Humidity, SonoffFC11 |
-| Sonoff SNZB-03 motion sensor | MS01 | `eWeLink` | Basic, PowerConfig, IASZone |
-| Sonoff SNZB-06P presence sensor (24 GHz) | SNZB-06P | `SONOFF` | Basic, Identify, Occupancy, IASZone, SonoffFC11 |
-| Aqara FP1 presence sensor | `lumi.motion.ac01` | `aqara` | Basic, Identify, AqaraLumiFCC0 |
-| Sonoff Zigbee USB Dongle (router firmware) | DONGLE-E_R | `SONOFF` | Basic, Identify, Groups, Scenes, OnOff, Touchlink |
+| NovaDigital / Zemismart switch 1 gang | TS0001 | `_TZ3000_ovyaisip` `_TZ3000_pk8tgtdb` | 0, 3, 4, 5, 6, 10, 57344, 57345 |
+| NovaDigital / Zemismart switch 2 gang | TS0002 | `_TZ3000_ywubfuvt` `_TZ3000_kgxej1dv` | 0, 3, 4, 5, 6, 10, 57344, 57345 |
+| NovaDigital / Zemismart switch 2 gang (touch) | TS0002 | `_TZ3000_jjdkhueq` | 0, 3, 4, 5, 6, 10, 57344, 57345 |
+| NovaDigital / Zemismart switch 3 gang | TS0003 | `_TZ3000_yervjnlj` `_TZ3000_vjhcenzo` `_TZ3000_qxcnwv26` `_TZ3000_eqsair32` `_TZ3000_f09j9qjb` `_TZ3000_fawk5xjv` `_TZ3000_ok0ggpk7` | 0, 3, 4, 5, 6, 10, 57344, 57345 |
+| NovaDigital / Zemismart switch 4 gang | TS0601 | `_TZE200_shkxsgis` `_TZE284_shkxsgis` `_TZE204_aagrxlbd` | 0, 4, 5, 10, 61184 |
+| NovaDigital / Zemismart switch 4 gang (ZCL) | TS0004 | `_TZ3000_lwthnp7j` | 0, 3, 4, 5, 6, 57344, 57345 |
+| NovaDigital / Zemismart switch 6 gang | TS0601 | `_TZE200_r731zlxk` `_TZE284_r731zlxk` | 0, 4, 5, 10, 61184 |
+| 1-channel relay module (GIRIER + variants) | TS0001 | `_TZ3000_npzfdcof` `_TZ3000_hktqahrq` `_TZ3000_mx3vgyea` `_TZ3000_5ng23zjs` `_TZ3000_rmjr4ufz` `_TZ3000_v7gnj3ad` `_TZ3000_qsp2pwtf` `_TZ3000_oex7egmt` `_TZ3000_tqlv4ug4` | 0, 3, 4, 5, 6, 57344, 57345 |
+| 2-channel relay module | TS0002 | `_TZ3000_fisb3ajo` `_TZ3000_bvrlqyj7` `_TZ3000_7ed9cqgi` `_TZ3000_lmlsduws` `_TZ3000_qaa59zqd` `_TZ3000_ruxexjfz` `_TZ3000_zmy4lslw` `_TZ3000_hznzbl0x` `_TZ3000_mtnpt6ws` `_TZ3000_pxfjrzyj` | 0, 3, 4, 5, 6, 57344, 57345 |
+| 3-channel relay module | TS0003 | `_TZ3000_odzoiovu` `_TZ3000_lvhy15ix` `_TZ3000_4o16jdca` | 0, 3, 4, 5, 6, 57344, 57345 |
+| MOES dimmer 3 gang | TS0601 | `_TZE204_1v1dxkck` | 0, 4, 5, 61184 |
+| MOES 4-gang wireless remote | TS0044 | `_TZ3000_wkai4ga5` | 0, 1, 6 |
+| 2-gang wireless remote | TS0042 | `_TZ3000_tzvbimpq` | 0, 1, 6 |
+| Smart plug (metering) | TS011F | `_TZ3000_88iqnhvd` `_TZ3000_okaz9tjs` | 0, 3, 4, 5, 6, 10, 1794, 2820, 57344, 57345 |
+| Smart plug (metering, `_TZ3210` variant) | TS011F | `_TZ3210_fgwhjm9j` | 0, 3, 4, 5, 6, 10, 1794, 2820, 57344, 57345 |
+| Smart plug (metering, `_TZ3000_cehuw1lw` variant) | TS011F | `_TZ3000_cehuw1lw` | 0, 3, 4, 5, 6, 10, 1794, 2820, 4096, 6280, 57344 |
+| Socket power strip (4 + USB) | TS011F | `_TZ3000_cfnprab5` | 0, 3, 4, 5, 6, 57344 |
+| LCD temperature & humidity sensor | TS0201 | `_TZ3000_ywagc4rj` | 0, 1, 3, 1026, 1029 |
+| Temperature & humidity sensor w/ clock | TS0601 | `_TZE200_cirvgep4` `_TZE204_cirvgep4` | 0, 4, 5, 61184 |
+| HEIMAN combustible gas detector (natural gas & LPG) | TS0204 | `_TYZB01_0w3d5uw3` | 0, 3, 1280, 2821 |
+| Siren | TS0601 | `_TZE204_q76rtoa9` | 0, 4, 5, 61184 |
+| Door & window sensor | TS0203 | `_TZ3000_7tbsruql` `_TZ3000_osu834un` | 0, 1, 3, 1280 |
+| Door & window sensor (variant 2) | TS0203 | `_TZ3000_6zvw8ham` | 0, 1, 3, 1280 |
+| Radar sensor (Linptech / Moes, mmWave presence) | TS0225 | `_TZ3218_t9ynfz4x` `_TZ3218_awarhusb` | 0, 3, 4, 5, 1024, 1280, 16384, 57346, 61184 |
+| Ultrasonic liquid level sensor (water tank) | TS0601 | `_TZE200_lvkk0hdg` | 0, 4, 5, 61184 |
+| Zigbee repeater | TS0207 | `_TZ3000_nkkl7uzv` | 0, 3, 10 |
+| Sonoff BASICZBR3 relay | BASICZBR3 | `SONOFF` | 0, 3, 4, 5, 6 |
+| Sonoff ZBMINIR2 relay | ZBMINIR2 | `SONOFF` | 0, 3, 4, 6, 2821, 64529, 64599 |
+| Sonoff MINI-ZBD dry contact | MINI-ZBD | `SONOFF` | 0, 3, 4, 6, 2821, 64529, 64599 |
+| Sonoff MINI-ZB1GP energy meter | MINI-ZB1GP | `SONOFF` | 0, 3, 4, 5, 6, 1794, 2820, 64529, 64599 |
+| Sonoff SNZB-02LD temp/humidity (LCD) | SNZB-02LD | `SONOFF` | 0, 1, 1026, 64529 |
+| Sonoff SNZB-02WD temp/humidity (display) | SNZB-02WD | `SONOFF` | 0, 1, 1026, 1029, 64529 |
+| Sonoff SNZB-03 motion sensor | MS01 | `eWeLink` | 0, 1, 1280 |
+| Sonoff SNZB-06P presence sensor (24 GHz) | SNZB-06P | `SONOFF` | 0, 3, 1030, 1280, 64529 |
+| Aqara FP1 presence sensor | `lumi.motion.ac01` | `aqara` | 0, 3, 64704 |
+| Sonoff Zigbee USB Dongle (router firmware) | DONGLE-E_R | `SONOFF` | 0, 3, 4, 5, 6, 4096 |
 
 <a id="note-on-cluster-ids"></a>
-**Note on cluster IDs:** `SonoffFC11` (0xFC11/64529) and `SonoffFC57` (0xFC57/64599)
-are Sonoff/eWeLink manufacturer-specific clusters; `TuyaE000`/`TuyaE001`
-(0xE000/0xE001) and `TuyaEF00` (0xEF00) are Tuya's private clusters —
-`TuyaEF00` devices speak an internal datapoint (DP) protocol instead of
-standard ZCL attributes. `ManuSpecTuya3` (0xE002) is the Linptech/Moes radar's
-proprietary attribute set. `AqaraLumiFCC0` (0xFCC0) is Aqara's TLV-encoded
-proprietary cluster. `Diag` is the standard Diagnostics cluster; `Touchlink`
-is the standard ZCL commissioning cluster. See
-[lib/clusterRegistry.js](#library-architecture) for where these are defined.
+**Note on cluster IDs:** standard ZCL — `0` Basic, `1` PowerConfiguration
+(battery), `3` Identify, `4` Groups, `5` Scenes, `6` OnOff, `10` Time,
+`1024` Illuminance, `1026` Temperature, `1029` Humidity, `1030` Occupancy,
+`1280` IASZone, `1794` Metering, `2820` ElectricalMeasurement, `2821`
+Diagnostics, `4096` Touchlink (commissioning). Manufacturer-specific —
+`57344`/`57345` Tuya `0xE000`/`0xE001` private clusters; `61184` Tuya
+`0xEF00` (devices on this cluster speak an internal datapoint/DP protocol
+instead of standard ZCL attributes); `57346` the Linptech/Moes radar's
+proprietary `0xE002` attribute set; `64529`/`64599` Sonoff/eWeLink
+`0xFC11`/`0xFC57`; `64704` Aqara's TLV-encoded `0xFCC0`; `16384` (`0x4000`)
+and `6280` (`0x1888`) are vendor-specific clusters seen on the radar sensor
+and the `_TZ3000_cehuw1lw` smart plug respectively — not yet identified
+beyond "the device declares them". See
+[lib/clusterRegistry.js](#library-architecture) for where the custom ones
+are defined.
 
 ---
 
