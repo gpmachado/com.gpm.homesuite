@@ -67,5 +67,8 @@
   },
   "1.0.23": {
     "en": "Add backlight flow cards (Set backlight / Backlight is on) for NovaDigital switches; extend backlight re-enforce retries after power restore"
+  },
+  "1.0.24": {
+    "en": "Fix Time cluster binding gaps causing binding_unavailable errors on several drivers; fix IAS zone status bit decoding for gas detector and door/window sensor; improve availability detection for select Sonoff switches"
   }
 }
