@@ -6,7 +6,7 @@ class SmartPlug2Driver extends ZigBeeDriver {
 
   async onInit() {
     await super.onInit();
-    this.log('diagnostic _TZ3210_fgwhjm9j driver initialized');
+    this.log('_TZ3210_fgwhjm9j driver initialized');
   }
 }
 

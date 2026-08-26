@@ -6,7 +6,7 @@ class SmartPlug3Driver extends ZigBeeDriver {
 
   async onInit() {
     await super.onInit();
-    this.log('diagnostic _TZ3000_cehuw1lw driver initialized');
+    this.log('_TZ3000_cehuw1lw driver initialized');
   }
 }
 
