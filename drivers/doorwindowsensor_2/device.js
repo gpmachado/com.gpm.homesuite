@@ -34,6 +34,7 @@ const { ZigBeeDevice } = require('homey-zigbeedriver');
 const { CLUSTER } = require('zigbee-clusters');
 const { AvailabilityManagerPassive } = require('../../lib/AvailabilityManager');
 const { TimeServerBoundCluster } = require('../../lib/TimeCluster');
+const IASZoneHelper = require('../../lib/IASZoneHelper');
 const { APP_VERSION, HEARTBEAT_SLOW_MS } = require('../../lib/constants');
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -351,7 +352,7 @@ class DoorWindowSensorDevice2 extends ZigBeeDevice {
    * @param {number|Buffer|object} zoneStatus
    */
   _applyZoneStatus(zoneStatus) {
-    const bitmap = this._toUint16(zoneStatus);
+    const bitmap = IASZoneHelper.toUint16(zoneStatus);
     const alarm1 = !!(bitmap & IAS_BIT_ALARM1);
     const open = alarm1;
     const batteryLow = !!(bitmap & IAS_BIT_BATTERY);
@@ -381,27 +382,6 @@ class DoorWindowSensorDevice2 extends ZigBeeDevice {
   }
 
   // ─── Helpers ───────────────────────────────────────────────────────────
-
-  /**
-   * Normalise zoneStatus to a uint16 number.
-   * Handles: Buffer, Buffer-like {type:'Buffer',data:[]}, number, named-key object.
-   * @param {number|Buffer|object} value
-   * @returns {number}
-   */
-  _toUint16(value) {
-    if (Buffer.isBuffer(value)) return value.readUInt16LE(0);
-    if (value?.type === 'Buffer' && Array.isArray(value.data))
-      return Buffer.from(value.data).readUInt16LE(0);
-    if (typeof value === 'number') return value;
-    const bits = {
-      alarm1: IAS_BIT_ALARM1, alarm2: 0x0002, tamper: 0x0004,
-      battery: IAS_BIT_BATTERY, acMains: 0x0010, test: 0x0020,
-      batteryDefect: 0x0040,
-    };
-    return Object.entries(bits).reduce(
-      (acc, [k, mask]) => value[k] ? acc | mask : acc, 0
-    );
-  }
 
   /**
    * Set capability only when value changes; silently skip missing capabilities.

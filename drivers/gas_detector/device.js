@@ -8,8 +8,8 @@
  *
  * IAS Zone zoneStatus bitmap (ZCL spec 8.2.2.2.1.6):
  *   Bit 0 (0x0001) alarm1   -> alarm_gas
- *   Bit 3 (0x0008) trouble  -> alarm_problem
- *   Bit 5 (0x0020) test     -> logged only
+ *   Bit 6 (0x0040) trouble  -> alarm_problem
+ *   Bit 8 (0x0100) test     -> logged only
  *
  * Note: the test button fires alarm1 identically to real gas detection.
  * Use a native Homey Flow condition ("alarm stays ON for X seconds") to
@@ -29,6 +29,7 @@
 const { ZigBeeDevice } = require('homey-zigbeedriver');
 const { CLUSTER } = require('zigbee-clusters');
 const { AvailabilityManagerCallback } = require('../../lib/AvailabilityManager');
+const IASZoneHelper = require('../../lib/IASZoneHelper');
 
 // ─────────────────────────────────────────────────────────────────────────────
 
@@ -42,8 +43,8 @@ const ENDPOINT_ID = 1;
 
 // IAS zoneStatus bitmask positions (ZCL spec 8.2.2.2.1.6)
 const IAS_BIT_ALARM1 = 0x0001; // gas detected
-const IAS_BIT_TROUBLE = 0x0008; // fault / trouble
-const IAS_BIT_TEST = 0x0020; // test button
+const IAS_BIT_TROUBLE = 0x0040; // fault / trouble
+const IAS_BIT_TEST = 0x0100; // test button
 
 // ─────────────────────────────────────────────────────────────────────────────
 
@@ -137,7 +138,7 @@ class GasDetector extends ZigBeeDevice {
    * alarm_problem is gated by the alarm_problem_enabled setting.
    */
   _applyZoneStatus(zoneStatus) {
-    const bitmap = this._toUint16(zoneStatus);
+    const bitmap = IASZoneHelper.toUint16(zoneStatus);
 
     const gasDetected = !!(bitmap & IAS_BIT_ALARM1);
     const fault = !!(bitmap & IAS_BIT_TROUBLE);
@@ -170,26 +171,6 @@ class GasDetector extends ZigBeeDevice {
   }
 
   // ─── Helpers ───────────────────────────────────────────────────────────
-
-  /**
-   * Normalise zoneStatus to a uint16 number.
-   * Handles: Buffer, Buffer-like {type:'Buffer',data:[]}, number, named-key object.
-   */
-  _toUint16(value) {
-    if (Buffer.isBuffer(value)) return value.readUInt16LE(0);
-    if (value.type === 'Buffer' && Array.isArray(value.data))
-      return Buffer.from(value.data).readUInt16LE(0);
-    if (typeof value === 'number') return value;
-    // Named-key object (zigbee-clusters parsed struct)
-    const bits = {
-      alarm1: IAS_BIT_ALARM1, alarm2: 0x0002, tamper: 0x0004,
-      trouble: IAS_BIT_TROUBLE, acMains: 0x0010, test: IAS_BIT_TEST,
-      batteryDefect: 0x0040,
-    };
-    return Object.entries(bits).reduce(
-      (acc, [k, mask]) => value[k] ? acc | mask : acc, 0
-    );
-  }
 
   /** Set capability only when value changes; silently skip missing capabilities. */
   _setCapSafe(capability, value) {
