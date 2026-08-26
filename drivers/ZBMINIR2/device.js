@@ -83,6 +83,7 @@ class SonoffZBMINIR2 extends SonoffBase {
         // (configureReporting, checkAttributes) update last_seen_ts.
         this._availability = new AvailabilityManagerPassive(this, { timeout: HEARTBEAT_MEDIUM_MS });
         await this._availability.install();
+        this._startActivePoll();
 
         // Deferred 30 s: mesh routes are stale immediately after boot.
         // Firing configureAttributeReporting before the route is established generates
