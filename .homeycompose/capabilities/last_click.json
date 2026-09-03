@@ -1,0 +1,13 @@
+{
+  "type": "string",
+  "title": {
+    "en": "Last click",
+    "de": "Letzter Klick",
+    "es": "Último clic",
+    "it": "Ultimo clic"
+  },
+  "getable": true,
+  "setable": false,
+  "uiComponent": "sensor",
+  "icon": "/assets/capabilities/last_click.svg"
+}

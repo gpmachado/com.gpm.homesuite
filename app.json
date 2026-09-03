@@ -3633,6 +3633,94 @@
         ]
       },
       {
+        "id": "wireless_switch_remote_2_gang_simulate_press",
+        "title": {
+          "en": "Simulate button press",
+          "de": "Tastendruck simulieren",
+          "es": "Simular pulsación de botón",
+          "it": "Simula pressione pulsante"
+        },
+        "titleFormatted": {
+          "en": "Simulate [[action]]",
+          "de": "[[action]] simulieren",
+          "es": "Simular [[action]]",
+          "it": "Simula [[action]]"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=wireless_switch_remote_2_gang"
+          },
+          {
+            "name": "action",
+            "type": "dropdown",
+            "title": {
+              "en": "Button action",
+              "de": "Tastenaktion",
+              "es": "Acción del botón",
+              "it": "Azione del pulsante"
+            },
+            "values": [
+              {
+                "id": "1-single",
+                "label": {
+                  "en": "Button 1 — single press",
+                  "de": "Taste 1 - Einzelklick",
+                  "es": "Botón 1 - pulsación única",
+                  "it": "Pulsante 1 - pressione singola"
+                }
+              },
+              {
+                "id": "1-double",
+                "label": {
+                  "en": "Button 1 — double press",
+                  "de": "Taste 1 - Doppelklick",
+                  "es": "Botón 1 - doble pulsación",
+                  "it": "Pulsante 1 - doppia pressione"
+                }
+              },
+              {
+                "id": "1-long",
+                "label": {
+                  "en": "Button 1 — long press",
+                  "de": "Taste 1 - Langdruck",
+                  "es": "Botón 1 - pulsación larga",
+                  "it": "Pulsante 1 - pressione lunga"
+                }
+              },
+              {
+                "id": "2-single",
+                "label": {
+                  "en": "Button 2 — single press",
+                  "de": "Taste 2 - Einzelklick",
+                  "es": "Botón 2 - pulsación única",
+                  "it": "Pulsante 2 - pressione singola"
+                }
+              },
+              {
+                "id": "2-double",
+                "label": {
+                  "en": "Button 2 — double press",
+                  "de": "Taste 2 - Doppelklick",
+                  "es": "Botón 2 - doble pulsación",
+                  "it": "Pulsante 2 - doppia pressione"
+                }
+              },
+              {
+                "id": "2-long",
+                "label": {
+                  "en": "Button 2 — long press",
+                  "de": "Taste 2 - Langdruck",
+                  "es": "Botón 2 - pulsación larga",
+                  "it": "Pulsante 2 - pressione lunga"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
         "id": "siren_play",
         "title": {
           "en": "Play siren with melody",
@@ -14086,7 +14174,12 @@
         "zigbee"
       ],
       "capabilities": [
-        "measure_battery"
+        "measure_battery",
+        "last_button",
+        "last_action",
+        "last_click",
+        "button1_action",
+        "button2_action"
       ],
       "images": {
         "xlarge": "/drivers/wireless_switch_remote_2_gang/assets/images/xlarge.png",
@@ -14217,6 +14310,32 @@
       "uiComponent": "sensor",
       "icon": "/assets/capabilities/water-level-down.svg"
     },
+    "button1_action": {
+      "type": "string",
+      "title": {
+        "en": "Button 1",
+        "de": "Taste 1",
+        "es": "Botón 1",
+        "it": "Pulsante 1"
+      },
+      "getable": true,
+      "setable": false,
+      "uiComponent": "sensor",
+      "icon": "/assets/capabilities/button1.svg"
+    },
+    "button2_action": {
+      "type": "string",
+      "title": {
+        "en": "Button 2",
+        "de": "Taste 2",
+        "es": "Botón 2",
+        "it": "Pulsante 2"
+      },
+      "getable": true,
+      "setable": false,
+      "uiComponent": "sensor",
+      "icon": "/assets/capabilities/button2.svg"
+    },
     "is_availability": {
       "type": "boolean",
       "title": {
@@ -14235,6 +14354,46 @@
       "setable": false,
       "insights": false,
       "uiComponent": null
+    },
+    "last_action": {
+      "type": "string",
+      "title": {
+        "en": "Last action",
+        "de": "Letzte Aktion",
+        "es": "Última acción",
+        "it": "Ultima azione"
+      },
+      "getable": true,
+      "setable": false,
+      "uiComponent": "sensor",
+      "icon": "/assets/capabilities/last_action.svg"
+    },
+    "last_button": {
+      "type": "number",
+      "title": {
+        "en": "Last button",
+        "de": "Letzte Taste",
+        "es": "Último botón",
+        "it": "Ultimo pulsante"
+      },
+      "getable": true,
+      "setable": false,
+      "uiComponent": "sensor",
+      "icon": "/assets/capabilities/last_button.svg",
+      "decimals": 0
+    },
+    "last_click": {
+      "type": "string",
+      "title": {
+        "en": "Last click",
+        "de": "Letzter Klick",
+        "es": "Último clic",
+        "it": "Ultimo clic"
+      },
+      "getable": true,
+      "setable": false,
+      "uiComponent": "sensor",
+      "icon": "/assets/capabilities/last_click.svg"
     },
     "measure_water_level": {
       "type": "number",

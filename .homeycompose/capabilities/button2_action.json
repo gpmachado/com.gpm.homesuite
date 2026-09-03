@@ -1,0 +1,13 @@
+{
+  "type": "string",
+  "title": {
+    "en": "Button 2",
+    "de": "Taste 2",
+    "es": "Botón 2",
+    "it": "Pulsante 2"
+  },
+  "getable": true,
+  "setable": false,
+  "uiComponent": "sensor",
+  "icon": "/assets/capabilities/button2.svg"
+}

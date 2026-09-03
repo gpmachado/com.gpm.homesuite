@@ -10,7 +10,12 @@
     "platforms": ["local"],
     "connectivity": ["zigbee"],
     "capabilities": [
-      "measure_battery"
+      "measure_battery",
+      "last_button",
+      "last_action",
+      "last_click",
+      "button1_action",
+      "button2_action"
     ],
     "images": {
       "xlarge": "{{driverAssetsPath}}/images/xlarge.png",

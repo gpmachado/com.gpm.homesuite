@@ -66,11 +66,40 @@ class WirelessSwitchRemote2Gang extends ZigBeeDevice {
     this._lastTsn = tsn;
 
     if (ep < 1 || ep > 2) return;
-    const action = `${ep}-${ACTION[frame[3]] ?? 'single'}`;
+    this._applyButtonAction(ep, ACTION[frame[3]] ?? 'single');
+  }
+
+  /**
+   * Fire the button trigger and update the Last button/action/click
+   * capabilities. Shared by real presses (_parseButton) and the
+   * "Simulate button press" flow action.
+   * @param {number} ep - 1 or 2
+   * @param {'single'|'double'|'long'} pressType
+   */
+  _applyButtonAction(ep, pressType) {
+    const action = `${ep}-${pressType}`;
 
     this._buttonTrigger.trigger(this, {}, { action })
       .then(() => this.log('Button:', action))
       .catch(err => this.error('Button trigger failed:', err));
+
+    const ACTION_LABEL = { single: '1 Click', double: '2 Clicks', long: 'Long Press' };
+    const label = ACTION_LABEL[pressType] ?? pressType;
+    this.setCapabilityValue('last_button', ep).catch(this.error);
+    this.setCapabilityValue('last_action', label).catch(this.error);
+    this.setCapabilityValue(`button${ep}_action`, label).catch(this.error);
+
+    let tz = 'UTC';
+    try {
+      const result = this.homey.clock.getTimezone();
+      if (typeof result === 'string' && result.length > 0) tz = result;
+    } catch { /* use UTC fallback */ }
+    const timestamp = new Intl.DateTimeFormat('en-GB', {
+      timeZone: tz,
+      dateStyle: 'short',
+      timeStyle: 'medium',
+    }).format(new Date());
+    this.setCapabilityValue('last_click', timestamp).catch(this.error);
   }
 
   onDeleted() {

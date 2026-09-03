@@ -1,0 +1,14 @@
+{
+  "type": "number",
+  "title": {
+    "en": "Last button",
+    "de": "Letzte Taste",
+    "es": "Último botón",
+    "it": "Ultimo pulsante"
+  },
+  "getable": true,
+  "setable": false,
+  "uiComponent": "sensor",
+  "icon": "/assets/capabilities/last_button.svg",
+  "decimals": 0
+}
